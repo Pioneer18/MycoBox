@@ -1,0 +1,22 @@
+{
+  "name": "rootculture",
+  "version": "1.0.0",
+  "description": "Application to control mushroom grow box",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "RootCulture"
+  },
+  "keywords": [
+    "raspberry",
+    "pi",
+    "zero",
+    "nodejs",
+    "mushrooms"
+  ],
+  "author": "Jonathan Sells",
+  "license": "ISC"
+}
