@@ -18,5 +18,9 @@
     "mushrooms"
   ],
   "author": "Jonathan Sells",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "onoff": "^6.0.3",
+    "serialport": "^9.1.0"
+  }
 }
