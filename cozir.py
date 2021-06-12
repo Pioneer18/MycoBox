@@ -15,7 +15,9 @@ ser.reset_input_buffer()
 print('reset the input buffer')
 time.sleep(1)
 while True:
+ print('inside the while loop')
  ser.write("Z\r\n".encode())
+ print('writing to sensor from within the while loop')
  resp = ser.read(10)
  resp = resp[:8]
  fltCo2 = float(resp[2:])
