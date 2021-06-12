@@ -19,7 +19,9 @@ while True:
  ser.write("Z\r\n".encode())
  print('writing to sensor from within the while loop')
  resp = ser.read(10)
+ print('read from the sensor')
  resp = resp[:8]
+ print('8 bits or response: ', resp)
  fltCo2 = float(resp[2:])
- print ("CO2 PPM = "), fltCo2 * multiplier
+ print ("CO2 PPM = ", fltCo2 * multiplier)
  time.sleep(1) 
