@@ -15,7 +15,6 @@ while True:
     resp = ser.read(10)
     fltTemp = float(resp[2:])
     print("flt temp: ", fltTemp)
-    fltTemp = fltTemp * 10
     print("Celsius: ", (fltTemp - 1000) / 10)
     #===========================================
     # print('Requesting humidity reading')
