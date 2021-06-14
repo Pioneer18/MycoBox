@@ -13,7 +13,8 @@ while True:
     ser.write("T\r\n".encode())
     ser.reset_input_buffer()
     resp = ser.read(10)
-    print("10 bit Temp: ")
+    print("10 bit Temp: ", resp)
+    time.sleep(2)
     #===========================================
     # print('Requesting humidity reading')
     # ser.write("H\r\n".encode())
