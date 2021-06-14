@@ -12,7 +12,7 @@ ser.write("K 2\r\n".encode()) # set operating mode
 # \r\n is CR and LF
 print('wrote to the sensor')
 ser.reset_input_buffer()
-print('reset the input buffer')
+print('pause program while transmit buffer is flushed')
 time.sleep(1)
 while True:
  print('inside the while loop')
