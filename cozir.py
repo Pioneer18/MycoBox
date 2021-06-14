@@ -17,8 +17,9 @@ time.sleep(1)
 while True:
  print('inside the while loop')
  ser.write("Z\r\n".encode())
- print('writing to sensor from within the while loop')
+ print('Requesting CO2 reading')
  resp = ser.read(10)
+ print(resp)
  print('read from the sensor')
  resp = resp[:8]
  print('8 bits or response: ', resp)
