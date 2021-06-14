@@ -14,10 +14,9 @@ while True:
     ser.reset_input_buffer()
     resp = ser.read(10)
     fltTemp = float(resp[2:])
-    print("10 bit Temp: ", fltTemp)
-    resp = ((fltTemp * 10) - 1000) / 10
-    print ("Temp in Celsius: ", fltTemp)
-    time.sleep(2)
+    print("flt temp: ", fltTemp)
+    fltTemp = fltTemp * 10
+    print("Celsius: ", (fltTemp - 1000) / 10)
     #===========================================
     # print('Requesting humidity reading')
     # ser.write("H\r\n".encode())
