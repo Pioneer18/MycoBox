@@ -11,16 +11,19 @@ time.sleep(1)
 while True:
     print("Requesting temperature reading")
     ser.write("T\r\n".encode())
+    ser.reset_input_buffer()
     resp = ser.read(10)
     print("10 bit Temp: ")
     #===========================================
     print('Requesting humidity reading')
     ser.write("H\r\n".encode())
+    ser.reset_input_buffer()
     resp = ser.read(10)
     print("10 bit Humidity ", resp,"\n")
     #===========================================  
     print('Requesting CO2 reading')
     ser.write("Z\r\n".encode())
+    ser.reset_input_buffer()
     resp = ser.read(10)
     print("10 bit CO2 ", resp,"\n")
     resp = resp[:8]
