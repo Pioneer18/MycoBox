@@ -9,19 +9,21 @@ ser.write("M 4164\r\n".encode()) # set display mode to show all 3
 ser.reset_input_buffer()
 time.sleep(1)
 while True:
-    print("Requesting temperature reading")
-    ser.write("T\r\n".encode())
-    ser.reset_input_buffer()
-    resp = ser.read(10)
-    fltTemp = float(resp[2:])
-    print("flt temp: ", fltTemp)
-    print("Celsius: ", (fltTemp - 1000) / 10)
-    #===========================================
-    # print('Requesting humidity reading')
-    # ser.write("H\r\n".encode())
+    # print("Requesting temperature reading")
+    # ser.write("T\r\n".encode())
     # ser.reset_input_buffer()
     # resp = ser.read(10)
-    # print("10 bit Humidity ", resp,"\n")
+    # fltTemp = float(resp[2:])
+    # print("flt temp: ", fltTemp)
+    # print("Celsius: ", (fltTemp - 1000) / 10)
+    #===========================================
+    print('Requesting humidity reading')
+    ser.write("H\r\n".encode())
+    ser.reset_input_buffer()
+    resp = ser.read(10)
+    print("10 bit Humidity ", resp,"\n")
+    resp = resp[:8]
+    print("last 8 bits: ", resp)
     # #===========================================  
     # print('Requesting CO2 reading')
     # ser.write("Z\r\n".encode())
