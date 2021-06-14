@@ -10,7 +10,7 @@ ser.reset_input_buffer()
 time.sleep(1)
 while True:
     print("Requesting temperature reading")
-    ser.write("T\r\n")
+    ser.write("T\r\n".encode())
     resp = ser.read(10)
     print("10 bit Temp: ")
     #===========================================
