@@ -34,5 +34,5 @@ serialport.on('data', function(data) {
 serialport.on('error', function(err) {
     console.log('Error:', err.message)
 });
-const lineStream = port.pipe(new Readline());
+const lineStream = serialport.pipe(new Readline());
 console.log(lineStream);
