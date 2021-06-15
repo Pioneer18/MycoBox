@@ -22,11 +22,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "onoff": "^6.0.3",
-    "python-shell": "^3.0.0",
-    "serialport": "^9.1.0",
-    "uninstall": "0.0.0"
+    "python-shell": "^3.0.0"
   },
-  "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0"
-  }
+  "devDependencies": {}
 }
