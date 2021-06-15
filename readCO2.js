@@ -1,7 +1,8 @@
-const SerialPort = require('serialport');
-SerialPort.Binding = require('@serialport/bindings');
-const serialport = new SerialPort('/dev/ttyAMA0');
-const Readline = SerialPort.parsers.Readline;
+const SerialPort = require('serialport')
+const Readline = SerialPort.parsers.Readline
+const serialport = new SerialPort(path)
+const parser = new Readline()
+serialport.pipe(parser)
 console.log("Set Display Mode and Operation Mode");
 serialport.write("M 4\r\n", function(err) {
     if (err) {
@@ -27,6 +28,9 @@ serialport.on('readable', function() {
     console.log('Data: ', serialport.read())
 });
 // Log the port data
+parser.on('data', function(){
+    console.log('parser log: ', data);
+})
 serialport.on('data', function(data) {
     console.log('Data:', data)
 });
