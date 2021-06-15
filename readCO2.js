@@ -1,6 +1,6 @@
 const SerialPort = require('serialport')
 const Readline = SerialPort.parsers.Readline
-const serialport = new SerialPort(path)
+const serialport = new SerialPort('/dev/ttyAMA0');
 const parser = new Readline()
 serialport.pipe(parser)
 console.log("Set Display Mode and Operation Mode");
