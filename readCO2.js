@@ -24,4 +24,4 @@ serialport.write("Z\r\n", function(err) {
 });
 console.log("Rquest CO2");
 resp = serialport.read(10);
-console.log(resp);
+console.log('Response: ',resp);
