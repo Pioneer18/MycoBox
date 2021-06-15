@@ -27,13 +27,14 @@ console.log("Read Serial Port");
 serialport.on('readable', function() {
     console.log('Data: ', serialport.read())
 });
+
+serialport.on('data', function(data) {
+    console.log('Data:', data)
+});
 // Log the port data
 parser.on('data', function(data){
     console.log('parser log: ', data);
 })
-serialport.on('data', function(data) {
-    console.log('Data:', data)
-});
 // Log Errors
 serialport.on('error', function(err) {
     console.log('Error:', err.message)
