@@ -8,7 +8,6 @@ parser.on('data', console.log)
 console.log("Set Display Mode and Operation Mode");
 serialport.write("M 4\r\n");
 serialport.write("K 2\r\n");
-serialport.flush();
 setTimeout(()=> {}, 1000); // pause 1 second
 serialport.write("Z\r\n");
 console.log("Rquest CO2");
