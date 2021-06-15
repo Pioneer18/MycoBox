@@ -1,7 +1,7 @@
 const SerialPort = require('serialport');
 SerialPort.Binding = require('@serialport/bindings');
 const serialport = new SerialPort('/dev/ttyAMA0');
-
+const Readline = SerialPort.parsers.Readline;
 console.log("Set Display Mode and Operation Mode");
 serialport.write("M 4\r\n", function(err) {
     if (err) {
