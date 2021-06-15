@@ -28,7 +28,7 @@ serialport.on('readable', function() {
     console.log('Data: ', serialport.read())
 });
 // Log the port data
-parser.on('data', function(){
+parser.on('data', function(data){
     console.log('parser log: ', data);
 })
 serialport.on('data', function(data) {
