@@ -25,5 +25,8 @@
     "python-shell": "^3.0.0",
     "serialport": "^9.1.0",
     "uninstall": "0.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0"
   }
 }
