@@ -4,11 +4,14 @@ block content
     h1= title
     form(method="POST", action="/user")
     input(type="hidden", name="_method", value="PUT")
-    p "Name " 
+    .input
+      P Name 
       input(type="text", name="name")
-    p Email 
+    .input 
+      p Email 
       input(type="email", name="email")
-    p Age 
+    .input
+      p Age 
       input(type="number", name="age")
-    p
+    .submit
       input(type="submit")
