@@ -2,12 +2,13 @@ extends layout
 
 block content
     h1= title
-    form(name="add-estimation", method="post")
-        div.input
-            span.label Title
-            input(type="text", name="title")
-        div.input
-            span.label Description
-            textarea(name="description", cols="40", rows="5")
-        div.actions
-            input(type="submit", value="add")
+    form(method="POST", action="/user")
+    input(type="hidden", name="_method", value="PUT")
+    p Name
+     input(type="text", name="name")
+    p Email
+     input(type="email", name="email")
+    p Age
+     input(type="number", name="age")
+    p
+     input(type="submit")
