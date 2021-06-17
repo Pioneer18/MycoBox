@@ -93,7 +93,7 @@ document.getElementById('main_config_form').onsubmit = function(event) {
 function mapForm () {
     let form = document.main_config_form;
     let mushroom = form.mushroom.value;
-    let process = form.process;
+    let process = form.process.value;
     console.log(mushroom)
     console.log(process)
 }
