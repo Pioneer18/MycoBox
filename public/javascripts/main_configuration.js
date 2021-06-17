@@ -83,26 +83,11 @@ function acceptDefaults () {
     }
 }
 
-function startProcess(e) {
-    e.preventDefault()
-    processConfiguration()
-    // set the environmental variables
- 
-}
 
-function processConfiguration() {
-    const form = document.getElementById("main_config_form").submit();
-    console.log(form);
-    let process_settings;
-    console.log("Defaults: ", DEFAULTS);
-    // check for overrides
-    if (DEFAULTS) {
-        // select default_config for the selected mushroom
-        console.log(default_configs)
-        // process_settings = default_configs[form.process][form.mushroom]
-        // console.log(process_settings);
+document.getElementById('main_config_form').onsubmit = function() { 
+    console.log(document.getElementById('mushroom').value);
+    return false;
+};
 
-    }
-}
 
 acceptDefaults();
