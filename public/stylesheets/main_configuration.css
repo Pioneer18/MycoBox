@@ -1,3 +1,7 @@
+body {
+    background-color: #f1f1f1;
+}
+
 .form__radio-group {
     padding: 20px;
 }
@@ -7,6 +11,7 @@
     margin-top: 15px;
     /* font-family: 'Roboto Condensed', sans-serif; */
     font-family: 'Ubuntu', sans-serif;
+    font-size: 15px;
 }
 
 #submit_button {
