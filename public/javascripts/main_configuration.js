@@ -91,8 +91,12 @@ const mapForm = () => {
     let form = document.main_config_form;
     let mushroom = form.mushroom.value;
     let process = form.process.value;
-    console.log(mushroom)
-    console.log(process)
+    // overrides
+    if (!DEFAULTS) {
+        let temperature_c = form.temperature;
+        console.log("Temperature_c: ");
+        console.log(temperature_c);
+    }
 }
 
 
