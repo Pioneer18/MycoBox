@@ -8,7 +8,7 @@
 }
 
 .config_label {
-    width: 30%;
+    display: block;
 }
 
 #submit_button {
@@ -20,6 +20,8 @@
 
 /* Inputs */
 .form__number_input {
-    width: 20%;
-    margin-left: 5px;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
 }
