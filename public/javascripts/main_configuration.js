@@ -96,9 +96,9 @@ const mapForm = () => {
         let overrides = {};
         overrides.temperature_c = form.temperature_c.value;
         overrides.humidity = form.humidity.value;
-        overrides.co2_ppm = form.co2_ppm;
-        overrides.lighting = form.lighting;
-        overrides.duration_days = form.duration_days;
+        overrides.co2_ppm = form.co2_ppm.value;
+        overrides.lighting = form.lighting.value;
+        overrides.duration_days = form.duration_days.value;
         console.log(overrides);
     }
 }
