@@ -18,7 +18,7 @@
     <form name="main_config_form">
         <!--Select Mushroom-->
         <label class="config_label">Select a Mushroom</label>
-        <select>
+        <select name="mushroom">
             <option>Pink Oyster</option>
             <option>Golden Oyster</option>
             <option>Blue Oyster</option>
@@ -88,7 +88,7 @@
 
         <!--Start Process-->
         <label class="config_label"></label>
-        <button type="submit" id="submit_button">Run Process</button>
+        <button type="submit" id="submit_button" onclick="startProcess()">Run Process</button>
     </form>
     <script type="text/javascript" src="../javascripts/main_configuration.js"></script>
 </body>
