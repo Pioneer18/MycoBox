@@ -1,4 +1,4 @@
-import * as  default_configs from './process_config';
+const default_configs = require('./process_config');
 let DEFAULTS = true;
 // Hide or Display the Overrides
 // pass default env config object for selected mushroom or map new env config
