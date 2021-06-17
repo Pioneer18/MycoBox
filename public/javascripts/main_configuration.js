@@ -90,13 +90,6 @@ document.main_config_form.onsubmit = function (event) {
     const form = mapForm();
 };
 
-
-// document.getElementById('main_config_form').onsubmit = function (event) {
-//     // map the form
-//     event.preventDefault();
-//     const form = mapForm();
-// };
-
 function mapForm() {
     let form = document.main_config_form;
     let mushroom = form.mushroom.value;
