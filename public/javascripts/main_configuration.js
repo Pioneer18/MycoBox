@@ -91,7 +91,7 @@ function startProcess(e) {
 }
 
 function processConfiguration() {
-    const form = document.getElementById("main_config_form");
+    const form = document.getElementById("main_config_form").submit();
     console.log(form.mushroom);
     let process_settings;
     console.log("Defaults: ", DEFAULTS);
