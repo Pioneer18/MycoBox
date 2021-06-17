@@ -10,12 +10,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+    <script src="../public/javascripts/main_configuration.js"></script>
     <title>Main Configuration</title>
 </head>
 
 <body>
     <h1>Gourmet Mushroom Grow-Box Configuration</h1>
-    <form>
+    <form name="main_config_form">
         <!--Select Mushroom-->
         <label class="config_label">Select a Mushroom</label>
         <select>
@@ -39,11 +40,11 @@
         <!--Accept Defaults-->
         <div className="form__radio-group">
             <span class="config_label">Accept Defaults</span>
-            <input type="radio" class="form__radio-input" id="yes" name="accept_defaults" />
+            <input type="radio" class="form__radio-input" id="defaults_yes" name="accept_defaults" />
             <label class="form__radio-label">
                 Yes
             </label>
-            <input type="radio" class="form__radio-input" id="no" name="accept_defaults" />
+            <input type="radio" class="form__radio-input" id="defaults_no" name="accept_defaults" />
             <label class="form__radio-label">
                 No
             </label>

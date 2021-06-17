@@ -47,3 +47,8 @@ h1 {
     font-size: 35px;
     font-family: 'Ubuntu', sans-serif;
 }
+
+/* misc */
+.hidden {
+    display: none;
+}
