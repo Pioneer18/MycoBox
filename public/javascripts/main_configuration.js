@@ -63,19 +63,19 @@ const default_configs = {
 let DEFAULTS = true;
 // Hide or Display the Overrides
 // pass default env config object for selected mushroom or map new env config
-function acceptDefaults () {
+function acceptDefaults() {
     console.log("applying event listeners to accept_defaults")
     let rad = document.main_config_form.accept_defaults;
     console.log(rad);
     let prev = null;
     const overrides = document.getElementById('overrides');
     for (let i = 0; i < rad.length; i++) {
-        rad[i].addEventListener('change', function() {
-            if ( rad[i].value == 'Yes') {
+        rad[i].addEventListener('change', function () {
+            if (rad[i].value == 'Yes') {
                 overrides.classList.add('hidden');
                 DEFAULTS = true;
-            } 
-            if ( rad[i].value !== 'Yes') {
+            }
+            if (rad[i].value !== 'Yes') {
                 overrides.classList.remove('hidden');
                 DEFAULTS = false
             }
@@ -84,13 +84,20 @@ function acceptDefaults () {
 }
 
 // Handle Form Submit
-document.getElementById('main_config_form').onsubmit = function(event) { 
+document.main_config_form.onsubmit = function (event) {
     // map the form
     event.preventDefault();
-   const form = mapForm();
+    const form = mapForm();
 };
 
-function mapForm () {
+
+// document.getElementById('main_config_form').onsubmit = function (event) {
+//     // map the form
+//     event.preventDefault();
+//     const form = mapForm();
+// };
+
+function mapForm() {
     let form = document.main_config_form;
     let mushroom = form.mushroom.value;
     let process = form.process.value;
