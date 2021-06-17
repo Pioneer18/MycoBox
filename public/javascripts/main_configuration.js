@@ -83,11 +83,19 @@ function acceptDefaults () {
     }
 }
 
-
+// Handle Form Submit
 document.getElementById('main_config_form').onsubmit = function() { 
-    console.log(document.getElementById('mushroom').value);
-    return false;
+    // map the form
+   const form = mapForm();
 };
+
+function mapForm () {
+    let form = document.main_config_form;
+    let mushroom = form.mushroom.value;
+    let process = document.getElementById('process');
+    console.log(mushroom)
+    console.log(process)
+}
 
 
 acceptDefaults();
