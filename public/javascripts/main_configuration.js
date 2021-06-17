@@ -91,7 +91,7 @@ const mapForm = () => {
     let form = document.main_config_form;
     let mushroom = form.mushroom.value;
     let process = form.process.value;
-    // overrides
+    // Start process with overrrides
     if (!DEFAULTS) {
         let overrides = {};
         overrides.temperature_c = form.temperature_c.value;
@@ -100,7 +100,17 @@ const mapForm = () => {
         overrides.lighting = form.lighting.value;
         overrides.duration_days = form.duration_days.value;
         console.log(overrides);
+        startProcess(process, overrides);
     }
+    // Start process with mushroom associated defaults
+    startProcess(process, default_configs[process][mushroom])
+
+}
+
+const startProcess = (process, env_config) => {
+    console.log(`Starting the ${process} process now!`);
+    console.log('Env Config Below');
+    console.log(env_config);
 }
 
 
