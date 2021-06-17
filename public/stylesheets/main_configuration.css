@@ -1,0 +1,9 @@
+.form__radio-group {
+    padding: 5px 4px;
+    border-radius: 85%;
+}
+
+.radio_group_title {
+    display: block;
+    font-size: 20px;
+}
