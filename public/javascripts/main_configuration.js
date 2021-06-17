@@ -1,28 +1,28 @@
 const default_configs = {
     incubation: {
         pink_oyster: {
-            temperature: '',
+            temperature_c: '12',
             humidity: '',
             co2: '',
             lighting: false,
             duration: 35 // days
         },
         golden_oyster: {
-            temperature: '',
+            temperature_c: '',
             humidity: '',
             co2: '',
             lighting: false,
             duration: 35 // days
         },
         blue_oyster: {
-            temperature: '',
+            temperature_c: '',
             humidity: '',
             co2: '',
             lighting: false,
             duration: 35 // days
         },
         shitake: {
-            temperature: '',
+            temperature_c: '',
             humidity: '',
             co2: '',
             lighting: false,
@@ -31,28 +31,28 @@ const default_configs = {
     },
     fruiting: {
         pink_oyster: {
-            temperature: '', // celsius
+            temperature_c: '', // celsius
             humidity: '',
             co2: '', // ppm
             lighting: true,
             duration: 35 // days
         },
         golden_oyster: {
-            temperature: '', // celsius
+            temperature_c: '', // celsius
             humidity: '',
             co2: '', // ppm
             lighting: true,
             duration: 35 // days
         },
         blue_oyster: {
-            temperature: '', // celsius
+            temperature_c: '', // celsius
             humidity: '',
             co2: '', // ppm
             lighting: true,
             duration: 35 // days
         },
         shitake: {
-            temperature: '', // celsius
+            temperature_c: '', // celsius
             humidity: '',
             co2: '', // ppm
             lighting: true,
