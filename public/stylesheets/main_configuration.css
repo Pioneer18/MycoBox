@@ -2,8 +2,13 @@
     padding: 20px;
 }
 
+/* Labels & Titles */
 .radio_group_title {
     display: block;
+}
+
+.config_label {
+    width: 30%;
 }
 
 #submit_button {
@@ -15,6 +20,6 @@
 
 /* Inputs */
 .form__number_input {
-    width: 50%;
+    width: 20%;
     margin-left: 5px;
 }
