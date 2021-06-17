@@ -5,6 +5,7 @@
 .config_label {
     display: block;
     margin-top: 15px;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 #submit_button {
@@ -16,7 +17,7 @@
 
 /* Inputs */
 .form__number_input {
-    width: 25%;
+    width: 12%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
