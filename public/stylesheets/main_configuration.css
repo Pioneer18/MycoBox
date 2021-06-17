@@ -12,3 +12,9 @@
     background-color: green;
     border-radius: 6%
 }
+
+/* Inputs */
+.form__number_input {
+    width: 50%;
+    margin-left: 5px;
+}
