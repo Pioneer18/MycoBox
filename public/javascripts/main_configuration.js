@@ -92,7 +92,7 @@ function startProcess(e) {
 
 function processConfiguration() {
     const form = document.getElementById("main_config_form");
-    console.log(form);
+    console.log(form.mushroom);
     let process_settings;
     console.log("Defaults: ", DEFAULTS);
     // check for overrides
