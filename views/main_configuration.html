@@ -48,24 +48,43 @@
         <!--Overrides-->
         <div class="overrides">
             <!--Temperature-->
-            <label class="config_label">Select Temperature</label>
-            <input type="number" name="temperature" class="form__radio-input">
+            <div>
+                <label class="config_label">Select Temperature</label>
+                <input type="number" name="temperature" class="form__radio-input">
+            </div>
             <!--Humidity-->
-            <label class="config_label">Select Humidity</label>
-            <input type="number" name="humidity" class="form__radio-input">
+            <div>
+                <label class="config_label">Select Humidity</label>
+                <input type="number" name="humidity" class="form__radio-input">
+            </div>
             <!--CO2-->
-            <label class="config_label">Select CO2</label>
-            <input type="number" name="co2" class="form__radio-input">
+            <div>
+                <label class="config_label">Select CO2</label>
+                <input type="number" name="co2" class="form__radio-input">
+            </div>
             <!--Light-->
+            <div className="form__radio-group">
+                <span class="radio_group_title">Select Lighting</span>
+                <input type="radio" class="form__radio-input" id="yes" name="lighting" />
+                <label class="form__radio-label">
+                    Yes
+                </label>
+                <input type="radio" class="form__radio-input" id="no" name="lighting" />
+                <label class="form__radio-label">
+                    No
+                </label>
+            </div>
             <!--Duration-->
-            <label class="config_label">Select Duration</label>
-            <input type="number" name="duration" class="form__radio-input"><span class="time_metric">hours</span>
+            <div>
+                <label class="config_label">Select Duration</label>
+                <input type="number" name="duration" class="form__radio-input"><span class="time_metric">hours</span>
+            </div>
         </div>
 
 
         <!--Start Process-->
         <label class="config_label"></label>
-        <button type="submit" id="submit_button"></button>
+        <button type="submit" id="submit_button">Run Process</button>
     </form>
 </body>
 

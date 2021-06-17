@@ -5,3 +5,10 @@
 .radio_group_title {
     display: block;
 }
+
+#submit_button {
+    padding: 10px 15px;
+    color: #fff;
+    background-color: green;
+    border-radius: 85%;
+}
