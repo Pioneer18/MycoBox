@@ -84,8 +84,9 @@ function acceptDefaults () {
 }
 
 // Handle Form Submit
-document.getElementById('main_config_form').onsubmit = function() { 
+document.getElementById('main_config_form').onsubmit = function(event) { 
     // map the form
+    event.preventDefault();
    const form = mapForm();
 };
 
