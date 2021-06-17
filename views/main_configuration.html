@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,11 +8,12 @@
     <link rel="stylesheet" href="/stylesheets/main_configuration.css">
     <title>Main Configuration</title>
 </head>
+
 <body>
     <h1>Gourmet Mushroom Grow-Box Configuration</h1>
     <form>
         <!--Select Mushroom-->
-        <label>Select a Mushroom</label>
+        <label class="config_label">Select a Mushroom</label>
         <select>
             <option>Pink Oyster</option>
             <option>Golden Oyster</option>
@@ -21,33 +23,46 @@
         <!--Select Process-->
         <div className="form__radio-group">
             <span class="radio_group_title">Select a Process</span>
-            <input type="radio" class="form__radio-input" id="incubation" name="process"/>
+            <input type="radio" class="form__radio-input" id="incubation" name="process" />
             <label class="form__radio-label">
-               Incubation
+                Incubation
             </label>
-            <input type="radio" class="form__radio-input" id="fruiting" name="process"/>
+            <input type="radio" class="form__radio-input" id="fruiting" name="process" />
             <label class="form__radio-label">
-               Fruiting
+                Fruiting
             </label>
         </div>
         <!--Accept Defaults-->
         <div className="form__radio-group">
             <span class="radio_group_title">Accept Defaults</span>
-            <input type="radio" class="form__radio-input" id="yes" name="accept_defaults"/>
+            <input type="radio" class="form__radio-input" id="yes" name="accept_defaults" />
             <label class="form__radio-label">
-               Yes
+                Yes
             </label>
-            <input type="radio" class="form__radio-input" id="no" name="accept_defaults"/>
+            <input type="radio" class="form__radio-input" id="no" name="accept_defaults" />
             <label class="form__radio-label">
-               No
+                No
             </label>
         </div>
-        <!--Temperature-->
-        <!--Humidity-->
-        <!--CO2-->
-        <!--Light-->
-        <!--Duration-->
+
+        <!--Overrides-->
+        <div class="overrides">
+            <!--Temperature-->
+            <label class="config_label">Select Temperature</label>
+            <!--Humidity-->
+            <label class="config_label">Select Humidity</label>
+            <!--CO2-->
+            <label class="config_label">Select CO2</label>
+            <!--Light-->
+            <!--Duration-->
+            <label class="config_label">Select Duration</label>
+        </div>
+
+
         <!--Start Process-->
+        <label class="config_label"></label>
+        <button type="submit" class="submit_button"></button>
     </form>
 </body>
+
 </html>
