@@ -61,12 +61,9 @@ const default_configs = {
     }
 }
 let DEFAULTS = true;
-// Hide or Display the Overrides
-// pass default env config object for selected mushroom or map new env config
-const acceptDefaults = () => {
-    console.log("applying event listeners to accept_defaults")
+// Display or hide the overrides section of the form
+const displayOverrides = () => {
     let rad = document.main_config_form.accept_defaults;
-    console.log(rad);
     let prev = null;
     const overrides = document.getElementById('overrides');
     for (let i = 0; i < rad.length; i++) {
@@ -83,7 +80,7 @@ const acceptDefaults = () => {
     }
 }
 
-// Handle Form Submit
+// Start the process on form submit
 document.main_config_form.onsubmit = (event) => {
     // map the form
     event.preventDefault();
@@ -99,4 +96,4 @@ const mapForm = () => {
 }
 
 
-acceptDefaults();
+displayOverrides();
