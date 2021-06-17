@@ -49,19 +49,23 @@
         <div class="overrides">
             <!--Temperature-->
             <label class="config_label">Select Temperature</label>
+            <input type="number" name="temperature" class="form__radio-input">
             <!--Humidity-->
             <label class="config_label">Select Humidity</label>
+            <input type="number" name="humidity" class="form__radio-input">
             <!--CO2-->
             <label class="config_label">Select CO2</label>
+            <input type="number" name="co2" class="form__radio-input">
             <!--Light-->
             <!--Duration-->
             <label class="config_label">Select Duration</label>
+            <input type="number" name="duration" class="form__radio-input"><span class="time_metric">hours</span>
         </div>
 
 
         <!--Start Process-->
         <label class="config_label"></label>
-        <button type="submit" class="submit_button"></button>
+        <button type="submit" id="submit_button"></button>
     </form>
 </body>
 
