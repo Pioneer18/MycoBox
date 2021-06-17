@@ -92,6 +92,7 @@ function startProcess(e) {
 
 function processConfiguration() {
     const form = document.getElementById("main_config_form").submit();
+    consoe
     console.log(form);
     let process_settings;
     console.log("Defaults: ", DEFAULTS);
@@ -99,8 +100,8 @@ function processConfiguration() {
     if (DEFAULTS) {
         // select default_config for the selected mushroom
         console.log(default_configs)
-        process_settings = default_configs[form.process][form.mushroom]
-        console.log(process_settings);
+        // process_settings = default_configs[form.process][form.mushroom]
+        // console.log(process_settings);
 
     }
 }
