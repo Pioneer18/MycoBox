@@ -63,7 +63,7 @@ const default_configs = {
 let DEFAULTS = true;
 // Hide or Display the Overrides
 // pass default env config object for selected mushroom or map new env config
-function acceptDefaults() {
+const acceptDefaults = () => {
     console.log("applying event listeners to accept_defaults")
     let rad = document.main_config_form.accept_defaults;
     console.log(rad);
@@ -84,13 +84,13 @@ function acceptDefaults() {
 }
 
 // Handle Form Submit
-document.main_config_form.onsubmit = function (event) {
+document.main_config_form.onsubmit = (event) => {
     // map the form
     event.preventDefault();
     const form = mapForm();
 };
 
-function mapForm() {
+const mapForm = () => {
     let form = document.main_config_form;
     let mushroom = form.mushroom.value;
     let process = form.process.value;
