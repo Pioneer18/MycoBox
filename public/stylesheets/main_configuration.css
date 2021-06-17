@@ -2,13 +2,9 @@
     padding: 20px;
 }
 
-/* Labels & Titles */
-.radio_group_title {
-    display: block;
-}
-
 .config_label {
     display: block;
+    margin-top: 15px;
 }
 
 #submit_button {
@@ -20,7 +16,7 @@
 
 /* Inputs */
 .form__number_input {
-    width: 100%;
+    width: 25%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
