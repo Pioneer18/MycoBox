@@ -1,5 +1,5 @@
 const default_configs = {
-    default_incubation_config: {
+    incubation: {
         pink_oyster: {
             temperature: '',
             humidity: '',
@@ -29,7 +29,7 @@ const default_configs = {
             duration: 35 // days
         }
     },
-    default_fruiting_config: {
+    fruiting: {
         pink_oyster: {
             temperature: '', // celsius
             humidity: '',
@@ -83,7 +83,8 @@ function acceptDefaults () {
     }
 }
 
-function startProces() {
+function startProces(e) {
+    e.preventDefault()
     processConfiguration()
     // set the environmental variables
  
@@ -91,13 +92,14 @@ function startProces() {
 
 function processConfiguration() {
     const form = document.main_config_form;
+    console.log(form);
     let process_settings;
     console.log("Defaults: ", DEFAULTS);
     // check for overrides
     if (DEFAULTS) {
         // select default_config for the selected mushroom
         console.log(default_configs)
-        process_settings = default_configs[form.mushroom]
+        process_settings = default_configs[form.process][form.mushroom]
         console.log(process_settings);
 
     }
