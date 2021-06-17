@@ -83,7 +83,7 @@ function acceptDefaults () {
     }
 }
 
-function startProces(e) {
+function startProcess(e) {
     e.preventDefault()
     processConfiguration()
     // set the environmental variables
