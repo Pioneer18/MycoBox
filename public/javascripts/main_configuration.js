@@ -93,7 +93,7 @@ const mapForm = () => {
     let process = form.process.value;
     // overrides
     if (!DEFAULTS) {
-        let temperature_c = form.temperature;
+        let temperature_c = form.temperature.value;
         console.log("Temperature_c: ");
         console.log(temperature_c);
     }
