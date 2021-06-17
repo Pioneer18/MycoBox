@@ -93,9 +93,13 @@ const mapForm = () => {
     let process = form.process.value;
     // overrides
     if (!DEFAULTS) {
-        let temperature_c = form.temperature_c.value;
-        console.log("Temperature_c: ");
-        console.log(temperature_c);
+        let overrides = {};
+        overrides.temperature_c = form.temperature_c.value;
+        overrides.humidity = form.humidity.value;
+        overrides.co2_ppm = form.co2_ppm;
+        overrides.lighting = form.lighting;
+        overrides.duration_days = form.duration_days;
+        console.log(overrides);
     }
 }
 
