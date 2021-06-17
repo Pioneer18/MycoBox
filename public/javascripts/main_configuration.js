@@ -9,6 +9,7 @@ function acceptDefaults () {
     for (var i = 0; i < rad.length; i++) {
         rad[i].addEventListener('change', function() {
             // defaults have been rejected
+            console.log("This: ", this);
             if (this !== 'Yes') {
                 overrides.classList.add('hidden');
             } 
