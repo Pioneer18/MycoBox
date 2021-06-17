@@ -1,4 +1,4 @@
-const default_configs = require('./process_config');
+import * as  default_configs from './process_config';
 let DEFAULTS = true;
 // Hide or Display the Overrides
 // pass default env config object for selected mushroom or map new env config
@@ -16,7 +16,7 @@ function acceptDefaults () {
             } 
             if ( rad[i].value !== 'Yes') {
                 overrides.classList.remove('hidden');
-                DEFAULTS = false;
+                DEFAULTS = false
             }
         });
     }
@@ -35,6 +35,7 @@ function processConfiguration() {
     // check for overrides
     if (DEFAULTS) {
         // select default_config for the selected mushroom
+        console.log(default_configs)
         process_settings = default_configs[form.mushroom]
         console.log(process_settings);
 
