@@ -6,7 +6,7 @@ function acceptDefaults () {
     var prev = null;
     const overrides = document.getElementById('overrides');
     // loop over both and addEventListener for change
-    for (var i = 0; i < rad.length; i++) {
+    for (let i = 0; i < rad.length; i++) {
         rad[i].addEventListener('change', function() {
             // defaults have been rejected
             console.log(rad[i]);
