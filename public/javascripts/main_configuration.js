@@ -91,7 +91,7 @@ function startProcess(e) {
 }
 
 function processConfiguration() {
-    const form = document.getElementsByClassName("main_config_form");
+    const form = document.getElementsById("main_config_form");
     console.log(form);
     let process_settings;
     console.log("Defaults: ", DEFAULTS);
