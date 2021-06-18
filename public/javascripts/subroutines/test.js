@@ -1,9 +1,17 @@
 // require child_process.exc method
-var spawn = require('child_process').exec;
+const { spawn } = require('child_process');
 // spawn a python file to request CO2 reading
 console.log('spawning the process now');
-var process = spawn('python', ["../../../python/CO2.py"]);
+const process = spawn('python', ["../../../python/CO2.py"]);
 // log stdout from the process
 process.stdout.on('data', function(data) {
-    console.log(data);
+    console.log(`stdout: ${data}`);
 })
+
+process.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+});
+  
+process.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
+});
