@@ -1,6 +1,6 @@
 // Map of default environment configuration for each available mushroom
-const default_configs = require('./resources/default_process_configs');
-import {startProcess} from './run_process';
+const {default_configs} = require('./resources/default_process_configs');
+const {startProcess} = require('./run_process');
 let DEFAULTS = true;
 
 // Display or hide the overrides section of the form
