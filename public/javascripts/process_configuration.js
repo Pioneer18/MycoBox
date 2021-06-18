@@ -1,5 +1,5 @@
 // Map of default environment configuration for each available mushroom
-import {default_configs} from './resources/default_process_configs';
+const default_configs = require('./resources/default_process_configs');
 import {startProcess} from './run_process';
 let DEFAULTS = true;
 
