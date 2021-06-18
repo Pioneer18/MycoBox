@@ -1,3 +1,4 @@
+// Map of default environment configuration for each available mushroom
 const default_configs = {
     incubation: {
         pink_oyster: {
@@ -61,13 +62,14 @@ const default_configs = {
     }
 }
 let DEFAULTS = true;
+
 // Display or hide the overrides section of the form
 const displayOverrides = () => {
     let rad = document.main_config_form.accept_defaults;
     let prev = null;
     const overrides = document.getElementById('overrides');
     for (let i = 0; i < rad.length; i++) {
-        rad[i].addEventListener('change', function () {
+        rad[i].addEventListener('change', () => {
             if (rad[i].value == 'Yes') {
                 overrides.classList.add('hidden');
                 DEFAULTS = true;
@@ -84,7 +86,7 @@ const displayOverrides = () => {
 document.main_config_form.onsubmit = (event) => {
     // map the form
     event.preventDefault();
-    const {process, config} = mapForm();
+    const { process, config } = mapForm();
     startProcess(process, config);
 };
 
@@ -110,6 +112,17 @@ const startProcess = (process, config) => {
     console.log(`Starting the ${process} process now!`);
     console.log('Env Config Below');
     console.log(config);
+    // Flags
+    let new_session = true; // allow pre-set environment stage before starting the timer (while new session true don't start clock)
+    // Grow Box Environment Status Variables
+    let env_temp_c;
+    let env_temp_f;
+    let env_humidity;
+    let env_co2;
+    let env_weight;
+    let remaining_time;
+    let current_time; // use some kind of DateTime object
+
     /**
      * The "Process" is the core function of the application (The Previous Code is to Get a Config to this core function and then start it)
      * 
@@ -117,6 +130,7 @@ const startProcess = (process, config) => {
      * 
      * ----------------------------------------------
      * 1. use the given parameters to set the env_config: temp, co2, humidity, lighting, duration
+     * 1a. If initial start boolean is true, block duration clock till environment settings are reached
      * 2. Read the Sensors to check the actual environment status
      * 3. If the current environment does not satisfy the required environment, begin the appropriate asynchronous subroutines
      *   - Increase Temperature slowly: Turn on PID system for .AC
