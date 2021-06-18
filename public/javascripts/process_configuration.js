@@ -1,6 +1,6 @@
 // Map of default environment configuration for each available mushroom
-const default_configs = require('./resources/default_process_configs');
-const growBox = require('./run_process');
+import {default_configs} from './resources/default_process_configs';
+import {startProcess} from './run_process';
 let DEFAULTS = true;
 
 // Display or hide the overrides section of the form
@@ -27,7 +27,7 @@ document.main_config_form.onsubmit = (event) => {
     // map the form
     event.preventDefault();
     const { process, config } = mapForm();
-    growBox.startProcess(process, config);
+    startProcess(process, config);
 };
 
 const mapForm = () => {
