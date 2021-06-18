@@ -1,3 +1,8 @@
+/**
+ * For Some Reason, doing it this native way fails to load the
+ * modules for the Python child process
+ */
+
 // spawn a python file to request CO2 reading
 const { spawn } = require('child_process');
 console.log('spawning the process now');
