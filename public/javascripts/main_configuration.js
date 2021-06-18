@@ -31,28 +31,28 @@ const default_configs = {
     },
     fruiting: {
         pink_oyster: {
-            temperature_c: '12', 
+            temperature_c: '12',
             humidity: '',
             co2: '', // ppm
             lighting: true,
             duration: 35 // days
         },
         golden_oyster: {
-            temperature_c: '', 
+            temperature_c: '',
             humidity: '',
             co2: '', // ppm
             lighting: true,
             duration: 35 // days
         },
         blue_oyster: {
-            temperature_c: '', 
+            temperature_c: '',
             humidity: '',
             co2: '', // ppm
             lighting: true,
             duration: 35 // days
         },
         shitake: {
-            temperature_c: '', 
+            temperature_c: '',
             humidity: '',
             co2: '', // ppm
             lighting: true,
@@ -84,7 +84,8 @@ const displayOverrides = () => {
 document.main_config_form.onsubmit = (event) => {
     // map the form
     event.preventDefault();
-    const form = mapForm();
+    const {process, config} = mapForm();
+    startProcess(process, config);
 };
 
 const mapForm = () => {
@@ -99,18 +100,16 @@ const mapForm = () => {
         overrides.co2_ppm = form.co2_ppm.value;
         overrides.lighting = form.lighting.value;
         overrides.duration_days = form.duration_days.value;
-        console.log(overrides);
-        startProcess(process, overrides);
+        return { process, overrides };
     }
-    // Start process with mushroom associated defaults
-    startProcess(process, default_configs[process][mushroom])
+    return { process, config: default_configs[process][mushroom] }
 
 }
 
-const startProcess = (process, env_config) => {
+const startProcess = (process, config) => {
     console.log(`Starting the ${process} process now!`);
     console.log('Env Config Below');
-    console.log(env_config);
+    console.log(config);
     /**
      * The "Process" is the core function of the application (The Previous Code is to Get a Config to this core function and then start it)
      * ----------------------------------------------
