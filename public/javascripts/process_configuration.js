@@ -4,7 +4,7 @@ const {startProcess} = require('./run_process');
 let DEFAULTS = true;
 
 // Display or hide the overrides section of the form
-export const displayOverrides = () => {
+const displayOverrides = () => {
     let rad = document.main_config_form.accept_defaults;
     let prev = null;
     const overrides = document.getElementById('overrides');
@@ -30,7 +30,7 @@ document.main_config_form.onsubmit = (event) => {
     startProcess(process, config);
 };
 
-export const mapForm = () => {
+const mapForm = () => {
     let form = document.main_config_form;
     let mushroom = form.mushroom.value;
     let process = form.process.value;
