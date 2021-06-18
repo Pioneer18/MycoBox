@@ -112,6 +112,9 @@ const startProcess = (process, config) => {
     console.log(config);
     /**
      * The "Process" is the core function of the application (The Previous Code is to Get a Config to this core function and then start it)
+     * 
+     * This program utilizes the event loop, which is what allows Node.js to perform non-blocking I/O operations — to run asynchronous subroutines and respond to incoming commands
+     * 
      * ----------------------------------------------
      * 1. use the given parameters to set the env_config: temp, co2, humidity, lighting, duration
      * 2. Read the Sensors to check the actual environment status
