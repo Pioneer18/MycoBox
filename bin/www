@@ -11,7 +11,9 @@ var http = require('http');
 
 // Start the Application
 startMycoBox();
+console.log("Mybox is serving on port 3000")
 startView();
+console.log('View is serving on port 3001')
 
 
 /**
