@@ -68,7 +68,7 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
+function onListening(server) {
   var addr = server.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
@@ -96,7 +96,7 @@ function startMycoBox() {
 
   server.listen(port);
   server.on('error', onError);
-  server.on('listening', onListening);
+  server.on('listening', onListening(server));
 }
 
 function startView() {
@@ -119,6 +119,6 @@ function startView() {
 
   server.listen(port);
   server.on('error', onError);
-  server.on('listening', onListening);
+  server.on('listening', onListening(server));
 }
 
