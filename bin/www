@@ -4,30 +4,15 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var myco_box = require('../app');
+var view = require('../FrontEnd/app');
 var debug = require('debug')('rootculture:server');
 var http = require('http');
 
-/**
- * Get port from environment and store in Express.
- */
+// Start the Application
+startMycoBox();
+startView();
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-var server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -88,3 +73,50 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+function startMycoBox() {
+  /**
+   * Get port from environment and store in Express.
+  */
+
+  var port = normalizePort(process.env.PORT || '3000');
+  myco_box.set('port', port);
+
+  /**
+   * Create HTTP server.
+   */
+
+  var server = http.createServer(myco_box);
+
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
+
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+}
+
+function startView() {
+  /**
+   * Get port from environment and store in Express.
+   */
+
+  var port = normalizePort(process.env.PORT || '3001');
+  view.set('port', port);
+
+  /**
+   * Create HTTP server.
+   */
+
+  var server = http.createServer(view);
+
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
+
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+}
+
