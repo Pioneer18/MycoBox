@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 
-var myco_box = require('../app');
-var view = require('../FrontEnd/app');
+let myco_box = require('../app');
+let view = require('../FrontEnd/app');
 var debug = require('debug')('rootculture:server');
 var http = require('http');
 
