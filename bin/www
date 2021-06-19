@@ -9,11 +9,30 @@ let view = require('../FrontEnd/app');
 var debug = require('debug')('rootculture:server');
 var http = require('http');
 
-// Start the Application
-startMycoBox();
-console.log("Mybox is serving on port 3000")
-startView();
-console.log('View is serving on port 3001')
+// Start the Applications
+
+
+/**
+ * Get port from environment and store in Express.
+*/
+
+  var port = normalizePort(process.env.PORT || '3000');
+  myco_box.set('port', port);
+
+  /**
+  * Create HTTP server.
+  */
+
+  var server = http.createServer(myco_box);
+
+  /**
+  * Listen on provided port, on all network interfaces.
+  */
+
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening(server));
+ 
 
 
 /**
@@ -76,49 +95,5 @@ function onListening(server) {
   debug('Listening on ' + bind);
 }
 
-function startMycoBox() {
-  /**
-   * Get port from environment and store in Express.
-  */
 
-  var port = normalizePort(process.env.PORT || '3000');
-  myco_box.set('port', port);
-
-  /**
-   * Create HTTP server.
-   */
-
-  var server = http.createServer(myco_box);
-
-  /**
-   * Listen on provided port, on all network interfaces.
-   */
-
-  server.listen(port);
-  server.on('error', onError);
-  server.on('listening', onListening(server));
-}
-
-function startView() {
-  /**
-   * Get port from environment and store in Express.
-   */
-
-  var port = normalizePort(process.env.PORT || '3001');
-  view.set('port', port);
-
-  /**
-   * Create HTTP server.
-   */
-
-  var server = http.createServer(view);
-
-  /**
-   * Listen on provided port, on all network interfaces.
-   */
-
-  server.listen(port);
-  server.on('error', onError);
-  server.on('listening', onListening(server));
-}
 
