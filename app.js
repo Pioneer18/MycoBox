@@ -17,8 +17,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// Front End Application for Controlling the View and communicating commands to the Backend
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Mount the Application Routing to the Server
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
