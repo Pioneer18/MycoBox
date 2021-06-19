@@ -1,5 +1,5 @@
 // Map of default environment configuration for each available mushroom
-import { default_configs } from './resources/default_process_configs';
+import { default_configs } from '../../resources/default_configs';
 let DEFAULTS = true;
 
 export default ConfigurationController = () => {// Display or hide the overrides section of the form
@@ -27,6 +27,9 @@ export default ConfigurationController = () => {// Display or hide the overrides
         e.preventDefault();
         const { process, config } = mapForm();
         // send Http request to start process on MycoBox
+        console.log(process);
+        console.log(config);
+        // Next step is to make a router to send a HTTP Request to the MycoBox
     };
 
     const mapForm = () => {
