@@ -1,0 +1,31 @@
+{
+  "name": "rootculture",
+  "version": "1.0.0",
+  "description": "Application to control mushroom grow box",
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "RootCulture"
+  },
+  "keywords": [
+    "raspberry",
+    "pi",
+    "zero",
+    "nodejs",
+    "mushrooms",
+    "python",
+    "embedded systems",
+    "IoT",
+    "Precision Agriculture"
+  ],
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1",
+    "onoff": "^6.0.3",
+    "python-shell": "^3.0.0"
+  }
+}
