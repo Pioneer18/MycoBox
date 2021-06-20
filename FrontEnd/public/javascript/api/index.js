@@ -18,13 +18,13 @@ class FrontEndApi {
                 return false;
             }
             // Handle the HTTP Response
-            httpRequest.onreadystatechange = this.returnResponse();
+            httpRequest.onreadystatechange = this.returnResponse(httpRequest);
             httpRequest.setRequestHeader('Content-Type', 'application/json'); 
             httpRequest.open('GET','test.html', true); // async true
             httpRequest.send();
         };
 
-        this.returnResponse = () => {
+        this.returnResponse = (httpRequest) => {
             // process the server response here
             if (httpRequest.readyState === XMLHttpRequest.DONE) {
                 // Everything is good, the response was received.
