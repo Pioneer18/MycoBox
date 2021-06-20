@@ -1,5 +1,5 @@
 var express = require('express');
-const { path } = require('../app');
+var path = require('path');
 var router = express.Router();
 
 /* GET home page. */
