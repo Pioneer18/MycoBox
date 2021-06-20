@@ -14,7 +14,7 @@ var http = require('http');
  */
 
 var port = normalizePort(process.env.PORT || '3001');
-var backend_port = normalizePort('3001');
+var backend_port = normalizePort('3000');
 app.set('port', port);
 backend.set('port', backend_port);
 
