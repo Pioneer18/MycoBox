@@ -1,5 +1,5 @@
 // Map of default environment configuration for each available mushroom
-import {default_configs} from '../../resources/default_configs';
+import {default_configs} from '../../resources/default_configs.js';
 
 let DEFAULTS = true;
 
