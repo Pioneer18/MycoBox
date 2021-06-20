@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('configuration/configuration.jade')
+  res.render('configuration/configuration')
 });
 
 module.exports = router;
