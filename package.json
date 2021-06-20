@@ -14,19 +14,18 @@
     "pi",
     "zero",
     "nodejs",
-    "mushrooms"
+    "mushrooms",
+    "python",
+    "embedded systems",
+    "IoT",
+    "Precision Agriculture"
   ],
-  "author": "Jonathan Sells",
-  "license": "ISC",
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
-    "express": "^4.17.1",
-    "http-errors": "~1.6.3",
-    "jade": "^1.11.0",
+    "express": "~4.16.1",
     "morgan": "~1.9.1",
     "onoff": "^6.0.3",
     "python-shell": "^3.0.0"
-  },
-  "type": "module"
+  }
 }

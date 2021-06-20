@@ -1,9 +1,8 @@
 // Map of default environment configuration for each available mushroom
-import {default_configs} from './resources/default_process_configs';
-import {startProcess} from './run_process';
+import {default_configs} from '../../resources/default_configs.js';
+
 let DEFAULTS = true;
 
-// Display or hide the overrides section of the form
 const displayOverrides = () => {
     let rad = document.main_config_form.accept_defaults;
     let prev = null;
@@ -23,11 +22,14 @@ const displayOverrides = () => {
 }
 
 // Start the process on form submit
-document.main_config_form.onsubmit = (event) => {
+document.main_config_form.onsubmit = (e) => {
     // map the form
-    event.preventDefault();
+    e.preventDefault();
     const { process, config } = mapForm();
-    startProcess(process, config);
+    // send Http request to start process on MycoBox
+    console.log(process);
+    console.log(config);
+    // Next step is to make a router to send a HTTP Request to the MycoBox
 };
 
 const mapForm = () => {
@@ -46,10 +48,6 @@ const mapForm = () => {
     }
     return { process, config: default_configs[process][mushroom] }
 
-}
-
-module.exports = {
-    
 }
 
 displayOverrides();

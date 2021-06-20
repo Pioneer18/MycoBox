@@ -1,11 +1,9 @@
 var express = require('express');
-const { path } = require('../app');
 var router = express.Router();
 
-/* GET home page. */
-// just place the name of the view you want to render
+/* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+  res.send('respond with a resource');
 });
 
 module.exports = router;

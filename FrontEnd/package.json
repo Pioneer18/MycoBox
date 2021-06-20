@@ -1,0 +1,24 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "front end application interface for the Myco-Box",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "RootCulture"
+  },
+  "keywords": [
+    "VanillaJS"
+  ],
+  "dependencies": {
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "jade": "^1.11.0",
+    "morgan": "~1.9.1"
+  },
+  "author": "Jonathan Sells",
+  "license": "ISC"
+}
