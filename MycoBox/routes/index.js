@@ -3,7 +3,8 @@ var router = express.Router();
 
 /* Start Process */
 router.post('/', function(req, res, next) {
-  res.setHeader()
+  res.setHeader('Access-Control-Allow-Headers', '*')
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.send('Hello from MycoBox');
 });
 
