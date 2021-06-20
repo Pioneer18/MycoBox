@@ -15,7 +15,7 @@
  app.use(express.static(path.join(__dirname, '/FrontEnd/public')));
  
  // Mount Application Routers
-//  app.use('/', indexRouter);
+  app.use('/', indexRouter);
 //  app.use('/users', usersRouter);
  
  module.exports = app;
