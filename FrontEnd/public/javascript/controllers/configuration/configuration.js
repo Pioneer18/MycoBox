@@ -52,3 +52,4 @@ export default ConfigurationController = () => {// Display or hide the overrides
 
     displayOverrides();
 }
+ ConfigurationController();
