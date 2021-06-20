@@ -35,7 +35,7 @@ class FrontEndApi {
                     // Not ready yet.
                 }
             }
-            httpRequest.setRequestHeader('Content-Type', 'application/json'); 
+            //httpRequest.setRequestHeader('Content-Type', 'application/json'); 
             httpRequest.open('GET','test.html', true); // async true
             httpRequest.send();
         };
