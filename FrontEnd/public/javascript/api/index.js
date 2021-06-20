@@ -36,7 +36,7 @@ class FrontEndApi {
                 }
             }
             //httpRequest.setRequestHeader('Content-Type', 'application/json'); 
-            httpRequest.open('GET','test.html', true); // async true
+            httpRequest.open('GET','/home/pi/RootCulture/test.html', true); // async true
             httpRequest.send();
         };
 
