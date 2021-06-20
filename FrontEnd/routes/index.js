@@ -6,7 +6,7 @@ const rootPath = "/home/pi/RootCulture/FrontEnd/public/javascript/views"
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.sendFile(rootPath + "configuration.html");
+  res.sendFile(rootPath + "/configuration.html");
 });
 
 module.exports = router;
