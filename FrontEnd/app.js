@@ -3,7 +3,7 @@
  var logger = require('morgan');
  
  // Application Routers
- import indexRouter from './routes/index'
+const indexRouter = require('./routes/index');
  
  // Server
  var app = express();
