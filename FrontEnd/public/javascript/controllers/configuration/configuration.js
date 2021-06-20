@@ -1,8 +1,8 @@
 import { default_configs } from '../../resources/default_configs.js';
-import { api } from '../../api/index.js';
+import { FrontEndApi } from '../../api/index.js';
 
 let DEFAULTS = true;
-const router = new api()
+const api = new FrontEndApi()
 
 const displayOverrides = () => {
     let rad = document.main_config_form.accept_defaults;
@@ -28,7 +28,7 @@ document.main_config_form.onsubmit = (e) => {
     e.preventDefault();
     const { process, config } = mapForm();
     // send Http request to start process on MycoBox
-    router.starProcess();
+    api.starProcess();
 };
 
 const mapForm = () => {

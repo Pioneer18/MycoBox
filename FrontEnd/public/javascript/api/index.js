@@ -1,7 +1,7 @@
 /**
  * Route Controller AJAX Calls to the Backend Application
  */
-class api {
+class FrontEndApi {
     constructor() {
         let self = this;
 
@@ -11,4 +11,4 @@ class api {
     }
 }
 
-export {api};
+export {FrontEndApi};
