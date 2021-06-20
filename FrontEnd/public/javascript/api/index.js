@@ -41,7 +41,7 @@ class FrontEndApi {
                     // Not ready yet.
                 }
             }
-            httpReq.setRequestHeader('Access-Control-Allow-Origin', '*'); 
+            httpRequest.setRequestHeader('Access-Control-Allow-Origin', '*'); 
             httpRequest.setRequestHeader('Content-Type', 'application/json'); 
             httpRequest.open(method, url, true); // async true
             httpRequest.send(data);
