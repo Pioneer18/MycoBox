@@ -1,5 +1,5 @@
-import {default_configs} from '../../resources/default_configs.js';
-import {api, api} from '../../api/index.js';
+import { default_configs } from '../../resources/default_configs.js';
+import { api } from '../../api/index.js';
 
 let DEFAULTS = true;
 const router = new api()
