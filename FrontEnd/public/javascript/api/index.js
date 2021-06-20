@@ -1,5 +1,5 @@
 /**
- * Route Controller AJAX Calls to the Backend Application
+ * Send Controller AJAX Calls to the Backend Application
  */
 class FrontEndApi {
     constructor() {
@@ -13,6 +13,7 @@ class FrontEndApi {
             // create the XMLHTTP instance
             this.makeRequest('POST', '/',{belh: 'blehh'}); // add a content-type param
         };
+
 
         this.makeRequest = (method, url, data) => {
             // create the XMLHTTP instance
