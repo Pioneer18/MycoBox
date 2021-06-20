@@ -11,7 +11,7 @@ class FrontEndApi {
          */
         this.starProcess = function (config) {
             // create the XMLHTTP instance
-            httpRequest = new XMLHttpRequest();
+            let httpRequest = new XMLHttpRequest();
 
             if (!httpRequest) {
                 alert('Error: Cannot create an XMLHTTP instance');
