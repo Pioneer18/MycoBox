@@ -1,7 +1,8 @@
-// Map of default environment configuration for each available mushroom
 import {default_configs} from '../../resources/default_configs.js';
+import {api, api} from '../../api/index.js';
 
 let DEFAULTS = true;
+const router = new api()
 
 const displayOverrides = () => {
     let rad = document.main_config_form.accept_defaults;
@@ -27,9 +28,7 @@ document.main_config_form.onsubmit = (e) => {
     e.preventDefault();
     const { process, config } = mapForm();
     // send Http request to start process on MycoBox
-    console.log(process);
-    console.log(config);
-    // Next step is to make a router to send a HTTP Request to the MycoBox
+    router.starProcess();
 };
 
 const mapForm = () => {
