@@ -1,8 +1,7 @@
 // Map of default environment configuration for each available mushroom
 
-export default ConfigurationController = () => {// Display or hide the overrides section of the form
+export default ConfigurationController = (default_configs) => {// Display or hide the overrides section of the form
 
-    import { default_configs } from '../../resources/default_configs';
     let DEFAULTS = true;
 
     const displayOverrides = () => {
