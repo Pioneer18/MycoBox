@@ -18,13 +18,29 @@ class FrontEndApi {
                 return false;
             }
             // Handle the HTTP Response
-            httpRequest.onreadystatechange = this.returnResponse(httpRequest);
+            httpRequest.onreadystatechange = () => {
+                // process the server response here
+                if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                    // Everything is good, the response was received.
+                    if (httpRequest.status === 200) {
+                        // Perfect!
+                        console.log('Below is the backend http response:')
+                        console.log(httpRequest.responseText);
+                    } else {
+                        // There was a problem with the request.
+                        // For example, the response may have a 404 (Not Found)
+                        // or 500 (Internal Server Error) response code.
+                    }
+                } else {
+                    // Not ready yet.
+                }
+            }
             httpRequest.setRequestHeader('Content-Type', 'application/json'); 
             httpRequest.open('GET','test.html', true); // async true
             httpRequest.send();
         };
 
-        this.returnResponse = (httpRequest) => {
+        this.returnResponse = () => {
             // process the server response here
             if (httpRequest.readyState === XMLHttpRequest.DONE) {
                 // Everything is good, the response was received.
