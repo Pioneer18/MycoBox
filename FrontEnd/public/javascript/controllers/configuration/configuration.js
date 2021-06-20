@@ -1,55 +1,53 @@
 // Map of default environment configuration for each available mushroom
+import {default_configs} from '../../resources/default_configs';
 
-export default ConfigurationController = (default_configs) => {// Display or hide the overrides section of the form
+let DEFAULTS = true;
 
-    let DEFAULTS = true;
-
-    const displayOverrides = () => {
-        let rad = document.main_config_form.accept_defaults;
-        let prev = null;
-        const overrides = document.getElementById('overrides');
-        for (let i = 0; i < rad.length; i++) {
-            rad[i].addEventListener('change', () => {
-                if (rad[i].value == 'Yes') {
-                    overrides.classList.add('hidden');
-                    DEFAULTS = true;
-                }
-                if (rad[i].value !== 'Yes') {
-                    overrides.classList.remove('hidden');
-                    DEFAULTS = false
-                }
-            });
-        }
+const displayOverrides = () => {
+    let rad = document.main_config_form.accept_defaults;
+    let prev = null;
+    const overrides = document.getElementById('overrides');
+    for (let i = 0; i < rad.length; i++) {
+        rad[i].addEventListener('change', () => {
+            if (rad[i].value == 'Yes') {
+                overrides.classList.add('hidden');
+                DEFAULTS = true;
+            }
+            if (rad[i].value !== 'Yes') {
+                overrides.classList.remove('hidden');
+                DEFAULTS = false
+            }
+        });
     }
-
-    // Start the process on form submit
-    document.main_config_form.onsubmit = (e) => {
-        // map the form
-        e.preventDefault();
-        const { process, config } = mapForm();
-        // send Http request to start process on MycoBox
-        console.log(process);
-        console.log(config);
-        // Next step is to make a router to send a HTTP Request to the MycoBox
-    };
-
-    const mapForm = () => {
-        let form = document.main_config_form;
-        let mushroom = form.mushroom.value;
-        let process = form.process.value;
-        // Start process with overrrides
-        if (!DEFAULTS) {
-            let overrides = {};
-            overrides.temperature_c = form.temperature_c.value;
-            overrides.humidity = form.humidity.value;
-            overrides.co2_ppm = form.co2_ppm.value;
-            overrides.lighting = form.lighting.value;
-            overrides.duration_days = form.duration_days.value;
-            return { process, overrides };
-        }
-        return { process, config: default_configs[process][mushroom] }
-
-    }
-
-    displayOverrides();
 }
+
+// Start the process on form submit
+document.main_config_form.onsubmit = (e) => {
+    // map the form
+    e.preventDefault();
+    const { process, config } = mapForm();
+    // send Http request to start process on MycoBox
+    console.log(process);
+    console.log(config);
+    // Next step is to make a router to send a HTTP Request to the MycoBox
+};
+
+const mapForm = () => {
+    let form = document.main_config_form;
+    let mushroom = form.mushroom.value;
+    let process = form.process.value;
+    // Start process with overrrides
+    if (!DEFAULTS) {
+        let overrides = {};
+        overrides.temperature_c = form.temperature_c.value;
+        overrides.humidity = form.humidity.value;
+        overrides.co2_ppm = form.co2_ppm.value;
+        overrides.lighting = form.lighting.value;
+        overrides.duration_days = form.duration_days.value;
+        return { process, overrides };
+    }
+    return { process, config: default_configs[process][mushroom] }
+
+}
+
+displayOverrides();
