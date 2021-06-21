@@ -1,7 +1,7 @@
 /**
  * System Controller
  */
-export class SystemController {
+export default class SystemController {
     constructor() {
         
         this.startProcess = async function () {
