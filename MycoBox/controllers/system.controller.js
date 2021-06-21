@@ -1,7 +1,7 @@
 /**
  * System Controller
  */
-class SystemController {
+export class SystemController {
     constructor() {
         
         startProcess = function () {
