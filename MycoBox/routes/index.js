@@ -9,7 +9,6 @@ const { startProcess } = require('../controllers/system.controller');
 /* Start Process */
 router.post('/', function (req, res, next) {
     res.send(JSON.stringify(startProcess()));
-    res.send('Should Have recieved a JSON');
 });
 
 module.exports = router;
