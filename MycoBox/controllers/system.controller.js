@@ -1,10 +1,10 @@
 /**
  * System Controller
  */
-class SystemController {
+const SystemController = class {
     constructor() {
         
-        this.startProcess = async function () {
+        startProcess = function () {
             return {system_controller: 'starting the process'}
         }
     }
