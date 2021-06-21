@@ -8,8 +8,8 @@ const {SystemController} = require('../controllers/index');
 
 /* Start Process */
 router.post('/', function(req, res, next) {
-    const results = new SystemController().startProcess();
-    res.send(JSON.stringify(results));
+    // const results = new SystemController().startProcess();
+    // res.send(JSON.stringify(results));
     res.send('Should Have recieved a JSON');
 });
 
