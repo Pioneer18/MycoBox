@@ -8,9 +8,9 @@ const {SystemController} = require('../controllers/index');
 
 /* Start Process */
 router.post('/', function(req, res, next) {
-    console.log('Calling the System Controller');
-    const results = new SystemController()
-    res.send();
+    const results = new SystemController().startProcess();
+    res.send(JSON.stringify(results));
+    res.send('Should Have recieved a JSON');
 });
 
 module.exports = router;
