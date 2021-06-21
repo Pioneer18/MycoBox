@@ -8,8 +8,9 @@ const {SystemController} = require('../controllers/index');
 
 /* Start Process */
 router.post('/', function(req, res, next) {
-//   res.send(JSON.stringify({msg: 'response from mycobox'}));
-    res.send(JSON.stringify(new SystemController().startProcess()));
+    console.log('Calling the System Controller');
+    const results = new SystemController()
+    res.send();
 });
 
 module.exports = router;
