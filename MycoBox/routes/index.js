@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* Start Process */
 router.post('/', function(req, res, next) {
-  res.send({msg: 'Hello from MycoBox'});
+  res.send(JSON.stringify({msg: 'response from mycobox'}));
 });
 
 module.exports = router;

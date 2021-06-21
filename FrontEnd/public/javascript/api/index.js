@@ -11,7 +11,7 @@ class FrontEndApi {
          */
         this.starProcess = function (config) {
             // create the XMLHTTP instance
-            this.makeRequest('POST', 'http://192.168.86.88:3000/', {fe: 'hey mycobox'}); // add a content-type param
+            this.makeRequest('POST', 'http://192.168.86.88:3000/', JSON.stringify({msg: 'hello'})); // add a content-type param
         };
 
         this.makeRequest = (method, url, data) => {
