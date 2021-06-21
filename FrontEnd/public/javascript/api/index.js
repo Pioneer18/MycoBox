@@ -3,15 +3,14 @@
  */
 class FrontEndApi {
     constructor() {
-        let self = this;
 
         /**
          * POST: /api_v1/myco_box/start_process
          * @param {} config {proces: String, env: Object}
          */
-        this.starProcess = function (config) {
+        this.startProcess = function (process, config) {
             // create the XMLHTTP instance
-            this.makeRequest('POST', 'http://192.168.86.88:3000/', JSON.stringify({msg: 'hello'})); // add a content-type param
+            this.makeRequest('POST', 'http://192.168.86.88:3000/', JSON.stringify({process, config})); // add a content-type param
         };
 
         this.makeRequest = (method, url, data) => {

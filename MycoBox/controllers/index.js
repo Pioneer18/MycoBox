@@ -1,3 +1,3 @@
 /**
- * Export All of the controllers to the router
+ * MycoBox Router
  */
