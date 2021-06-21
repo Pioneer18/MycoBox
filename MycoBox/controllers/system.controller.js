@@ -10,4 +10,4 @@ class SystemController {
     }
 }
 
-export {SystemController};
+exports = {SystemController}
