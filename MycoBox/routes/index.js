@@ -7,8 +7,22 @@ const { startProcess } = require('../controllers/system.controller');
  */
 
 /* Start Process */
-router.post('/', function (req, res, next) {
+router.post('/system_controller/start_process', function (req, res, next) {
     res.send(JSON.stringify(startProcess()));
 });
+
+/**
+ * Stop process and redirect to post-process page
+ */
+
+
+/**
+ * Add hours to the process
+ */
+
+
+/**
+ * Subtract hours from the process
+ */
 
 module.exports = router;

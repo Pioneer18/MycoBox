@@ -3,8 +3,20 @@
  */
 module.exports = {
 
-    startProcess: function () {
-        return { system_controller: 'starting the process' }
-    }
+    startProcess: () => {
+        return { TODO: 'build this handler' }
+    },
+
+    stopProcess: () => {
+        return { TODO: 'build this handler' }
+    },
+
+    addHoursToProcess: () => {
+        return { TODO: 'build this handler' }
+    },
+
+    subtractHoursFromProcess: () => {
+        return { TODO: 'build this handler' }
+    },
 }
 
