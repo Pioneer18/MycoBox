@@ -4,6 +4,5 @@
 const {SystemController} = require('./system.controller');
 
 module.exports = {
-    SystemController,
-
+    systemController: new SystemController(),
 }

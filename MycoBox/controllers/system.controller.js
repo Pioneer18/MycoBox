@@ -4,8 +4,8 @@
 export class SystemController {
     constructor() {
         
-        startProcess = function () {
-            return 'tee'
+        this.startProcess = async function () {
+            return {system_controller: 'starting the process'}
         }
     }
 }
