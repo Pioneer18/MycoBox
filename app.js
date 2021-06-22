@@ -3,6 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+require('dotenv').config();
 
 // Application Routers
 const indexRouter = require('./MycoBox/routes/index');
@@ -12,7 +13,7 @@ const indexRouter = require('./MycoBox/routes/index');
 var app = express();
 
 // Mount Middleware
-app.use(cors({ origin: 'http://192.168.1.97:3001' })); // allow all cors
+app.use(cors({ origin: process.env.BASE_URL })); // allow all cors
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
