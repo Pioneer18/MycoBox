@@ -8,7 +8,7 @@ class FrontEndApi {
          * POST: /api_v1/myco_box/start_process
          * @param {} config {proces: String, env: Object}
          */
-        this.startProcess = function (process, config) {
+        this.newSession = function (process, config) {
             // create the XMLHTTP instance
             this.makeRequest('POST', 'http://192.168.1.97:3000/system_controller/start_process', JSON.stringify({process, config})); // add a content-type param
         };

@@ -28,7 +28,7 @@ document.main_config_form.onsubmit = (e) => {
     e.preventDefault();
     const { process, config } = mapForm();
     // send Http request to start process on MycoBox
-    api.startProcess(process, config)
+    api.newSession(process, config)
 };
 
 const mapForm = () => {
