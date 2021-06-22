@@ -41,7 +41,7 @@ class FrontEndApi {
             }
             httpRequest.open(method, url, true); // async true
             httpRequest.setRequestHeader('Access-Control-Allow-Headers', '*');
-            httpRequest.setRequestHeader('Access-Control-Allow-Origin', '*'); 
+            httpRequest.setRequestHeader('Access-Control-Allow-Origin', 'http://192.168.1.97:3000/'); 
             httpRequest.setRequestHeader('Content-Type', 'application/json'); 
             httpRequest.send(data);
         }
