@@ -12,5 +12,7 @@ port.on('readable', () => {
 port.on('data', (data)=> {
     console.log('Data: ', data);
 });
-const lineStream = port.pipe(new Readline());
-console.log(lineStream);
+const lineStream = port.pipe(new Readline({ delimiter: '\r\n' }));
+lineStream.on('data', (data)=> {
+    console.log(data);
+})
