@@ -5,16 +5,17 @@ module.exports = {
 
      /**
      * Steps:
-     * - Check the MycoBox 'System Status'
-     * - If session already running then return error: session already active
-     * - Else begin a new session function with required config
-     * - the async service will respond to the front-end when it begins
-     * - the controller will send request to redirect client to home-page with last session-record
+     * - Check the MycoBox 'System Status': If session already running then return error: session already active
+     * - check the myco_box environment
+     * - call the prepare_environment subroutine to set the Evironment Model to the config
      * @returns return confirmation session started
      */
     
     newSession: () => {
-        return { TODO: 'build this handler' }
+       // Python session
+       // communicates to js backend with stdin/stdout pipes to get updates mid session; e.g new env_config
+       // this is faster? don't have to start a process everytime i want to reach out to an acutaors functionality, yet on the occasional user input an update config
+       // can be communicated via stdin and a response from python script via stdout
     },
 
     endSession: () => {
