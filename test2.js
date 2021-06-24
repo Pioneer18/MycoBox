@@ -25,6 +25,10 @@ const Readline = SerialPort.parsers.Readline;
 const port = new SerialPort('/dev/ttyAMA0');
 port.write("M 4\r\n");
 port.write("K 2\r\n");
+port.drain((err)=> {
+    if (err) console.log(err)
+});
+port.write("Z\r\n");
 const data = port.read(10);
 console.log(data);
 
