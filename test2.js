@@ -6,7 +6,6 @@ port.write("K 2\r\n");
 setTimeout(() => {
     console.log('pause a second')
 }, 1000);
-parser.on('data', console.log);
 port.on('readable', () => {
     console.log('Data: ', port.read());
 });
