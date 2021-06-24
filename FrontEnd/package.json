@@ -17,8 +17,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "morgan": "~1.9.1",
-    "pug": "^3.0.2",
-    "serialport": "^9.2.0"
+    "pug": "^3.0.2"
   },
   "author": "Jonathan Sells",
   "license": "ISC"
