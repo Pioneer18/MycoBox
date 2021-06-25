@@ -13,15 +13,15 @@ port.write('main screen turn on', function (err) {
 // Read data that is available but keep the stream in "paused mode"
 port.on('readable', function () {
     console.log('Data:', port.read())
-  })
-  
-  // Switches the port into "flowing mode"
-  port.on('data', function (data) {
+})
+
+// Switches the port into "flowing mode"
+port.on('data', function (data) {
     console.log('Data:', data)
-  })
-  
-  // Pipe the data into another stream (like a parser or standard out)
-  const lineStream = port.pipe(new Readline())
+})
+
+// Pipe the data into another stream (like a parser or standard out)
+const lineStream = port.pipe(new Readline())
 
 // Open errors will be emitted as an error event
 port.on('error', function (err) {
