@@ -25,14 +25,11 @@ const Readline = SerialPort.parsers.Readline;
 const port = new SerialPort('/dev/ttyAMA0');
 port.write("M 4\r\n");
 port.write("K 2\r\n");
-port.drain((err)=> {
-    if (err) console.log(err)
-});
 port.write("Z\r\n");
 // port on readable
 // port data flow
 port.on('readable', function () {
-    console.log('Data:', port.read())
+    console.log('Data:', port.read(10))
 })
 
 // Switches the port into "flowing mode"
