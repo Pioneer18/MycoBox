@@ -1,0 +1,54 @@
+/* Sections */
+body {
+    background-color: #f1f1f1;
+    padding-left: 5%;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.form__radio-group {
+    padding: 20px;
+}
+
+/* Labels */
+.config_label {
+    display: block;
+    margin-top: 15px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 15px;
+}
+
+.form__radio-label {
+    font-size: 17px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+/* Inputs */
+.form__number_input {
+    width: 14%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+#submit_button {
+    padding: 10px 15px;
+    color: #fff;
+    background-color: green;
+    border-radius: 6%
+}
+
+/* Elements */
+select {
+    padding: 3px 0px 3px 5px;
+}
+
+h1 {
+    font-size: 35px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* misc */
+.hidden {
+    display: none;
+}

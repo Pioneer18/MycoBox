@@ -1,5 +1,18 @@
 /**
- * System Controller Object
+ * System Controller
+ * ===General=================
+ * - New Session:
+ * - End Session:
+ * - Add Hours:
+ * - Subtract Hours:
+ * ===Environment================
+ * - Increase temp
+ * - Decrease temp
+ * - Increase co2
+ * - Decrease co2
+ * - Increase humidity
+ * - Decrease humidity
+ *  note: incubation vs fruiting and other actuator dependent rules
  */
 module.exports = {
 

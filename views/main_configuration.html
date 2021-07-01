@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/reset.css">
+    <link rel="stylesheet" href="/stylesheets/main_configuration.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+    <title>Main Configuration</title>
+</head>
+
+<body>
+    <h1>Gourmet Mushroom Grow-Box Configuration</h1>
+    <form name="main_config_form" id="main_config_form">
+        <!--Select Mushroom-->
+        <label class="config_label">Select a Mushroom</label>
+        <select name="mushroom" id="mushroom">
+            <option value="pink_oyster">Pink Oyster</option>
+            <option value="golden_oyster">Golden Oyster</option>
+            <option value="blue_oyster">Blue Oyster</option>
+            <option value="shitake">Shitake</option>
+        </select>
+        <!--Select Process-->
+        <div className="form__radio-group">
+            <span class="config_label">Select a Process</span>
+            <input type="radio" class="form__radio-input" id="incubation" name="process" value="incubation" />
+            <label class="form__radio-label">
+                Incubation
+            </label>
+            <input type="radio" class="form__radio-input" id="fruiting" name="process" value="fruiting"/>
+            <label class="form__radio-label">
+                Fruiting
+            </label>
+        </div>
+        <!--Accept Defaults-->
+        <div className="form__radio-group">
+            <span class="config_label">Accept Defaults</span>
+            <input type="radio" class="form__radio-input" id="defaults_yes" name="accept_defaults" value="Yes" />
+            <label class="form__radio-label" checked>
+                Yes
+            </label>
+            <input type="radio" class="form__radio-input" id="defaults_no" name="accept_defaults" value="No" />
+            <label class="form__radio-label">
+                No
+            </label>
+        </div>
+
+        <!--Overrides-->
+        <div id="overrides">
+            <!--Temperature-->
+            <div>
+                <label class="config_label">Select Temperature Celsius</label>
+                <input type="number" name="temperature_c" class="form__number_input">
+            </div>
+            <!--Humidity-->
+            <div>
+                <label class="config_label">Select Relative Humidity %</label>
+                <input type="number" name="humidity" class="form__number_input"> 
+            </div>
+            <!--CO2-->
+            <div>
+                <label class="config_label">Select CO2 ppm</label>
+                <input type="number" name="co2_ppm" class="form__number_input">
+            </div>
+            <!--Light-->
+            <div className="form__radio-group">
+                <span class="config_label">Select Lighting</span>
+                <input type="radio" class="form__radio-input" id="yes" name="lighting" />
+                <label class="form__radio-label">
+                    On
+                </label>
+                <input type="radio" class="form__radio-input" id="no" name="lighting" />
+                <label class="form__radio-label">
+                    Off
+                </label>
+            </div>
+            <!--Duration-->
+            <div>
+                <label class="config_label">Select Duration (days)</label>
+                <input type="number" name="duration_days" class="form__number_input">
+            </div>
+        </div>
+
+
+        <!--Start Process-->
+        <label class="config_label"></label>
+        <button type="submit" id="submit_button">Run Process</button>
+    </form>
+    <script type="text/javascript" src="../javascripts/main_configuration.js"></script>
+</body>
+
+</html>
