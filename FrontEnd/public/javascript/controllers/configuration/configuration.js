@@ -22,10 +22,10 @@ const displayOverrides = () => {
     }
 }
 
-// Start the process on form submit
+// Start a new mycobox session on form submit
 document.main_config_form.onsubmit = (e) => {
-    // map the form
     e.preventDefault();
+    // map the form
     const { process, config } = mapForm();
     // send Http request to start process on MycoBox
     api.newSession(process, config)
