@@ -1,6 +1,6 @@
 import Adafruit_DHT
 DHT_SENSOR = Adafruit_DHT.DHT22
-DHT_PIN = 25
+DHT_PIN = 24
 success = False
 count = 0
 while success is False and count < 10:
