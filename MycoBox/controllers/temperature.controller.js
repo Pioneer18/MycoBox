@@ -36,7 +36,7 @@ module.exports = {
      * of the actuator modules.
      */
     init: async () => {
-        
+
     },
 
     /**
@@ -47,6 +47,9 @@ module.exports = {
      */
     em: () => {
 
+        // Override directive
+        let OVERRIDE = false;
+
         /**
          * Generate Directive:
          * Purpose: Read the global configuration objects and variables to logically create a directive for the actuator modules to carry out.
@@ -54,7 +57,16 @@ module.exports = {
          * as an argument to the buildDirective.utility, a switch case that logic builds the directive for the controller's modules.
          */
         generateDirective = async () => {
-    
+
+        }
+
+        /**
+         * Override:
+         * Purpose: Manually switch the acuator on or off if OVERRIDE is true
+         * Description: Carries out the override directive
+         */
+        override = async () => {
+
         }
 
         /**
@@ -78,10 +90,8 @@ module.exports = {
          * Purpose: End the Environment Manager and report that the processes have successfully closed; both the actuator process and this one.
          */
         endSession = async () => {
-            
+
         }
     },
-
-
 
 }
