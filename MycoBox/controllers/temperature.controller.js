@@ -58,11 +58,27 @@ module.exports = {
         }
 
         /**
-         * Actuator Debugger:
-         * 
+         * Actuator Logger:
+         * Purpose: Create timestamped log files of actuators status and their directive as well as console logs
          */
-        actuatorDebugger = async () => {
+        actuatorLogger = async () => {
 
+        }
+
+        /**
+         * Data Logger
+         * Purpose: Send actuator status and directive to rolling DB...keeps last few months of data, backend clipped off
+         */
+        dataLogger = async () => {
+
+        }
+
+        /**
+         * End Session
+         * Purpose: End the Environment Manager and report that the processes have successfully closed; both the actuator process and this one.
+         */
+        endSession = async () => {
+            
         }
     },
 
