@@ -63,9 +63,10 @@ module.exports = {
         /**
          * Override:
          * Purpose: Manually switch the acuator on or off if OVERRIDE is true
-         * Description: Carries out the override directive
+         * Description: Commands the selected actuator to turn on/off regardless of the global context (EnvModel, SystemStatus, ...)
+         * @param {string, string} command actuator, on/off
          */
-        override = async () => {
+        override = async (command) => {
 
         }
 
