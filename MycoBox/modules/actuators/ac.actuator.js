@@ -14,6 +14,12 @@
  *   #2) start the correct method and update the modules status, local object alive as long as the process is running.   
  *   
  */
+
+// Import Relay
+const {s1r1_on, s1r1_off, s2r1_on, s2r1_off} = require('../../resources/relay');
 module.exports = {
-    
+    s1r1_on,
+    s1r1_off,
+    s2r1_on,
+    s2r1_off
 }

@@ -29,7 +29,7 @@
  */
 
 // Import Actuators
-
+const {s1r1_on, s1r1_off, s2r1_off, s2r1_on} = require('../modules/actuators/ac.actuator');
 module.exports = {
 
     /**
@@ -40,10 +40,32 @@ module.exports = {
      * and send the appropriate directive to the controller's actuator modules. 'Start the process', means start the correct async python subroutines
      * of the actuator modules.
      */
-    
+
     init: async () => {
         this.em();
     },
+
+    /**
+     * Override:
+     * Purpose: Manually switch the acuator on or off if OVERRIDE is true
+     * Description: Commands the selected actuator to turn on/off regardless of the global context (EnvModel, SystemStatus, ...)
+     * @param {string, string} command {actuator: '', status: ''}
+     */
+    override: async (command) => {
+        switch (command.actuator) {
+            case 'AC':
+                if (command.status === 'ON') s1r1_on();
+                if (command.status === 'OFF') s1r1_off();                
+                break;
+            case 'HEATER':
+                if (command.status === 'ON') s2r1_on();
+                if (command.status === 'OFF') s2r1_off();                
+                break;
+        
+            default:
+                break;
+        }
+    }
 }
 
 /**
@@ -54,11 +76,11 @@ module.exports = {
 this.OVERRIDE = false;
 
 
- /**
- * Environment Manager:
- * Purpose: Manage the temperature for the duration of the session
- * Description: every 15 seconds check the global configuration and send the appropriate directive to the controller's actuator modules. 
- * Check each actuator module's status and respond to any errors or service requests; calibration or whatever
+/**
+* Environment Manager:
+* Purpose: Manage the temperature for the duration of the session
+* Description: every 15 seconds check the global configuration and send the appropriate directive to the controller's actuator modules. 
+* Check each actuator module's status and respond to any errors or service requests; calibration or whatever
 */
 this.em = () => {
     console.log('starting the environment manager')
@@ -70,16 +92,6 @@ this.em = () => {
  * as an argument to the buildDirective.utility, a switch case that logic builds the directive for the controller's modules.
  */
 this.generateDirective = async () => {
-
-}
-
-/**
- * Override:
- * Purpose: Manually switch the acuator on or off if OVERRIDE is true
- * Description: Commands the selected actuator to turn on/off regardless of the global context (EnvModel, SystemStatus, ...)
- * @param {string, string} command actuator, on/off
- */
-this.override = async (command) => {
 
 }
 
