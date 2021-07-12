@@ -21,11 +21,13 @@
     "Precision Agriculture"
   ],
   "dependencies": {
+    "chalk": "^4.1.1",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",
     "express": "~4.16.1",
+    "inquirer": "^8.1.1",
     "morgan": "~1.9.1",
     "onoff": "^6.0.3",
     "python-shell": "^3.0.0",
