@@ -16,7 +16,7 @@
  */
 
 // Import Relay
-const {s1r1_on, s1r1_off, s2r1_on, s2r1_off} = require('../../resources/relay');
+const {s1r1_on, s1r1_off, s2r1_on, s2r1_off} = require('../relay');
 module.exports = {
     s1r1_on,
     s1r1_off,
