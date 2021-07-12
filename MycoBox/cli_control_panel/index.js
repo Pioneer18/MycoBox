@@ -91,7 +91,7 @@ RELAY #2
             }
             if (cmnd === 'S1R1_1') {
                 log(chalk.bgRed('S1R1_1: Turn Relay 1 Switch 1 OFF'))
-                relay.s1r2_off()
+                relay.s1r1_off()
             }
             if (cmnd === 'S2R1_0') {
                 log(chalk.bgRed('S2R1_0: Turn Relay 1 Switch 2 ON'))
