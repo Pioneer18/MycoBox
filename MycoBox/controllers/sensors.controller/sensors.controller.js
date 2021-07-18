@@ -15,7 +15,7 @@ module.exports = {
      * @param {Array} reply []
      */
     readTemp: () => {
-
+        
     },
 
     /**
