@@ -24,17 +24,21 @@ const { manageEnvironment } = require("../services/system.service")
  *  
  */
 const {sessionConfig} = require('../globals/globals')
+const {setEnvironmentModel} = require("./sensors.controller/sensors.controller")
 module.exports = {
 
      /**
      * Steps:
      * - Check the MycoBox 'System Status': If session already running then return error: session already active
-     * - call manageEnvironment subroutine to set the Evironment Model to the config
-     * @returns return confirmation session started
+     * - Set the environment model with the sensors.controller
+     * - return confirmation when the manageEnvironment method has begun
      */
     newSession: () => {
         // sensors.controller.setEnvironment()
-        if(!sessionConfig.active_session) manageEnvironment()
+        if(!sessionConfig.active_session) {
+            setEnvironmentModel()
+            manageEnvironment()
+        }
         else console.log("There is already an active session!")
     },
 

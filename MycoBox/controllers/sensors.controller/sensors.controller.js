@@ -52,6 +52,13 @@ module.exports = {
      */
     readInfrared: () => {
         
+    },
+
+    /**
+     * Set Environment Model - return readings of every sensor group
+     */
+    setEnvironmentModel: () => {
+        return 'ENVIRONMENT_MODEL SET'
     }
 
 }
