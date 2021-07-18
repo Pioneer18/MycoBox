@@ -14,10 +14,13 @@ while success_1 is False or success_2 is False or success_3 is False and count <
     h3, temp_3 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_3)
     if h1 is not None and temp_1 is not None:
         print("Temp_1={0:0.1f}*C  Humidity_1={1:0.1f}%".format(temp_1, h1))
+        success_1 = True
     if h2 is not None and temp_2 is not None:
         print("Temp_2={0:0.1f}*C Humidity_2={1:0.1f}%")
+        success_2 = True
     if h3 is not None and temp_3 is not None:
         print("Temp_3={0:0.1f}*C Humidity_3={1:0.1f}%")
+        success_3 = True
     if count < 10:
         count += 1
     else:
