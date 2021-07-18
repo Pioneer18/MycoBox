@@ -1,2 +1,2 @@
-const {set_environment_model, read_temp_humidity} = require('./sensors.controller')
+const {set_environment_model} = require('./sensors.controller')
 set_environment_model()
