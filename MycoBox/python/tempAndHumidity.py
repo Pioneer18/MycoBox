@@ -18,12 +18,12 @@ results = {
 # Read the sensors and map the results dictionary
 for x in sensor_list:
     print(x)
-    # if x == 1:
-    #     # read the 1st sensor
-    #     h1, temp_1 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_1)
-    #     # map the dictionary
-    #     results.update({"h1": h1})
-    #     results.update({"temp1": temp_1})
+    if x == 1:
+        # read the 1st sensor
+        h1, temp_1 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_1)
+        # map the dictionary
+        results.update({"h1": h1})
+        results.update({"temp1": temp_1})
     # if x == 2:
     #     # read the 2nd sensor
     #     h2, temp_2 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_2)
