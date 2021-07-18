@@ -1,8 +1,8 @@
 module.exports = {
     sessionConfig: {
+        active_session:'', // checked by newSession method only once
         session_id: '', // for logs
         user_id: '', // for logs
-        active: false,
         duration: '',
         canceled: false, // will end the session
     },

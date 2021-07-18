@@ -23,6 +23,7 @@ const { manageEnvironment } = require("../services/system.service")
  * handle the update; by calling on the appropriate controllers for updating the environment.
  *  
  */
+const {sessionConfig} = require('../globals/globals')
 module.exports = {
 
      /**
@@ -31,10 +32,10 @@ module.exports = {
      * - call manageEnvironment subroutine to set the Evironment Model to the config
      * @returns return confirmation session started
      */
-    
     newSession: () => {
-        
-        manageEnvironment();
+        // sensors.controller.setEnvironment()
+        if(!sessionConfig.active_session) manageEnvironment()
+        else console.log("There is already an active session!")
     },
 
     endSession: () => {
