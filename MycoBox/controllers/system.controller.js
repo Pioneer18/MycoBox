@@ -24,7 +24,7 @@ const { manageEnvironment } = require("../services/system.service")
  *  
  */
 const {sessionConfig} = require('../globals/globals')
-const {setEnvironmentModel} = require("./sensors.controller/sensors.controller")
+const {set_environment_model} = require("./sensors.controller/sensors.controller")
 module.exports = {
 
      /**
@@ -36,7 +36,7 @@ module.exports = {
     newSession: () => {
         // sensors.controller.setEnvironment()
         if(!sessionConfig.active_session) {
-            setEnvironmentModel()
+            set_environment_model()
             manageEnvironment()
         }
         else console.log("There is already an active session!")

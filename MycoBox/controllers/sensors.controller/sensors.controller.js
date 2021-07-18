@@ -1,7 +1,9 @@
 /**
  * Sensors Controller
  */
-const { PythonShell } = require('python-shell')
+const { PythonShell } = require('python-shell');
+const { environmentModel } = require('../../globals/globals');
+const { validate_set_environment } = require('../../utilities');
 let options = {
     mode: 'text',
     pythonOptions: ['-u'], // get print results in real-time
@@ -50,7 +52,7 @@ const read_co2 = () => {
  * @param {Array} reply
  */
 const read_scale = () => {
-
+    return ['weight: 45lbs']
 }
 
 /**
@@ -58,19 +60,25 @@ const read_scale = () => {
  * @param {Array} reply
  */
 const read_infrared = () => {
-
+    return ["irTemp: 24C"]
 }
 
 /**
  * Set Environment Model - return readings of every sensor group
  */
 const set_environment_model = () => {
-    // const weight = this.read_scale()
-    // const irTemp = this.read_infrared()
+    const temp_humidity = read_temp_humidity()
+    const temp_precise = read_precise_temp()
+    const co2 = read_co2()
+    const weight = read_scale()
+    const irTemp = read_infrared()
+    // validate the results
+    validate_set_environment(temp_humidity,temp_precise, co2, weight, irTemp)
+    // map results to the global object
     return {
-        "Temperature_Humidity": read_temp_humidity(),
-        "Temperature_Precise": read_precise_temp(),
-        "CO2": read_co2(),
+        "Temperature_Humidity": temp_humidity,
+        "Temperature_Precise": temp_precise,
+        "CO2": co2,
     }
 }
 
