@@ -10,12 +10,15 @@ let options = {
   };
 
 module.exports = {
-    // return a reading from every sensor
-    setEnvironmentModel: ()=> {
-        PythonShell.run('CO2.py', options, function (err, results) {
+    /**
+     * CO2 
+     * @param {Array} reply ["CO2 PPM = 536.0"]
+     */
+    readCO2: ()=> {
+        PythonShell.run('CO2.py', options, function (err, reply) {
             if (err) throw err;
-            // results is an array consisting of messages collected during execution
-            console.log('results: %j', results);
+            console.log('reply: %j', reply);
+            return reply;
         });
     }
 }
