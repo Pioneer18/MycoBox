@@ -21,7 +21,7 @@ for x in sensor_list:
         # read the 1st sensor
         h1, temp_1 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_1)
         # map the dictionary
-        print("Humidity_1={1:0.1f}%".format(h1))
+        print("Humidity_1={0:0.1f}%".format(h1))
         print("Temp_1={0:0.1f}*C".format(temp_1))
         results.update({"h1": h1})
         results.update({"temp1": temp_1})
