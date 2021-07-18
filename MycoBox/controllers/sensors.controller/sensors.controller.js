@@ -21,6 +21,16 @@ const read_temp_humidity = async () => {
         console.log('reply: %j', reply)
         return reply
     })
+    PythonShell.run('dht22/dht22.2.py', options, function (err, reply) {
+        if (err) throw err
+        console.log('reply: %j', reply)
+        return reply
+    })
+    PythonShell.run('dht22/dht22.3.py', options, function (err, reply) {
+        if (err) throw err
+        console.log('reply: %j', reply)
+        return reply
+    })
 }
 
 /**
