@@ -5,7 +5,7 @@ const {PythonShell} = require('python-shell')
 let options = {
     mode: 'text',
     pythonOptions: ['-u'], // get print results in real-time
-    scriptPath: '../../python',
+    scriptPath: '../python',
     // args: ['value1', 'value2', 'value3']
   };
 
