@@ -13,7 +13,7 @@ ser.reset_input_buffer()
 resp = ser.read(10)
 resp = resp[:8]
 fltCo2 = float(resp[2:])
-print ("CO2 PPM = ", fltCo2)
+print ("CO2 PPM:", fltCo2)
 
 
 
