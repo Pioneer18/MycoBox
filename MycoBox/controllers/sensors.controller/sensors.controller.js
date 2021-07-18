@@ -14,7 +14,7 @@ module.exports = {
      * DHT22 Temperature & humidity readings - internal & external
      * @param {Array} reply []
      */
-    read_temp_humidity: () => {
+    read_temp_humidity: function () {
         PythonShell.run('temp.humidity.py', options, function(err, reply) {
             if (err) throw err
             console.log('reply: %j', reply)
