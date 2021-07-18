@@ -18,20 +18,20 @@ results = {
 for x in sensor_list:
     if x == 1:
         h1, temp_1 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_1)
-        print("Humidity_1={0:0.1f}%".format(h1))
-        print("Temp_1={0:0.1f}*C".format(temp_1))
+        # print("Humidity_1={0:0.1f}%".format(h1))
+        # print("Temp_1={0:0.1f}*C".format(temp_1))
         results.update({"h1": h1})
         results.update({"temp1": temp_1})
     if x == 2:
         h2, temp_2 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_2)
-        print("Humidity_1={0:0.1f}%".format(h2))
-        print("Temp_1={0:0.1f}*C".format(temp_2))
+        # print("Humidity_1={0:0.1f}%".format(h2))
+        # print("Temp_1={0:0.1f}*C".format(temp_2))
         results.update({"h2": h2})
         results.update({"temp2": temp_2})
     if x == 3:
         h3, temp_3 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_3)
-        print("Humidity_1={0:0.1f}%".format(h3))
-        print("Temp_1={0:0.1f}*C".format(temp_3))
+        # print("Humidity_1={0:0.1f}%".format(h3))
+        # print("Temp_1={0:0.1f}*C".format(temp_3))
         results.update({"h3": h3})
         results.update({"temp3": temp_3})
 print(results)
