@@ -6,7 +6,7 @@
  * @param {} weight 
  * @param {Array} irTemp
  */
-const validate_set_environment = (
+const validate_set_environment = async (
     temp_humidity,
     temp_precise,
     co2,

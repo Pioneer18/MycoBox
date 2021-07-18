@@ -36,7 +36,7 @@ module.exports = {
     newSession: () => {
         // sensors.controller.setEnvironment()
         if(!sessionConfig.active_session) {
-            set_environment_model()
+            await set_environment_model()
             manageEnvironment()
         }
         else console.log("There is already an active session!")

@@ -16,7 +16,7 @@ let options = {
  * DHT22 Temperature & humidity readings - internal & external
  * @param {Array} reply []
  */
-const read_temp_humidity = () => {
+const read_temp_humidity = async () => {
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err
         console.log('reply: %j', reply)
@@ -27,7 +27,7 @@ const read_temp_humidity = () => {
 /**
  * MAX31855 Temperature - internal precise temp
  */
-const read_precise_temp = () => {
+const read_precise_temp = async () => {
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
         console.log('reply: %j', reply)
@@ -39,7 +39,7 @@ const read_precise_temp = () => {
  * CO2 readings from COZIR-A sensor
  * @param {Array} reply ["CO2 PPM = 536.0"]
  */
-const read_co2 = () => {
+const read_co2 = async () => {
     PythonShell.run('co2.py', options, function (err, reply) {
         if (err) throw err
         console.log('reply: %j', reply)
@@ -51,7 +51,7 @@ const read_co2 = () => {
  * Weight readings from Esp8266 scale ** HTTP or Serial request
  * @param {Array} reply
  */
-const read_scale = () => {
+const read_scale = async () => {
     return ['weight: 45lbs']
 }
 
@@ -59,21 +59,21 @@ const read_scale = () => {
  * Infrared Temp readings - grow bags
  * @param {Array} reply
  */
-const read_infrared = () => {
+const read_infrared = async () => {
     return ["irTemp: 24C"]
 }
 
 /**
  * Set Environment Model - return readings of every sensor group
  */
-const set_environment_model = () => {
-    const temp_humidity = read_temp_humidity()
-    const temp_precise = read_precise_temp()
-    const co2 = read_co2()
-    const weight = read_scale()
-    const irTemp = read_infrared()
+const set_environment_model = async () => {
+    const temp_humidity = await read_temp_humidity()
+    const temp_precise = await read_precise_temp()
+    const co2 = await read_co2()
+    const weight = await read_scale()
+    const irTemp = await read_infrared()
     // validate the results
-    validate_set_environment(temp_humidity,temp_precise, co2, weight, irTemp)
+    await validate_set_environment(temp_humidity,temp_precise, co2, weight, irTemp)
     // map results to the global object
     return {
         "Temperature_Humidity": temp_humidity,
