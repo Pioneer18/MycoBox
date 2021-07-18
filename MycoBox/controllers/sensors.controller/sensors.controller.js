@@ -75,9 +75,9 @@ const set_environment_model = async () => {
     // await validate_set_environment(temp_humidity,temp_precise, co2, weight, irTemp)
     // // map results to the global object
     return {
-        "Temperature_Humidity": temp_humidity,
-        "Temperature_Precise": temp_precise,
-        "CO2": co2,
+        "Temperature_Humidity": await read_temp_humidity(),
+        "Temperature_Precise": await read_precise_temp(),
+        "CO2": await read_co2(),
     }
 }
 
