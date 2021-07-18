@@ -68,6 +68,7 @@ const read_infrared = async () => {
  */
 const set_environment_model = async () => {
     const temp_humidity = await read_temp_humidity()
+    console.log(temp_humidity);
     const temp_precise = await read_precise_temp()
     const co2 = await read_co2()
     const weight = await read_scale()
