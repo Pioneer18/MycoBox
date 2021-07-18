@@ -8,12 +8,12 @@ success = False
 count = 0
 sensor_list = [1, 2, 3]
 results = {
-    "h1": "95",
-    "h2": "94",
-    "h3": "53",
-    "temp1": "25",
-    "temp2": "25",
-    "temp3": "27",
+    "h1": 0,
+    "h2": 0,
+    "h3": 0,
+    "temp1": 0,
+    "temp2": 0,
+    "temp3": 0,
 }
 # Read the sensors and map the results dictionary
 for x in sensor_list:
@@ -22,9 +22,10 @@ for x in sensor_list:
         # read the 1st sensor
         h1, temp_1 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_1)
         # map the dictionary
-        
-        results.update({"h1": "Humidity_1={1:0.1f}%".format(h1)})
-        results.update({"temp1": "Temp_1={0:0.1f}*C".format(temp_1)})
+        print(h1)
+        print(temp_1)
+        results.update({"h1": h1})
+        results.update({"temp1": temp_1})
     # if x == 2:
     #     # read the 2nd sensor
     #     h2, temp_2 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_2)
