@@ -8,6 +8,7 @@ module.exports = {
     },
     environmentConfig: {
         temp: '',
+        irTemp: '', 
         humidity: '', 
         co2: '',
         lighting: ''

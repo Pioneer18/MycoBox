@@ -58,6 +58,11 @@ module.exports = {
      * Set Environment Model - return readings of every sensor group
      */
     setEnvironmentModel: () => {
+        const temperature = this.readTemp();
+        const humidity = this.readHumidity();
+        const co2 = this.readCO2();
+        const weight = this.readScale();
+        const irTemp = this.readInfrared();
         return 'ENVIRONMENT_MODEL SET'
     }
 
