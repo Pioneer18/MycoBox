@@ -65,9 +65,6 @@ const read_infrared = () => {
  * Set Environment Model - return readings of every sensor group
  */
 const set_environment_model = () => {
-    //const temperature_humidity = read_temp_humidity()
-    // const precise_temp = this.read_precise_temp()
-    // const co2 = this.read_co2()
     // const weight = this.read_scale()
     // const irTemp = this.read_infrared()
     return {

@@ -29,7 +29,7 @@
  */
 
 // Import Actuators
-const {s1r1_on, s1r1_off, s2r1_off, s2r1_on} = require('../modules/actuators/ac.actuator');
+const {s1r1_on, s1r1_off, s2r1_off, s2r1_on} = require('../../modules/actuators/ac.actuator');
 module.exports = {
 
     /**
