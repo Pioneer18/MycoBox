@@ -14,11 +14,9 @@ const validate_set_environment = async (
     irTemp
 ) => {
     // temp_humidity
-    for (const result in temp_humidity[0]) {
-        console.log(result)
-    }
+    console.log(temp_humidity)
     // temp_precise
-    console.log(temp_precise[0])
+    console.log(temp_precise)
     // co2
     console.log(co2)
     // weight
