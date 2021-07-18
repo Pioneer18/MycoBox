@@ -14,7 +14,7 @@ const validate_set_environment = async (
     irTemp
 ) => {
     // temp_humidity
-    console.log(temp_humidity)
+    console.log(JSON.stringify(temp_humidity))
     // temp_precise
     console.log(temp_precise)
     // co2
