@@ -73,11 +73,7 @@ const set_environment_model = async () => {
     const weight = await read_scale()
     const irTemp = await read_infrared()
     // validate the results
-    try {
-        await validate_set_environment(temp_humidity,temp_precise, co2, weight, irTemp)
-    } catch (err) {
-        throw new Error(err)
-    }
+    await validate_set_environment(temp_humidity,temp_precise, co2, weight, irTemp)
     // map results to the global object
     return {
         "Temperature_Humidity": temp_humidity,
