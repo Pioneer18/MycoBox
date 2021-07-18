@@ -1,2 +1,2 @@
-const {setEnvironmentModel} = require('../MycoBox/controllers/sensors.controller')
+const {setEnvironmentModel} = require('./sensors.controller')
 setEnvironmentModel();
