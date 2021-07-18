@@ -66,7 +66,10 @@ const set_environment_model = () => {
     // const co2 = this.read_co2()
     // const weight = this.read_scale()
     // const irTemp = this.read_infrared()
-    return { "temperature_humidity": read_temp_humidity() }
+    return { 
+        "Temperature_Humidity": read_temp_humidity(),
+        "CO2": read_co2(),
+    }
 }
 
 module.exports = {
