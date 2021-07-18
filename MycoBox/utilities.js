@@ -23,6 +23,7 @@ const validate_set_environment = async (
     console.log(weight)
     // irTemp
     console.log(irTemp)
+    return
 }
 
 module.exports = {
