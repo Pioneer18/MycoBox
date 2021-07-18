@@ -26,7 +26,11 @@ const read_temp_humidity = () => {
  * MAX31855 Temperature - internal precise temp
  */
 const read_precise_temp = () => {
-
+    PythonShell.run('temp.precise.py', options, function (err, reply) {
+        if (err) throw err
+        console.log('reply: %j', reply)
+        return reply
+    })
 }
 
 /**
@@ -34,7 +38,7 @@ const read_precise_temp = () => {
  * @param {Array} reply ["CO2 PPM = 536.0"]
  */
 const read_co2 = () => {
-    PythonShell.run('CO2.py', options, function (err, reply) {
+    PythonShell.run('co2.py', options, function (err, reply) {
         if (err) throw err
         console.log('reply: %j', reply)
         return reply
@@ -66,8 +70,9 @@ const set_environment_model = () => {
     // const co2 = this.read_co2()
     // const weight = this.read_scale()
     // const irTemp = this.read_infrared()
-    return { 
+    return {
         "Temperature_Humidity": read_temp_humidity(),
+        "Temperature_Precise": read_precise_temp(),
         "CO2": read_co2(),
     }
 }
