@@ -11,38 +11,41 @@ let options = {
 
 module.exports = {
     /**
-     * Temperature readings - internal & external
+     * DHT22 Temperature & humidity readings - internal & external
      * @param {Array} reply []
      */
-    readTemp: () => {
-        
+    read_temp_humidity: () => {
+        PythonShell.run('temp.humidity.py', options, function(err, reply) {
+            if (err) throw err
+            console.log('reply: %j', reply)
+            return reply
+        })
+    },
+
+    /**
+     * MAX31855 Temperature - internal precise temp
+     */
+    read_precise_temp: () => {
+
     },
 
     /**
      * CO2 readings from COZIR-A sensor
      * @param {Array} reply ["CO2 PPM = 536.0"]
      */
-    readCO2: ()=> {
+    read_co2: ()=> {
         PythonShell.run('CO2.py', options, function (err, reply) {
-            if (err) throw err;
-            console.log('reply: %j', reply);
-            return reply;
+            if (err) throw err
+            console.log('reply: %j', reply)
+            return reply
         });
-    },
-
-    /**
-     * Humidity readings - internal & external
-     * @param {Array} reply
-     */
-    readHumidity: () => {
-
     },
 
     /**
      * Weight readings from Esp8266 scale ** HTTP or Serial request
      * @param {Array} reply
      */
-    readScale: () => {
+    read_scale: () => {
 
     },
 
@@ -50,20 +53,20 @@ module.exports = {
      * Infrared Temp readings - grow bags
      * @param {Array} reply
      */
-    readInfrared: () => {
+    read_infrared: () => {
         
     },
 
     /**
      * Set Environment Model - return readings of every sensor group
      */
-    setEnvironmentModel: () => {
-        const temperature = this.readTemp();
-        const humidity = this.readHumidity();
-        const co2 = this.readCO2();
-        const weight = this.readScale();
-        const irTemp = this.readInfrared();
-        return 'ENVIRONMENT_MODEL SET'
+    set_environment_model: () => {
+        const temperature_humidity = this.read_temp_humidity()
+        const precise_temp = this.read_precise_temp()
+        const co2 = this.read_co2()
+        const weight = this.read_scale()
+        const irTemp = this.read_infrared()
+        return {temperature_humidity, co2}
     }
 
 }
