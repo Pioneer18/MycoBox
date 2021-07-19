@@ -16,17 +16,7 @@ let options = {
  * @param {Array} reply []
  */
 const read_temp_humidity = async () => {
-    await PythonShell.run('dht22/dht22.1.py', options, function (err, reply) {
-        if (err) throw err
-        console.log('reply: %j', reply)
-        return reply
-    })
-    await PythonShell.run('dht22/dht22.2.py', options, function (err, reply) {
-        if (err) throw err
-        console.log('reply: %j', reply)
-        return reply
-    })
-    await PythonShell.run('dht22/dht22.3.py', options, function (err, reply) {
+    await PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err
         console.log('reply: %j', reply)
         return reply
