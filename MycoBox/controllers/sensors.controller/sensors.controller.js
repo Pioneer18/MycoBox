@@ -19,6 +19,9 @@ const read_temp_humidity = async () => {
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err)
             throw err;
+            // set the env model from here
+            console.log(reply)
+            console.log(reply[0])
         return reply;
     })
 }
@@ -65,9 +68,9 @@ const read_infrared = async () => {
  * Set Environment Model - return readings of every sensor group
  */
 const set_environment_model = async () => {
-    console.log(await read_temp_humidity())
-    console.log(await read_precise_temp())
-    console.log(await read_co2())
+    await read_temp_humidity()
+    await read_precise_temp()
+    await read_co2()
     return
 }
 
