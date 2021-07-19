@@ -16,9 +16,10 @@ let options = {
  * @param {Array} reply []
  */
 const read_temp_humidity = async () => {
-    await PythonShell.run('temp.humidity.py', options, function (err, reply) {
-        if (err) throw err
-        return reply
+    PythonShell.run('temp.humidity.py', options, function (err, reply) {
+        if (err)
+            throw err;
+        return reply;
     })
 }
 
@@ -38,8 +39,9 @@ const read_precise_temp = async () => {
  */
 const read_co2 = async () => {
     PythonShell.run('co2/co2.py', options, function (err, reply) {
-        if (err) throw err
-        return reply
+        if (err)
+            throw err;
+        return reply;
     });
 }
 
@@ -66,14 +68,9 @@ const set_environment_model = async () => {
     const temp_humidity = await read_temp_humidity()
     const temp_precise = await read_precise_temp()
     const co2 = await read_co2()
-    // const weight = await read_scale()
-    // const irTemp = await read_infrared()
-    console.log(
-        temp_humidity,
-        temp_precise,
-        co2,
-    )
-    return
+    console.log(temp_humidity)
+    console.log(temp_precise)
+    console.log(co2)
 }
 
 module.exports = {
