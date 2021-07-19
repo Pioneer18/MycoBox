@@ -21,7 +21,7 @@ const read_temp_humidity = async () => {
             throw err;
             // set the env model from here
             const temp = reply[0]
-            console.log(JSON.stringify(temp))
+            console.log(temp['h1'])
         return reply;
     })
 }
