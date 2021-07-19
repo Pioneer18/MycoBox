@@ -20,7 +20,6 @@ const read_temp_humidity = async () => {
         if (err)
             throw err;
             // set the env model from here
-            console.log(reply)
             console.log(reply[0])
         return reply;
     })
