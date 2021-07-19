@@ -41,7 +41,6 @@ const read_co2 = async () => {
     PythonShell.run('co2/co2.py', options, function (err, reply) {
         if (err)
             throw err;
-            console.log(reply)
         return reply;
     });
 }
