@@ -39,7 +39,7 @@ const read_precise_temp = async () => {
  * @param {Array} reply ["CO2 PPM = 536.0"]
  */
 const read_co2 = async () => {
-    PythonShell.run('co2.py', options, function (err, reply) {
+    PythonShell.run('co2/co2.py', options, function (err, reply) {
         if (err) throw err
         console.log('reply: %j', reply)
         return reply
