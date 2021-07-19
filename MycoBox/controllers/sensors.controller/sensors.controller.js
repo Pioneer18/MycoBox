@@ -71,7 +71,7 @@ const set_environment_model = async () => {
     const temp_humidity = await read_temp_humidity()
     const temp_precise = await read_precise_temp()
     const co2 = await read_co2()
-    console.log(JSON.parse(temp_humidity))
+    console.log(temp_humidity)
     console.log(temp_precise)
     console.log(co2)
 }
