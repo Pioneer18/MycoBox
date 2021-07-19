@@ -18,7 +18,6 @@ let options = {
 const read_temp_humidity = async () => {
     await PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err
-        console.log('reply: %j', reply)
         return reply
     })
 }
@@ -29,7 +28,6 @@ const read_temp_humidity = async () => {
 const read_precise_temp = async () => {
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
-        console.log('reply: %j', reply)
         return reply
     })
 }
@@ -41,7 +39,6 @@ const read_precise_temp = async () => {
 const read_co2 = async () => {
     PythonShell.run('co2/co2.py', options, function (err, reply) {
         if (err) throw err
-        console.log('reply: %j', reply)
         return reply
     });
 }
