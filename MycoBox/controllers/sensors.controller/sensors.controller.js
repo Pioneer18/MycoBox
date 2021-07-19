@@ -69,24 +69,14 @@ const set_environment_model = async () => {
     const temp_humidity = await read_temp_humidity()
     const temp_precise = await read_precise_temp()
     const co2 = await read_co2()
-    const weight = await read_scale()
-    const irTemp = await read_infrared()
+    // const weight = await read_scale()
+    // const irTemp = await read_infrared()
     console.log(
         temp_humidity,
         temp_precise,
         co2,
-        weight,
-        irTemp
     )
     return
-    // // validate the results
-    // await validate_set_environment(temp_humidity,temp_precise, co2, weight, irTemp)
-    // // map results to the global object
-    // return {
-    //     "Temperature_Humidity": await read_temp_humidity(),
-    //     "Temperature_Precise": await read_precise_temp(),
-    //     "CO2": await read_co2(),
-    // }
 }
 
 module.exports = {
