@@ -59,7 +59,7 @@ const read_co2 = async () => {
         if (err)
             throw err;
         const parsed = parse_co2_data(reply)
-        fs.writeFile('/test.txt', parsed, err => {
+        fs.writeFile('test.txt', parsed, err => {
             if (err) {
                 console.error(err)
                 return
