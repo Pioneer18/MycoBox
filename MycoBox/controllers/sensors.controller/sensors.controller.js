@@ -17,12 +17,12 @@ let options = {
  */
 const read_temp_humidity = async () => {
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
-        if (err)
-            throw err;
-            console.log(JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)))
-            // clip the string apart and grab the values
-            // validate the values
-            // map values to the environment model
+        if (err) throw err;
+        const temp = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g))
+        console.log(temp[0])
+        // clip the string apart and grab the values
+        // validate the values
+        // map values to the environment model
         return reply;
     })
 }
