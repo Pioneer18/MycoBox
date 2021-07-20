@@ -27,6 +27,9 @@ const read_temp_humidity = async () => {
         console.log(split[9])
         console.log(split[11])
         // validate the values
+        for (let i =1; i < 12; i += 2) {
+            console.log(split[i])
+        }
         // map values to the environment model
         return reply;
     })
