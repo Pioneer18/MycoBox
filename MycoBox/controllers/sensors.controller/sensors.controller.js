@@ -20,6 +20,7 @@ const read_temp_humidity = async () => {
         if (err) throw err;
         const temp = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g))
         const split = temp.split('"')
+        console.log(split)
         console.log(split[1])
         console.log(split[2])
         console.log(split[3])
