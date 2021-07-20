@@ -24,7 +24,7 @@ const validate_sensor_data = (data) => {
     for (const i in data) {
         if ((typeof data[i]) !== 'string') throw new Error(`Sensor-${i} has returned an invalid data type: ${typeof data[i]} - ${data[i]}`)
         if ((data[i]) === '0') throw new Error(`Sensor-${i} has returned: ${data[i]}`)
-        console.log(typeof data[i])
+        console.log(data[i])
     }
 }
 module.exports = {
