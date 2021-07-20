@@ -21,8 +21,7 @@ const read_temp_humidity = async () => {
             throw err;
             const temp = JSON.stringify(reply[0])
             const obj = JSON.parse(temp);
-            console.log(Object.keys(obj));
-            console.log(temp)
+            console.log(obj)
             // clip the string apart and grab the values
             // validate the values
             // map values to the environment model

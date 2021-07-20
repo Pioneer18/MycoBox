@@ -4,7 +4,7 @@ DHT_SENSOR = Adafruit_DHT.DHT22
 DHT_1 = 24  # lower dht22
 DHT_2 = 25  # top dht22
 DHT_3 = 1  # external dht22
-sensor_list = [1, 2, 3]
+sensor_list = [1, 2]
 results = {
     "h1": 0,
     "h2": 0,
