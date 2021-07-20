@@ -39,7 +39,7 @@ const read_temp_humidity = async () => {
  * MAX31855 Temperature - internal precise temp
  */
 const read_precise_temp = async () => {
-    PythonShell.run('temp.precise.py', options, function (err, reply) {
+    const test = PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
         const parsed = parse_pt_data(reply)
         return {
@@ -47,6 +47,8 @@ const read_precise_temp = async () => {
             precise_temp_f: parsed[1]
         }
     })
+    console.log('test here')
+    console.log(test())
 }
 
 /**
