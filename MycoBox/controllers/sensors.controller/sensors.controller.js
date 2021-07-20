@@ -20,11 +20,12 @@ let options = {
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
 const read_temp_humidity = async () => {
+    process.env.internal_humidity_1 = 'tee-hee'
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err;
         const parsed = parse_th_data(reply)
         validate_sensor_data(parsed)
-        process.env.internal_humidity_1 = 'tee-hee'
+        process.env.internal_humidity_1 = parsed[0]
         process.env.internal_humidity_2 = parsed[1]
         process.env.external_humidity = parsed[2]
         process.env.internal_temp_1 = parsed[3]
