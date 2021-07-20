@@ -52,6 +52,7 @@ const read_co2 = async () => {
         if (err)
             throw err;
             const parsed = parse_sensor_data(reply)
+            console.log(parsed)
         return reply;
     });
 }
