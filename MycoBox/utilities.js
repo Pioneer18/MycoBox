@@ -18,6 +18,6 @@ const validate_sensor_data = (data) => {
 const parse_sensor_data = (reply) =>  JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
 
 module.exports = {
-    
+    validate_sensor_data,
     parse_sensor_data
 }
