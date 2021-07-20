@@ -21,6 +21,14 @@ let options = {
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
 const read_temp_humidity = async () => {
+
+    const content = 'Some content!'
+    try {
+    const data = fs.writeFileSync('test.txt', content)
+    //file written successfully
+    } catch (err) {
+    console.error(err)
+    }
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err;
         const parsed = parse_th_data(reply)

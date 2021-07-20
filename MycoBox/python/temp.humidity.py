@@ -1,4 +1,5 @@
 # Read The internal and External DHT22 sensors, 1 - 3, and report the results
+from sys import modules
 import Adafruit_DHT
 DHT_SENSOR = Adafruit_DHT.DHT22
 DHT_1 = 24  # lower dht22
