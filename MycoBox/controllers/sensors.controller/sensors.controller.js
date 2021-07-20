@@ -25,12 +25,12 @@ const read_temp_humidity = async () => {
         const parsed = parse_th_data(reply)
         validate_sensor_data(parsed)
         return {
-            internal_humidity_1 = parsed[0],
-            internal_humidity_2 = parsed[1],
-            external_humidity = parsed[2],
-            internal_temp_1 = parsed[3],
-            internal_temp_2 = parsed[4],
-            external_temp = parsed[5]
+            internal_humidity_1 :parsed[0],
+            internal_humidity_2: parsed[1],
+            external_humidity :parsed[2],
+            internal_temp_1: parsed[3],
+            internal_temp_2: parsed[4],
+            external_temp: parsed[5]
         }
     })
 }
@@ -43,8 +43,8 @@ const read_precise_temp = async () => {
         if (err) throw err
         const parsed = parse_pt_data(reply)
         return {
-            precise_temp_c = parsed[0],
-            precise_temp_f = parsed[1]
+            precise_temp_c: parsed[0],
+            precise_temp_f: parsed[1]
         }
     })
 }
