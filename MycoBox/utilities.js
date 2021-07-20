@@ -6,7 +6,13 @@
  * @param {} weight 
  * @param {Array} irTemp
  */
-
+const validate_sensor_data = (data) => {
+    for (let i =1; i < 12; i += 2) {
+        console.log(data[i])
+        if (typeof data[i] !== 'string') throw new Error(`Sensor-${i} has returned an invalid data type: ${typeof data[i]} - ${data[i]}`)
+        if (data[i] === '0') throw new Error(`Sensor-${i} has returned: ${data[i]}`)
+    }
+}
 
 const parse_sensor_data = (reply) =>  JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
 
