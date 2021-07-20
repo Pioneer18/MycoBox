@@ -8,11 +8,11 @@ sensor_list = [1, 2, 3]
 results = {
     "h1": 0,
     "h2": 0,
-    "h3": 0,
     "temp1": 0,
     "temp2": 0,
-    "temp3": 0,
 }
+    # "h3": 0,
+    # "temp3": 0,
 for x in sensor_list:
     if x == 1:
         h1, temp_1 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_1)
@@ -24,10 +24,10 @@ for x in sensor_list:
         results.update({"h2": h2})
         results.update({"temp2": temp_2})
         continue
-    if x == 3:
-        h3, temp_3 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_3)
-        results.update({"h3": h3})
-        results.update({"temp3": temp_3})
-        continue
+    # if x == 3:
+    #     h3, temp_3 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_3)
+    #     results.update({"h3": h3})
+    #     results.update({"temp3": temp_3})
+    #     continue
 print(results)
 
