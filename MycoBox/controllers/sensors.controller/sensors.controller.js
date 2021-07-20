@@ -2,7 +2,7 @@
  * Sensors Controller
  */
 const { PythonShell } = require('python-shell');
-const { environmentModel } = require('../../globals/globals');
+// const { environmentModel } = require('../../globals/globals');
 const {
     parse_th_data,
     validate_sensor_data,
@@ -30,6 +30,7 @@ const read_temp_humidity = async () => {
         environmentModel.internal_temp_1 = parsed[3]
         environmentModel.internal_temp_2 = parsed[4]
         environmentModel.external_temp = parsed[5]
+        
         return
     })
 }
