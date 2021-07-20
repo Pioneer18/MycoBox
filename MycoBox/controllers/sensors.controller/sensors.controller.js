@@ -21,7 +21,12 @@ const read_temp_humidity = async () => {
         validate_sensor_data(parsed)
         // map values to the environment model
         environmentModel.internal_humidity_1 = parsed[0]
-        console.log(`environmentModel: ${environmentModel.internal_humidity_1}`)
+        environmentModel.internal_humidity_2 = parsed[1]
+        environmentModel.external_humidity = parsed[2]
+        environmentModel.internal_temp_1 = parsed[3]
+        environmentModel.internal_temp_2 = parsed[4]
+        environmentModel.external_temp = parsed[5]
+        console.log(`environmentModel: ${environmentModel}`)
         return
     })
 }
@@ -32,9 +37,8 @@ const read_temp_humidity = async () => {
 const read_precise_temp = async () => {
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
-        // const split = parse_sensor_data(reply)
-        // console.log(split[1])
-        // console.log(split[3])
+        const parsed = parse_sensor_data(reply)
+        console.log(parsed)
         return reply
     })
 }
@@ -47,10 +51,7 @@ const read_co2 = async () => {
     PythonShell.run('co2/co2.py', options, function (err, reply) {
         if (err)
             throw err;
-            // const split = parse_sensor_data(reply)
-            // console.log(split[1])
-            // set environment model utility
-
+            const parsed = parse_sensor_data(reply)
         return reply;
     });
 }
