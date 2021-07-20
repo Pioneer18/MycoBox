@@ -58,3 +58,15 @@ global.environmentModel = {
     co2: '', // cozIr-A
     weight: '', // esp8266
 }
+process.env.ENVIRONMENT_MODEL = {
+        internal_temp_1: '', // dht22_1
+        internal_temp_2: '', // dht22_2
+        precise_temp_c: '', // max31855
+        precise_temp_f: '', // max31855
+        external_temp: '', // dht22_3
+        internal_humidity_1: '', // dht_22_1
+        internal_humidity_2: '', // dht_22_2
+        external_humidity: '', // dht_22_3
+        co2: '', // cozIr-A
+        weight: '', // esp8266
+}
