@@ -6,29 +6,15 @@
  * @param {} weight 
  * @param {Array} irTemp
  */
-const validate_set_environment = async (
-    temp_humidity,
-    temp_precise,
-    co2,
-    weight,
-    irTemp
-) => {
-    // temp_humidity
-    console.log(JSON.parse(temp_humidity))
-    // temp_precise
-    console.log(temp_precise)
-    // co2
-    console.log(co2)
-    // weight
-    console.log(weight)
-    // irTemp
-    console.log(irTemp)
-    return
+const validate_sensor_data = (data) => {
+    for (const val in data) {
+        console.log(typeof data)
+    }
 }
 
 const parse_sensor_data = (reply) =>  JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
 
 module.exports = {
-    validate_set_environment,
+    validate_sensor_data,
     parse_sensor_data
 }

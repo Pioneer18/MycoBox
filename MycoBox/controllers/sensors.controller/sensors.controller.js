@@ -3,7 +3,7 @@
  */
 const { PythonShell } = require('python-shell');
 const { environmentModel } = require('../../globals/globals');
-const { validate_set_environment, parse_sensor_data } = require('../../utilities');
+const { validate_sensor_data, parse_sensor_data } = require('../../utilities');
 let options = {
     mode: 'text',
     pythonOptions: ['-u'], // get print results in real-time
@@ -20,13 +20,13 @@ const read_temp_humidity = async () => {
         if (err) throw err;
         // clip the string apart and grab the values
         const split = parse_sensor_data(reply)
+        const validated = validate_sensor_data(split)
         console.log(split[1])
         console.log(split[3])
         console.log(split[5])
         console.log(split[7])
         console.log(split[9])
         console.log(split[11])
-        
         // validate the values
         // map values to the environment model
         return reply;
