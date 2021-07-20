@@ -1,6 +1,7 @@
 /**
  * Sensors Controller
  */
+const fs = require('fs')
 const { PythonShell } = require('python-shell');
 // const { environmentModel } = require('../../globals/globals');
 const {
@@ -25,9 +26,9 @@ const read_temp_humidity = async () => {
         const parsed = parse_th_data(reply)
         validate_sensor_data(parsed)
         return {
-            internal_humidity_1 :parsed[0],
+            internal_humidity_1: parsed[0],
             internal_humidity_2: parsed[1],
-            external_humidity :parsed[2],
+            external_humidity: parsed[2],
             internal_temp_1: parsed[3],
             internal_temp_2: parsed[4],
             external_temp: parsed[5]
@@ -39,7 +40,7 @@ const read_temp_humidity = async () => {
  * MAX31855 Temperature - internal precise temp
  */
 const read_precise_temp = async () => {
-    const test = PythonShell.run('temp.precise.py', options, function (err, reply) {
+    PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
         const parsed = parse_pt_data(reply)
         return {
@@ -47,8 +48,6 @@ const read_precise_temp = async () => {
             precise_temp_f: parsed[1]
         }
     })
-    console.log('test here')
-    console.log(test())
 }
 
 /**
@@ -60,7 +59,12 @@ const read_co2 = async () => {
         if (err)
             throw err;
         const parsed = parse_co2_data(reply)
-        return co2 = parsed
+        fs.writeFile('/test.txt', parsed, err => {
+            if (err) {
+                console.error(err)
+                return
+            }
+        })
     });
 }
 
