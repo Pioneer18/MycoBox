@@ -26,7 +26,7 @@ const read_temp_humidity = async () => {
         environmentModel.internal_temp_1 = parsed[3]
         environmentModel.internal_temp_2 = parsed[4]
         environmentModel.external_temp = parsed[5]
-        console.log(`environmentModel: ${environmentModel}`)
+        console.log(`environmentModel: ${JSON.stringify(environmentModel)}`)
         return
     })
 }
