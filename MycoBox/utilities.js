@@ -6,12 +6,7 @@
  * @param {} weight 
  * @param {Array} irTemp
  */
-const validate_sensor_data = (data) => {
-    for (const val in data) {
-        console.log(data)
-        console.log(val)
-    }
-}
+
 
 const parse_sensor_data = (reply) =>  JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
 

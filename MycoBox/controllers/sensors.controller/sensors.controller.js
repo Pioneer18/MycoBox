@@ -20,7 +20,6 @@ const read_temp_humidity = async () => {
         if (err) throw err;
         // clip the string apart and grab the values
         const split = parse_sensor_data(reply)
-        const validated = validate_sensor_data(split)
         console.log(split[1])
         console.log(split[3])
         console.log(split[5])
