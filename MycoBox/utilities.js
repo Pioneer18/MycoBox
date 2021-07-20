@@ -10,7 +10,7 @@
 const parse_sensor_data = (reply) => {
     const parsed = []
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-    for(let i = 1; i < reply.length + 5; i +=2) {
+    for(let i = 1; i < reply.length; i +=2) {
         parsed.push(data[i])
     }
     return parsed
