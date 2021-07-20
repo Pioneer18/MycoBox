@@ -8,7 +8,7 @@
  */
 const validate_sensor_data = (data) => {
     for (const val in data) {
-        console.log(typeof val)
+        console.log(val)
     }
 }
 
