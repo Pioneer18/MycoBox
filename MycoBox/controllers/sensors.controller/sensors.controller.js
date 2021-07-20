@@ -3,7 +3,7 @@
  */
 const { PythonShell } = require('python-shell');
 const { environmentModel } = require('../../globals/globals');
-const { parse_th_data, validate_sensor_data, parse_pt_data } = require('../../utilities');
+const { parse_th_data, validate_sensor_data, parse_pt_data, parse_co2_data } = require('../../utilities');
 let options = {
     mode: 'text',
     pythonOptions: ['-u'], // get print results in real-time
@@ -51,8 +51,8 @@ const read_co2 = async () => {
     PythonShell.run('co2/co2.py', options, function (err, reply) {
         if (err)
             throw err;
-            // const parsed = parse_sensor_data(reply)
-            // console.log(parsed)
+        const parsed = parse_co2_data(reply)
+        console.log(parsed)
         return reply;
     });
 }
