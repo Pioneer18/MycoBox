@@ -19,8 +19,9 @@ const read_temp_humidity = async () => {
         if (err) throw err;
         const parsed = parse_sensor_data(reply)
         validate_sensor_data(parsed)
-        //console.log(parsed)
         // map values to the environment model
+        environmentModel.internal_humidity_1 = parsed[0]
+        console.log(`environmentModel: ${environmentModel.internal_humidity_1}`)
         return
     })
 }
