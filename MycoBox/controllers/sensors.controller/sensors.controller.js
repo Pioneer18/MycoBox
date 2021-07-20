@@ -13,22 +13,20 @@ let options = {
 
 /**
  * DHT22 Temperature & humidity readings - internal & external
- * @param {Array} reply []
+ * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
 const read_temp_humidity = async () => {
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err;
-        const temp = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g))
-        const split = temp.split('"')
-        console.log(split)
+        // clip the string apart and grab the values
+        const split = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
         console.log(split[1])
         console.log(split[3])
         console.log(split[5])
         console.log(split[7])
         console.log(split[9])
         console.log(split[11])
-
-        // clip the string apart and grab the values
+        
         // validate the values
         // map values to the environment model
         return reply;
