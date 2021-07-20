@@ -21,6 +21,7 @@ const parse_pt_data = (reply) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     parsed.push(data[1])
     parsed.push(data[3])
+    return parsed
 }
 
 /**
