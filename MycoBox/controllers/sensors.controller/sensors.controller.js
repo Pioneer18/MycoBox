@@ -17,8 +17,8 @@ let options = {
 const read_temp_humidity = async () => {
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err;
-        parse_sensor_data(reply)
-        //validate_sensor_data(parsed)
+        const parsed = parse_sensor_data(reply)
+        validate_sensor_data(parsed)
         //console.log(parsed)
         // map values to the environment model
         return
