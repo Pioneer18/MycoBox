@@ -31,9 +31,9 @@ const read_temp_humidity = async () => {
 const read_precise_temp = async () => {
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
-        const split = parse_sensor_data(reply)
-        console.log(split[1])
-        console.log(split[3])
+        // const split = parse_sensor_data(reply)
+        // console.log(split[1])
+        // console.log(split[3])
         return reply
     })
 }
@@ -46,8 +46,8 @@ const read_co2 = async () => {
     PythonShell.run('co2/co2.py', options, function (err, reply) {
         if (err)
             throw err;
-            const split = parse_sensor_data(reply)
-            console.log(split[1])
+            // const split = parse_sensor_data(reply)
+            // console.log(split[1])
             // set environment model utility
 
         return reply;
