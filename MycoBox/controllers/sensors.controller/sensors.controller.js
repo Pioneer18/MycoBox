@@ -21,6 +21,11 @@ const read_temp_humidity = async () => {
         const temp = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g))
         const split = temp.split('"')
         console.log(split[1])
+        console.log(split[2])
+        console.log(split[3])
+        console.log(split[4])
+        console.log(split[5])
+        console.log(split[6])
 
         // clip the string apart and grab the values
         // validate the values
