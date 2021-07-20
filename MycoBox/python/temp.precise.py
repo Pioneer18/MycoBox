@@ -18,7 +18,4 @@ temp = sensor.readTempC()
 internal = sensor.readInternalC()
 # print('precise temp: {0:0.3F}*C / {1:0.3F}*F'.format(temp, c_to_f(temp)))
 # print('Internal Temperature: {0:0.3F}*C / {1:0.3F}*F'.format(internal, c_to_f(internal)))
-print({
-    "c": temp,
-    "f": c_to_f(temp)
-})
+print("c={", temp, '}', "f={", c_to_f(temp), '}')
