@@ -3,7 +3,12 @@
  */
 const { PythonShell } = require('python-shell');
 const { environmentModel } = require('../../globals/globals');
-const { parse_th_data, validate_sensor_data, parse_pt_data, parse_co2_data } = require('../../utilities');
+const {
+    parse_th_data,
+    validate_sensor_data,
+    parse_pt_data,
+    parse_co2_data
+} = require('../../utilities');
 let options = {
     mode: 'text',
     pythonOptions: ['-u'], // get print results in real-time
@@ -19,14 +24,12 @@ const read_temp_humidity = async () => {
         if (err) throw err;
         const parsed = parse_th_data(reply)
         validate_sensor_data(parsed)
-        // map values to the environment model
         environmentModel.internal_humidity_1 = parsed[0]
         environmentModel.internal_humidity_2 = parsed[1]
         environmentModel.external_humidity = parsed[2]
         environmentModel.internal_temp_1 = parsed[3]
         environmentModel.internal_temp_2 = parsed[4]
         environmentModel.external_temp = parsed[5]
-        console.log(`environmentModel: ${JSON.stringify(environmentModel)}`)
         return
     })
 }
@@ -38,8 +41,9 @@ const read_precise_temp = async () => {
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
         const parsed = parse_pt_data(reply)
-        console.log(parsed)
-        return 
+        environmentModel.precise_temp_c = parsed[0]
+        environmentModel.precise_temp_f = parsed[1]
+        return
     })
 }
 
@@ -52,8 +56,8 @@ const read_co2 = async () => {
         if (err)
             throw err;
         const parsed = parse_co2_data(reply)
-        console.log(parsed)
-        return reply;
+        environmentModel.co2 = parsed
+        return
     });
 }
 
@@ -80,6 +84,7 @@ const set_environment_model = async () => {
     await read_temp_humidity()
     await read_precise_temp()
     await read_co2()
+    console.log(environmentModel)
     return
 }
 

@@ -1,6 +1,6 @@
 module.exports = {
     sessionConfig: {
-        active_session:'', // checked by newSession method only once
+        active_session: '', // checked by newSession method only once
         session_id: '', // for logs
         user_id: '', // for logs
         duration: '',
@@ -8,8 +8,8 @@ module.exports = {
     },
     environmentConfig: {
         temp: '',
-        irTemp: '', 
-        humidity: '', 
+        irTemp: '',
+        humidity: '',
         co2: '',
         lighting: ''
         // circulation_top: '',
@@ -20,7 +20,8 @@ module.exports = {
         /* ------------------ Sensors ------------------  */
         internal_temp_1: '', // dht22_1
         internal_temp_2: '', // dht22_2
-        internal_temp_3: '', // max31855
+        precise_temp_c: '', // max31855
+        precise_temp_f: '', // max31855
         external_temp: '', // dht22_3
         internal_humidity_1: '', // dht_22_1
         internal_humidity_2: '', // dht_22_2
@@ -48,7 +49,7 @@ module.exports = {
         circulation_bottom: false,
         circulation_top: false,
         intake: false,
-        exhaust: false, 
+        exhaust: false,
         ac: false,
         heater: false,
         mister: false,
