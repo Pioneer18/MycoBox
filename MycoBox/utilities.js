@@ -8,10 +8,13 @@
  * @returns 
  */
 const parse_sensor_data = (reply) => {
+    const parsed = []
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     for(let i = 1; i < 12; i +=2) {
-        console.log(data[i])
+        parsed.push(data[i])
+        console.log(parsed)
     }
+    return parsed
 }
 
 /**
