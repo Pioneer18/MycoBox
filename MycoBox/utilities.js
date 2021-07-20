@@ -35,5 +35,6 @@ const validate_sensor_data = (data) => {
 }
 module.exports = {
     validate_sensor_data,
-    parse_th_data
+    parse_th_data,
+    parse_pt_data
 }
