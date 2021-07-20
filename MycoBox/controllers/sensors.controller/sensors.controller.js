@@ -17,14 +17,11 @@ let options = {
 const read_temp_humidity = async () => {
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err;
-        // clip the string apart and grab the values
-        const split = parse_sensor_data(reply)
-        validate_sensor_data(split)
-        for (let i =1; i < 12; i += 2) {
-            console.log(split[i])
-        }
+        const parsed = parse_sensor_data(reply)
+        validate_sensor_data(parsed)
+        console.log(parsed)
         // map values to the environment model
-        return reply;
+        return
     })
 }
 
