@@ -21,9 +21,10 @@ const parse_sensor_data = (reply) => {
  * @param {Array} data e.g. ['43.55', 44.25, 43.40]
  */
 const validate_sensor_data = (data) => {
-    for (let i =1; i < 12; i += 2) {
-        if (typeof data[i] !== 'string') throw new Error(`Sensor-${i} has returned an invalid data type: ${typeof data[i]} - ${data[i]}`)
-        if (data[i] === '0') throw new Error(`Sensor-${i} has returned: ${data[i]}`)
+    for (const i in data) {
+        // if (typeof data[i] !== 'string') throw new Error(`Sensor-${i} has returned an invalid data type: ${typeof data[i]} - ${data[i]}`)
+        // if (data[i] === '0') throw new Error(`Sensor-${i} has returned: ${data[i]}`)
+        console.log(typeof data[i])
     }
 }
 module.exports = {
