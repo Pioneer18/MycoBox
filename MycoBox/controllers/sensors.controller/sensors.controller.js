@@ -20,18 +20,18 @@ let options = {
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
 const read_temp_humidity = async () => {
-    process.env.internal_humidity_1 = 'tee-hee'
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err;
         const parsed = parse_th_data(reply)
         validate_sensor_data(parsed)
-        process.env.internal_humidity_1 = parsed[0]
-        process.env.internal_humidity_2 = parsed[1]
-        process.env.external_humidity = parsed[2]
-        process.env.internal_temp_1 = parsed[3]
-        process.env.internal_temp_2 = parsed[4]
-        process.env.external_temp = parsed[5]
-        return
+        return {
+            internal_humidity_1 = parsed[0],
+            internal_humidity_2 = parsed[1],
+            external_humidity = parsed[2],
+            internal_temp_1 = parsed[3],
+            internal_temp_2 = parsed[4],
+            external_temp = parsed[5]
+        }
     })
 }
 
@@ -42,9 +42,10 @@ const read_precise_temp = async () => {
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
         const parsed = parse_pt_data(reply)
-        process.env.precise_temp_c = parsed[0]
-        process.env.precise_temp_f = parsed[1]
-        return
+        return {
+            precise_temp_c = parsed[0],
+            precise_temp_f = parsed[1]
+        }
     })
 }
 
@@ -57,8 +58,7 @@ const read_co2 = async () => {
         if (err)
             throw err;
         const parsed = parse_co2_data(reply)
-        process.env.co2 = parsed
-        return
+        return co2 = parsed
     });
 }
 
@@ -82,18 +82,18 @@ const read_infrared = async () => {
  * Set Environment Model - return readings of every sensor group
  */
 const set_environment_model = async () => {
-    await read_temp_humidity()
-    await read_precise_temp()
-    await read_co2()
-    console.log(process.env.internal_humidity_1)
-    console.log(process.env.internal_humidity_2)
-    console.log(process.env.external_humidity)
-    console.log(process.env.internal_temp_1)
-    console.log(process.env.internal_temp_2)
-    console.log(process.env.external_temp)
-    console.log(process.env.co2)
-    console.log(process.env.precise_temp_c)
-    console.log(process.env.precise_temp_f)
+    const test = await read_temp_humidity()
+    const test1 = await read_precise_temp()
+    const test2 = await read_co2()
+    // console.log(process.env.internal_humidity_1)
+    // console.log(process.env.internal_humidity_2)
+    // console.log(process.env.external_humidity)
+    // console.log(process.env.internal_temp_1)
+    // console.log(process.env.internal_temp_2)
+    // console.log(process.env.external_temp)
+    // console.log(process.env.co2)
+    // console.log(process.env.precise_temp_c)
+    // console.log(process.env.precise_temp_f)
     return
 }
 
