@@ -24,7 +24,7 @@ const read_temp_humidity = async () => {
         if (err) throw err;
         const parsed = parse_th_data(reply)
         validate_sensor_data(parsed)
-        process.env.internal_humidity_1 = parsed[0]
+        process.env.internal_humidity_1 = 'tee-hee'
         process.env.internal_humidity_2 = parsed[1]
         process.env.external_humidity = parsed[2]
         process.env.internal_temp_1 = parsed[3]
