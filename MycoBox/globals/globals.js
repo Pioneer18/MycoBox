@@ -1,32 +1,32 @@
 // Session Config
-process.env.active_session = '', // checked by newSession method only once
-process.env.session_id = '', // for logs
-process.env.user_id = '', // for logs
-process.env.duration = '',
-process.env.canceled = false, // will end the session
+process.env.active_session = '' // checked by newSession method only once
+process.env.session_id = '' // for logs
+process.env.user_id = '' // for logs
+process.env.duration = ''
+process.env.canceled = false // will end the session
 
 // Envrionment Config
-process.env.temp = '',
-process.env.irTemp = '',
-process.env.humidity = '',
-process.env.co2 = '',
+process.env.temp = ''
+process.env.irTemp = ''
+process.env.humidity = ''
+process.env.co2 = ''
 process.env.lighting = ''
-// circulation_top: '',
-// circulation_bottom: '',
-// full_circulation: '',
+// circulation_top: ''
+// circulation_bottom: ''
+// full_circulation: ''
 
 
 // Actuators' Status
-process.env.circulation_bottom = false, // 1
-process.env.circulation_top = false, // 2
-process.env.intake = false, // 3
-process.env.exhaust = false, // 4
-process.env.ac = false, // 5
-process.env.heater = false, // 6 
-process.env.humidifier = false, // 7
-process.env.mb_light_1 = false, // 8
-process.env.mb_light_2 = false, // 9
-process.env.ib_light = false, // 10
+process.env.circulation_bottom = false // 1
+process.env.circulation_top = false // 2
+process.env.intake = false // 3
+process.env.exhaust = false // 4
+process.env.ac = false // 5
+process.env.heater = false // 6 
+process.env.humidifier = false // 7
+process.env.mb_light_1 = false // 8
+process.env.mb_light_2 = false // 9
+process.env.ib_light = false // 10
 process.env.speakers = false // 11
 
 
