@@ -55,7 +55,7 @@ const read_co2 = async () => {
     PythonShell.run('co2/co2.py', options, function (err, reply) {
         if (err)
             throw err;
-        // const parsed = parse_co2_data(reply)
+        const parsed = parse_co2_data(reply)
         process.env.co2 = parsed
         return
     });
