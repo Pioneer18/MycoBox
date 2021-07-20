@@ -11,7 +11,7 @@ const validate_sensor_data = (data) => {
         console.log(data[i])
         if (typeof data[i] !== 'string') throw new Error(`Sensor-${i} has returned an invalid data type: ${typeof data[i]} - ${data[i]}`)
         if (data[i] === '0') throw new Error(`Sensor-${i} has returned: ${data[i]}`)
-        if (typeof data[i] !== 'string') console.log('makin bacon pancakes')
+        if (typeof data[i] == 'string') console.log('makin bacon pancakes')
     }
 }
 
