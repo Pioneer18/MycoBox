@@ -3,7 +3,7 @@
  */
 const { PythonShell } = require('python-shell');
 const { environmentModel } = require('../../globals/globals');
-const { validate_sensor_data, parse_sensor_data } = require('../../utilities');
+const { parse_sensor_data } = require('../../utilities');
 let options = {
     mode: 'text',
     pythonOptions: ['-u'], // get print results in real-time
