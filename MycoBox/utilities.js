@@ -16,6 +16,13 @@ const parse_th_data = (reply) => {
     return parsed
 }
 
+const parse_pt_data = (reply) => {
+    const parsed = []
+    const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
+    parsed.push(data[1])
+    parsed.push(data[3])
+}
+
 /**
  * Validate parsed sensor data
  * @param {Array} data e.g. ['43.55', 44.25, 43.40]
