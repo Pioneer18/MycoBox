@@ -16,9 +16,7 @@ let options = {
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
 const read_temp_humidity = async () => {
-    PythonShell.run('temp.humidity.py', options, function (err, reply) {
-        if (err) throw err;
-        // clip the string apart and grab the values
+    const parse = async (reply) => {
         const split = await parse_sensor_data(reply)
         console.log(split[1])
         console.log(split[3])
@@ -26,7 +24,11 @@ const read_temp_humidity = async () => {
         console.log(split[7])
         console.log(split[9])
         console.log(split[11])
-        
+    }
+    PythonShell.run('temp.humidity.py', options, function (err, reply) {
+        if (err) throw err;
+        // clip the string apart and grab the values
+        await parse(reply)
         // validate the values
         // map values to the environment model
         return reply;
