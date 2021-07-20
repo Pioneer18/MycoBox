@@ -24,13 +24,12 @@ const read_temp_humidity = async () => {
         if (err) throw err;
         const parsed = parse_th_data(reply)
         validate_sensor_data(parsed)
-        process.env.ENVIRONMENT_MODEL.internal_humidity_1 = parsed[0]
-        // global.environmentModel.internal_humidity_2 = parsed[1]
-        // global.environmentModel.external_humidity = parsed[2]
-        // global.environmentModel.internal_temp_1 = parsed[3]
-        // global.environmentModel.internal_temp_2 = parsed[4]
-        // global.environmentModel.external_temp = parsed[5]
-
+        process.env.internal_humidity_1 = parsed[0]
+        process.env.internal_humidity_2 = parsed[1]
+        process.env.external_humidity = parsed[2]
+        process.env.internal_temp_1 = parsed[3]
+        process.env.internal_temp_2 = parsed[4]
+        process.env.external_temp = parsed[5]
         return
     })
 }
@@ -42,8 +41,8 @@ const read_precise_temp = async () => {
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
         const parsed = parse_pt_data(reply)
-        // global.environmentModel.precise_temp_c = parsed[0]
-        // global.environmentModel.precise_temp_f = parsed[1]
+        process.env.precise_temp_c = parsed[0]
+        process.env.precise_temp_f = parsed[1]
         return
     })
 }
@@ -57,7 +56,7 @@ const read_co2 = async () => {
         if (err)
             throw err;
         // const parsed = parse_co2_data(reply)
-        // global.environmentModel.co2 = parsed
+        process.env.co2 = parsed
         return
     });
 }
@@ -85,6 +84,15 @@ const set_environment_model = async () => {
     await read_temp_humidity()
     await read_precise_temp()
     await read_co2()
+    console.log(process.env.internal_humidity_1)
+    console.log(process.env.internal_humidity_2)
+    console.log(process.env.external_humidity)
+    console.log(process.env.internal_temp_1)
+    console.log(process.env.internal_temp_2)
+    console.log(process.env.external_temp)
+    console.log(process.env.co2)
+    console.log(process.env.precise_temp_c)
+    console.log(process.env.precise_temp_f)
     return
 }
 
