@@ -26,7 +26,7 @@ const validate_set_environment = async (
     return
 }
 
-const parse_sensor_data = async (reply) =>  JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
+const parse_sensor_data = (reply) =>  JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
 
 module.exports = {
     validate_set_environment,
