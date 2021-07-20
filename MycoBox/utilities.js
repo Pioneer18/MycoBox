@@ -7,7 +7,7 @@
  * @param {Array} reply e.g. [h1={43.55} h2={44.25} h3={43.40}] => ["43.55", "44.25", "43.40"]
  * @returns 
  */
-const parse_sensor_data = (reply) => {
+const parse_th_data = (reply) => {
     const parsed = []
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     for(let i = 1; i < 12; i +=2) {
@@ -28,5 +28,5 @@ const validate_sensor_data = (data) => {
 }
 module.exports = {
     validate_sensor_data,
-    parse_sensor_data
+    parse_th_data
 }
