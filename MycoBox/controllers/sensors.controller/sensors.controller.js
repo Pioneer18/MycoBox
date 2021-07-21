@@ -2,6 +2,7 @@
  * Sensors Controller
  */
 const fs = require('fs')
+const { createLogger, format, transports } = require('winston')
 const { PythonShell } = require('python-shell');
 // const { environmentModel } = require('../../globals/globals');
 const {
@@ -33,14 +34,13 @@ const read_temp_humidity = async () => {
         if (err) throw err;
         const parsed = parse_th_data(reply)
         validate_sensor_data(parsed)
-        return {
-            internal_humidity_1: parsed[0],
-            internal_humidity_2: parsed[1],
-            external_humidity: parsed[2],
-            internal_temp_1: parsed[3],
-            internal_temp_2: parsed[4],
-            external_temp: parsed[5]
-        }
+        logger.log('info','internal_humidity_1', parsed[0])
+        // internal_humidity_2: parsed[1],
+        // external_humidity: parsed[2],
+        // internal_temp_1: parsed[3],
+        // internal_temp_2: parsed[4],
+        // external_temp: parsed[5]
+        return 
     })
 }
 
@@ -105,6 +105,28 @@ const set_environment_model = async () => {
     // console.log(process.env.precise_temp_f)
     return
 }
+
+// Winston Logger
+const logger = createLogger({
+    level: 'info',
+    format: format.combine(
+        format.timestamp({
+            format: 'YYYY-MM-DD HH:mm:ss'
+        }),
+        format.errors({ stack: true }),
+        format.splat(),
+        format.json()
+    ),
+    defaultMeta: { service: 'sensor-logger' },
+    transports: [
+        //
+        // - Write to all logs with level `info` and below to `quick-start-combined.log`.
+        // - Write all logs error (and below) to `quick-start-error.log`.
+        //
+        new transports.File({ filename: 'quick-start-error.log', level: 'error' }),
+        new transports.File({ filename: 'sensors.log' })
+    ]
+});
 
 module.exports = {
     read_temp_humidity,
