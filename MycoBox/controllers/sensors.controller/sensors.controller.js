@@ -3,7 +3,7 @@
  */
 const fs = require('fs')
 const { PythonShell } = require('python-shell');
-const {logger} = require('../../logger');
+const { logger } = require('../../logger');
 const {
     parse_th_data,
     validate_sensor_data,
@@ -22,25 +22,25 @@ let options = {
  */
 const read_temp_humidity = async () => {
 
-    // const content = 'Some content!'
-    // try {
-    // const data = fs.writeFileSync('test.txt', content)
-    // //file written successfully
-    // } catch (err) {
-    // console.error(err)
-    // }
+    fs.chmod("example.txt", 0o600, () => {
+        console.log("Trying to write to file");
+        fs.writeFileSync('example.txt', "This file has now been edited.");
+
+        console.log("\nReading the file contents");
+        console.log(fs.readFileSync("example.txt", 'utf8'));
+    });
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err;
         const parsed = parse_th_data(reply)
         validate_sensor_data(parsed)
         console.log(parsed[0])
-        logger.log('info','internal_humidity_1', parsed[0])
+        logger.log('info', 'internal_humidity_1', parsed[0])
         // internal_humidity_2: parsed[1],
         // external_humidity: parsed[2],
         // internal_temp_1: parsed[3],
         // internal_temp_2: parsed[4],
         // external_temp: parsed[5]
-        return 
+        return
     })
 }
 
