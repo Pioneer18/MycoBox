@@ -31,6 +31,7 @@
     "morgan": "~1.9.1",
     "onoff": "^6.0.3",
     "python-shell": "^3.0.0",
-    "serialport": "^9.2.0"
+    "serialport": "^9.2.0",
+    "winston": "^3.3.3"
   }
 }
