@@ -22,8 +22,5 @@ for x in sensor_list:
     if x == 3:
         h3, temp_3 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_3)
         continue
-file = '/RootCulture/MycoBox/test.txt'
-update = open(file, 'w')
-update.write(h1)
 print('h1={', h1, '} h2={', h2, '} h3={', h3, '} temp1={',
       temp1, '} temp2={', temp2, '} temp3={', temp3, '}')
