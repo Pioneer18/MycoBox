@@ -12,7 +12,7 @@ const { parse } = require("dotenv")
 const parse_th_data = (reply) => {
     const parsed = []
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-    for(let i = 1; i < 12; i +=2) {
+    for(let i = 1; i < 13; i +=2) {
         parsed.push(data[i])
     }
     return parsed
