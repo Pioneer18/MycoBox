@@ -39,8 +39,6 @@ const read_temp_humidity = async () => {
         console.log(parsed[3])
         console.log(parsed[4])
         console.log(parsed[5])
-        console.log(await read_precise_temp())
-        console.log(await read_co2())
         //logger.log('info', 'internal_humidity_1', parsed[0])
         // internal_humidity_2: parsed[1],
         // external_humidity: parsed[2],
@@ -99,8 +97,10 @@ const read_infrared = async () => {
  */
 const set_environment_model = async () => {
     const test = await read_temp_humidity()
-    const test1 = await read_precise_temp()
-    const test2 = await read_co2()
+    // const test1 = await read_precise_temp()
+    // const test2 = await read_co2()
+    console.log(read_precise_temp())
+    console.log(read_co2())
     // console.log(process.env.internal_humidity_1)
     // console.log(process.env.internal_humidity_2)
     // console.log(process.env.external_humidity)
