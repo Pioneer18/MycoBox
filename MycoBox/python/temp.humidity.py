@@ -13,15 +13,9 @@ temp1 = 0
 temp2 = 0
 temp3 = 0
 
-for x in sensor_list:
-    if x == 1:
-        h1, temp1 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_1)
-        continue
-    if x == 2:
-        h2, temp2 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_2)
-        continue
-    if x == 3:
-        h3, temp_3 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_3)
+h1, temp1 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_1)
+h2, temp2 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_2)
+h3, temp3 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_3)
 
 print('h1={', h1, '} h2={', h2, '} h3={', h3, '} temp1={',
       temp1, '} temp2={', temp2, '} temp3={', temp3, '}')
