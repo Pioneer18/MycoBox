@@ -40,7 +40,7 @@ const read_temp_humidity = async () => {
         console.log(parsed[4])
         console.log(parsed[5])
         console.log(parsed[6])
-        console.log(parsed[7])
+        // console.log(parsed[7])
         //logger.log('info', 'internal_humidity_1', parsed[0])
         // internal_humidity_2: parsed[1],
         // external_humidity: parsed[2],
