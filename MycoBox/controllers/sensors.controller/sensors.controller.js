@@ -22,19 +22,19 @@ let options = {
  */
 const read_temp_humidity = async () => {
 
-    fs.chmod("example.txt", 0o600, () => {
-        console.log("Trying to write to file");
-        fs.writeFileSync('example.txt', "This file has now been edited.");
-
-        console.log("\nReading the file contents");
-        console.log(fs.readFileSync("example.txt", 'utf8'));
-    });
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
+        // fs.chmod("example.txt", 0o600, () => {
+        //     console.log("Trying to write to file");
+        //     fs.writeFileSync('example.txt', "This file has now been edited.");
+    
+        //     console.log("\nReading the file contents");
+        //     console.log(fs.readFileSync("example.txt", 'utf8'));
+        // });
         if (err) throw err;
         const parsed = parse_th_data(reply)
         validate_sensor_data(parsed)
         console.log(parsed[0])
-        logger.log('info', 'internal_humidity_1', parsed[0])
+        //logger.log('info', 'internal_humidity_1', parsed[0])
         // internal_humidity_2: parsed[1],
         // external_humidity: parsed[2],
         // internal_temp_1: parsed[3],
