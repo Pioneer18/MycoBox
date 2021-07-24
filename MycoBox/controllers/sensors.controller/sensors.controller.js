@@ -56,6 +56,7 @@ const read_precise_temp = async () => {
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
         const parsed = parse_pt_data(reply)
+        console.log(parsed[0], parsed[1])
         return {
             precise_temp_c: parsed[0],
             precise_temp_f: parsed[1]
@@ -97,10 +98,8 @@ const read_infrared = async () => {
  */
 const set_environment_model = async () => {
     const test = await read_temp_humidity()
-    // const test1 = await read_precise_temp()
+    const test1 = await read_precise_temp()
     // const test2 = await read_co2()
-    console.log(await read_precise_temp())
-    console.log(await read_co2())
     // console.log(process.env.internal_humidity_1)
     // console.log(process.env.internal_humidity_2)
     // console.log(process.env.external_humidity)
