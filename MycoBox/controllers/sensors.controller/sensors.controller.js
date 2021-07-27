@@ -98,7 +98,7 @@ const read_infrared = () => {
 /**
  * Set Environment Model - return readings of every sensor group
  */
-const set_environment_model = async () => {
+const set_environment_model = () => {
     const test = read_temp_humidity()
     const test1 = read_precise_temp()
     // const test2 = await read_co2()
