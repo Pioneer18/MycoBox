@@ -54,7 +54,7 @@ const read_temp_humidity = () => {
 /**
  * MAX31855 Temperature - internal precise temp
  */
-const read_precise_temp = async () => {
+const read_precise_temp = () => {
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
         const parsed = parse_pt_data(reply)
@@ -99,8 +99,8 @@ const read_infrared = async () => {
  * Set Environment Model - return readings of every sensor group
  */
 const set_environment_model = async () => {
-    const test = await read_temp_humidity()
-    const test1 = await read_precise_temp()
+    const test = read_temp_humidity()
+    const test1 = read_precise_temp()
     // const test2 = await read_co2()
     // console.log(process.env.internal_humidity_1)
     // console.log(process.env.internal_humidity_2)
