@@ -20,7 +20,7 @@ let options = {
  * DHT22 Temperature & humidity readings - internal & external
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
-const read_temp_humidity = async () => {
+const read_temp_humidity = () => {
 
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         // fs.chmod("example.txt", 0o600, () => {
