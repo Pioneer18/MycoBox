@@ -70,7 +70,7 @@ const read_precise_temp = () => {
  * CO2 readings from COZIR-A sensor
  * @param {Array} reply ["CO2 PPM = 536.0"]
  */
-const read_co2 = async () => {
+const read_co2 = () => {
     PythonShell.run('co2/co2.py', options, function (err, reply) {
         if (err)
             throw err;
@@ -83,7 +83,7 @@ const read_co2 = async () => {
  * Weight readings from Esp8266 scale ** HTTP or Serial request
  * @param {Array} reply
  */
-const read_scale = async () => {
+const read_scale = () => {
     return ['weight: 45lbs']
 }
 
@@ -91,7 +91,7 @@ const read_scale = async () => {
  * Infrared Temp readings - grow bags
  * @param {Array} reply
  */
-const read_infrared = async () => {
+const read_infrared = () => {
     return ["irTemp: 24C"]
 }
 
