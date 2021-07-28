@@ -13,8 +13,7 @@ const parse_th_data = (reply) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     for(let i = 1; i < 16; i +=2) {
         parsed.push(data[i])
-        console.log(typeof data[i])
-        // validate
+        validate_sensor_data(data[i])
         // set env variable
     }
     console.log(parsed)
@@ -39,10 +38,8 @@ const parse_co2_data = (reply) => {
  * @param {Array} data e.g. ['43.55', 44.25, 43.40]
  */
 const validate_sensor_data = (data) => {
-    for (const i in data) {
-        if ((typeof data[i]) !== 'string') throw new Error(`Sensor-${i} has returned an invalid data type: ${typeof data[i]} - ${data[i]}`)
-        if (data[i] == '0') throw new Error(`Sensor-${i} has returned: ${data[i]}`)
-    }
+    if (typeof data !== typeof 'string') console.log('This value is not a string!')
+    if (typeof data == typeof 'string') console.log('This value is a string!')
 }
 module.exports = {
     validate_sensor_data,
