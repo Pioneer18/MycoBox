@@ -4,7 +4,7 @@
 
 /**
  * Parse incoming sensor data
- * @param {Array} reply e.g. [h1={43.55} h2={44.25} h3={43.40}] => ["43.55", "44.25", "43.40"]
+ * @param {Array} reply h1,h2,h3,h4,temp1,temp2,
  * @returns 
  */
 const parse_th_data = (reply) => {
@@ -13,10 +13,11 @@ const parse_th_data = (reply) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     for(let i = 1; i < 16; i +=2) {
         parsed.push(data[i])
+        console.log(typeof data[i])
+        // validate
+        // set env variable
     }
     console.log(parsed)
-    // process.env.temp = parsed[4]
-    // console.log(`temp: ${process.env.temp}`)
     return parsed
 }
 
