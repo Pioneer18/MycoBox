@@ -14,6 +14,7 @@ const parse_th_data = (reply) => {
     for(let i = 1; i < 16; i +=2) {
         parsed.push(data[i])
     }
+    console.log(parsed)
     // process.env.temp = parsed[4]
     // console.log(`temp: ${process.env.temp}`)
     return parsed
