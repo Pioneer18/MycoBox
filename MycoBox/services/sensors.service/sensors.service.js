@@ -1,8 +1,6 @@
 /**
- * Controller Utilities
+ * Sensors Service
  */
-
-const { parse } = require("dotenv")
 
 /**
  * Parse incoming sensor data
@@ -10,14 +8,14 @@ const { parse } = require("dotenv")
  * @returns 
  */
 const parse_th_data = (reply) => {
+    console.log(reply)
     const parsed = []
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-    console.log(data)
     for(let i = 1; i < 16; i +=2) {
         parsed.push(data[i])
     }
-    process.env.temp = parsed[4]
-    console.log(`temp: ${process.env.temp}`)
+    // process.env.temp = parsed[4]
+    // console.log(`temp: ${process.env.temp}`)
     return parsed
 }
 
