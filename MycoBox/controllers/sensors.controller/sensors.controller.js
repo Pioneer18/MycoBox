@@ -8,7 +8,7 @@ const {
     validate_sensor_data,
     parse_pt_data,
     parse_co2_data
-} = require('../../utilities');
+} = require('../../services/sensors.service/sensors.service');
 let options = {
     mode: 'text',
     pythonOptions: ['-u'], // get print results in real-time
