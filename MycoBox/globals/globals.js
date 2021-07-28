@@ -54,6 +54,7 @@ process.env.precise_temp_f = '' // max31855
 process.env.external_temp = '' // dht22_3
 process.env.internal_humidity_1 = '' // dht_22_1
 process.env.internal_humidity_2 = '' // dht_22_2
+process.env.internal_humidity_3 = '' // dht_22_3
 process.env.external_humidity = '' // dht_22_3
 process.env.co2 = '' // cozIr-A
 process.env.weight = '' // esp8266
