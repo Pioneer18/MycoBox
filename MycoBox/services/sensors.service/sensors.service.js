@@ -38,8 +38,9 @@ const parse_co2_data = (reply) => {
  * @param {Array} data e.g. ['43.55', 44.25, 43.40]
  */
 const validate_sensor_data = (data) => {
-    if (typeof data !== typeof 'string') console.log('This value is not a string!')
-    if (typeof data == typeof 'string') console.log('This value is a string!')
+    if (typeof data !== typeof 'string') console.error(`received temp/humidity value that is not a string, check the sensors! ${data}`)
+    if (data === '') console.error(`received an empty value for temp/humidity, check the sensors! ${data}`)
+    if (data == null || data == undefined) console.error(`uh oh, got a null or undefined sensor value, check the sensors! ${data}`)
 }
 module.exports = {
     validate_sensor_data,
