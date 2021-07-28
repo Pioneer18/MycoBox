@@ -5,7 +5,6 @@ const fs = require('fs')
 const { PythonShell } = require('python-shell');
 const {
     parse_th_data,
-    validate_sensor_data,
     parse_pt_data,
     parse_co2_data
 } = require('../../services/sensors.service/sensors.service');
@@ -20,7 +19,6 @@ let options = {
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
 const read_temp_humidity = () => {
-
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err;
         parse_th_data(reply) // validate and load into env model
@@ -34,12 +32,8 @@ const read_temp_humidity = () => {
 const read_precise_temp = () => {
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
-        const parsed = parse_pt_data(reply)
-        console.log(parsed[0], parsed[1])
-        return {
-            precise_temp_c: parsed[0],
-            precise_temp_f: parsed[1]
-        }
+        parse_pt_data(reply)
+        return
     })
 }
 
@@ -49,9 +43,8 @@ const read_precise_temp = () => {
  */
 const read_co2 = () => {
     PythonShell.run('co2/co2.py', options, function (err, reply) {
-        if (err)
-            throw err;
-        const parsed = parse_co2_data(reply)
+        if (err) throw err;
+        parse_co2_data(reply)
         return
     });
 }
@@ -78,6 +71,8 @@ const read_infrared = () => {
 const set_environment_model = () => {
     read_temp_humidity()
     read_precise_temp()
+    read_scale()
+    read_infrared()
     return
 }
 

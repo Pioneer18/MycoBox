@@ -43,7 +43,6 @@ const validate_sensor_data = (data) => {
     if (data == null || data == undefined) console.error(`uh oh, got a null or undefined sensor value, check the sensors! ${data}`)
 }
 module.exports = {
-    validate_sensor_data,
     parse_th_data,
     parse_pt_data,
     parse_co2_data
