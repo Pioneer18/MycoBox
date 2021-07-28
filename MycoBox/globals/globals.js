@@ -46,8 +46,9 @@ process.env.ib_light = false
 process.env.speakers = false
 
 // Environment Model
-process.env.internal_temp_1 = '' // dht22_1
-process.env.internal_temp_2 = '' // dht22_2
+process.env.internal_temp_1 = '' // dht22_1 bottom
+process.env.internal_temp_2 = '' // dht22_2 mid
+process.env.internal_temp_3 = '' // dht22_3 top
 process.env.precise_temp_c = '' // max31855
 process.env.precise_temp_f = '' // max31855
 process.env.external_temp = '' // dht22_3
