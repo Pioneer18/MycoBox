@@ -46,35 +46,35 @@ const set_dht22_values = (i, data) => {
     switch (i) {
         case 1:
             process.env.internal_humidity_1 = data
-            console.log(process.env.internal_humidity_1)
+            console.log(`internal_humidity_1: ${process.env.internal_humidity_1}`)
             break;
         case 3:
             process.env.internal_humidity_2 = data
-            console.log(process.env.internal_humidity_2)
+            console.log(`internal_humidity_2: ${process.env.internal_humidity_2}`)
             break
         case 5:
             process.env.internal_humidity_3 = data
-            console.log(process.env.internal_humidity_3)
+            console.log(`internal_humidity_3: ${process.env.internal_humidity_3}`)
             break
         case 7:
             process.env.external_humidity = data
-            console.log(process.env.external_humidity)
+            console.log(`external_humidity: ${process.env.external_humidity}`)
             break
         case 9:
             process.env.internal_temp_1 = data
-            console.log(process.env.internal_temp_1)
+            console.log(`internal_temp_1: ${process.env.internal_temp_1}`)
             break
         case 11:
             process.env.internal_temp_2 = data
-            console.log(process.env.internal_temp_2)
+            console.log(`internal_temp_2: ${process.env.internal_temp_2}`)
             break
         case 13:
             process.env.internal_temp_3 = data
-            console.log(process.env.internal_temp_3)
+            console.log(`internal_temp_3: ${process.env.internal_temp_3}`)
             break
         case 15:
             process.env.external_temp = data
-            console.log(process.env.external_temp)
+            console.log(`external_temp: ${process.env.external_temp}`)
             break
         default:
             break;
