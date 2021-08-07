@@ -11,7 +11,7 @@ class FrontEndApi {
          */
         this.newSession = (process, config) => {
             // create the XMLHTTP instance
-            this.makeRequest('POST', 'http://192.168.1.97:3000/system_controller/start_process', JSON.stringify({process, config})); // add a content-type param
+            this.makeRequest('POST', 'http://192.168.1.97:3000/system_controller/start_process', JSON.stringify({process, config})) // add a content-type param
         };
 
         /**
@@ -19,7 +19,7 @@ class FrontEndApi {
          * Returns all of the sensor readings, the current environment model
          */
         this.environmentModel = () => {
-
+            this.makeRequest('GET', 'http://192.168.1.97:3000/system_controller/environment_model')
         }
 
         this.makeRequest = (method, url, data) => {

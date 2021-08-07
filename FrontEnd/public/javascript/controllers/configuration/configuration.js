@@ -1,6 +1,8 @@
 import { default_configs } from '../../resources/default_configs.js';
 import { FrontEndApi } from '../../api/index.js';
-
+/**
+ * Configuration Form Controller
+ */
 let DEFAULTS = true;
 const api = new FrontEndApi()
 

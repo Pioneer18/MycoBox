@@ -1,7 +1,6 @@
 /**
  * Sensors Controller
  */
-const fs = require('fs')
 const { PythonShell } = require('python-shell');
 const {
     parse_th_data,
