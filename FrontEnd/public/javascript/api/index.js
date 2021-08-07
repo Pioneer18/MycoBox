@@ -7,11 +7,20 @@ class FrontEndApi {
         /**
          * POST: /api_v1/myco_box/start_process
          * @param {} config {proces: String, env: Object}
+         * Starts a new session with the given configuration
          */
-        this.newSession = function (process, config) {
+        this.newSession = (process, config) => {
             // create the XMLHTTP instance
             this.makeRequest('POST', 'http://192.168.1.97:3000/system_controller/start_process', JSON.stringify({process, config})); // add a content-type param
         };
+
+        /**
+         * GET: /api_v1/myco_box/environment_model
+         * Returns all of the sensor readings, the current environment model
+         */
+        this.environmentModel = () => {
+
+        }
 
         this.makeRequest = (method, url, data) => {
             // create the XMLHTTP instance
