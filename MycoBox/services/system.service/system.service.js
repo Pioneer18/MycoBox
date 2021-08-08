@@ -9,7 +9,7 @@ const {
     environmentModel,
     systemStatus,
     overrides
-} = require('../globals/globals');
+} = require('../../globals/globals');
 
 module.exports = {
     /**
