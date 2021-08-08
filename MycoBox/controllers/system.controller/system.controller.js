@@ -1,5 +1,3 @@
-const { manageEnvironment } = require("../../services/system.service")
-
 /**
  * System Controller
  * ===General=================
@@ -23,6 +21,7 @@ const { manageEnvironment } = require("../../services/system.service")
  * handle the update; by calling on the appropriate controllers for updating the environment.
  *  
  */
+const { manageEnvironment } = require("../../services/system.service/system.service")
 const {sessionConfig} = require('../../globals/globals')
 const {set_environment_model} = require("../sensors.controller/sensors.controller")
 module.exports = {
