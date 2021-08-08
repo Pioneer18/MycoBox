@@ -7,17 +7,15 @@ html, body {
 }
 
 .sensor_panel {
-    display: block;
-    width: 25vw;
+    display: inline-block;
+    width: 25%;
     height: 100%;
-    margin: 0 auto 0 0;
-    background-color: aquamarine;
+    background-color: green;
 }
 
 .webcam_window {
-    display: block;
-    width: 75vw;
+    display: inline-block;
+    width: 75%;
     height: 100%;
-    margin: 0 0 0 auto;
-    background-color: #fafafa;
+    background-color: #f1f1f1;
 }
