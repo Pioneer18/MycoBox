@@ -21,7 +21,7 @@ class FrontEndApi {
          * Returns all of the sensor readings, the current environment model
          */
         this.environmentModel = () => {
-            this.makeRequest('GET', `http://192.168.1.97:3000${this.api}/system_controller/environment_model`)
+            this.makeRequest('GET', `http://192.168.1.97:3000${this.api}/sensors_controller/environment_model`)
         }
 
         this.makeRequest = (method, url, data) => {
