@@ -4,14 +4,12 @@
 
 .sensor_panel {
     width: 25vw;
-    height: 100%;
     margin: 0 auto 0 0;
     background-color: green;
 }
 
 .webcam_window {
     width: 75vw;
-    height: 100%;
     margin: 0 0 0 auto;
     background-color: #f1f1f1;
 }
