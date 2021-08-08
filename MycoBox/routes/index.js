@@ -3,6 +3,7 @@ var router = express.Router();
 // The Controller Classes need to be instantiated before getting here...
 const { newSession } = require('../controllers/system.controller/system.controller');
 const {read_environment_model} = require('../controllers/sensors.controller/sensors.controller');
+const api = "/api_v1";
 /**
  * Route HTTP requests to correct controllers
  */
@@ -10,12 +11,12 @@ const {read_environment_model} = require('../controllers/sensors.controller/sens
 /**
  * Dashboard: sensor data
  */
-router.get('/sensors_controller/environment_model', function (req, res, next) {
+router.get(api + '/sensors_controller/environment_model', function (req, res, next) {
     res.send(read_environment_model())
 })
 
 /* CP: start session */
-router.post('/system_controller/start_process', function (req, res, next) {
+router.post(api + '/system_controller/start_process', function (req, res, next) {
     res.send(JSON.stringify(newSession()))
 });
 
