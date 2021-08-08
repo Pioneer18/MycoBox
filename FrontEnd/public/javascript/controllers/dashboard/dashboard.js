@@ -4,7 +4,8 @@
 console.log('Starting the Dashboard Controller')
 
 const insert_sensor_values = (values) => {
-    for (let val in values) {
+    for (const val of values) {
+        console.log(val)
         if(val === 'temp') document.getElementById('temp_field').innerHTML = '35C';
     }
 }
