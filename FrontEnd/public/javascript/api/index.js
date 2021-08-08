@@ -13,16 +13,16 @@ class FrontEndApi {
          */
         this.newSession = (process, config) => {
             // create the XMLHTTP instance
-            this.makeRequest('POST',`http://192.168.1.97:3000${this.api }/system_controller/start_process`, JSON.stringify({process, config})) // add a content-type param
+            this.makeRequest('POST',`http://192.168.1.97:3000${this.api}/system_controller/start_process`, JSON.stringify({process, config})) // add a content-type param
         };
 
         /**
          * GET: /api_v1/myco_box/environment_model
          * Returns all of the sensor readings, the current environment model
          */
-        // this.environmentModel = () => {
-        //     this.makeRequest('GET', 'http://192.168.1.97:3000/system_controller/environment_model')
-        // }
+        this.environmentModel = () => {
+            this.makeRequest('GET', `http://192.168.1.97:3000${this.api}/system_controller/environment_model`)
+        }
 
         this.makeRequest = (method, url, data) => {
             // create the XMLHTTP instance

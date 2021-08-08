@@ -12,7 +12,7 @@ const api = "/api_v1";
  * Dashboard: sensor data
  */
 router.get(api + '/sensors_controller/environment_model', function (req, res, next) {
-    res.send(read_environment_model())
+    res.send(JSON.stringify(read_environment_model()))
 })
 
 /* CP: start session */
