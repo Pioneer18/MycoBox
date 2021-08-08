@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
 /**
  * GET Dashboard page
  */
-router.get('/', function(req, res, next) {
+router.get('/dashboard', function(req, res, next) {
   res.render('dashboard/dashboard')
 })
 
