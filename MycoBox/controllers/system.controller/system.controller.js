@@ -33,8 +33,10 @@ module.exports = {
      * - return confirmation when the manageEnvironment method has begun
      */
     newSession: () => {
+        console.log('Inside New Session Method')
         // sensors.controller.setEnvironment()
         if(!sessionConfig.active_session) {
+            console.log('There is not an active session')
             set_environment_model()
             manageEnvironment()
         }
