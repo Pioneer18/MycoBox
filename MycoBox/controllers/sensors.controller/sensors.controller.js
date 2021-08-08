@@ -18,12 +18,11 @@ let options = {
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
 const read_temp_humidity = () => {
-    console.log(process.cwd());
-    // PythonShell.run('temp.humidity.py', options, function (err, reply) {
-    //     if (err) throw err;
-    //     parse_th_data(reply) // validate and load into env model
-    //     return
-    // })
+    PythonShell.run('temp.humidity.py', options, function (err, reply) {
+        if (err) throw err;
+        parse_th_data(reply) // validate and load into env model
+        return
+    })
 }
 
 /**
@@ -69,10 +68,11 @@ const read_infrared = () => {
  * Set Environment Model
  */
 const set_environment_model = () => {
-    read_temp_humidity()
-    read_precise_temp()
-    read_scale()
-    read_infrared()
+    console.log(process.cwd())
+    // read_temp_humidity()
+    // read_precise_temp()
+    // read_scale()
+    // read_infrared()
     return
 }
 
