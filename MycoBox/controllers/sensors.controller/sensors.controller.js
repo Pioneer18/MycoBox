@@ -65,7 +65,7 @@ const read_infrared = () => {
 }
 
 /**
- * Set Environment Model - return readings of every sensor group
+ * Set Environment Model
  */
 const set_environment_model = () => {
     read_temp_humidity()
@@ -75,11 +75,32 @@ const set_environment_model = () => {
     return
 }
 
+/**
+ * Read Environment Model
+ */
+const read_environment_model = () => {
+    return {
+        internal_temp_1: process.env.internal_temp_1,  
+        internal_temp_2: process.env.internal_temp_2,  
+        internal_temp_3: process.env.internal_temp_3,  
+        precise_temp_c: process.env.precise_temp_c, 
+        precise_temp_f: process.env.precise_temp_f, 
+        external_temp: process.env.external_temp, 
+        internal_humidity_1: process.env.internal_humidity_1, 
+        internal_humidity_2: process.env.internal_humidity_2, 
+        internal_humidity_3: process.env.internal_humidity_3, 
+        external_humidity: process.env.external_humidity, 
+        co2: process.env.co2, 
+        weight: process.env.weight, 
+    }
+}
+
 module.exports = {
     read_temp_humidity,
     read_precise_temp,
     read_co2,
     read_scale,
     read_infrared,
-    set_environment_model
+    set_environment_model,
+    read_environment_model
 }
