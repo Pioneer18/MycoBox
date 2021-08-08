@@ -3,17 +3,21 @@ html, body {
 }
 
 .sensor_panel {
-    display: inline-block;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     width: 25%;
     height: 100%;
     background-color: green;
 }
 
-/* .sensor_panel--output {
-
-} */
+.sensor_panel--output {
+    border: 1px solid white;
+    height: 10%;
+    width: 90%;
+    padding-left: 4%;
+    align-self: center;
+}
 
 .webcam_window {
     display: inline-block;
