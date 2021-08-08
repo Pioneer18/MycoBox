@@ -7,7 +7,7 @@ const api = new FrontEndApi();
 
 const insert_sensor_values = (values) => {
     console.log('Reading the Environment Model')
-    api.environmentModel()
+    api.readEnvironmentModel()
     for (const val in values) {
         console.log(val)
         if(val === 'temp') document.getElementById('temp_field').innerHTML = values[val];

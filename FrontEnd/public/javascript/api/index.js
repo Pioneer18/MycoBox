@@ -20,8 +20,8 @@ class FrontEndApi {
          * GET: /api_v1/myco_box/environment_model
          * Returns all of the sensor readings, the current environment model
          */
-        this.environmentModel = () => {
-            this.makeRequest('GET', `http://192.168.1.97:3000${this.api}/sensors_controller/environment_model`)
+        this.readEnvironmentModel = () => {
+            this.makeRequest('GET', `http://192.168.1.97:3000${this.api}/sensors_controller/read_environment_model`)
         }
 
         this.makeRequest = (method, url, data) => {
