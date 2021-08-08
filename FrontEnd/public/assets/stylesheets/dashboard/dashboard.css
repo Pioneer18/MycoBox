@@ -3,15 +3,17 @@
 }
 
 .sensor_panel {
+    display: block;
     width: 25vw;
-    height: 100vh;
+    height: 100%;
     margin: 0 auto 0 0;
     background-color: aquamarine;
 }
 
 .webcam_window {
+    display: block;
     width: 75vw;
-    height: 100vh;
+    height: 100%;
     margin: 0 0 0 auto;
     background-color: #fafafa;
 }
