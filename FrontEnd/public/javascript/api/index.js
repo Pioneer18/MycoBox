@@ -4,7 +4,7 @@
 class FrontEndApi {
     constructor() {
 
-        this.root = '/api_v1';
+        this.api = '/api_v1';
 
         /**
          * POST: /api_v1/myco_box/start_process
@@ -13,7 +13,7 @@ class FrontEndApi {
          */
         this.newSession = (process, config) => {
             // create the XMLHTTP instance
-            this.makeRequest('POST', api + 'http://192.168.1.97:3000/system_controller/start_process', JSON.stringify({process, config})) // add a content-type param
+            this.makeRequest('POST', this.api + 'http://192.168.1.97:3000/system_controller/start_process', JSON.stringify({process, config})) // add a content-type param
         };
 
         /**
