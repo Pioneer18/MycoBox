@@ -13,7 +13,8 @@ const api = "/api_v1";
  */
 router.get(api + '/sensors_controller/read_environment_model', function (req, res, next) {
     set_environment_model()
-    res.send(JSON.stringify(read_environment_model()))
+    console.log('Finsished setting EnvModel')
+    res.send(JSON.stringify(await read_environment_model()))
 })
 
 /**
