@@ -16,9 +16,18 @@
 <body>
     <!--no line break for no inline-block gap-->
     <div class="sensor_panel">
-        <div class="sensor_panel--output" id="temp">temp</div>
-        <div class="sensor_panel--output" id="humidity">humidity</div>
-        <div class="sensor_panel--output" id="c02">CO2</div>
+        <div class="sensor_panel--output" id="temp">
+            <label class="sensor_panel--ouput-label">Temp:</label>
+            <span class="sensor_panel--output-field" id="temp_field"></span>
+        </div>
+        <div class="sensor_panel--output" id="humidity">
+            <label class="sensor_panel--output-label">Humidity</label>
+            <span class="sensor_panel--output-field" id="humidity_field"></span>
+        </div>
+        <div class="sensor_panel--output" id="c02">
+            <label class="sensor_panel--output-label">CO2</label>
+            <span class="sensor_panel--output-field" id="co2_field"></span>
+        </div>
     </div><div class="webcam_window">
         <div class="control_panel--menu-button"></div>
         <div class="control_panel">

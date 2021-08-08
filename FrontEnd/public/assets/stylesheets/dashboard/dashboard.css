@@ -20,6 +20,7 @@ html, body {
 }
 
 .webcam_window {
+    position: relative;
     display: inline-block;
     width: 75%;
     height: 100%;
@@ -28,4 +29,13 @@ html, body {
 
 .control_panel {
     display: none;
+}
+
+.control_panel--menu-button {
+    position: absolute;
+    top: -10%;
+    right: -10%;
+    height: 8%;
+    width: 8%;
+    background-color: red;
 }
