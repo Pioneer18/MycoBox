@@ -69,11 +69,13 @@ const read_infrared = () => {
  */
 const set_environment_model = () => {
     console.log(process.cwd())
+    console.log(__dirname)
+    return(__dirname)
     // read_temp_humidity()
     // read_precise_temp()
     // read_scale()
     // read_infrared()
-    return
+    // return
 }
 
 /**
