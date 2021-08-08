@@ -18,7 +18,7 @@ let options = {
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
 const read_temp_humidity = () => {
-    console.log(process.cwd())
+    console.log(process.cwd());
     // PythonShell.run('temp.humidity.py', options, function (err, reply) {
     //     if (err) throw err;
     //     parse_th_data(reply) // validate and load into env model
