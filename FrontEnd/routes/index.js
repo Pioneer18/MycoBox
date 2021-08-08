@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-const root = '/v1_app'
 /**
  * GET Home page
  */
