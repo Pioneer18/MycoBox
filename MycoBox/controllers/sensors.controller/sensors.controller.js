@@ -10,7 +10,7 @@ const {
 let options = {
     mode: 'text',
     pythonOptions: ['-u'], // get print results in real-time
-    scriptPath: '../../python',
+    scriptPath: 'MycoBox/python',
 };
 
 /**
@@ -69,13 +69,11 @@ const read_infrared = () => {
  */
 const set_environment_model = () => {
     console.log(process.cwd())
-    console.log(__dirname)
-    return(__dirname)
-    // read_temp_humidity()
-    // read_precise_temp()
-    // read_scale()
-    // read_infrared()
-    // return
+    read_temp_humidity()
+    read_precise_temp()
+    read_scale()
+    read_infrared()
+    return
 }
 
 /**
