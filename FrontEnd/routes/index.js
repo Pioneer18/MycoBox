@@ -1,10 +1,23 @@
 var express = require('express');
-var path = require('path');
 var router = express.Router();
+const root = '/v1_app'
+/**
+ * GET Home page
+ */
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+
+/** 
+ * GET Configuration page. 
+ */
+router.get('/', function (req, res, next) {
   res.render('configuration/configuration')
 });
+
+/**
+ * GET Dashboard page
+ */
+router.get('/', function(req, res, next) {
+  res.render('dashboard/dashboard')
+})
 
 module.exports = router;
