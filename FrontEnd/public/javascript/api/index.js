@@ -10,20 +10,21 @@ const api = '/api_v1'
  * @param {} config {proces: String, env: Object}
  * Starts a new session with the given configuration
  */
-const newSession = (process, config) => {
+const newSession = async (process, config) => {
     // create the XMLHTTP instance
-    makeRequest('POST', `http://192.168.1.97:3000${api}/system_controller/start_process`, JSON.stringify({ process, config })) // add a content-type param
+    await makeRequest('POST', `http://192.168.1.97:3000${api}/system_controller/start_process`, JSON.stringify({ process, config })) // add a content-type param
 };
 
 /**
  * GET: /api_v1/myco_box/environment_model
  * Returns all of the sensor readings, the current environment model
  */
-const readEnvironmentModel = () => {
-    return makeRequest('GET', `http://192.168.1.97:3000${api}/sensors_controller/read_environment_model`)
+const readEnvironmentModel = async () => {
+    const response = await makeRequest('GET', `http://192.168.1.97:3000${api}/sensors_controller/read_environment_model`)
+    return response
 }
 
-const makeRequest = (method, url, data) => {
+const makeRequest = async (method, url, data) => {
     // create the XMLHTTP instance
     let httpRequest = new XMLHttpRequest();
 
