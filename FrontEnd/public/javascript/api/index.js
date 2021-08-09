@@ -21,7 +21,7 @@ class FrontEndApi {
          * Returns all of the sensor readings, the current environment model
          */
         this.readEnvironmentModel = () => {
-            this.makeRequest('GET', `http://192.168.1.97:3000${this.api}/sensors_controller/read_environment_model`)
+            return this.makeRequest('GET', `http://192.168.1.97:3000${this.api}/sensors_controller/read_environment_model`)
         }
 
         this.makeRequest = (method, url, data) => {
@@ -43,7 +43,7 @@ class FrontEndApi {
                         console.log(httpRequest.responseText)
                         console.log(typeof httpRequest.response)
                         console.log(httpRequest.response)
-                        return httpRequest.responseText
+                        return httpRequest.response
                     } else {
                         // There was a problem with the request.
                         // For example, the response may have a 404 (Not Found)
