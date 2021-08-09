@@ -8,6 +8,8 @@ const api = new FrontEndApi();
 const insert_sensor_values = async () => {
     console.log('Reading the Environment Model')
     const values = api.readEnvironmentModel()
+    console.log('Here are the Values from within the controller')
+    console.log(values)
     for (const val in values) {
         if (val === 'temp') document.getElementById('iTemp1').innerHTML = values[val]
         if (val === 'humidity') document.getElementById('iTemp2').innerHTML = values[val]
