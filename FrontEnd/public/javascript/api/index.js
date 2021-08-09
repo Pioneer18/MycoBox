@@ -43,7 +43,8 @@ const makeRequest = async (method, url, data) => {
                 console.log(httpRequest.responseText)
                 console.log(typeof httpRequest.response)
                 console.log(httpRequest.response)
-                return httpRequest.response
+                const val = httpRequest.response
+                return val;
             } else {
                 // There was a problem with the request.
                 // For example, the response may have a 404 (Not Found)
