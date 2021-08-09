@@ -40,14 +40,19 @@ class FrontEndApi {
                     if (httpRequest.status === 200) {
                         // Perfect!
                         console.log('Below is the backend http response:')
-                        console.log(httpRequest.responseText);
+                        console.log(httpRequest.responseText)
+                        return httpRequest.responseText
                     } else {
                         // There was a problem with the request.
                         // For example, the response may have a 404 (Not Found)
                         // or 500 (Internal Server Error) response code.
+                        console.log('Some Kinda Error??')
+                        return
                     }
                 } else {
                     // Not ready yet.
+                    console.log('Not Ready yet?')
+                    return
                 }
             }
             httpRequest.open(method, url, true); // async true
