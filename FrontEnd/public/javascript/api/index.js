@@ -41,6 +41,8 @@ class FrontEndApi {
                         // Perfect!
                         console.log('Below is the backend http response:')
                         console.log(httpRequest.responseText)
+                        console.log(typeof httpRequest.response)
+                        console.log(httpRequest.response)
                         return httpRequest.responseText
                     } else {
                         // There was a problem with the request.
