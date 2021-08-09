@@ -11,7 +11,7 @@ const api = "/api_v1";
 /**
  * Dashboard: read environment model
  */
-router.get(api + '/sensors_controller/read_environment_model', function (req, res, next) {
+router.get(api + '/sensors_controller/read_environment_model', async function (req, res, next) {
     set_environment_model()
     console.log('Finsished setting EnvModel')
     const response = await read_environment_model()
