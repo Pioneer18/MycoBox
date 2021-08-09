@@ -27,4 +27,4 @@ const insert_sensor_values = async () => {
     }
 }
 
-insert_sensor_values(values)
+insert_sensor_values()
