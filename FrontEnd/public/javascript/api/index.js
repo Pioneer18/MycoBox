@@ -21,12 +21,8 @@ const newSession = (process, config) => {
  */
 const readEnvironmentModel = () => {
     makeRequest('GET', `http://192.168.1.97:3000${api}/sensors_controller/read_environment_model`)
-    console.log('ReadEnvironment: --- ')
-    console.log(response)
-    return response
 }
 
-let response = ''
 
 const makeRequest = (method, url, data) => {
     // create the XMLHTTP instance
@@ -45,8 +41,8 @@ const makeRequest = (method, url, data) => {
                 // Perfect!
                 console.log('Below is the backend http response:')
                 // console.log(httpRequest.responseText)
-                response = httpRequest.response
-                console.log(response);
+                console.log(httpRequest.response)
+                console.log(JSON.parse(httpRequest.response))
             } else {
                 // There was a problem with the request.
                 // For example, the response may have a 404 (Not Found)
