@@ -2,12 +2,11 @@
  * Dashboard Controller
  */
 console.log('Starting the Dashboard Controller')
-import { FrontEndApi } from '../../api/index.js';
-const api = new FrontEndApi();
+import { readEnvironmentModel } from '../../api/index.js';
 
 const insert_sensor_values = async () => {
     console.log('Reading the Environment Model')
-    const values = api.readEnvironmentModel()
+    const values = readEnvironmentModel()
     console.log('Here are the Values from within the controller')
     console.log(values)
     for (const val in values) {

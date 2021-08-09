@@ -2,10 +2,9 @@
  * Configuration Form Controller
  */
 import { default_configs } from '../../resources/default_configs.js';
-import { FrontEndApi } from '../../api/index.js';
+import { newSession } from '../../api/index.js';
 
 let DEFAULTS = true;
-const api = new FrontEndApi()
 
 const displayOverrides = () => {
     let rad = document.main_config_form.accept_defaults;
@@ -31,7 +30,7 @@ document.main_config_form.onsubmit = (e) => {
     // map the form
     const { process, config } = mapForm();
     // send Http request to start process on MycoBox
-    api.newSession(process, config)
+    newSession(process, config)
 };
 
 const mapForm = () => {
