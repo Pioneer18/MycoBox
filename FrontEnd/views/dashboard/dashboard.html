@@ -15,95 +15,97 @@
 
 <body>
     <!--no line break for no inline-block gap-->
-    <div class="sensor_panel">
-        <div class="sensor_panel--output" id="internal_temp_1">
-            <label class="sensor_panel--ouput-label">iTemp1:</label>
-            <span class="sensor_panel--output-field" id="iTemp1"></span>
-        </div>
-        <div class="sensor_panel--output" id="internal_temp_2">
-            <label class="sensor_panel--output-label">iTemp2:</label>
-            <span class="sensor_panel--output-field" id="iTemp2"></span>
-        </div>
-        <div class="sensor_panel--output" id="internal_temp_3">
-            <label class="sensor_panel--output-label">iTemp3:</label>
-            <span class="sensor_panel--output-field" id="iTemp3"></span>
-        </div>
-        <!-- <div class="sensor_panel--output" id="precise_temp_c">
-            <label class="sensor_panel--output-label">precise_temp_c<label>
-            <span class="sensor_panel--output-field" id="pTempC"></span>
-        </div>
-        <div class="sensor_panel--output" id="precise_temp_f">
-            <label class="sensor_panel--output-label">precise_temp_f<label>
-            <span class="sensor_panel--output-field" id="pTempF"></span>
-        </div>
-        <div class="sensor_panel--output" id="external_temp">
-            <label class="sensor_panel--output-label">external_temp<label>
-            <span class="sensor_panel--output-field" id="eTemp"></span>
-        </div>
-        <div class="sensor_panel--output" id="internal_humidity_1">
-            <label class="sensor_panel--output-label">internal_humidity_1<label>
-            <span class="sensor_panel--output-field" id="iHumidity1"></span>
-        </div>
-        <div class="sensor_panel--output" id="internal_humidity_2">
-            <label class="sensor_panel--output-label">internal_humidity_2<label>
-            <span class="sensor_panel--output-field" id="iHumidity2"></span>
-        </div>
-        <div class="sensor_panel--output" id="internal_humidity_3">
-            <label class="sensor_panel--output-label">internal_humidity_3<label>
-            <span class="sensor_panel--output-field" id="iHumidity3"></span>
-        </div>
-        <div class="sensor_panel--output" id="external_humidity">
-            <label class="sensor_panel--output-label">external_humidity<label>
-            <span class="sensor_panel--output-field" id="eHumidity"></span>
-        </div>
-        <div class="sensor_panel--output" id="co2_div">
-            <label class="sensor_panel--output-label">co2<label>
-            <span class="sensor_panel--output-fieco2ld" id="co2"></span>
-        </div>
-        <div class="sensor_panel--output" id="weight_div">
-            <label class="sensor_panel--output-label">weight<label>
-            <span class="sensor_panel--output-fieldweight" id="weight"></span>
-        </div> -->
-    </div><div class="webcam_window">
-        <div class="control_panel--menu-button"></div>
-        <div class="control_panel">
-            <form name="control_panel_form">
-                <button class="control_panel--form-button" id="start_session">Start Session</button>
-                <button class="control_panel--form-button" id="end_session">End Session</button>
-                <button class="control_panel--form-button" id="end_flush">End Flush</button>
-                <!--Temperature-->
-                <div>
-                    <label class="config_label">Select Temperature Celsius</label>
-                    <input type="number" name="temperature_c" class="form__number_input">
-                </div>
-                <!--Humidity-->
-                <div>
-                    <label class="config_label">Select Relative Humidity %</label>
-                    <input type="number" name="humidity" class="form__number_input">
-                </div>
-                <!--CO2-->
-                <div>
-                    <label class="config_label">Select CO2 ppm</label>
-                    <input type="number" name="co2_ppm" class="form__number_input">
-                </div>
-                <!--Light-->
-                <div className="form__radio-group">
-                    <span class="config_label">Select Lighting</span>
-                    <input type="radio" class="form__radio-input" id="yes" name="lighting" />
-                    <label class="form__radio-label">
-                        On
-                    </label>
-                    <input type="radio" class="form__radio-input" id="no" name="lighting" />
-                    <label class="form__radio-label">
-                        Off
-                    </label>
-                </div>
-                <!--Duration-->
-                <div>
-                    <label class="config_label">Select Duration (days)</label>
-                    <input type="number" name="duration_days" class="form__number_input">
-                </div>
-            </form>
+    <div class="main_flex">
+        <div class="sensor_panel">
+            <div class="sensor_panel--output" id="internal_temp_1">
+                <label class="sensor_panel--ouput-label">iTemp1:</label>
+                <span class="sensor_panel--output-field" id="iTemp1"></span>
+            </div>
+            <div class="sensor_panel--output" id="internal_temp_2">
+                <label class="sensor_panel--output-label">iTemp2:</label>
+                <span class="sensor_panel--output-field" id="iTemp2"></span>
+            </div>
+            <div class="sensor_panel--output" id="internal_temp_3">
+                <label class="sensor_panel--output-label">iTemp3:</label>
+                <span class="sensor_panel--output-field" id="iTemp3"></span>
+            </div>
+            <!-- <div class="sensor_panel--output" id="precise_temp_c">
+                <label class="sensor_panel--output-label">precise_temp_c<label>
+                <span class="sensor_panel--output-field" id="pTempC"></span>
+            </div>
+            <div class="sensor_panel--output" id="precise_temp_f">
+                <label class="sensor_panel--output-label">precise_temp_f<label>
+                <span class="sensor_panel--output-field" id="pTempF"></span>
+            </div>
+            <div class="sensor_panel--output" id="external_temp">
+                <label class="sensor_panel--output-label">external_temp<label>
+                <span class="sensor_panel--output-field" id="eTemp"></span>
+            </div>
+            <div class="sensor_panel--output" id="internal_humidity_1">
+                <label class="sensor_panel--output-label">internal_humidity_1<label>
+                <span class="sensor_panel--output-field" id="iHumidity1"></span>
+            </div>
+            <div class="sensor_panel--output" id="internal_humidity_2">
+                <label class="sensor_panel--output-label">internal_humidity_2<label>
+                <span class="sensor_panel--output-field" id="iHumidity2"></span>
+            </div>
+            <div class="sensor_panel--output" id="internal_humidity_3">
+                <label class="sensor_panel--output-label">internal_humidity_3<label>
+                <span class="sensor_panel--output-field" id="iHumidity3"></span>
+            </div>
+            <div class="sensor_panel--output" id="external_humidity">
+                <label class="sensor_panel--output-label">external_humidity<label>
+                <span class="sensor_panel--output-field" id="eHumidity"></span>
+            </div>
+            <div class="sensor_panel--output" id="co2_div">
+                <label class="sensor_panel--output-label">co2<label>
+                <span class="sensor_panel--output-fieco2ld" id="co2"></span>
+            </div>
+            <div class="sensor_panel--output" id="weight_div">
+                <label class="sensor_panel--output-label">weight<label>
+                <span class="sensor_panel--output-fieldweight" id="weight"></span>
+            </div> -->
+        </div><div class="webcam_window">
+            <div class="control_panel--menu-button"></div>
+            <div class="control_panel">
+                <form name="control_panel_form">
+                    <button class="control_panel--form-button" id="start_session">Start Session</button>
+                    <button class="control_panel--form-button" id="end_session">End Session</button>
+                    <button class="control_panel--form-button" id="end_flush">End Flush</button>
+                    <!--Temperature-->
+                    <div>
+                        <label class="config_label">Select Temperature Celsius</label>
+                        <input type="number" name="temperature_c" class="form__number_input">
+                    </div>
+                    <!--Humidity-->
+                    <div>
+                        <label class="config_label">Select Relative Humidity %</label>
+                        <input type="number" name="humidity" class="form__number_input">
+                    </div>
+                    <!--CO2-->
+                    <div>
+                        <label class="config_label">Select CO2 ppm</label>
+                        <input type="number" name="co2_ppm" class="form__number_input">
+                    </div>
+                    <!--Light-->
+                    <div className="form__radio-group">
+                        <span class="config_label">Select Lighting</span>
+                        <input type="radio" class="form__radio-input" id="yes" name="lighting" />
+                        <label class="form__radio-label">
+                            On
+                        </label>
+                        <input type="radio" class="form__radio-input" id="no" name="lighting" />
+                        <label class="form__radio-label">
+                            Off
+                        </label>
+                    </div>
+                    <!--Duration-->
+                    <div>
+                        <label class="config_label">Select Duration (days)</label>
+                        <input type="number" name="duration_days" class="form__number_input">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <script type="module" src="../../javascript/controllers/dashboard/dashboard.js"></script>
