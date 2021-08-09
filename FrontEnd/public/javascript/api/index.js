@@ -27,6 +27,7 @@ const readEnvironmentModel = () => {
 const makeRequest = (method, url, data) => {
     // create the XMLHTTP instance
     let httpRequest = new XMLHttpRequest();
+    let response;
 
     if (!httpRequest) {
         alert('Error: Cannot create an XMLHTTP instance');
@@ -43,8 +44,7 @@ const makeRequest = (method, url, data) => {
                 console.log(httpRequest.responseText)
                 console.log(typeof httpRequest.response)
                 console.log(httpRequest.response)
-                const val = httpRequest.response
-                return val;
+                response = httpRequest.responseText
             } else {
                 // There was a problem with the request.
                 // For example, the response may have a 404 (Not Found)
@@ -63,8 +63,7 @@ const makeRequest = (method, url, data) => {
     httpRequest.setRequestHeader('Access-Control-Allow-Origin', 'http://192.168.1.97:3000/');
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(data);
-
-
+    return response;
 }
 
 export {
