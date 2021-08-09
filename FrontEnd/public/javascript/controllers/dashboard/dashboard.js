@@ -28,4 +28,4 @@ const insert_sensor_values = async () => {
     }
 }
 
-insert_sensor_values()
+await insert_sensor_values()
