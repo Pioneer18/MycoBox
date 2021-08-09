@@ -5,7 +5,7 @@ console.log('Starting the Dashboard Controller')
 import { FrontEndApi } from '../../api/index.js';
 const api = new FrontEndApi();
 
-const insert_sensor_values = (values) => {
+const insert_sensor_values = () => {
     console.log('Reading the Environment Model')
     const values = api.readEnvironmentModel()
     console.log(`Values from DashboardController`)
