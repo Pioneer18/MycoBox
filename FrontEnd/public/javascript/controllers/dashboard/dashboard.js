@@ -7,7 +7,9 @@ const api = new FrontEndApi();
 
 const insert_sensor_values = (values) => {
     console.log('Reading the Environment Model')
-    api.readEnvironmentModel()
+    const values = api.readEnvironmentModel()
+    console.log(`Values from DashboardController`)
+    console.log(values)
     for (const val in values) {
         if(val === 'temp') document.getElementById('temp_field').innerHTML = values[val];
         if(val === 'humidity') document.getElementById('humidity_field').innerHTML = values[val];
