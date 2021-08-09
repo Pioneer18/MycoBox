@@ -20,14 +20,17 @@ const newSession = (process, config) => {
  * Returns all of the sensor readings, the current environment model
  */
 const readEnvironmentModel = () => {
-    makeRequest('GET', `http://192.168.1.97:3000${api}/sensors_controller/read_environment_model`)
+    const response = makeRequest('GET', `http://192.168.1.97:3000${api}/sensors_controller/read_environment_model`)
+    console.log('Response From Make Request:')
+    console.log(response)
+    return response;
 }
 
 
 const makeRequest = (method, url, data) => {
     // create the XMLHTTP instance
     let httpRequest = new XMLHttpRequest();
-
+    let response
     if (!httpRequest) {
         alert('Error: Cannot create an XMLHTTP instance');
         return false;
@@ -43,6 +46,7 @@ const makeRequest = (method, url, data) => {
                 // console.log(httpRequest.responseText)
                 console.log(httpRequest.response)
                 console.log(JSON.parse(httpRequest.response))
+                response = JSON.parse(httpRequest.response);
             } else {
                 // There was a problem with the request.
                 // For example, the response may have a 404 (Not Found)
@@ -61,6 +65,7 @@ const makeRequest = (method, url, data) => {
     httpRequest.setRequestHeader('Access-Control-Allow-Origin', 'http://192.168.1.97:3000/');
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(data);
+    return response
 }
 
 export {
