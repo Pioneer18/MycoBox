@@ -9,7 +9,6 @@ const insert_sensor_values = (values) => {
     console.log('Reading the Environment Model')
     api.readEnvironmentModel()
     for (const val in values) {
-        console.log(val)
         if(val === 'temp') document.getElementById('temp_field').innerHTML = values[val];
         if(val === 'humidity') document.getElementById('humidity_field').innerHTML = values[val];
         if(val === 'co2') document.getElementById('co2_field').innerHTML = values[val];
