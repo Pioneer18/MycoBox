@@ -5,6 +5,7 @@ html, body {
 .sensor_panel {
     display: flex;
     flex-direction: column;
+    flex-shrink: 1;
     justify-content: space-around;
     width: 25%;
     height: 100%;
