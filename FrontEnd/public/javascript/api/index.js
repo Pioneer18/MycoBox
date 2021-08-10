@@ -2,6 +2,8 @@
  * Send Controller AJAX Calls to the Backend Application
  */
 
+import { response } from "express";
+
 
 const api = '/api_v1'
 
@@ -13,6 +15,7 @@ const api = '/api_v1'
 const newSession = (process, config) => {
     // create the XMLHTTP instance
     makeRequest('POST', `http://192.168.1.97:3000${api}/system_controller/start_process`, JSON.stringify({ process, config })) // add a content-type param
+    // fetch(`http://192.168.1.97:3000${api}/system_controller/start_process`)
 };
 
 /**
@@ -60,6 +63,9 @@ const makeRequest = (method, url, data) => {
     httpRequest.setRequestHeader('Access-Control-Allow-Origin', 'http://192.168.1.97:3000/');
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(data);
+    response.json().getHeaderNames(data => {
+        console.log(`Here's the actual data: ${data}`);
+    })
 }
 
 export {
