@@ -1,8 +1,7 @@
 /**
  * Send Controller AJAX Calls to the Backend Application
  */
-import axios from "../../../node_modules/axios";
-
+const axios = require('axios')
 const api = '/api_v1'
 
 /**
