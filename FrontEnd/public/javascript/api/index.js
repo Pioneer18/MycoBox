@@ -1,7 +1,6 @@
 /**
  * Send Controller AJAX Calls to the Backend Application
  */
-import * as axios from 'axios'
 const api = '/api_v1'
 
 /**
@@ -14,32 +13,14 @@ const newSession = (process, config) => {
     makeRequest('POST', `http://192.168.1.97:3000${api}/system_controller/start_process`, JSON.stringify({ process, config })) // add a content-type param
 };
 
+
 /**
  * GET: /api_v1/myco_box/environment_model
  * Returns all of the sensor readings, the current environment model
  */
 const readEnvironmentModel = () => {
-    // makeRequest('GET', `http://192.168.1.97:3000${api}/sensors_controller/read_environment_model`)
-    // Make a request for a user with a given ID
-    console.log('Hello, bout to call Axios!')
-    return axios.get(`http://192.168.1.97:3000${api}/system_controller/start_process`)
-        .then(function (response) {
-            // handle success
-            console.log(response);
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
+    makeRequest('GET', `http://192.168.1.97:3000${api}/sensors_controller/read_environment_model`)
 }
-
-// /**
-//  * GET: /api_v1/myco_box/environment_model
-//  * Returns all of the sensor readings, the current environment model
-//  */
-// const readEnvironmentModel = () => {
-//     makeRequest('GET', `http://192.168.1.97:3000${api}/sensors_controller/read_environment_model`)
-// }
 
 
 const makeRequest = (method, url, data) => {
