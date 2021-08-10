@@ -22,7 +22,7 @@ const newSession = (process, config) => {
 const readEnvironmentModel = () => {
     // makeRequest('GET', `http://192.168.1.97:3000${api}/sensors_controller/read_environment_model`)
     // Make a request for a user with a given ID
-    axios({
+    return axios({
         method: 'get',
         url: 'http://192.168.1.97:3000/api_v1/system_controller/start_process',
         responseType: 'stream'
