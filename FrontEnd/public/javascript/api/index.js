@@ -22,15 +22,16 @@ const newSession = (process, config) => {
 const readEnvironmentModel = () => {
     // makeRequest('GET', `http://192.168.1.97:3000${api}/sensors_controller/read_environment_model`)
     // Make a request for a user with a given ID
-    return axios({
-        method: 'get',
-        url: 'http://192.168.1.97:3000/api_v1/system_controller/start_process',
-        responseType: 'stream'
-    })
+    console.log('Hello, bout to call Axios!')
+    return axios.get(`http://192.168.1.97:3000${api}/system_controller/start_process`)
         .then(function (response) {
-            console.log('Axios Response Below')
+            // handle success
             console.log(response);
-        });
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
 }
 
 // /**
