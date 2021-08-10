@@ -58,7 +58,7 @@ const makeRequest = (method, url, data) => {
             }
         } else {
             // Not ready yet.
-            console.log('Not Ready yet?')
+            console.log('Not Ready yet? ')
             return
         }
     }
