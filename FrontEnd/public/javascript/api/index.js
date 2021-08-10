@@ -1,7 +1,7 @@
 /**
  * Send Controller AJAX Calls to the Backend Application
  */
-import axios from "../../../axios";
+import * as axios from 'axios'
 const api = '/api_v1'
 
 /**
