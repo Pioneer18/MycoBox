@@ -64,7 +64,8 @@ const makeRequest = (method, url, data) => {
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(data);
     response.json().getHeaderNames(data => {
-        console.log(`Here's the actual data: ${data}`);
+        console.log('Here is the Actual Data')
+        console.log(data)
     })
 }
 
