@@ -45,10 +45,6 @@ const makeRequest = (method, url, data) => {
                 // console.log(httpRequest.responseText)
                 console.log(httpRequest.response)
                 console.log(JSON.parse(httpRequest.response))
-                response.json().then(data => {
-                    console.log('Here is the Actual Data')
-                    console.log(data)
-                })
             } else {
                 // There was a problem with the request.
                 // For example, the response may have a 404 (Not Found)
