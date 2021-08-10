@@ -63,7 +63,7 @@ const makeRequest = (method, url, data) => {
     httpRequest.setRequestHeader('Access-Control-Allow-Origin', 'http://192.168.1.97:3000/');
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(data);
-    response.json().getHeaderNames(data => {
+    response.json().then(data => {
         console.log('Here is the Actual Data')
         console.log(data)
     })
