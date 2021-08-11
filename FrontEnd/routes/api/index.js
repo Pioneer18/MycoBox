@@ -28,3 +28,5 @@ router.get(`/sensors_controller/read_environment_model`, async (req, res) => {
         console.log(`Error: ${err}`)
     }
 })
+
+module.exports = router
