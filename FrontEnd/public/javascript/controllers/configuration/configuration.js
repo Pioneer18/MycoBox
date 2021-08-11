@@ -2,7 +2,7 @@
  * Configuration Form Controller
  */
 import { default_configs } from '../../resources/default_configs.js';
-import { newSession } from '../../api/configuration';
+import { newSession } from '../../api/configuration.js';
 
 let DEFAULTS = true;
 
