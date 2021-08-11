@@ -11,7 +11,7 @@ const api = "/api_v1";
 /**
  * Dashboard: read environment model
  */
-router.get(api + '/sensors_controller/read_environment_model', async function (req, res, next) {
+router.get(`${api}/sensors_controller/read_environment_model`, async function (req, res, next) {
     try{
         await set_environment_model()
         const envmodel = await read_environment_model()
@@ -24,13 +24,13 @@ router.get(api + '/sensors_controller/read_environment_model', async function (r
 /**
  * Override: set environment model
  */
-router.post(api + '/sensors_controller/set_environment_model', function (req, res, next) {
+router.post(`${api}/sensors_controller/set_environment_model`, function (req, res, next) {
     set_environment_model()
     res.send('Environment Model Set')
 })
 
 /* CP: start session */
-router.post(api + '/system_controller/start_process', function (req, res, next) {
+router.post(`${api}/system_controller/start_process`, function (req, res, next) {
     res.send(JSON.stringify(newSession()))
 });
 

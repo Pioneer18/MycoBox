@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+const router = require('express').Router()
+
+
 /**
  * GET Home page
  */
