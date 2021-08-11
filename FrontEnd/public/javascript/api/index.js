@@ -1,28 +1,6 @@
 /**
- * Send Controller AJAX Calls to the Backend Application
+ * API Index file
  */
-const api = '/api_v1'
-
-/**
- * POST: /api_v1/myco_box/start_process
- * @param {} config {proces: String, env: Object}
- * Starts a new session with the given configuration
- */
-const newSession = (process, config) => {
-    // create the XMLHTTP instance
-    makeRequest('POST', `${api}/system_controller/start_session`, JSON.stringify({ process, config })) // add a content-type param
-};
-
-
-/**
- * GET: /api_v1/myco_box/environment_model
- * Returns all of the sensor readings, the current environment model
- */
-const readEnvironmentModel = () => {
-    makeRequest('GET', `${api}/sensors_controller/read_environment_model`)
-}
-
-
 const makeRequest = (method, url, data) => {
     // create the XMLHTTP instance for creating Ajax call
     let httpRequest = new XMLHttpRequest();
@@ -62,6 +40,5 @@ const makeRequest = (method, url, data) => {
 }
 
 export {
-    newSession,
-    readEnvironmentModel
+   makeRequest
 }
