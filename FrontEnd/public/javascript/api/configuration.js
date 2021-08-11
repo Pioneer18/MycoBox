@@ -8,7 +8,7 @@ const api = '/api_v1'
  */
 const newSession = (process, config) => {
     // create the XMLHTTP instance
-    makeRequest('POST', `${api}/system_controller/start_session`, JSON.stringify({ process, config })) // add a content-type param
+    makeRequest('POST', `http://192.168.1.97:3000${api}/system_controller/start_session`, JSON.stringify({ process, config })) // add a content-type param
 };
 
 export {

@@ -5,7 +5,7 @@ const api = 'api_v1'
  * Returns all of the sensor readings, the current environment model
  */
 const readEnvironmentModel = () => {
-    makeRequest('GET', `${api}/sensors_controller/read_environment_model`)
+    makeRequest('GET', `http://192.168.1.97:3000${api}/sensors_controller/read_environment_model`)
 }
 
 export {
