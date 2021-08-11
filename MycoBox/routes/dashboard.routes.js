@@ -2,7 +2,7 @@
  * Dashboard Routes
  */
 const router = require('express').Router()
-const {test} = require('../../controllers/dashboard')
+const { set_environment_model, read_environment_model } = require('../controllers/sensors.controller/sensors.controller')
 
 
 /** 
@@ -10,11 +10,11 @@ const {test} = require('../../controllers/dashboard')
 */
 router.get(`/sensors_controller/read_environment_model`, async (req, res) => {
     try {
-        console.log('/sensors_controller/read_environment_model')
-        const bleh = test()
-        res.json(bleh)
+        await set_environment_model
+        const envmodel = await read_environment_model
+        res.json(envmodel)
     } catch (err) {
-        console.log(`Error: ${err}`)
+        console.log(err)
     }
 })
 
