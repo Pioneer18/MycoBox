@@ -5,7 +5,7 @@ const axios = require('axios')
 
 
 module.exports = {
-    test = () => {
+    test: () => {
         console.log('hey from the other Dashboard controller')
     }
 }
