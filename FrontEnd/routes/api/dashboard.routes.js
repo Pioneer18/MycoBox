@@ -11,7 +11,7 @@ const {test} = require('../../controllers/dashboard')
 router.get(`/sensors_controller/read_environment_model`, async (req, res) => {
     try {
         console.log('/sensors_controller/read_environment_model')
-        test()
+        console.log(test())
         res.json('Read the Environment Model')
     } catch (err) {
         console.log(`Error: ${err}`)
