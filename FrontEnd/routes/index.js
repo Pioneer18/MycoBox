@@ -1,8 +1,8 @@
 const router = require('express').Router()
 const viewRoutes = require('./view')
-// apiRoutes
+const apiRoutes = require('./api')
 
-router.use(viewRoutes)
-// use apiRoutes
+router.use('/', viewRoutes)
+router.use('/api_v1',apiRoutes)
 
 module.exports = router

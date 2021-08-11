@@ -10,7 +10,7 @@ const api = '/api_v1'
  */
 const newSession = (process, config) => {
     // create the XMLHTTP instance
-    makeRequest('POST', `http://192.168.1.97:3000${api}/system_controller/start_process`, JSON.stringify({ process, config })) // add a content-type param
+    makeRequest('POST', `${api}/system_controller/start_session`, JSON.stringify({ process, config })) // add a content-type param
 };
 
 
@@ -19,7 +19,7 @@ const newSession = (process, config) => {
  * Returns all of the sensor readings, the current environment model
  */
 const readEnvironmentModel = () => {
-    makeRequest('GET', `http://192.168.1.97:3000${api}/sensors_controller/read_environment_model`)
+    makeRequest('GET', `${api}/sensors_controller/read_environment_model`)
 }
 
 
