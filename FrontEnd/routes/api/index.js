@@ -6,11 +6,11 @@ const router = require('express').Router()
 /** 
  * Dashboard: New Session
 */
-router.post(`/system_controller/start_process`, async (req, res) => {
+router.post(`/system_controller/start_session`, async (req, res) => {
     try {
-        console.log("/system_controller/start_process ....should be start_session")
+        console.log("/system_controller/start_session")
         console.log(req.body)
-        res.json("/system_controller/start_process ....should be start_session")
+        res.json("/system_controller/start_session")
     } catch (err) {
         console.log(`Error: ${err}`)
     }
