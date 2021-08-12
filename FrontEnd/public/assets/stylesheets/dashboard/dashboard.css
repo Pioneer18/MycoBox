@@ -17,23 +17,13 @@ html, body {
     background-color: green;
 }
 
-.sensor_panel--output-wrapper {
-    position: relative;
-    border: 1px solid black;
+.sensor_panel--output {
+    border: 1px solid white;
     height: 10%;
     width: 90%;
     padding-left: 4%;
     align-self: center;
     color: #f1f1f1;
-}
-
-.sensor_panel--output {
-    /* height: 90%;
-    width: 90%; */
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -50%); /* translate the center of the object to it's 'position'*/
-    text-align: center;
 }
 
 .webcam_window {
