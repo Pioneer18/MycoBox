@@ -6,19 +6,24 @@ const api = 'api_v1'
  */
 const readEnvironmentModel = async () => {
     // makeRequest('GET', `http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`)
-    const response = await fetch(`http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`, {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'omit',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'http://192.168.1.97:3000/',
-            'Access-Control-Allow-Headers': '*'
-        }
-    })
-    console.log(response.json())
-    return response.json()
+    try {
+        const response = await fetch(`http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'omit',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': 'http://192.168.1.97:3000/',
+                'Access-Control-Allow-Headers': '*'
+            }
+        })
+        const data = await response.json()
+        console.log(data)
+        return data
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 export {
