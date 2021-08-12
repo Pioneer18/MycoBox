@@ -32,13 +32,13 @@ module.exports = {
      * - Set the environment model with the sensors.controller
      * - return confirmation when the manageEnvironment method has begun
      */
-    newSession: () => {
+    newSession: async () => {
         console.log('Inside New Session Method')
         // sensors.controller.setEnvironment()
         if(!sessionConfig.active_session) {
             console.log('There is not an active session')
-            set_environment_model()
-            manageEnvironment()
+            await set_environment_model()
+            await manageEnvironment()
         }
         else console.log("There is already an active session!")
     },

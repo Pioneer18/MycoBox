@@ -18,7 +18,7 @@ module.exports = {
      * 2) check the environementConfg
      * 3) check the environmentModel
      */
-    manageEnvironment: () => {
+    manageEnvironment: async () => {
         return 'Starting the EM'
     }
 }
