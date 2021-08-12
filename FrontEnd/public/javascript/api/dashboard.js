@@ -29,6 +29,8 @@ const makeRequest = (method, url, data) => {
                 console.log('Below is the backend http response:')
                 // console.log(httpRequest.responseText)
                 console.log(httpRequest.response)
+                console.log(JSON.stringify(httpRequest.response))
+                console.log(JSON.stringify(httpRequest.responseText))
             } else {
                 // There was a problem with the request.
                 // For example, the response may have a 404 (Not Found)

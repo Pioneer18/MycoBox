@@ -68,6 +68,7 @@ const read_infrared = () => {
  * Set Environment Model
  */
 const set_environment_model = async () => {
+    console.log('MycoBox is setting the environment model')
     read_temp_humidity()
     read_precise_temp()
     read_scale()
