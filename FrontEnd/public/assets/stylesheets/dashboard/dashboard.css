@@ -26,6 +26,22 @@ html, body {
     color: #f1f1f1;
 }
 
+.sensor_panel--output-wrapper {
+    background-color: rosybrown;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.sensor_panel--output-label {
+    display: block;
+    font-size: 2rem;
+}
+
+.sensor_panel--output-field {
+    display: block;
+    font-size: 1.5rem;
+}
+
 .webcam_window {
     flex-grow: 5;
     height: 100%;
