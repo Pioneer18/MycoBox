@@ -19,7 +19,7 @@ const readEnvironmentModel = async () => {
             'Access-Control-Allow-Headers': '*'
         }
     })
-    console.log(response.json)
+    console.log(response.json) 
     return response.json()
 
 }
