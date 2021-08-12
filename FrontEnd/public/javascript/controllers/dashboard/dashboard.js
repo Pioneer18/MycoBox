@@ -1,7 +1,7 @@
 /**
  * Dashboard Controller
  */
-import {readEnvironmentModel} from '../../api/dashboard.js';
+import {read_environment_model} from '../../api/dashboard.js';
 console.log('Starting the Dashboard Controller')
 
 const insert_sensor_values = async () => {

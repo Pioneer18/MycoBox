@@ -6,7 +6,6 @@ const api = 'api_v1'
  * Returns all of the sensor readings, the current environment model 
  */
 const readEnvironmentModel = async () => {
-    let results;
     // makeRequest('GET', `http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`)
     const response = await fetch(`http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`, {
         method: 'GET',
@@ -24,9 +23,9 @@ const readEnvironmentModel = async () => {
 
 }
 
-// export {
-//     readEnvironmentModel
-// }
+export {
+    readEnvironmentModel
+}
 
 // .then(response => {
 //     results = response.json()
