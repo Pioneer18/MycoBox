@@ -10,15 +10,15 @@ const insert_sensor_values = async () => {
     console.log('Here are the Values from within the controller')
     console.log(values)
     for (const val in values) {
-        if (val === 'temp') {
+        if (val === 'temp') document.getElementById('iTemp1').innerHTML = values[val]
+        if (val === 'humidity') document.getElementById('iTemp2').innerHTML = values[val]
+        if (val === 'co2') document.getElementById('iTemp3').innerHTML = values[val]
+        if (val == 'iTemp1') {
             document.getElementById('iTemp1').innerHTML = values[val]
             console.log(document.getElementById('iTemp1'))
             console.log(val)
             console.log(values[val])
         }
-        if (val === 'humidity') document.getElementById('iTemp2').innerHTML = values[val]
-        if (val === 'co2') document.getElementById('iTemp3').innerHTML = values[val]
-        if (val == 'iTemp1') document.getElementById('iTemp1').innerHTML = values[val]
         if (val == 'iTemp2') document.getElementById('iTemp2').innerHTML = values[val]
         if (val == 'iTemp3') document.getElementById('iTemp3').innerHTML = values[val]
         if (val == 'pTempC') document.getElementById('pTempC').innerHTML = values[val]
