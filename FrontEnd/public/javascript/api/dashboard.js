@@ -9,7 +9,7 @@ const readEnvironmentModel = async () => {
     try {
         const response = await fetch(`http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`, {
             method: 'GET',
-            mode: '*cors',
+            mode: 'cors',
             cache: 'no-cache',
             credentials: 'omit',
             headers: {
