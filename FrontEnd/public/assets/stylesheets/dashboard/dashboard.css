@@ -27,7 +27,6 @@ html, body {
 }
 
 .sensor_panel--output-wrapper {
-    background-color: rosybrown;
     text-transform: uppercase;
     margin-bottom: 1rem;
 }
@@ -40,6 +39,7 @@ html, body {
 .sensor_panel--output-field {
     display: inline-block;
     font-size: 1.5rem;
+    color: slategray;
 }
 
 .webcam_window {
