@@ -6,8 +6,9 @@ const api = 'api_v1'
  * Returns all of the sensor readings, the current environment model 
  */
 const readEnvironmentModel = () => {
+    let results;
     // makeRequest('GET', `http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`)
-    return fetch(`http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`, {
+    fetch(`http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`, {
         method: 'GET',
         mode: 'cors',
         cache: 'no-cache',
@@ -18,8 +19,13 @@ const readEnvironmentModel = () => {
             'Access-Control-Allow-Headers': '*'
         }
     })
-        .then(response => response.json())
+        .then(response => {
+            results = response.json()
+            console.log('Here are the results')
+            console.log(results)
+        })
         .then(data => console.log(data))
+    
 }
 
 export {
