@@ -4,9 +4,9 @@
 import {readEnvironmentModel} from '../../api/dashboard.js';
 console.log('Starting the Dashboard Controller')
 
-const insert_sensor_values = async () => {
+const insert_sensor_values = () => {
     console.log('Reading the Environment Model')
-    const values = await readEnvironmentModel()
+    const values = readEnvironmentModel()
     console.log('Here are the Values from within the controller')
     console.log(values)
     for (const val in values) {

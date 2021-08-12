@@ -4,10 +4,9 @@ const api = 'api_v1'
  * GET: /api_v1/myco_box/environment_model
  * Returns all of the sensor readings, the current environment model 
  */
-const readEnvironmentModel = async () => {
+const readEnvironmentModel = () => {
     // makeRequest('GET', `http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`)
-    try {
-        const response = await fetch(`http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`, {
+        const response = fetch(`http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`, {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
@@ -18,12 +17,9 @@ const readEnvironmentModel = async () => {
                 'Access-Control-Allow-Headers': '*'
             }
         })
-        const data = await response.json()
+        const data = response.json()
         console.log(data)
         return data
-    } catch (err) {
-        console.log(err)
-    }
 }
 
 export {

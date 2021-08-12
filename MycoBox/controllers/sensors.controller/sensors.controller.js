@@ -67,7 +67,7 @@ const read_infrared = () => {
 /**
  * Set Environment Model
  */
-const set_environment_model = async () => {
+const set_environment_model = () => {
     console.log('MycoBox is setting the environment model')
     read_temp_humidity()
     read_precise_temp()
@@ -79,7 +79,7 @@ const set_environment_model = async () => {
 /**
  * Read Environment Model
  */
-const read_environment_model = async () => {
+const read_environment_model = () => {
     console.log('Getting Started Reading the EnvModel Now')
     const envmodel = {
         internal_temp_1: process.env.internal_temp_1,
@@ -95,7 +95,7 @@ const read_environment_model = async () => {
         co2: process.env.co2,
         weight: process.env.weight
     }
-    return await envmodel;
+    return envmodel;
 }
 
 module.exports = {
