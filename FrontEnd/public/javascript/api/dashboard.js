@@ -15,10 +15,9 @@ const readEnvironmentModel = async () => {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': 'http://192.168.1.97:3000/',
             'Access-Control-Allow-Headers': '*'
-        },
-        body: JSON.stringify(data)
+        }
     })
-    console.log(response.body)
+    console.log(response.json())
     return response.json()
 }
 
