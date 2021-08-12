@@ -38,8 +38,8 @@ html, body {
 
 .sensor_panel--output-field {
     display: inline-block;
-    font-size: 1.5rem;
-    color: slategray;
+    font-size: 2rem;
+    color: white;
 }
 
 .webcam_window {
