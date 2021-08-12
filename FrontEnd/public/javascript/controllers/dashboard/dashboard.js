@@ -1,5 +1,6 @@
 /**
  * Dashboard Controller
+ * note: make the values importable constants
  */
 import { readEnvironmentModel } from '../../api/dashboard.js';
 console.log('Starting the Dashboard Controller')
@@ -9,28 +10,18 @@ const insert_sensor_values = async () => {
     const values = await readEnvironmentModel()
     console.log('Here are the Values from within the controller')
     console.log(values)
-    for (const val in values) {
-        if (val === 'temp') document.getElementById('iTemp1').innerHTML = values[val]
-        if (val === 'humidity') document.getElementById('iTemp2').innerHTML = values[val]
-        if (val === 'co2') document.getElementById('iTemp3').innerHTML = values[val]
-        if (val == 'iTemp1') {
-            document.getElementById('iTemp1').innerHTML = values[val]
-            console.log(document.getElementById('iTemp1'))
-            console.log(val)
-            console.log(values[val])
-        }
-        if (val == 'iTemp2') document.getElementById('iTemp2').innerHTML = values[val]
-        if (val == 'iTemp3') document.getElementById('iTemp3').innerHTML = values[val]
-        if (val == 'pTempC') document.getElementById('pTempC').innerHTML = values[val]
-        if (val == 'pTempF') document.getElementById('pTempF').innerHTML = values[val]
-        if (val == 'eTemp') document.getElementById('eTemp').innerHTML = values[val]
-        if (val == 'iHumidity1') document.getElementById('iHumidity1').innerHTML = values[val]
-        if (val == 'iHumidity2') document.getElementById('iHumidity2').innerHTML = values[val]
-        if (val == 'iHumidity3') document.getElementById('iHumidity3').innerHTML = values[val]
-        if (val == 'eHumidity') document.getElementById('eHumidity').innerHTML = values[val]
-        if (val == 'co2') document.getElementById('co2').innerHTML = values[val]
-        if (val == 'weight') document.getElementById('weight').innerHTML = values[val]
-    }
+    document.getElementById('iTemp1').innerHTML = values['internal_temp_1']
+    document.getElementById('iTemp2').innerHTML = values['internal_temp_2']
+    document.getElementById('iTemp3').innerHTML = values['internal_temp_3']
+    document.getElementById('pTempC').innerHTML = values['precise_temp_C']
+    document.getElementById('pTempF').innerHTML = values['precise_temp_F']
+    document.getElementById('eTemp').innerHTML = values['external_temp']
+    document.getElementById('iHumidity1').innerHTML = values['internal_humidity_1']
+    document.getElementById('iHumidity2').innerHTML = values['internal_humidity_2']
+    document.getElementById('iHumidity3').innerHTML = values['internal_humidity_3']
+    document.getElementById('eHumidity').innerHTML = values['external_humidity']
+    document.getElementById('co2').innerHTML = values['co2']
+    document.getElementById('weight').innerHTML = values['weight']
 }
 
 insert_sensor_values()
