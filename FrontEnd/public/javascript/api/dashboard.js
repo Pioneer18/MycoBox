@@ -1,3 +1,5 @@
+import { response } from "express"
+
 const api = 'api_v1'
 
 /**
@@ -6,7 +8,7 @@ const api = 'api_v1'
  */
 const readEnvironmentModel = () => {
     // makeRequest('GET', `http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`)
-    const response = fetch(`http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`, {
+    fetch(`http://192.168.1.97:3000/${api}/sensors_controller/read_environment_model`, {
         method: 'GET',
         mode: 'cors',
         cache: 'no-cache',
@@ -17,8 +19,8 @@ const readEnvironmentModel = () => {
             'Access-Control-Allow-Headers': '*'
         }
     })
-    console.log(response)
-    return response.json()
+        .then(response => response.json())
+        .then(data => console.log(data))
 }
 
 export {
