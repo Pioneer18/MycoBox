@@ -95,6 +95,8 @@ const read_environment_model = async () => {
         co2: process.env.co2,
         weight: process.env.weight
     }
+    console.log('Here is the Environment Model to be returned: ')
+    console.log(envmodel)
     return await envmodel;
 }
 
