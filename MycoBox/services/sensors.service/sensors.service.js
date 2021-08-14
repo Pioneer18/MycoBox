@@ -18,6 +18,8 @@ const parse_th_data = (reply) => {
 
 const parse_pt_data = (reply) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
+    console.log(data[1]);
+    console.log(data[3]);
     process.env.precise_temp_c = data[1]
     process.env.precise_temp_f = data[3]
     return
