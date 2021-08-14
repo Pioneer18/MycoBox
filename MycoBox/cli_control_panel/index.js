@@ -2,9 +2,9 @@ const inquirer = require('inquirer')
 const chalk = require('chalk')
 const log = console.log;
 let firstRun = true;
-const relay = require('../modules/relay');
+const relay = require('./relay');
 const { bgRed } = require('chalk');
-const { s4r1_on, s4r1_off } = require('../modules/relay');
+const { s4r1_on, s4r1_off } = require('./relay');
 
 /**
  * MycoBox CLI Overrides:
