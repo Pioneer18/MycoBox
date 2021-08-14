@@ -10,19 +10,18 @@
 const parse_th_data = (reply) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     for(let i = 1; i < 16; i +=2) {
-        validate_sensor_data(data[i]) // probably should skip if not valid...
+        validate_th_data(data[i]) // probably should skip if not valid...
         set_dht22_values(i, data[i])
     }
     return
 }
 
 const parse_pt_data = (reply) => {
-    const parsed = []
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-    parsed.push(data[1])
-    parsed.push(data[3])
+    process.env.precise_temp_c = data[1]
+    process.env.precise_temp_f = data[3]
     console.log('Precise Temp: ' + parsed)
-    return parsed
+    return
 }
 
 const parse_co2_data = (reply) => {
@@ -34,7 +33,7 @@ const parse_co2_data = (reply) => {
  * Validate parsed sensor data
  * @param {Array} data e.g. ['43.55', 44.25, 43.40]
  */
-const validate_sensor_data = (data) => {
+const validate_th_data = (data) => {
     if (typeof data !== typeof 'string') console.error(`received temp/humidity value that is not a string, check the sensors! ${data}`)
     if (data === '') console.error(`received an empty value for temp/humidity, check the sensors! ${data}`)
     if (data == null || data == undefined) console.error(`uh oh, got a null or undefined sensor value, check the sensors! ${data}`)
@@ -81,6 +80,7 @@ const set_dht22_values = (i, data) => {
             break;
     }
 }
+
 module.exports = {
     parse_th_data,
     parse_pt_data,
