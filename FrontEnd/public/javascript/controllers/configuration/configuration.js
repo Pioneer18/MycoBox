@@ -8,7 +8,6 @@ let DEFAULTS = true;
 
 const displayOverrides = () => {
     let rad = document.main_config_form.accept_defaults;
-    let prev = null;
     const overrides = document.getElementById('overrides');
     for (let i = 0; i < rad.length; i++) {
         rad[i].addEventListener('change', () => {
