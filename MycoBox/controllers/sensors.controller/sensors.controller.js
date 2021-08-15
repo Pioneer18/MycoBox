@@ -71,6 +71,7 @@ const set_environment_model = async () => {
     console.log('MycoBox is setting the environment model')
     read_temp_humidity()
     read_precise_temp()
+    read_co2()
     read_scale()
     read_infrared()
     return
