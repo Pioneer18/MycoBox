@@ -41,7 +41,7 @@ const read_precise_temp = () => {
  * @param {Array} reply ["CO2 PPM = 536.0"]
  */
 const read_co2 = () => {
-    PythonShell.run('co2/co2.py', options, function (err, reply) {
+    PythonShell.run('co2.py', options, function (err, reply) {
         if (err) throw err;
         parse_co2_data(reply)
         return
