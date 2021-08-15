@@ -4,9 +4,11 @@ process.env.user_id = '' // for logs
 process.env.active_session = false // checked by newSession method only once
 process.env.duration = ''
 process.env.canceled = '' // inidcates the session was canceled
-process.env.status.spawn_running = false
-process.env.status.primordia_init = false
-process.env.status.fruiting = false
+process.env.status = {
+    spawn_running: false,
+    primordia_init: false,
+    fruiting: false
+}
 // Envrionment Config
 process.env.temp = ''
 process.env.irTemp = ''
