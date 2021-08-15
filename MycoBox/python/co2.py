@@ -4,6 +4,7 @@ import time
 # Raspberry Pi Zero W has PL011 UART assigned to Bluetooth instead of GPIO default,
 # follow these instructions for setup of UART port https://www.programmersought.com/article/93804026224/
 ser = serial.Serial("/dev/ttyAMA0")
+print('CO2 Sensor Script Here')
 ser.write("M 4\r\n".encode())  # set display mode to show only C02
 ser.write("K 2\r\n".encode())  # set operating mode to polling
 ser.reset_input_buffer()
