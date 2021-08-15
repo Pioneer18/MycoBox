@@ -1,10 +1,15 @@
-// Session Config
-process.env.active_session = '' // checked by newSession method only once
+// Session Status
 process.env.session_id = '' // for logs
 process.env.user_id = '' // for logs
+process.env.active_session = false // checked by newSession method only once
 process.env.duration = ''
-process.env.canceled = false // will end the session
-
+process.env.canceled = '' // inidcates the session was canceled
+process.env.status
+    .spawn_running = false
+process.env.status
+    .primordia_init = false
+process.env.status
+    .fruiting = false
 // Envrionment Config
 process.env.temp = ''
 process.env.irTemp = ''
