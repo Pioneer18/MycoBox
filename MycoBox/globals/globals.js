@@ -15,7 +15,7 @@ process.env.co2 = ''
 process.env.lighting = ''
 // circulation_top: ''
 // circulation_bottom: ''
-// full_circulation: ''
+// full_circulation: '' 
 
 
 // Actuators' Status
