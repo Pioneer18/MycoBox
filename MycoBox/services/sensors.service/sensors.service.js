@@ -27,8 +27,8 @@ const parse_pt_data = (reply) => {
 
 const parse_co2_data = (reply) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-    console.log(data)
     console.log('CO2 Data Below !!!!!!!!!')
+    console.log(data)
     process.env.co2 = data[1]
     return
 }
