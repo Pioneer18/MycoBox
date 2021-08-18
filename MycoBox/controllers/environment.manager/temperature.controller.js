@@ -12,7 +12,7 @@ const { s1r1_on, s1r1_off, s2r1_off, s2r1_on } = require('../../cli_control_pane
  * @param {number} kp proportional gain
  * @param {number} ki integral gain
  * @param {number} kd derivative gain
- * @param {number} dt interval between readings (optional)
+ * @param {min: number, max: number} imax interval between readings (optional)
  */
 class TempPidController {
     constructor(kp, ki, kd, imax) {
@@ -47,8 +47,22 @@ class TempPidController {
             dt = (currentTime - this.lastTime) / 1000;
         }
         this.lastTime = currentTime;
-        // calculate the error
-        let error = (this.setPoint - this.measured)
+        // calculate the error and integral of the error; the total of error x time passed till current reading
+        let error = (this.setPoint - this.measured);
+        this.integralOfError += error * dt; 
+        if (this.integralOfError > this.integralLimit.max) this.integralOfError = this.integralLimit.max;
+        if (this.integralOfError < this.integralLimit.min) this.integralOfError = this.integralLimit.min;
+        // calculate the derivative of the error: rate of change
+        let derivativeOfError = (error - this.lastError) / dt;
+        this.lastError = error;
+
+        return (this.kp * error) + (this.ki * this.integralOfError) + (this.kd * this.derivativeOfError);
+    }
+
+    reset () {
+        this.integralOfError = 0;
+        this.lastError = 0;
+        this.lastTime = 0;
     }
 }
 
@@ -75,6 +89,7 @@ override = async (command) => {
 }
 
 module.exports = {
+    TempPidController,
     override,
 }
 
