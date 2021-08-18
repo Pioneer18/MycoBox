@@ -1,60 +1,80 @@
 /**
- * Temperature Controller:
+ * Temperature Controller: PID and Overrides
+ * design of PID greatly influenced by https://github.com/Philmod/node-pid-controller/blob/master/lib/index.js 
+ * & https://gist.github.com/DzikuVx/f8b146747c029947a996b9a3b070d5e7
  * ----------------------
- * Notes:
- *   - Controllers must be careful to work cooperatively
- *   - Controllers send directives to async modules to make changes, and modules communicate status to controllers
- * Purpose: 
- *   - Asynchronoulsy maintain the environement temperature
- * Function: 
- *   #1) On initialization, continue to check the Heap for:
- *     - SystemConfig
- *     - EnvConfig: The latest desired environment configuration
- *     - EnvModel: The latest sensor reported model of the environment
- *     - SystemStatus: Flags from other controller/modules
- *   #2) Pass the latest envConfig and envModel to the ContextHandler method: switch case for building "Directives"
- *     a) Incubation or Fruiting?
- *       - Incubation: no or limited airflow, use heater and AC with limited ventilation based temp control
- *       - Fruiting: ventilation air temp control is ok if conditions correct:
- *       * Ventilation always checks CO2/oxygen, humidity, and full temperature context before turning on
- *       * If all requirements met, cool or heat chamber by letting external air in, otherwise just use the heater or a/c
- *     b) Temperature to high:
- *       - Use ac or ventilation to cool box
- *     c) Temperature to low:
- *       - Use heater or ventilation to heat box
- *     d) Temperature in range
- *       - Don't do anything
- *   #3) Set actuator modules' directives
- *   #4) Wait 15 seconds to check heap again and update directives if there are any updates
- */
-
+*/
 // Import Actuators
 const { s1r1_on, s1r1_off, s2r1_off, s2r1_on } = require('../../cli_control_panel/relay');
-module.exports = {
 
-
-
-    /**
-     * Override:
-     * Purpose: Manually switch the acuator on or off if OVERRIDE is true
-     * Description: Commands the selected actuator to turn on/off regardless of the global context (EnvModel, SystemStatus, ...)
-     * @param {string, string} command {actuator: '', status: ''}
-     */
-    override: async (command) => {
-        switch (command.actuator) {
-            case 'AC':
-                if (command.status === 'ON') s1r1_on();
-                if (command.status === 'OFF') s1r1_off();
-                break;
-            case 'HEATER':
-                if (command.status === 'ON') s2r1_on();
-                if (command.status === 'OFF') s2r1_off();
-                break;
-
-            default:
-                break;
-        }
+/**
+ * PID Controller Class
+ * @param {number} kp proportional gain
+ * @param {number} ki integral gain
+ * @param {number} kd derivative gain
+ * @param {number} dt interval between readings (optional)
+ */
+class TempPidController {
+    constructor(kp, ki, kd, imax) {
+        let defaultIntegralLimit = { min: -1000, max: 1000}
+        // Set PID weights (gain)
+        this.kp = kp || 1;
+        this.ki = ki || 0;
+        this.kd  = kd || 0;
+        // init properties for the integral of error
+        this.integralLimit = imax || defaultIntegralLimit;
+        this.integralOfError = 0;
+        this.lastError = 0;
+        this.lastTime = 0;
+        // init the set point
+        this.setPoint = 0;
     }
+
+    setPoint(setPoint) {
+        this.setPoint = setPoint;
+    }
+
+    update(measured) {
+        // validate the measure value
+        if(!measured) throw new Error('invalid value');
+        this.measured = measured;
+        // find the interval of time between previous and current reading
+        let dt;
+        let currentTime = Date.now();
+        if (this.lastTime === 0) {
+            dt = 0 
+        } else {
+            dt = (currentTime - this.lastTime) / 1000;
+        }
+        this.lastTime = currentTime;
+        // calculate the error
+    }
+}
+
+/**
+ * Override:
+ * Purpose: Manually switch the acuator on or off if OVERRIDE is true
+ * Description: Commands the selected actuator to turn on/off regardless of the global context (EnvModel, SystemStatus, ...)
+ * @param {string, string} command {actuator: '', status: ''}
+ */
+override = async (command) => {
+    switch (command.actuator) {
+        case 'AC':
+            if (command.status === 'ON') s1r1_on();
+            if (command.status === 'OFF') s1r1_off();
+            break;
+        case 'HEATER':
+            if (command.status === 'ON') s2r1_on();
+            if (command.status === 'OFF') s2r1_off();
+            break;
+
+        default:
+            break;
+    }
+}
+
+module.exports = {
+    override,
 }
 
 
