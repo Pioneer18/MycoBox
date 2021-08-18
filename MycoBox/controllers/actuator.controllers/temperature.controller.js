@@ -29,21 +29,10 @@
  */
 
 // Import Actuators
-const {s1r1_on, s1r1_off, s2r1_off, s2r1_on} = require('../../modules/actuators/ac.actuator');
+const { s1r1_on, s1r1_off, s2r1_off, s2r1_on } = require('../../cli_control_panel/relay');
 module.exports = {
 
-    /**
-     * Init:
-     * Purpose: Initialize the 'environmental management' process
-     * Description: Start the process of keeping the interior temperature of the mycobox at the desired configuration; which will run till
-     * the activeSession flag is set false. This is called the 'Environmental Management' process; every 15 seconds check the global configuration
-     * and send the appropriate directive to the controller's actuator modules. 'Start the process', means start the correct async python subroutines
-     * of the actuator modules.
-     */
 
-    init: async () => {
-        this.em();
-    },
 
     /**
      * Override:
@@ -55,67 +44,17 @@ module.exports = {
         switch (command.actuator) {
             case 'AC':
                 if (command.status === 'ON') s1r1_on();
-                if (command.status === 'OFF') s1r1_off();                
+                if (command.status === 'OFF') s1r1_off();
                 break;
             case 'HEATER':
                 if (command.status === 'ON') s2r1_on();
-                if (command.status === 'OFF') s2r1_off();                
+                if (command.status === 'OFF') s2r1_off();
                 break;
-        
+
             default:
                 break;
         }
     }
 }
 
-/**
- * Private Variables and Methods
- */
-
-// Override flag
-this.OVERRIDE = false;
-
-
-/**
-* Environment Manager:
-* Purpose: Manage the temperature for the duration of the session
-* Description: every 15 seconds check the global configuration and send the appropriate directive to the controller's actuator modules. 
-* Check each actuator module's status and respond to any errors or service requests; calibration or whatever
-*/
-this.em = () => {
-    console.log('starting the environment manager')
-}
-/**
- * Generate Directive:
- * Purpose: Read the global configuration objects and variables to logically create a directive for the actuator modules to carry out.
- * Description: This function builds a "sitrep", from; the Sessionconfig, EnvConfig, EnvModel, and the SystemStatus. The sitrep is passed
- * as an argument to the buildDirective.utility, a switch case that logic builds the directive for the controller's modules.
- */
-this.generateDirective = async () => {
-
-}
-
-/**
- * Actuator Logger:
- * Purpose: Create timestamped log files of actuators status and their directive as well as console logs
- */
-this.actuatorLogger = async () => {
-
-}
-
-/**
- * Data Logger
- * Purpose: Send actuator status and directive to rolling DB...keeps last few months of data, backend clipped off
- */
-this.dataLogger = async () => {
-
-}
-
-/**
- * End Session
- * Purpose: End the Environment Manager and report that the processes have successfully closed; both the actuator process and this one.
- */
-this.endSession = async () => {
-
-}
 
