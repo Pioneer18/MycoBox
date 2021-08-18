@@ -3,8 +3,16 @@
  * design of PID greatly influenced by https://github.com/Philmod/node-pid-controller/blob/master/lib/index.js 
  * & https://gist.github.com/DzikuVx/f8b146747c029947a996b9a3b070d5e7
  * ----------------------
+ * How this is going to work: 
+ * #1) For the duration of a session, the system.controller continously calls its manage_environment() method,
+ * which passes the environment state to the pid controllers (~ every 4 seconds)
+ * #2) The PID Classes are defined in the service file for the controller, and the controller utilizes the PID class methods to
+ * command the python child-processes running for each actuator.
+ * #3) 
 */
-// Import Actuators
+
+
+// import realy controls
 const { s1r1_on, s1r1_off, s2r1_off, s2r1_on } = require('../../cli_control_panel/relay');
 
 /**
@@ -12,17 +20,18 @@ const { s1r1_on, s1r1_off, s2r1_off, s2r1_on } = require('../../cli_control_pane
  * @param {number} kp proportional gain
  * @param {number} ki integral gain
  * @param {number} kd derivative gain
- * @param {min: number, max: number} imax interval between readings (optional)
+ * @param {min: number, max: number} iLimit limits for the integral
  */
 class TempPidController {
-    constructor(kp, ki, kd, imax) {
+    constructor(kp, ki, kd, iLimit) {
+        // saturation has been reached if these limits are hit and clamping should happen
         let defaultIntegralLimit = { min: -1000, max: 1000}
         // Set PID weights (gain)
         this.kp = kp || 1;
         this.ki = ki || 0;
         this.kd  = kd || 0;
         // init properties for the integral of error
-        this.integralLimit = imax || defaultIntegralLimit;
+        this.integralLimit = iLimit || defaultIntegralLimit;
         this.integralOfError = 0;
         this.lastError = 0;
         this.lastTime = 0;
@@ -30,11 +39,11 @@ class TempPidController {
         this.setPoint = 0;
     }
 
-    setPoint(setPoint) {
+    async setPoint(setPoint) {
         this.setPoint = setPoint;
     }
 
-    update(measured) {
+    async update(measured) {
         // validate the measure value
         if(!measured) throw new Error('invalid value');
         this.measured = measured;
@@ -59,7 +68,7 @@ class TempPidController {
         return (this.kp * error) + (this.ki * this.integralOfError) + (this.kd * this.derivativeOfError);
     }
 
-    reset () {
+    async reset () {
         this.integralOfError = 0;
         this.lastError = 0;
         this.lastTime = 0;

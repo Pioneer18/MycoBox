@@ -9,6 +9,7 @@
  * - ManageEnvironment:
  *   - read the current environment config
  *   - uses sensor controller to read the current environment (update environment model)
+ *   - pass environment state down to PID controllers, and any configuration update from the control panel
  *   - if environment does not match config, 
  *     * set Environment Status (ES): 'Updating' (instead of 'Set')
  *     * set the environment with setEnvironment Method, till completed keep ES as 'Updating' // till true is returned
