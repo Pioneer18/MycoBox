@@ -48,6 +48,7 @@ class TempPidController {
         }
         this.lastTime = currentTime;
         // calculate the error
+        let error = (this.setPoint - this.measured)
     }
 }
 
