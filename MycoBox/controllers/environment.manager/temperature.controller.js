@@ -15,6 +15,15 @@ const { s1r1_on, s1r1_off, s2r1_off, s2r1_on } = require('../../cli_control_pane
 const {TempPidController} = require('../../services/environment.manager/temperature.pid.service');
 
 /**
+ * Run PID:
+ * Run the PID service with the latest measured value, and any configuration updates
+ * @param kp weight for proprtional gain
+ * @param ki weight for integral gain
+ * @param kd weight for derivative gain
+ * @param iLimit clamping limits for the integral; trigger flag
+ */
+
+/**
  * Override:
  * Purpose: Manually switch the acuator on or off if OVERRIDE is true
  * Description: Commands the selected actuator to turn on/off regardless of the global context (EnvModel, SystemStatus, ...)
