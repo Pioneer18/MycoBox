@@ -4,6 +4,11 @@
  * @param {number} ki integral gain
  * @param {number} kd derivative gain
  * @param {min: number, max: number} iLimit limits for the integral
+ * ----------------------------------------------------------------------------------------
+ * Steps:
+ * #1. create a new controller: e.g. let tempCtr = new TempPidController(0.25,0.01,0.01)
+ * #2. create the set-point: e.g. tempCtr.setPoint(21)
+ * #3. pass the measured environment state to the update method: e.g. update(measured)
  */
  class TempPidController {
     constructor(kp, ki, kd, iLimit) {
