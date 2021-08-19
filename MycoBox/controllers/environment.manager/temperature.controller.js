@@ -15,9 +15,9 @@ const { TempPidController } = require('../../services/environment.manager/temper
  * Run PID:
  * Run the PID service with the latest measured value, and any configuration updates
  * 
- * @param { number }kp weight for proprtional gain
- * @param { number }ki weight for integral gain
- * @param { number }kd weight for derivative gain
+ * @param { number } kp weight for proprtional gain
+ * @param { number } ki weight for integral gain
+ * @param { number } kd weight for derivative gain
  * @param { max, min } iLimit limits for the integral
  * @param {
  *  previousReport: {
@@ -33,11 +33,8 @@ const { TempPidController } = require('../../services/environment.manager/temper
  */
 updateEnvironment = async (config) => {
     try {
-        validateConfig(config)
-        let i_limit;
-        // custom integral limit, or the default
-        iLimit ? i_limit = iLimit : i_limit = { min: -1000, max: 1000 }
         // validate the config object
+        validateConfig(config);
         // initialize the controller
         const tempController = new TempPidController(config);
         // update the actuator
