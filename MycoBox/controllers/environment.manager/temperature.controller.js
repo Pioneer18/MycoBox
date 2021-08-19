@@ -4,25 +4,67 @@
  * & https://gist.github.com/DzikuVx/f8b146747c029947a996b9a3b070d5e7
  * ----------------------
  * How this is going to work: 
- * #1) For the duration of a session, the system.controller continously calls its manage_environment() method,
- * which passes the environment state to the pid controllers (~ every 4 seconds)
- * #2) The PID Classes are defined in the service file for the controller, and the controller utilizes the PID class methods to
- * command the python child-processes running for each actuator.
- * #3) 
+ * Could be that the controller calls it everytime with env_sate, and runs the function with the previous report
 */
 
 const { s1r1_on, s1r1_off, s2r1_off, s2r1_on } = require('../../cli_control_panel/relay');
-const {TempPidController} = require('../../services/environment.manager/temperature.pid.service');
+const { TempPidController } = require('../../services/environment.manager/temperature.pid.service');
+
 
 /**
  * Run PID:
  * Run the PID service with the latest measured value, and any configuration updates
- * @param kp weight for proprtional gain
- * @param ki weight for integral gain
- * @param kd weight for derivative gain
- * @param iLimit clamping limits for the integral; trigger flag
+ * 
+ * @param { number }kp weight for proprtional gain
+ * @param { number }ki weight for integral gain
+ * @param { number }kd weight for derivative gain
+ * @param { max, min } iLimit limits for the integral
+ * @param {
+ *  previousReport: {
+ *    integralOfError,
+ *    lastError,
+ *    lastTime
+ *  }
+ *  incomingReport: {
+ *    setPoint,
+ *    measured
+ *  } 
+ * } reports the previous (or initial) report & the incoming
  */
+updateEnvironment = async (config) => {
+    try {
+        validateConfig(config)
+        let i_limit;
+        // custom integral limit, or the default
+        iLimit ? i_limit = iLimit : i_limit = { min: -1000, max: 1000 }
+        // validate the config object
+        // initialize the controller
+        const tempController = new TempPidController(config);
+        // update the actuator
+        tempController.update()
+    } catch (err) {
+        console.log(`Error: ${err}`)
+    }
+}
 
+validateConfig = async (config) => {
+    if (!config) throw new Error('Invalid Config Object!, it`s undefined or somethign')
+    if (!config.settings) throw new Error('Invalid config.settings')
+    if (!config.settings.kp || typeof config.settings.kp === 'number') throw new Error('Invalid `config.settings.kp`')
+    if (!config.settings.ki || typeof config.settings.ki === 'number') throw new Error('Invalid `config.settings.ki`')
+    if (!config.settings.kd || typeof config.settings.kd === 'number') throw new Error('Invalid `config.settings.kd`')
+    if (!config.settings.iLimit)
+    if (!config.settings.iLimit.max || typeof config.settings.iLimit.max !== 'number')
+    if (!config.settings.iLimit.min || typeof config.settings.iLimit.min !== 'number')
+    if (!config.previousReport) throw new Error('Invalid config.previousReport')
+    if (!config.previousReport.integralOfError || typeof config.previousReport.integralOfError !== 'number') throw new Error('Invlaid config.previousReport.integralOfError')
+    if (!config.previousReport.lastError || typeof config.previousReport.lastError !== 'number') throw new Error('Invlaid config.previousReport.lastError')
+    if (!config.previousReport.lastTime || typeof config.previousReport.lastTime !== 'number') throw new Error('Invlaid config.previousReport.lastTim')
+    if (!config.incomingReport || typeof config.incomingReport !== 'number') throw new Error('Invalid config.incomingReport')
+    if (!config.incomingReport.setPoint || typeof config.incomingReport.setPoint !== 'number') throw new Error('Invalid config.incomingReport.setPoint')
+    if (!config.incomingReport.measured || typeof config.incomingReport.measured !== 'number') throw new Error('Invalid config.incomingReport.measured')
+    return
+}
 /**
  * Override:
  * Purpose: Manually switch the acuator on or off if OVERRIDE is true
@@ -44,6 +86,7 @@ override = async (command) => {
             break;
     }
 }
+
 
 module.exports = {
 }

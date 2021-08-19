@@ -8,27 +8,23 @@
  * Steps:
  * #1. create a new controller: e.g. let tempCtr = new TempPidController(0.25,0.01,0.01)
  * #2. create the set-point: e.g. tempCtr.setPoint(21)
- * #3. pass the measured environment state to the update method: e.g. update(measured)
+ * #3. read the updated environment model every time it's available; flag indicating updated
  */
  class TempPidController {
-    constructor(kp, ki, kd, iLimit) {
+    constructor(config) {
         // saturation has been reached if these limits are hit and clamping should happen
         let defaultIntegralLimit = { min: -1000, max: 1000}
         // Set PID weights (gain)
-        this.kp = kp || 1;
-        this.ki = ki || 0;
-        this.kd  = kd || 0;
+        this.kp = config.settings.kp || 1;
+        this.ki = config.settings.ki || 0;
+        this.kd = config.settings.kd || 0;
         // init properties for the integral of error
-        this.integralLimit = iLimit || defaultIntegralLimit;
-        this.integralOfError = 0;
-        this.lastError = 0;
-        this.lastTime = 0;
+        this.integralLimit = config.settings.iLimit || defaultIntegralLimit;
+        this.integralOfError = config.previousReport.integralOfError;
+        this.lastError = config.previousReport.lastError;
+        this.lastTime = config.previousReport.lastTime;
         // init the set point
-        this.setPoint = 0;
-    }
-
-    async setPoint(setPoint) {
-        this.setPoint = setPoint;
+        this.setPoint = config.incomingReport.setPoint;
     }
 
     async update(measured) {
@@ -54,6 +50,15 @@
         this.lastError = error;
 
         return (this.kp * error) + (this.ki * this.integralOfError) + (this.kd * this.derivativeOfError);
+    }
+
+    // Return the variables to be used for constructing the class next time
+    async report() {
+        return {
+            integralOfError: this.integralOfError,
+            lastError: this.lastError,
+            lastTime: this.lastTime
+        }
     }
 
     async reset () {
