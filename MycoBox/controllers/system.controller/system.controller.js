@@ -22,28 +22,30 @@
  * handle the update; by calling on the appropriate controllers for updating the environment.
  *  
  */
-const { manageEnvironment } = require("../../services/system.service/system.service")
-const {sessionConfig} = require('../../globals/globals')
-const {set_environment_model} = require("../sensors.controller/sensors.controller")
+const { environmentManager } = require("../../services/system.service/system.service")
+const { set_environment_state } = require("../sensors.controller/sensors.controller")
 module.exports = {
 
-     /**
-     * Steps:
-     * - Check the MycoBox 'System Status': If session already running then return error: session already active
-     * - Set the environment model with the sensors.controller
-     * - return confirmation when the manageEnvironment method has begun
-     */
-    newSession: async () => {
-        console.log('Inside New Session Method')
-        // sensors.controller.setEnvironment()
-        if(!sessionConfig.active_session) {
-            console.log('There is not an active session')
-            await set_environment_model()
-            // Start the Environment Manager class and run it till the end of the session
-            // This is the top level that keeps a session going
-            await manageEnvironment()
+    /**
+    * Steps:
+    * - Check the MycoBox 'System Status': If session already running then return error: session already active
+    * - Set the environment model with the sensors.controller
+    * - return confirmation when the manageEnvironment method has begun
+    */
+    newSession: async (config) => {
+        try {// start the new session
+            if (!process.env.session_state.active_session) {
+                console.log(`Starting session ${process.env.session_state.session_title} - ${process.env.session_state.session_id}`);
+                await this.setEnvironmentConfig(config);
+                await set_environment_state();
+                await environmentManager();
+            } else {
+                throw new Error('There is already an active session')
+            }
+        } catch (err) {
+            console.log(`Failed to start a new session - Error: ${err}`)
         }
-        else console.log("There is already an active session!")
+
     },
 
     endSession: () => {
@@ -57,5 +59,56 @@ module.exports = {
     subtractHoursFromSession: () => {
         return { TODO: 'build this handler' }
     },
+
+    /**
+     * map the user submitted configuration to the envrionment_conig
+     * @param {
+     *  spawn_running: {
+     *    temp_setpoint,
+     *    ir_Temp_setpoint,
+     *    humidity_setpoint
+     *    co2_setpoint,
+     *    circulation_top_setpoint,
+     *    circulation_bottom_setpoint,
+     *    lighting_setpoint,
+     *  },
+     *  primordia_init: {
+     *    temp_setpoint: ,
+     *    humidity_setpoint,
+     *    co2_setpoint: ,
+     *    circulation_top_setpoint,
+     *    circulation_bottom_setpoint,
+     *    lighting_setpoint: 
+     *  },
+     *  fruiting: {
+     *    temp_setpoint,
+     *    humidity_setpoint,
+     *    co2_setpoint,
+     *    circulation_top_setpoint,
+     *    circulation_bottom_setpoint,
+     *  } 
+     * } config data from the submitted configuration form
+     */
+    setEnvironmentConfig: async (config) => {
+        process.env.environment_config.spawn_running.temp_setpoint = config.spawn_running.temp_setpoint;
+        process.env.environment_config.spawn_running.irTemp_setpoint = config.spawn_running.irTemp_setpoint;
+        process.env.environment_config.spawn_running.humidity_setpoint = config.spawn_running.humidity_setpoint;
+        process.env.environment_config.spawn_running.co2_setpoint = config.spawn_running.co2_setpoint;
+        process.env.environment_config.spawn_running.circulation_top = config.spawn_running.circulation_top;
+        process.env.environment_config.spawn_running.circulation_bottom = config.spawn_running.circulation_bottom;
+        process.env.environment_config.spawn_running.lighting_setpoint = config.spawn_running.lighting_setpoint;
+        process.env.environment_config.primordia_init.temp_setpoint = config.primordia_init.temp_setpoint;
+        process.env.environment_config.primordia_init.humidity_setpoint = config.primordia_init.humidity_setpoint;
+        process.env.environment_config.primordia_init.co2_setpoint = config.primordia_init.co2_setpoint;
+        process.env.environment_config.primordia_init.circulation_top_setpoint = config.primordia_init.circulation_top_setpoint;
+        process.env.environment_config.primordia_init.circulation_bottom_setpoint = config.primordia_init.circulation_bottom_setpoint;
+        process.env.environment_config.primordia_init.lighting_setpoint = config.primordia_init.lighting_setpoint;
+        process.env.environment_config.fruiting.temp_setpoint = config.fruiting.temp_setpoint;
+        process.env.environment_config.fruiting.humidity_setpoint = config.fruiting.humidity_setpoint;
+        process.env.environment_config.fruiting.co2_setpoint = config.fruiting.co2_setpoint;
+        process.env.environment_config.fruiting.circulation_top_setpoint = config.fruiting.circulation_top_setpoint;
+        process.env.environment_config.fruiting.circulation_bottom_setpoint = config.fruiting.circulation_bottom_setpoint;
+        process.env.environment_config.fruiting.lighting_setpoint = config.fruiting.lighting_setpoint;
+    }
 }
 
