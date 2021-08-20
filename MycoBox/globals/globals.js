@@ -1,8 +1,9 @@
 // Session State
 process.env.session_state = {
+    session_title: '',
     session_id: '',
     user_id: '',
-    active_session: '',
+    active_session: false,
     duration: '',
     canceled: '',
     spawn_running: false,

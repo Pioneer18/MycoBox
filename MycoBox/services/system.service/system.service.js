@@ -3,13 +3,7 @@
  * =========================
  * Description: provides extra functionality to the system controller
  */
-const {
-    sessionConfig,
-    environmentConfig,
-    environmentModel,
-    systemStatus,
-    overrides
-} = require('../../globals/globals');
+
 
 module.exports = {
     /**
@@ -18,7 +12,7 @@ module.exports = {
      * 2) check the environementConfg
      * 3) check the environmentModel
      */
-    manageEnvironment: async () => {
-        return 'Starting the EM'
+    environmentManager: async () => {
+      
     }
 }
