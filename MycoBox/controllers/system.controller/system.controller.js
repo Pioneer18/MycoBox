@@ -64,29 +64,34 @@ module.exports = {
      * map the user submitted configuration to the envrionment_conig
      * @param {
      *  spawn_running: {
-     *    temp_setpoint,
-     *    ir_Temp_setpoint,
-     *    humidity_setpoint
-     *    co2_setpoint,
-     *    circulation_top_setpoint,
-     *    circulation_bottom_setpoint,
-     *    lighting_setpoint,
+     *    ir_temp_trigger: boolean,
+     *    timer: number || null,
+     *    temp_setpoint: number,
+     *    humidity_setpoint: numbert
+     *    co2_setpoint: number,
+     *    circulation_top_setpoint: number,
+     *    circulation_bottom_setpoint: number,
+     *    lighting_setpoint: number,
      *  },
      *  primordia_init: {
-     *    temp_setpoint: ,
-     *    humidity_setpoint,
-     *    co2_setpoint: ,
-     *    circulation_top_setpoint,
-     *    circulation_bottom_setpoint,
-     *    lighting_setpoint: 
+     *    user_confirmed: boolean,
+     *    timer: number || null,
+     *    temp_setpoint: number,
+     *    humidity_setpoint: number,
+     *    co2_setpoint: number,
+     *    circulation_top_setpoint: number,
+     *    circulation_bottom_setpoint: number,
+     *    lighting_setpoint: number,
      *  },
      *  fruiting: {
-     *    temp_setpoint,
-     *    humidity_setpoint,
-     *    co2_setpoint,
-     *    circulation_top_setpoint,
-     *    circulation_bottom_setpoint,
-     *  } 
+     *    timer_and_user_confirmed: boolean,
+     *    timer: number || null,
+     *    temp_setpoint: number,
+     *    humidity_setpoint: number,
+     *    co2_setpoint: number,
+     *    circulation_top_setpoint: number,
+     *    circulation_bottom_setpoint: number,
+     *  },
      * } config data from the submitted configuration form
      */
     setEnvironmentConfig: async (config) => {
