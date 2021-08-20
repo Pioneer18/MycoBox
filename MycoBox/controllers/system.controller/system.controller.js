@@ -39,6 +39,8 @@ module.exports = {
         if(!sessionConfig.active_session) {
             console.log('There is not an active session')
             await set_environment_model()
+            // Start the Environment Manager class and run it till the end of the session
+            // This is the top level that keeps a session going
             await manageEnvironment()
         }
         else console.log("There is already an active session!")

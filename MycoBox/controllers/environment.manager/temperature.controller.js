@@ -14,12 +14,13 @@ const { TempPidController } = require('../../services/environment.manager/temper
 /**
  * Run PID:
  * Run the PID service with the latest measured value, and any configuration updates
- * 
- * @param { number } kp weight for proprtional gain
- * @param { number } ki weight for integral gain
- * @param { number } kd weight for derivative gain
- * @param { max, min } iLimit limits for the integral
  * @param {
+ *  settings: {
+ *    kp,
+ *    ki,
+ *    kd,
+ *    iLimit  
+ *  },
  *  previousReport: {
  *    integralOfError,
  *    lastError,
@@ -29,7 +30,7 @@ const { TempPidController } = require('../../services/environment.manager/temper
  *    setPoint,
  *    measured
  *  } 
- * } reports the previous (or initial) report & the incoming
+ * } config the previous (or initial) report & the incoming
  */
 updateEnvironment = async (config) => {
     try {
@@ -38,11 +39,12 @@ updateEnvironment = async (config) => {
         // initialize the controller
         const tempController = new TempPidController(config);
         // update the actuator
-        tempController.update()
+        tempController.update();
     } catch (err) {
         console.log(`Error: ${err}`)
     }
 }
+
 
 validateConfig = async (config) => {
     if (!config) throw new Error('Invalid Config Object!, it`s undefined or somethign')
@@ -57,7 +59,7 @@ validateConfig = async (config) => {
     if (!config.previousReport.integralOfError || typeof config.previousReport.integralOfError !== 'number') throw new Error('Invlaid config.previousReport.integralOfError')
     if (!config.previousReport.lastError || typeof config.previousReport.lastError !== 'number') throw new Error('Invlaid config.previousReport.lastError')
     if (!config.previousReport.lastTime || typeof config.previousReport.lastTime !== 'number') throw new Error('Invlaid config.previousReport.lastTim')
-    if (!config.incomingReport || typeof config.incomingReport !== 'number') throw new Error('Invalid config.incomingReport')
+    if (!config.incomingReport) throw new Error('Invalid config.incomingReport')
     if (!config.incomingReport.setPoint || typeof config.incomingReport.setPoint !== 'number') throw new Error('Invalid config.incomingReport.setPoint')
     if (!config.incomingReport.measured || typeof config.incomingReport.measured !== 'number') throw new Error('Invalid config.incomingReport.measured')
     return

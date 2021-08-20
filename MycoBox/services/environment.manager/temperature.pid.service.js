@@ -25,12 +25,10 @@
         this.lastTime = config.previousReport.lastTime;
         // init the set point
         this.setPoint = config.incomingReport.setPoint;
+        this.measured = config.incomingReport.measured;
     }
 
-    async update(measured) {
-        // validate the measure value
-        if(!measured) throw new Error('invalid value');
-        this.measured = measured;
+    async update() {
         // find the interval of time between previous and current reading
         let dt;
         let currentTime = Date.now();
@@ -49,7 +47,7 @@
         let derivativeOfError = (error - this.lastError) / dt;
         this.lastError = error;
 
-        return (this.kp * error) + (this.ki * this.integralOfError) + (this.kd * this.derivativeOfError);
+        return (this.kp * error) + (this.ki * this.integralOfError) + (this.kd * derivativeOfError);
     }
 
     // Return the variables to be used for constructing the class next time
