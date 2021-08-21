@@ -54,3 +54,10 @@ const makeRequest = (method, url, data) => {
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(data);
 }
+
+// Dynamic UI EventListeners
+const sr_trigger = document.getElementById('sr-timer')
+sr_trigger.addEventListener('change', () => {
+    if (sr_trigger.checked === true) console.log('Use A Timer!') 
+    if (sr_trigger.checked === false) console.log('Use the IR sensor!!') 
+})

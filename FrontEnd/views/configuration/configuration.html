@@ -69,9 +69,20 @@
                     </label>
                 </div>
                 <!--Duration-->
-                <div>
+                <div className="form__radio-group">
+                    <span class="config_label">Set a duration or use the substrate temperature threshold to end this stage</span>
+                    <input type="radio" class="form__radio-input" id="sr-timer" name="sr-trigger" />
+                    <label class="form__radio-label">
+                        timer
+                    </label>
+                    <input type="radio" class="form__radio-input" id="sr-temperature" name="sr-trigger" />
+                    <label class="form__radio-label">
+                        temperature
+                    </label>
+                </div>
+                <div id="sr-duration_field">
                     <label class="config_label">Select Duration (days)</label>
-                    <input type="number" name="sr-duration_days" class="form__number_input">
+                    <input type="number" name="sr-duration_input" class="form__number_input">
                 </div>
             </div>
             <div class="session_state--primordia-init">
