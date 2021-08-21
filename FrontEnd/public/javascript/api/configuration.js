@@ -56,8 +56,9 @@ const makeRequest = (method, url, data) => {
 }
 
 // Dynamic UI EventListeners
-const sr_trigger = document.getElementById('sr-timer')
-sr_trigger.addEventListener('change', () => {
-    if (sr_trigger.checked === true) console.log('Use A Timer!') 
-    if (sr_trigger.checked === false) console.log('Use the IR sensor!!') 
+const sr_timer = document.getElementById('sr-timer')
+sr_timer.addEventListener('change', () => {
+    const button = document.getElementById('sr-timer')
+    if (button === true) console.log('Use A Timer!') 
+    if (button.checked === false) console.log('Use the IR sensor!!') 
 })
