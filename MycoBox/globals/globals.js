@@ -4,8 +4,7 @@ process.env.session_state = {
     session_id: '',
     user_id: '',
     active_session: false,
-    duration: '',
-    canceled: '',
+    canceled: false,
     spawn_running: false,
     primordia_init: false,
     fruiting: false

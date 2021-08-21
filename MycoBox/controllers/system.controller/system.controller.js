@@ -29,16 +29,18 @@ module.exports = {
     /**
     * Steps:
     * - Check the MycoBox 'System Status': If session already running then return error: session already active
-    * - Set the environment model with the sensors.controller
-    * - return confirmation when the manageEnvironment method has begun
+    * - set the environment configuration
+    * - Set the environment state with the sensors.controller
+    * - Start this sessions environment manager
     */
     newSession: async (config) => {
         try {// start the new session
             if (!process.env.session_state.active_session) {
                 console.log(`Starting session ${process.env.session_state.session_title} - ${process.env.session_state.session_id}`);
-                await this.setEnvironmentConfig(config);
-                await set_environment_state();
-                await environmentManager();
+                // await this.setEnvironmentConfig(config);
+                // await set_environment_state();
+                // await environmentManager();
+                console.log(config);
             } else {
                 throw new Error('There is already an active session')
             }
