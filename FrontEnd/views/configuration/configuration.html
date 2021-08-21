@@ -44,26 +44,26 @@
                 <!--Temperature-->
                 <div>
                     <label class="config_label">Select Temperature Celsius</label>
-                    <input type="number" name="sr-temperature_c" class="form__number_input" />
+                    <input type="number" name="sr_temperature_c" class="form__number_input" />
                 </div>
                 <!--Humidity-->
                 <div>
                     <label class="config_label">Select Relative Humidity %</label>
-                    <input type="number" name="sr-humidity" class="form__number_input" /> 
+                    <input type="number" name="sr_humidity" class="form__number_input" /> 
                 </div>
                 <!--CO2-->
                 <div>
                     <label class="config_label">Select CO2 ppm</label>
-                    <input type="number" name="sr-co2_ppm" class="form__number_input" />
+                    <input type="number" name="sr_co2_ppm" class="form__number_input" />
                 </div>
                 <!--Light-->
                 <div className="form__radio-group">
                     <span class="config_label">Select Lighting</span>
-                    <input type="radio" class="form__radio-input" id="yes" name="sr-lighting" />
+                    <input type="radio" class="form__radio-input" id="yes" name="sr_lighting" />
                     <label class="form__radio-label">
                         On
                     </label>
-                    <input type="radio" class="form__radio-input" id="no" name="sr-lighting" />
+                    <input type="radio" class="form__radio-input" id="no" name="sr_lighting" />
                     <label class="form__radio-label">
                         Off
                     </label>
@@ -71,18 +71,18 @@
                 <!--Duration-->
                 <div className="form__radio-group">
                     <span class="config_label">Set a duration or use the substrate temperature threshold to end this stage</span>
-                    <input type="radio" class="form__radio-input" id="sr-timer" name="sr-trigger" />
+                    <input type="radio" class="form__radio-input" id="sr_timer" name="sr_trigger" value="Yes"/>
                     <label class="form__radio-label">
-                        timer
+                        Yes
                     </label>
-                    <input type="radio" class="form__radio-input" id="sr-temperature" name="sr-trigger" />
+                    <input type="radio" class="form__radio-input" id="sr_temperature" name="sr_trigger" value="No"/>
                     <label class="form__radio-label">
-                        temperature
+                        No
                     </label>
                 </div>
-                <div id="sr-duration_field">
+                <div id="sr_duration_field">
                     <label class="config_label">Select Duration (days)</label>
-                    <input type="number" name="sr-duration_input" class="form__number_input">
+                    <input type="number" name="sr_duration_input" class="form__number_input">
                 </div>
             </div>
             <div class="session_state--primordia-init">

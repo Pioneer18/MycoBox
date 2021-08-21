@@ -8,7 +8,24 @@ let DEFAULTS = true;
 
 const displayOverrides = () => {
     let rad = document.main_config_form.accept_defaults;
-    const overrides = document.getElementById('overrides');
+    const overrides = document.getElementById('custom_config');
+    for (let i = 0; i < rad.length; i++) {
+        rad[i].addEventListener('change', () => {
+            if (rad[i].value == 'Yes') {
+                overrides.classList.add('hidden');
+                DEFAULTS = true;
+            }
+            if (rad[i].value !== 'Yes') {
+                overrides.classList.remove('hidden');
+                DEFAULTS = false
+            }
+        });
+    }
+}
+
+const spawnRunningTrigger = () => {
+    let rad = document.main_config_form.sr_trigger;
+    const overrides = document.getElementById('sr_duration_field');
     for (let i = 0; i < rad.length; i++) {
         rad[i].addEventListener('change', () => {
             if (rad[i].value == 'Yes') {
@@ -50,3 +67,4 @@ const mapForm = () => {
 }
 
 displayOverrides();
+spawnRunningTrigger();
