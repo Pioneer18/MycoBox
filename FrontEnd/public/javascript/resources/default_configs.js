@@ -3,7 +3,7 @@ const default_configs = {
     pink_oyster: {
         spawn_running: {
             ir_temp_trigger: true,
-            timer: number || null,
+            timer: '',
             temp_setpoint: '',
             irTemp_setpoint: '', // trigger session end
             humidity_setpoint: '',
@@ -14,7 +14,7 @@ const default_configs = {
         },
         primordia_init: {
             user_confirmed: false,
-            timer: number || null,
+            timer: '',
             temp_setpoint: '',
             humidity_setpoint: '',
             co2_setpoint: '',
@@ -24,7 +24,7 @@ const default_configs = {
         },
         fruiting: {
             user_confirmed: false,
-            timer: number || null,
+            timer: '',
             temp_setpoint: '',
             humidity_setpoint: '',
             co2_setpoint: '',
@@ -36,7 +36,7 @@ const default_configs = {
     golden_oyster: {
         spawn_running: {
             ir_temp_trigger: true,
-            timer: number || null,
+            timer: '',
             temp_setpoint: '',
             irTemp_setpoint: '', // trigger session end
             humidity_setpoint: '',
@@ -47,7 +47,7 @@ const default_configs = {
         },
         primordia_init: {
             user_confirmed: false,
-            timer: number || null,
+            timer: '',
             temp_setpoint: '',
             humidity_setpoint: '',
             co2_setpoint: '',
@@ -57,7 +57,7 @@ const default_configs = {
         },
         fruiting: {
             user_confirmed: false,
-            timer: number || null,
+            timer: '',
             temp_setpoint: '',
             humidity_setpoint: '',
             co2_setpoint: '',
@@ -69,7 +69,7 @@ const default_configs = {
     blue_oyster: {
         spawn_running: {
             ir_temp_trigger: true,
-            timer: number || null,
+            timer: '',
             temp_setpoint: '',
             irTemp_setpoint: '', // trigger session end
             humidity_setpoint: '',
@@ -80,7 +80,7 @@ const default_configs = {
         },
         primordia_init: {
             user_confirmed: false,
-            timer: number || null,
+            timer: '',
             temp_setpoint: '',
             humidity_setpoint: '',
             co2_setpoint: '',
@@ -90,7 +90,7 @@ const default_configs = {
         },
         fruiting: {
             user_confirmed: false,
-            timer: number || null,
+            timer: '',
             temp_setpoint: '',
             humidity_setpoint: '',
             co2_setpoint: '',
@@ -102,7 +102,7 @@ const default_configs = {
     shitake: {
         spawn_running: {
             ir_temp_trigger: true,
-            timer: number || null,
+            timer: '',
             temp_setpoint: '',
             irTemp_setpoint: '', // trigger session end
             humidity_setpoint: '',
@@ -113,7 +113,7 @@ const default_configs = {
         },
         primordia_init: {
             user_confirmed: false,
-            timer: number || null,
+            timer: '',
             temp_setpoint: '',
             humidity_setpoint: '',
             co2_setpoint: '',
@@ -123,7 +123,7 @@ const default_configs = {
         },
         fruiting: {
             user_confirmed: false,
-            timer: number || null,
+            timer: '',
             temp_setpoint: '',
             humidity_setpoint: '',
             co2_setpoint: '',
