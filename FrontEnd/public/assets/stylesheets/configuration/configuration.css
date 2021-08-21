@@ -48,7 +48,7 @@ h1 {
     font-family: 'Ubuntu', sans-serif;
 }
 
-h2 .session_state-title {
+.session_state-title {
     font-size: 1.5em;
     padding: 1em 0em;
 }
