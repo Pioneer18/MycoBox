@@ -7,7 +7,9 @@ import { newSession } from '../../api/configuration.js';
 let DEFAULTS = true;
 
 const displayOverrides = () => {
+    console.log("Hello from displayOverrides!")
     let rad = document.main_config_form.accept_defaults;
+    console.log(rad)
     const custom_config = document.getElementById('custom_config');
     for (let i = 0; i < rad.length; i++) {
         rad[i].addEventListener('change', () => {
