@@ -12,11 +12,11 @@ const displayOverrides = () => {
     for (let i = 0; i < rad.length; i++) {
         rad[i].addEventListener('change', () => {
             if (rad[i].value == 'Yes') {
-                custom_config.style.display = 'none'
+                overrides.classList.remove('hidden');
                 DEFAULTS = true;
             }
             if (rad[i].value !== 'Yes') {
-                custom_config.style.display = 'block'
+                overrides.classList.add('hidden');
                 DEFAULTS = false
             }
         });
@@ -29,10 +29,10 @@ const spawnRunningTrigger = () => {
     for (let i = 0; i < rad.length; i++) {
         rad[i].addEventListener('change', () => {
             if (rad[i].value == 'Yes') {
-                overrides.classList.add('hidden');
+                overrides.classList.remove('hidden');
             }
             if (rad[i].value !== 'Yes') {
-                overrides.classList.remove('hidden');
+                overrides.classList.add('hidden');
             }
         });
     }
