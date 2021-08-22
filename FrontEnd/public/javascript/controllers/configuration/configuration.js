@@ -67,13 +67,41 @@ const mapForm = () => {
     let mushroom = form.mushroom.value;
     // Start process with overrrides
     if (!DEFAULTS) {
-        let overrides = {};
-        overrides.temperature_c = form.temperature_c.value;
-        overrides.humidity = form.humidity.value;
-        overrides.co2_ppm = form.co2_ppm.value;
-        overrides.lighting = form.lighting.value;
-        overrides.duration_days = form.duration_days.value;
-        return { overrides };
+        let custom_config = {
+            spawn_running: {
+                temperature = form.sr_temperature.value,
+                humidity = form.sr_humidity.value,
+                co2 = form.sr_co2.value,
+                circulation_top = form.sr_circulation_top,
+                circulation_bottom = form.sr_circulation_bottom,
+                lighting = form.sr_lighting.value,
+                trigger = form.sr_trigger.value,
+                duration = form.sr_duration.value
+            },
+            primordia_init: {
+                temperature: form.pi_temperature,
+                humidity: form.pi_humidity,
+                co2: form.pi_co2,
+                circul: form.pi_circulation_top,
+                circulation_bottom: form.pi_circulation_bottom,
+                lighting: form.pi_lighting,
+                trigger: form.pi_trigger.value,
+                duration: form.pi_duration,
+            },
+            fruiting: {
+                temperature: form.fr_temperature,
+                humidity: form.fr_humidity,
+                co2: form.fr_co2,
+                circulation_top: form.fr_circulation_top,
+                circulation_bottom: form.fr_circulation_bottom,
+                lighting: form.fr_lighting,
+                duration: form.fr_duration,
+                flushes: form.fr_flushes, // number of flush and domarncy cycles
+                dormancy: form.fr_dormancy // duration in between flushes
+            }
+        };
+        console.log(custom_config);
+        return { custom_config };
     }
     return { config: default_configs[mushroom] }
 

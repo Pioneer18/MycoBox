@@ -12,36 +12,35 @@ process.env.session_state = {
 // Envrionment Configuration
 process.env.environment_config = {
     spawn_running: {
-        ir_temp_trigger: true,
-        duration: '' || null, // null if ir_temp_trigger is true
-        temp_setpoint: '',
-        irTemp_setpoint: '' || null, // null if it_temp_is false
-        humidity_setpoint: '',
-        co2_setpoint: '',
+        temperature: '',
+        humidity: '',
+        co2: '',
         circulation_top: '',
         circulation_bottom: '',
-        lighting_setpoint: ''
+        lighting: '',
+        trigger: true,
+        duration: '' || null // null if temp_trigger is true
     },
     primordia_init: {
         user_confirmed: false, // if true, no duration
         duration: '' || null,
-        temp_setpoint: '',
-        humidity_setpoint: '',
-        co2_setpoint: '',
-        circulation_top: '',
+        temperature: '',
+        humidity: '',
+        co2: '',
+        circul: '',
         circulation_bottom: '',
-        lighting_setpoint: ''
+        lightint: ''
     },
     fruiting: {
-        duration: '',
-        numberOfharvests: '', // number of flush and domarncy cycles
-        dormancy: '', // duration in between flushes
-        temp_setpoint: '',
-        humidity_setpoint: '',
-        co2_setpoint: '',
+        temperature: '',
+        humidity: '',
+        co2: '',
         circulation_top: '',
         circulation_bottom: '',
-        lighting_setpoint: '',
+        lighting: '',
+        duration: '',
+        numberOfharvests: '', // number of flush and domarncy cycles
+        dormancy: '' // duration in between flushes
     }
 }
 

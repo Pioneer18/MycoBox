@@ -47,7 +47,7 @@
                 <!--Temperature-->
                 <div>
                     <label class="config_label">Temperature Celsius</label>
-                    <input type="number" name="sr_temperature_c" class="form__number_input" />
+                    <input type="number" name="sr_temperature" class="form__number_input" />
                 </div>
                 <!--Humidity-->
                 <div>
@@ -57,7 +57,7 @@
                 <!--CO2-->
                 <div>
                     <label class="config_label">CO2 ppm</label>
-                    <input type="number" name="sr_co2_ppm" class="form__number_input" />
+                    <input type="number" name="sr_co2" class="form__number_input" />
                 </div>
                 <div>
                     <!--Circulation speed Top-->
@@ -93,18 +93,18 @@
                 <div className="form__radio-group">
                     <span class="config_label">Set a duration for Spawn Running, or use the substrate temperature
                         threshold to end this stage?</span>
-                    <input type="radio" class="form__radio-input" id="sr_timer" name="sr_trigger" value="Yes" />
+                    <input type="radio" class="form__radio-input" name="sr_trigger" value="Yes" />
                     <label class="form__radio-label">
                         Duration
                     </label>
-                    <input type="radio" class="form__radio-input" id="sr_temperature" name="sr_trigger" value="No" />
+                    <input type="radio" class="form__radio-input" name="sr_trigger" value="No" />
                     <label class="form__radio-label">
                         Temperature
                     </label>
                 </div>
                 <div id="sr_duration_field">
                     <label class="config_label">Duration (days)</label>
-                    <input type="number" name="sr_duration_input" class="form__number_input">
+                    <input type="number" name="sr_duration" class="form__number_input">
                 </div>
             </div>
             <div class="session_state--primordia-init">
@@ -112,17 +112,17 @@
                 <!--Temperature-->
                 <div>
                     <label class="config_label">Temperature Celsius</label>
-                    <input type="number" name="pi-temperature_c" class="form__number_input">
+                    <input type="number" name="pi_temperature" class="form__number_input">
                 </div>
                 <!--Humidity-->
                 <div>
                     <label class="config_label">Relative Humidity %</label>
-                    <input type="number" name="pi-humidity" class="form__number_input">
+                    <input type="number" name="pi_humidity" class="form__number_input">
                 </div>
                 <!--CO2-->
                 <div>
                     <label class="config_label">CO2 ppm</label>
-                    <input type="number" name="pi-co2_ppm" class="form__number_input">
+                    <input type="number" name="pi_co2" class="form__number_input">
                 </div>
                 <div>
                     <!--Circulation speed Top-->
@@ -145,30 +145,31 @@
                 <!--Light-->
                 <div className="form__radio-group">
                     <span class="config_label">Lighting</span>
-                    <input type="radio" class="form__radio-input" id="yes" name="pi-lighting" />
+                    <input type="radio" class="form__radio-input" id="yes" name="pi_lighting" />
                     <label class="form__radio-label">
                         On
                     </label>
-                    <input type="radio" class="form__radio-input" id="no" name="pi-lighting" />
+                    <input type="radio" class="form__radio-input" id="no" name="pi_lighting" />
                     <label class="form__radio-label">
                         Off
                     </label>
                 </div>
                 <!--Trigger-->
                 <div className="form__radio-group">
-                    <span class="config_label">Manually select when Primordia Initiation is finished, or set a Duration?</span>
-                    <input type="radio" class="form__radio-input" id="pi_duration" name="pi_trigger" value="Yes" />
+                    <span class="config_label">Manually select when Primordia Initiation is finished, or set a
+                        Duration?</span>
+                    <input type="radio" class="form__radio-input" name="pi_trigger" value="Yes" />
                     <label class="form__radio-label">
                         Duration
                     </label>
-                    <input type="radio" class="form__radio-input" id="pi_manually" name="pi_trigger" value="No" />
+                    <input type="radio" class="form__radio-input" name="pi_trigger" value="No" />
                     <label class="form__radio-label">
                         Manually
                     </label>
                 </div>
                 <div id="pi_duration_field">
                     <label class="config_label">Duration of Primordia Initiation (days)</label>
-                    <input type="number" name="pi_duration_input" class="form__number_input">
+                    <input type="number" name="pi_duration" class="form__number_input">
                 </div>
             </div>
             <div class="session_state--fruiting">
@@ -176,17 +177,17 @@
                 <!--Temperature-->
                 <div>
                     <label class="config_label">Temperature Celsius</label>
-                    <input type="number" name="fr-temperature_c" class="form__number_input">
+                    <input type="number" name="fr_temperature" class="form__number_input">
                 </div>
                 <!--Humidity-->
                 <div>
                     <label class="config_label">Relative Humidity %</label>
-                    <input type="number" name="fr-humidity" class="form__number_input">
+                    <input type="number" name="fr_humidity" class="form__number_input">
                 </div>
                 <!--CO2-->
                 <div>
                     <label class="config_label">CO2 ppm</label>
-                    <input type="number" name="fr-co2_ppm" class="form__number_input">
+                    <input type="number" name="fr_co2" class="form__number_input">
                 </div>
                 <div>
                     <!--Circulation speed Top-->
@@ -209,11 +210,11 @@
                 <!--Light-->
                 <div className="form__radio-group">
                     <span class="config_label">Lighting</span>
-                    <input type="radio" class="form__radio-input" id="yes" name="fr-lighting" />
+                    <input type="radio" class="form__radio-input" id="yes" name="fr_lighting" />
                     <label class="form__radio-label">
                         On
                     </label>
-                    <input type="radio" class="form__radio-input" id="no" name="fr-lighting" />
+                    <input type="radio" class="form__radio-input" id="no" name="fr_lighting" />
                     <label class="form__radio-label">
                         Off
                     </label>
@@ -221,17 +222,17 @@
                 <!--Duration-->
                 <div>
                     <label class="config_label">Expected duration of each flush (days)</label>
-                    <input type="number" name="fr-duration_days" class="form__number_input">
+                    <input type="number" name="fr_duration" class="form__number_input">
                 </div>
                 <!--Number of Harvests-->
                 <div>
                     <label class="config_label">Projected number of flushes</label>
-                    <input type="number" name="fr-duration_days" class="form__number_input">
+                    <input type="number" name="fr_flushes" class="form__number_input">
                 </div>
                 <!--Dormancy Duration-->
                 <div>
                     <label class="config_label">Duration between flushes (days)</label>
-                    <input type="number" name="fr-duration_days" class="form__number_input">
+                    <input type="number" name="fr_dormancy" class="form__number_input">
                 </div>
             </div>
         </div>
