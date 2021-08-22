@@ -36,7 +36,7 @@ const { set_environment_state } = require("../sensors.controller/sensors.control
 
    const newSession = async (config) => {
        try {// start the new session
-        const session_state = get('session_state');
+        const session_state = await get('session_state');
         console.log(session_state)
         if (!session_state.active_session) {
                 console.log(`Here is active_session: ${session_state.active_session}`);
