@@ -81,25 +81,25 @@ const mapForm = () => {
                 duration: form.sr_duration.value
             },
             primordia_init: {
-                temperature: form.pi_temperature,
-                humidity: form.pi_humidity,
-                co2: form.pi_co2,
+                temperature: form.pi_temperature.value,
+                humidity: form.pi_humidity.value,
+                co2: form.pi_co2.value,
                 circulation_top: form.pi_circulation_top.value,
                 circulation_bottom: form.pi_circulation_bottom.value,
-                lighting: form.pi_lighting,
+                lighting: form.pi_lighting.value,
                 trigger: form.pi_trigger.value,
-                duration: form.pi_duration,
+                duration: form.pi_duration.value,
             },
             fruiting: {
-                temperature: form.fr_temperature,
-                humidity: form.fr_humidity,
-                co2: form.fr_co2,
+                temperature: form.fr_temperature.value,
+                humidity: form.fr_humidity.value,
+                co2: form.fr_co2.value,
                 circulation_top: form.fr_circulation_top.value,
                 circulation_bottom: form.fr_circulation_bottom.value,
-                lighting: form.fr_lighting,
-                duration: form.fr_duration,
-                flushes: form.fr_flushes, // number of flush and domarncy cycles
-                dormancy: form.fr_dormancy // duration in between flushes
+                lighting: form.fr_lighting.value,
+                duration: form.fr_duration.value,
+                flushes: form.fr_flushes.value, // number of flush and domarncy cycles
+                dormancy: form.fr_dormancy.value // duration in between flushes
             }
         };
         console.log(custom_config);
