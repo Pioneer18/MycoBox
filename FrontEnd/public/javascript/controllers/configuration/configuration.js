@@ -57,7 +57,7 @@ const primordiaInitTrigger = () => {
 document.main_config_form.onsubmit = (e) => {
     e.preventDefault();
     // map the form
-    const {config } = mapForm();
+    const { config } = mapForm();
     console.log(config)
     // send Http request to start process on MycoBox
     newSession(config)
@@ -101,7 +101,7 @@ const mapForm = () => {
                 dormancy: form.fr_dormancy.value // duration in between flushes
             }
         };
-        return { custom_config };
+        return { config: custom_config }
     }
     return { config: default_configs[mushroom] }
 
