@@ -23,7 +23,7 @@
  *  
  */
 const {globals} = require('../../globals/globals');
-const { environmentManager } = require("../../services/system.service/system.service")
+const { environmentManager, set_environment_config } = require("../../services/system.service/system.service")
 const { set_environment_state } = require("../sensors.controller/sensors.controller")
 
     /**
@@ -37,19 +37,18 @@ const { set_environment_state } = require("../sensors.controller/sensors.control
    const newSession = async (config) => {
        try {// start the new session
         if (!globals.session_state.active_session) {
-                console.log(`Here is active_session: ${active_session}`)
+                console.log(`Here is active_session: ${active_session}`);
                 // console.log(`Starting session ${globals.session_state.session_title} - ${globals.session_state.session_id}`);
-                // await this.setEnvironmentConfig(config);
+                await set_environment_config(config);
                 // await set_environment_state();
                 // await environmentManager();
                 console.log('config from within newSession!!!');
                 console.log(config);
-                return 'tee-hee'
             } else {
-                throw new Error('There is already an active session')
+                throw new Error('There is already an active session');
             }
         } catch (err) {
-            console.log(`Failed to start a new session - Error: ${err}`)
+            console.log(`Failed to start a new session - Error: ${err}`);
         }
 
     }

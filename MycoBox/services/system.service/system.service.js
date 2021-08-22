@@ -16,6 +16,14 @@ module.exports = {
 
     },
 
+    set_environment_config: async (config) => {
+        console.log('Set Environment Config Parameter: ');
+        console.log(config);
+        globals.environment_config = config;
+        console.log('Global Environment Config: ');
+        console.log(globals.environment_config);
+    },
+
     getEnvironmentConfig: async () => {
         return {
             spawn_running: {

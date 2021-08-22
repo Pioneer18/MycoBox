@@ -60,7 +60,7 @@ let globals = {
         co2: '', // cozIr-A
         weight: '' // esp8266
     },
-    actuators_status: {
+    actuators_state: {
         circulation_bottom: false, // 1
         circulation_top: false, // 2
         intake: false, // 3
