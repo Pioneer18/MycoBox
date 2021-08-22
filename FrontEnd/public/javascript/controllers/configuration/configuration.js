@@ -58,14 +58,13 @@ document.main_config_form.onsubmit = (e) => {
     e.preventDefault();
     // map the form
     const {config } = mapForm();
+    console.log(config)
     // send Http request to start process on MycoBox
     newSession(config)
 };
 
 const mapForm = () => {
     let form = document.main_config_form;
-    console.log(`here is the form`)
-    console.log(form);
     let mushroom = form.mushroom.value;
     // Start process with overrrides
     if (!DEFAULTS) {
@@ -102,7 +101,6 @@ const mapForm = () => {
                 dormancy: form.fr_dormancy.value // duration in between flushes
             }
         };
-        console.log(custom_config);
         return { custom_config };
     }
     return { config: default_configs[mushroom] }
