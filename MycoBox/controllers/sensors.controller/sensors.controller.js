@@ -2,6 +2,7 @@
  * Sensors Controller
  */
 const { PythonShell } = require('python-shell');
+const {globals} =require('../../globals/globals')
 const {
     parse_th_data,
     parse_pt_data,
@@ -83,18 +84,18 @@ const set_environment_state = async () => {
 const read_environment_model = async () => {
     console.log('Getting Started Reading the EnvModel Now')
     const envmodel = {
-        internal_temp_1: process.env.internal_temp_1,
-        internal_temp_2: process.env.internal_temp_2,
-        internal_temp_3: process.env.internal_temp_3,
-        precise_temp_c: process.env.precise_temp_c,
-        precise_temp_f: process.env.precise_temp_f,
-        external_temp: process.env.external_temp,
-        internal_humidity_1: process.env.internal_humidity_1,
-        internal_humidity_2: process.env.internal_humidity_2,
-        internal_humidity_3: process.env.internal_humidity_3,
-        external_humidity: process.env.external_humidity,
-        co2: process.env.co2,
-        weight: process.env.weight
+        internal_temp_1: globals.internal_temp_1,
+        internal_temp_2: globals.internal_temp_2,
+        internal_temp_3: globals.internal_temp_3,
+        precise_temp_c: globals.precise_temp_c,
+        precise_temp_f: globals.precise_temp_f,
+        external_temp: globals.external_temp,
+        internal_humidity_1: globals.internal_humidity_1,
+        internal_humidity_2: globals.internal_humidity_2,
+        internal_humidity_3: globals.internal_humidity_3,
+        external_humidity: globals.external_humidity,
+        co2: globals.co2,
+        weight: globals.weight
     }
     console.log('Here is the Environment Model to be returned: ')
     console.log(envmodel)
