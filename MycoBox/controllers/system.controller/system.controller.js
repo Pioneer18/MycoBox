@@ -122,6 +122,5 @@ const { set_environment_state } = require("../sensors.controller/sensors.control
     // }
 module.exports = {
     newSession,
-    setEnvironmentConfig
 }
 
