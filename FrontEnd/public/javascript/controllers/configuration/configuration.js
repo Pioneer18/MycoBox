@@ -64,6 +64,8 @@ document.main_config_form.onsubmit = (e) => {
 
 const mapForm = () => {
     let form = document.main_config_form;
+    console.log(`here is the form`)
+    console.log(form);
     let mushroom = form.mushroom.value;
     // Start process with overrrides
     if (!DEFAULTS) {
