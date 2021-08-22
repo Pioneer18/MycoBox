@@ -83,7 +83,7 @@ const set_environment_state = async () => {
  */
 const read_environment_state = async () => {
     console.log('Getting Started Reading the env_state Now')
-    const data = get('environment_state');
+    const data = await get('environment_state');
     const env_state = await {
         internal_temp_1: data.internal_temp_1,
         internal_temp_2: data.internal_temp_2,
