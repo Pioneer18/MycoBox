@@ -23,7 +23,7 @@
  *  
  */
 const {get, set_environment_config} = require('../../globals/globals');
-const { environmentManager, set_environment_config } = require("../../services/system.service/system.service")
+const { environmentManager } = require("../../services/system.service/system.service")
 const { set_environment_state } = require("../sensors.controller/sensors.controller")
 
     /**
