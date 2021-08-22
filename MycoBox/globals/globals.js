@@ -74,19 +74,19 @@ let globals = {
         speakers: false // 11
     },
     overrides = {
-        flag = false, // must be true for overrrides to be honored
-        circulation_bottom = false,
-        circulation_top = false,
-        intake = false,
-        exhaust = false,
-        ac = false,
-        heater = false,
-        mister = false,
-        humidifier = false,
-        mb_light_1 = false,
-        mb_light_2 = false,
-        ib_light = false,
-        speakers = false
+        flag: false, // must be true for overrrides to be honored
+        circulation_bottom: false,
+        circulation_top: false,
+        intake: false,
+        exhaust: false,
+        ac: false,
+        heater: false,
+        mister: false,
+        humidifier: false,
+        mb_light_1: false,
+        mb_light_2: false,
+        ib_light: false,
+        speakers: false
     }
 };
 
