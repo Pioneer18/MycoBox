@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="../../assets/stylesheets/reset.css">
     <link rel="stylesheet" href="../../assets/stylesheets/configuration/configuration.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&family=Ubuntu:wght@500&display=swap"
+        rel="stylesheet">
     <title>Main Configuration</title>
 </head>
 
@@ -24,18 +27,6 @@
             <option value="blue_oyster">Blue Oyster</option>
             <option value="shitake">Shitake</option>
         </select>
-        <!--Select Process-->
-        <div className="form__radio-group">
-            <span class="config_label">Select a Process</span>
-            <input type="radio" class="form__radio-input" id="incubation" name="process" value="incubation" />
-            <label class="form__radio-label">
-                Incubation
-            </label>
-            <input type="radio" class="form__radio-input" id="fruiting" name="process" value="fruiting"/>
-            <label class="form__radio-label">
-                Fruiting
-            </label>
-        </div>
         <!--Accept Defaults-->
         <div className="form__radio-group">
             <span class="config_label">Accept Defaults</span>
@@ -49,46 +40,207 @@
             </label>
         </div>
 
-        <!--Overrides-->
-        <div id="overrides">
-            <!--Temperature-->
-            <div>
-                <label class="config_label">Select Temperature Celsius</label>
-                <input type="number" name="temperature_c" class="form__number_input">
+        <!--custom_config-->
+        <div id="custom_config">
+            <div class="session_state--spawn-running">
+                <h2 class="session_state-title">Spawn Running</h2>
+                <!--Temperature-->
+                <div>
+                    <label class="config_label">Temperature Celsius</label>
+                    <input type="number" name="sr_temperature" class="form__number_input" />
+                </div>
+                <!--Humidity-->
+                <div>
+                    <label class="config_label">Relative Humidity %</label>
+                    <input type="number" name="sr_humidity" class="form__number_input" />
+                </div>
+                <!--CO2-->
+                <div>
+                    <label class="config_label">CO2 ppm</label>
+                    <input type="number" name="sr_co2" class="form__number_input" />
+                </div>
+                <div>
+                    <!--Circulation speed Top-->
+                    <label class="config_label">Circulation speed top</label>
+                    <select name="sr_circulation_top" id="sr_circulation_top">
+                        <option value="off">Off</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                    <!--Circulation speed Bottom-->
+                    <label class="config_label">Circulation speed bottom</label>
+                    <select name="sr_circulation_bottom" id="sr_circulation_bottom">
+                        <option value="off">Off</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <!--Light-->
+                <div className="form__radio-group">
+                    <span class="config_label">Lighting</span>
+                    <input type="radio" class="form__radio-input" id="yes" name="sr_lighting" />
+                    <label class="form__radio-label">
+                        On
+                    </label>
+                    <input type="radio" class="form__radio-input" id="no" name="sr_lighting" />
+                    <label class="form__radio-label">
+                        Off
+                    </label>
+                </div>
+                <!--Trigger-->
+                <div className="form__radio-group">
+                    <span class="config_label">Set a duration for Spawn Running, or use the substrate temperature
+                        threshold to end this stage?</span>
+                    <input type="radio" class="form__radio-input" name="sr_trigger" value="Duration" />
+                    <label class="form__radio-label">
+                        Duration
+                    </label>
+                    <input type="radio" class="form__radio-input" name="sr_trigger" value="Temperature" />
+                    <label class="form__radio-label">
+                        Temperature
+                    </label>
+                </div>
+                <div id="sr_duration_field">
+                    <label class="config_label">Duration (days)</label>
+                    <input type="number" name="sr_duration" class="form__number_input">
+                </div>
             </div>
-            <!--Humidity-->
-            <div>
-                <label class="config_label">Select Relative Humidity %</label>
-                <input type="number" name="humidity" class="form__number_input"> 
+            <div class="session_state--primordia-init">
+                <h2 class="session_state-title">Primordia Initiation</h2>
+                <!--Temperature-->
+                <div>
+                    <label class="config_label">Temperature Celsius</label>
+                    <input type="number" name="pi_temperature" class="form__number_input">
+                </div>
+                <!--Humidity-->
+                <div>
+                    <label class="config_label">Relative Humidity %</label>
+                    <input type="number" name="pi_humidity" class="form__number_input">
+                </div>
+                <!--CO2-->
+                <div>
+                    <label class="config_label">CO2 ppm</label>
+                    <input type="number" name="pi_co2" class="form__number_input">
+                </div>
+                <div>
+                    <!--Circulation speed Top-->
+                    <label class="config_label">Circulation speed top</label>
+                    <select name="pi_circulation_top" id="pi_circulation_top">
+                        <option value="off">Off</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                    <!--Circulation speed Bottom-->
+                    <label class="config_label">Circulation speed bottom</label>
+                    <select name="pi_circulation_bottom" id="pi_circulation_bottom">
+                        <option value="off">Off</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <!--Light-->
+                <div className="form__radio-group">
+                    <span class="config_label">Lighting</span>
+                    <input type="radio" class="form__radio-input" id="yes" name="pi_lighting" />
+                    <label class="form__radio-label">
+                        On
+                    </label>
+                    <input type="radio" class="form__radio-input" id="no" name="pi_lighting" />
+                    <label class="form__radio-label">
+                        Off
+                    </label>
+                </div>
+                <!--Trigger-->
+                <div className="form__radio-group">
+                    <span class="config_label">Manually select when Primordia Initiation is finished, or set a
+                        Duration?</span>
+                    <input type="radio" class="form__radio-input" name="pi_trigger" value="Duration" />
+                    <label class="form__radio-label">
+                        Duration
+                    </label>
+                    <input type="radio" class="form__radio-input" name="pi_trigger" value="Manually" />
+                    <label class="form__radio-label">
+                        Manually
+                    </label>
+                </div>
+                <div id="pi_duration_field">
+                    <label class="config_label">Duration of Primordia Initiation (days)</label>
+                    <input type="number" name="pi_duration" class="form__number_input">
+                </div>
             </div>
-            <!--CO2-->
-            <div>
-                <label class="config_label">Select CO2 ppm</label>
-                <input type="number" name="co2_ppm" class="form__number_input">
-            </div>
-            <!--Light-->
-            <div className="form__radio-group">
-                <span class="config_label">Select Lighting</span>
-                <input type="radio" class="form__radio-input" id="yes" name="lighting" />
-                <label class="form__radio-label">
-                    On
-                </label>
-                <input type="radio" class="form__radio-input" id="no" name="lighting" />
-                <label class="form__radio-label">
-                    Off
-                </label>
-            </div>
-            <!--Duration-->
-            <div>
-                <label class="config_label">Select Duration (days)</label>
-                <input type="number" name="duration_days" class="form__number_input">
+            <div class="session_state--fruiting">
+                <h2 class="session_state-title">Fruiting</h2>
+                <!--Temperature-->
+                <div>
+                    <label class="config_label">Temperature Celsius</label>
+                    <input type="number" name="fr_temperature" class="form__number_input">
+                </div>
+                <!--Humidity-->
+                <div>
+                    <label class="config_label">Relative Humidity %</label>
+                    <input type="number" name="fr_humidity" class="form__number_input">
+                </div>
+                <!--CO2-->
+                <div>
+                    <label class="config_label">CO2 ppm</label>
+                    <input type="number" name="fr_co2" class="form__number_input">
+                </div>
+                <div>
+                    <!--Circulation speed Top-->
+                    <label class="config_label">Circulation speed top</label>
+                    <select name="fr_circulation_top" id="fr_circulation_top">
+                        <option value="off">Off</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                    <!--Circulation speed Bottom-->
+                    <label class="config_label">Circulation speed bottom</label>
+                    <select name="fr_circulation_bottom" id="fr_circulation_bottom">
+                        <option value="off">Off</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <!--Light-->
+                <div className="form__radio-group">
+                    <span class="config_label">Lighting</span>
+                    <input type="radio" class="form__radio-input" id="yes" name="fr_lighting" />
+                    <label class="form__radio-label">
+                        On
+                    </label>
+                    <input type="radio" class="form__radio-input" id="no" name="fr_lighting" />
+                    <label class="form__radio-label">
+                        Off
+                    </label>
+                </div>
+                <!--Duration-->
+                <div>
+                    <label class="config_label">Expected duration of each flush (days)</label>
+                    <input type="number" name="fr_duration" class="form__number_input">
+                </div>
+                <!--Number of Harvests-->
+                <div>
+                    <label class="config_label">Projected number of flushes</label>
+                    <input type="number" name="fr_flushes" class="form__number_input">
+                </div>
+                <!--Dormancy Duration-->
+                <div>
+                    <label class="config_label">Duration between flushes (days)</label>
+                    <input type="number" name="fr_dormancy" class="form__number_input">
+                </div>
             </div>
         </div>
-        
-        
+
+
         <!--Start Process-->
         <label class="config_label"></label>
-        <button type="submit" id="submit_button">Run Process</button>
+        <button type="submit" id="submit_button">Start Session</button>
     </form>
     <script type="module" src="../../javascript/controllers/configuration/configuration.js"></script>
 </body>

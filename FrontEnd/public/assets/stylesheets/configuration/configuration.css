@@ -48,6 +48,11 @@ h1 {
     font-family: 'Ubuntu', sans-serif;
 }
 
+.session_state-title {
+    font-size: 1.5em;
+    padding: 1em 0em;
+}
+
 /* misc */
 .hidden {
     display: none;

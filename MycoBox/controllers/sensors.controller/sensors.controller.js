@@ -67,7 +67,7 @@ const read_infrared = () => {
 /**
  * Set Environment Model
  */
-const set_environment_model = async () => {
+const set_environment_state = async () => {
     console.log('MycoBox is setting the environment model')
     read_co2()
     read_temp_humidity()
@@ -107,6 +107,6 @@ module.exports = {
     read_co2,
     read_scale,
     read_infrared,
-    set_environment_model,
+    set_environment_state,
     read_environment_model
 }

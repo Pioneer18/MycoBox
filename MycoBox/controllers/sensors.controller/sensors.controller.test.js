@@ -1,2 +1,2 @@
-const {set_environment_model} = require('./sensors.controller')
-set_environment_model()
+const {set_environment_state} = require('./sensors.controller')
+set_environment_state()

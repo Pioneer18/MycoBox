@@ -9,8 +9,8 @@ var router = express.Router();
 /**
  * Override: set environment model
  */
-// router.post(`${api}/sensors_controller/set_environment_model`, function (req, res, next) {
-//     set_environment_model()
+// router.post(`${api}/sensors_controller/set_environment_state`, function (req, res, next) {
+//     set_environment_state()
 //     res.send('Environment Model Set')
 // })
 

@@ -2,7 +2,7 @@
  * Dashboard Routes
  */
 const router = require('express').Router()
-const { set_environment_model, read_environment_model } = require('../controllers/sensors.controller/sensors.controller')
+const { set_environment_state, read_environment_model } = require('../controllers/sensors.controller/sensors.controller')
 
 
 /** 
@@ -10,7 +10,7 @@ const { set_environment_model, read_environment_model } = require('../controller
 */
 router.get(`/sensors_controller/read_environment_model`, async (req, res) => {
         console.log('MycoBox Here....')
-        await set_environment_model()
+        await set_environment_state()
         const envmodel = await read_environment_model()
         console.log(`Below is the envmode`)
         console.log(envmodel)
