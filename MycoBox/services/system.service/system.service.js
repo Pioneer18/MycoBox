@@ -20,7 +20,7 @@ module.exports = {
         return globals.environment_config = config;
     },
 
-    getEnvironmentConfig: async () => {
+    get_environment_config: async () => {
         return {
             spawn_running: {
                 temperature: globals.environment_config.spawn_running.temperature,
@@ -43,15 +43,15 @@ module.exports = {
                 lighting: globals.environment_config.primordia_init.lighting,
             },
             fruiting: {
-                temperature: '',
-                humidity: '',
-                co2: '',
-                circulation_top: '',
-                circulation_bottom: '',
-                lighting: '',
-                duration: '',
-                numberOfharvests: '',
-                dormancy: ''
+                temperature: globals.environment_config.fruiting.temperature,
+                humidity: globals.environment_config.fruiting.humidity,
+                co2: globals.environment_config.fruiting.co2,
+                circulation_top: globals.environment_config.fruiting.circulation_top,
+                circulation_bottom: globals.environment_config.fruiting.circulation_bottom,
+                lighting: globals.environment_config.fruiting.lighting,
+                duration: globals.environment_config.fruiting.duration,
+                numberOfharvests: globals.environment_config.fruiting.numberOfharvests,
+                dormancy: globals.environment_config.fruiting.dormancy
             }
 
         }

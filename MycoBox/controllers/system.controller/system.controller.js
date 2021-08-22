@@ -22,7 +22,7 @@
  * handle the update; by calling on the appropriate controllers for updating the environment.
  *  
  */
-const {globals} = require('../../globals/globals');
+const {get} = require('../../globals/globals');
 const { environmentManager, set_environment_config } = require("../../services/system.service/system.service")
 const { set_environment_state } = require("../sensors.controller/sensors.controller")
 
@@ -36,8 +36,10 @@ const { set_environment_state } = require("../sensors.controller/sensors.control
 
    const newSession = async (config) => {
        try {// start the new session
-        if (!globals.session_state.active_session) {
-                console.log(`Here is active_session: ${globals.session_state.active_session}`);
+        const session_state = get('session_state');
+        console.log(session_state)
+        if (!session_state.active_session) {
+                console.log(`Here is active_session: ${session_state.active_session}`);
                 // console.log(`Starting session ${globals.session_state.session_title} - ${globals.session_state.session_id}`);
                 await set_environment_config(config);
                 // await set_environment_state();

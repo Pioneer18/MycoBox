@@ -90,6 +90,30 @@ let globals = {
     }
 };
 
+// define getter and setter for globals 
+/**
+ * Grab a section from the globals object
+ * @param {string} section section of the globals object
+ * @returns the section
+ * todo: add 'element' param, for searching section and element
+ */
+const get = async (section) => {
+    switch (section) {
+        case 'session_state':
+            return globals.session_state    
+        case 'environment_config':
+            return globals.environment_config
+        case 'environment_state':
+            return globals.environment_state
+        case 'actuators_state':
+            return globals.actuators_state
+        case 'overrides':
+            return globals.overrides
+        default:
+            return null;
+    }
+}
 module.exports = {
-    globals
+    globals,
+    get
 }
