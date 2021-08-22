@@ -11,7 +11,7 @@ const indexRouter = require('./MycoBox/routes/index');
 var app = express();
 
 // Mount Middleware
-app.use(cors({ origin: process.env.BASE_URL })); // allow all cors
+app.use(cors({ origin: globals.BASE_URL })); // allow all cors
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
