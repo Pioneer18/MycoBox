@@ -28,7 +28,7 @@ const spawnRunningTrigger = () => {
     const overrides = document.getElementById('sr_duration_field');
     for (let i = 0; i < rad.length; i++) {
         rad[i].addEventListener('change', () => {
-            if (rad[i].value == 'Duration') {
+            if (rad[i].value === 'Duration') {
                 overrides.classList.remove('hidden');
             }
             if (rad[i].value !== 'Duration') {

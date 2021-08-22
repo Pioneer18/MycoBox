@@ -10,7 +10,7 @@ const newSession = (config) => {
     console.log("What the Frontend is sending back:")
     console.log(config)
     // create the XMLHTTP instance
-    makeRequest('POST', `http://192.168.1.97:3000${api}/system_controller/start_session`, JSON.stringify(config) // add a content-type param
+    makeRequest('POST', `http://192.168.1.97:3000${api}/system_controller/start_session`, JSON.stringify(config)) // add a content-type param
 };
 
 export {
