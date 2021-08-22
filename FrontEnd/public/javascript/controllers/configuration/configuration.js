@@ -70,9 +70,8 @@ displayOverrides();
 //spawnRunningTrigger();
 // Dynamic UI EventListeners
 
-// const sr_timer = document.getElementById('sr-timer')
-// sr_timer.addEventListener('change', () => {
-//     const button = document.getElementById('sr-timer')
-//     if (button === true) console.log('Use A Timer!') 
-//     if (button.checked === false) console.log('Use the IR sensor!!') 
-// })
+const sr_timer = document.getElementById('sr_timer')
+sr_timer.addEventListener('change', () => {
+    if (sr_timer === true) console.log('Use A Timer!') 
+    if (sr_timer.checked === false) console.log('Use the IR sensor!!') 
+})
