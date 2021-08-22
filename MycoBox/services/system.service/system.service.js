@@ -22,6 +22,7 @@ module.exports = {
         globals.environment_config = config;
         console.log('Global Environment Config: ');
         console.log(globals.environment_config);
+        return
     },
 
     getEnvironmentConfig: async () => {
