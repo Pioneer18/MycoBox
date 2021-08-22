@@ -12,48 +12,9 @@ module.exports = {
      * 2) check the environementConfg
      * 3) check the environmentState
      */
-    environmentManager: async () => {
+    environment_manager: async () => {
 
     },
 
-    set_environment_config: async (config) => {
-        return globals.environment_config = config;
-    },
-
-    get_environment_config: async () => {
-        return {
-            spawn_running: {
-                temperature: globals.environment_config.spawn_running.temperature,
-                humidity: globals.environment_config.spawn_running.humidity,
-                co2: globals.environment_config.spawn_running.co2,
-                circulation_top: globals.environment_config.spawn_running.circulation_top,
-                circulation_bottom: globals.environment_config.spawn_running.circulation_bottom,
-                lighting: globals.environment_config.spawn_running.lighting,
-                trigger: globals.environment_config.spawn_running.trigger,
-                duration: globals.environment_config.spawn_running.duration,
-            },
-            primordia_init: {
-                user_confirmed: globals.environment_config.primordia_init.user_confirmed,
-                duration: globals.environment_config.primordia_init.duration,
-                temperature: globals.environment_config.primordia_init.temperature,
-                humidity: globals.environment_config.primordia_init.humidity,
-                co2: globals.environment_config.primordia_init.co2,
-                circulation_top: globals.environment_config.primordia_init.circulation_top,
-                circulation_bottom: globals.environment_config.primordia_init.circulation_bottom,
-                lighting: globals.environment_config.primordia_init.lighting,
-            },
-            fruiting: {
-                temperature: globals.environment_config.fruiting.temperature,
-                humidity: globals.environment_config.fruiting.humidity,
-                co2: globals.environment_config.fruiting.co2,
-                circulation_top: globals.environment_config.fruiting.circulation_top,
-                circulation_bottom: globals.environment_config.fruiting.circulation_bottom,
-                lighting: globals.environment_config.fruiting.lighting,
-                duration: globals.environment_config.fruiting.duration,
-                numberOfharvests: globals.environment_config.fruiting.numberOfharvests,
-                dormancy: globals.environment_config.fruiting.dormancy
-            }
-
-        }
-    }
+    
 }

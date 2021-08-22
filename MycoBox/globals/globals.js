@@ -125,8 +125,14 @@ const set_environment_config = async (config) => {
     return
 }
 
+const set_environment_state = async (element, value) => {
+    if ( typeof element !== 'string') throw new Error('Invalid environment state element');
+    if (!value) throw new Error('No value to set')
+    globals.environment_state[element] = value
+}
+
 module.exports = {
-    globals,
     get,
-    set_environment_config
+    set_environment_config,
+    set_environment_state
 }

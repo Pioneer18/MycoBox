@@ -1,7 +1,7 @@
 /**
  * Sensors Service
  */
-const {globals} = require('../../globals/globals');
+const {globals, set_environment_state} = require('../../globals/globals');
 
 /**
  * Parse incoming dht22 sensor data
@@ -21,8 +21,8 @@ const parse_pt_data = (reply) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     console.log(data[1]);
     console.log(data[3]);
-    globals.precise_temp_c = data[1]
-    globals.precise_temp_f = data[3]
+    set_environment_state('precise_temp_c', data[1]);
+    set_environment_state('precise_temp_f', data[3]);
     return
 }
 
@@ -30,7 +30,7 @@ const parse_co2_data = (reply) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     console.log('CO2 Data Below !!!!!!!!!')
     console.log(data)
-    globals.co2 = data[1]
+    set_environment_state('co2', data[1]);
     return
 }
 
@@ -50,35 +50,35 @@ const validate_th_data = (data) => {
 const set_dht22_values = (i, data) => {
     switch (i) {
         case 1:
-            globals.internal_humidity_1 = data
+            set_environment_state('internal_humidity_1', data);
             console.log(`internal_humidity_1: ${globals.internal_humidity_1}`)
             break;
         case 3:
-            globals.internal_humidity_2 = data
+            set_environment_state('internal_humidity_2', data);
             console.log(`internal_humidity_2: ${globals.internal_humidity_2}`)
             break
         case 5:
-            globals.internal_humidity_3 = data
+            set_environment_state('internal_humidity_3', data);
             console.log(`internal_humidity_3: ${globals.internal_humidity_3}`)
             break
         case 7:
-            globals.external_humidity = data
+            set_environment_state('external_humidity', data);
             console.log(`external_humidity: ${globals.external_humidity}`)
             break
         case 9:
-            globals.internal_temp_1 = data
+            set_environment_state('internal_temp_1', data);
             console.log(`internal_temp_1: ${globals.internal_temp_1}`)
             break
         case 11:
-            globals.internal_temp_2 = data
+            set_environment_state('internal_temp_2', data);
             console.log(`internal_temp_2: ${globals.internal_temp_2}`)
             break
         case 13:
-            globals.internal_temp_3 = data
+            set_environment_state('internal_temp_3', data);
             console.log(`internal_temp_3: ${globals.internal_temp_3}`)
             break
         case 15:
-            globals.external_temp = data
+            set_environment_state('external_temp', data);
             console.log(`external_temp: ${globals.external_temp}`)
             break
         default:
