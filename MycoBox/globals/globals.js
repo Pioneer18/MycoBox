@@ -1,3 +1,6 @@
+/**
+ * Global Variables
+ */
 // Session State
 process.env.session_state = {
     session_title: '',
