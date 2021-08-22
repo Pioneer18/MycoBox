@@ -49,19 +49,19 @@ const { set_environment_state } = require("../sensors.controller/sensors.control
             console.log(`Failed to start a new session - Error: ${err}`)
         }
 
-    },
+    }
 
-    const endSession = () => {
-        return { TODO: 'build this handler' }
-    },
+    // const endSession = () => {
+    //     return { TODO: 'build this handler' }
+    // },
 
-    const addHoursToSession = () => {
-        return { TODO: 'build this handler' }
-    },
+    // const addHoursToSession = () => {
+    //     return { TODO: 'build this handler' }
+    // },
 
-    const subtractHoursFromSession = () => {
-        return { TODO: 'build this handler' }
-    },
+    // const subtractHoursFromSession = () => {
+    //     return { TODO: 'build this handler' }
+    // },
 
     /**
      * map the user submitted configuration to the envrionment_conig
