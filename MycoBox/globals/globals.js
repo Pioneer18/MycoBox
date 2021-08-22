@@ -2,6 +2,7 @@
  * Global Variables
  */
 // Session State
+process.env.session_state.active_session = false;
 process.env.session_state = {
     session_title: '',
     session_id: '',
