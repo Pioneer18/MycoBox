@@ -82,7 +82,7 @@ const mapForm = () => {
                 temperature: form.pi_temperature,
                 humidity: form.pi_humidity,
                 co2: form.pi_co2,
-                circul: form.pi_circulation_top.value,
+                circulation_top: form.pi_circulation_top.value,
                 circulation_bottom: form.pi_circulation_bottom.value,
                 lighting: form.pi_lighting,
                 trigger: form.pi_trigger.value,
