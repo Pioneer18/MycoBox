@@ -81,3 +81,4 @@ const mapForm = () => {
 
 displayOverrides();
 spawnRunningTrigger();
+primordiaInitTrigger();
