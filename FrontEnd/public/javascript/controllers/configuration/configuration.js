@@ -12,11 +12,11 @@ const displayOverrides = () => {
     for (let i = 0; i < rad.length; i++) {
         rad[i].addEventListener('change', () => {
             if (rad[i].value == 'Yes') {
-                overrides.classList.remove('hidden');
+                custom_config.classList.remove('hidden');
                 DEFAULTS = true;
             }
             if (rad[i].value !== 'Yes') {
-                overrides.classList.add('hidden');
+                custom_config.classList.add('hidden');
                 DEFAULTS = false
             }
         });
