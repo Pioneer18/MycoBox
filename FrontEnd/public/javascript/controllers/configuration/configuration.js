@@ -16,7 +16,7 @@ const displayOverrides = () => {
                 DEFAULTS = true;
             }
             if (rad[i].value !== 'Yes') {
-                custom_config.style.display = 'none'
+                custom_config.style.display = 'block'
                 DEFAULTS = false
             }
         });
