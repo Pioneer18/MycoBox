@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="../../assets/stylesheets/reset.css">
     <link rel="stylesheet" href="../../assets/stylesheets/configuration/configuration.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&family=Ubuntu:wght@500&display=swap"
+        rel="stylesheet">
     <title>Main Configuration</title>
 </head>
 
@@ -49,13 +52,28 @@
                 <!--Humidity-->
                 <div>
                     <label class="config_label">Select Relative Humidity %</label>
-                    <input type="number" name="sr_humidity" class="form__number_input" /> 
+                    <input type="number" name="sr_humidity" class="form__number_input" />
                 </div>
                 <!--CO2-->
                 <div>
                     <label class="config_label">Select CO2 ppm</label>
                     <input type="number" name="sr_co2_ppm" class="form__number_input" />
                 </div>
+                <label class="config_label">Circulation Speed Top</label>
+                <!--Circulation speed Top-->
+                <select name="circulation_top" id="circulation_top">
+                    <opption value="off">Off</opption>
+                    <option value="pink_oyster">Low</option>
+                    <option value="pink_oyster">Medium</option>
+                    <option value="pink_oyster">High</option>
+                </select>
+                <!--Circulation speed Bottom-->
+                <select name="circulation_bottom" id="circulation_bottom">
+                    <opption value="off">Off</opption>
+                    <option value="pink_oyster">Low</option>
+                    <option value="pink_oyster">Medium</option>
+                    <option value="pink_oyster">High</option>
+                </select>
                 <!--Light-->
                 <div className="form__radio-group">
                     <span class="config_label">Select Lighting</span>
@@ -70,15 +88,16 @@
                 </div>
                 <!--Duration-->
                 <div className="form__radio-group">
-                    <span class="config_label">Set a duration for Spawn Running, or use the substrate temperature threshold to end this stage</span>
-                    <input type="radio" class="form__radio-input" id="sr_timer" name="sr_trigger" value="Yes"/>
+                    <span class="config_label">Set a duration for Spawn Running, or use the substrate temperature
+                        threshold to end this stage</span>
+                    <input type="radio" class="form__radio-input" id="sr_timer" name="sr_trigger" value="Yes" />
                     <label class="form__radio-label">
                         Duration
                     </label>
-                    <input type="radio" class="form__radio-input" id="sr_temperature" name="sr_trigger" value="No"/>
+                    <input type="radio" class="form__radio-input" id="sr_temperature" name="sr_trigger" value="No" />
                     <label class="form__radio-label">
                         Temperature
-                    </label> 
+                    </label>
                 </div>
                 <div id="sr_duration_field">
                     <label class="config_label">Select Duration (days)</label>
@@ -95,7 +114,7 @@
                 <!--Humidity-->
                 <div>
                     <label class="config_label">Select Relative Humidity %</label>
-                    <input type="number" name="pi-humidity" class="form__number_input"> 
+                    <input type="number" name="pi-humidity" class="form__number_input">
                 </div>
                 <!--CO2-->
                 <div>
@@ -130,7 +149,7 @@
                 <!--Humidity-->
                 <div>
                     <label class="config_label">Select Relative Humidity %</label>
-                    <input type="number" name="fr-humidity" class="form__number_input"> 
+                    <input type="number" name="fr-humidity" class="form__number_input">
                 </div>
                 <!--CO2-->
                 <div>
@@ -156,8 +175,8 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
         <!--Start Process-->
         <label class="config_label"></label>
         <button type="submit" id="submit_button">Run Process</button>
