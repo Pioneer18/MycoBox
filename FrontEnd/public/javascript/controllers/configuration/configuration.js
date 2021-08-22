@@ -23,22 +23,20 @@ const displayOverrides = () => {
     }
 }
 
-// const spawnRunningTrigger = () => {
-//     let rad = document.main_config_form.sr_trigger;
-//     const overrides = document.getElementById('sr_duration_field');
-//     for (let i = 0; i < rad.length; i++) {
-//         rad[i].addEventListener('change', () => {
-//             if (rad[i].value == 'Yes') {
-//                 overrides.classList.add('hidden');
-//                 DEFAULTS = true;
-//             }
-//             if (rad[i].value !== 'Yes') {
-//                 overrides.classList.remove('hidden');
-//                 DEFAULTS = false
-//             }
-//         });
-//     }
-// }
+const spawnRunningTrigger = () => {
+    let rad = document.main_config_form.sr_trigger;
+    const overrides = document.getElementById('sr_duration_field');
+    for (let i = 0; i < rad.length; i++) {
+        rad[i].addEventListener('change', () => {
+            if (rad[i].value == 'Yes') {
+                overrides.classList.add('hidden');
+            }
+            if (rad[i].value !== 'Yes') {
+                overrides.classList.remove('hidden');
+            }
+        });
+    }
+}
 
 // Start a new mycobox session on form submit
 document.main_config_form.onsubmit = (e) => {
@@ -67,11 +65,4 @@ const mapForm = () => {
 }
 
 displayOverrides();
-//spawnRunningTrigger();
-// Dynamic UI EventListeners
-
-const sr_timer = document.getElementById('sr_timer')
-sr_timer.addEventListener('change', (target) => {
-    if (target === true) console.log('Use A Timer!') 
-    if (target.checked === false) console.log('Use the IR sensor!!') 
-})
+spawnRunningTrigger();
