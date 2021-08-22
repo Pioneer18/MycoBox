@@ -129,8 +129,9 @@ const set_environment_state = async (element, value) => {
     if ( typeof element !== 'string') throw new Error('Invalid environment state element');
     console.log('Value from inside set_environment_state')
     console.log(value);
-    if (!value) throw new Error('No value to set')
+    if(value !== null && !value) throw new Error('No value to set, something is likely undefined')
     globals.environment_state[element] = value
+
 }
 
 module.exports = {
