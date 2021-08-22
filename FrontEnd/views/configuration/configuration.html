@@ -154,10 +154,21 @@
                         Off
                     </label>
                 </div>
-                <!--Duration-->
-                <div>
+                <!--Trigger-->
+                <div className="form__radio-group">
+                    <span class="config_label">Manually select when this Primordia Initiation is finished, or set a Duration?</span>
+                    <input type="radio" class="form__radio-input" id="pi_duration" name="pi_trigger" value="Yes" />
+                    <label class="form__radio-label">
+                        Duration
+                    </label>
+                    <input type="radio" class="form__radio-input" id="pi_manually" name="pi_trigger" value="No" />
+                    <label class="form__radio-label">
+                        Manually
+                    </label>
+                </div>
+                <div id="pi_duration_field">
                     <label class="config_label">Select Duration (days)</label>
-                    <input type="number" name="pi-duration_days" class="form__number_input">
+                    <input type="number" name="pi_duration_input" class="form__number_input">
                 </div>
             </div>
             <div class="session_state--fruiting">

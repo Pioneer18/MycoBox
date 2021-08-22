@@ -38,6 +38,21 @@ const spawnRunningTrigger = () => {
     }
 }
 
+const primordiaInitTrigger = () => {
+    let rad = document.main_config_form.pi_trigger;
+    const overrides = document.getElementById('pi_duration_field');
+    for (let i = 0; i < rad.length; i++) {
+        rad[i].addEventListener('change', () => {
+            if (rad[i].value == 'Yes') {
+                overrides.classList.remove('hidden');
+            }
+            if (rad[i].value !== 'Yes') {
+                overrides.classList.add('hidden');
+            }
+        });
+    }
+}
+
 // Start a new mycobox session on form submit
 document.main_config_form.onsubmit = (e) => {
     e.preventDefault();
