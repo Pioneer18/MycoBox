@@ -99,27 +99,27 @@ const { set_environment_state } = require("../sensors.controller/sensors.control
      *  },
      * } config data from the submitted configuration form
      */
-    const setEnvironmentConfig = async (config) => {
-        globals.environment_config.spawn_running.temp_setpoint = config.spawn_running.temp_setpoint;
-        globals.environment_config.spawn_running.irTemp_setpoint = config.spawn_running.irTemp_setpoint;
-        globals.environment_config.spawn_running.humidity_setpoint = config.spawn_running.humidity_setpoint;
-        globals.environment_config.spawn_running.co2_setpoint = config.spawn_running.co2_setpoint;
-        globals.environment_config.spawn_running.circulation_top = config.spawn_running.circulation_top;
-        globals.environment_config.spawn_running.circulation_bottom = config.spawn_running.circulation_bottom;
-        globals.environment_config.spawn_running.lighting_setpoint = config.spawn_running.lighting_setpoint;
-        globals.environment_config.primordia_init.temp_setpoint = config.primordia_init.temp_setpoint;
-        globals.environment_config.primordia_init.humidity_setpoint = config.primordia_init.humidity_setpoint;
-        globals.environment_config.primordia_init.co2_setpoint = config.primordia_init.co2_setpoint;
-        globals.environment_config.primordia_init.circulation_top_setpoint = config.primordia_init.circulation_top_setpoint;
-        globals.environment_config.primordia_init.circulation_bottom_setpoint = config.primordia_init.circulation_bottom_setpoint;
-        globals.environment_config.primordia_init.lighting_setpoint = config.primordia_init.lighting_setpoint;
-        globals.environment_config.fruiting.temp_setpoint = config.fruiting.temp_setpoint;
-        globals.environment_config.fruiting.humidity_setpoint = config.fruiting.humidity_setpoint;
-        globals.environment_config.fruiting.co2_setpoint = config.fruiting.co2_setpoint;
-        globals.environment_config.fruiting.circulation_top_setpoint = config.fruiting.circulation_top_setpoint;
-        globals.environment_config.fruiting.circulation_bottom_setpoint = config.fruiting.circulation_bottom_setpoint;
-        globals.environment_config.fruiting.lighting_setpoint = config.fruiting.lighting_setpoint;
-    }
+    // const setEnvironmentConfig = async (config) => {
+    //     globals.environment_config.spawn_running.temp_setpoint = config.spawn_running.temp_setpoint;
+    //     globals.environment_config.spawn_running.irTemp_setpoint = config.spawn_running.irTemp_setpoint;
+    //     globals.environment_config.spawn_running.humidity_setpoint = config.spawn_running.humidity_setpoint;
+    //     globals.environment_config.spawn_running.co2_setpoint = config.spawn_running.co2_setpoint;
+    //     globals.environment_config.spawn_running.circulation_top = config.spawn_running.circulation_top;
+    //     globals.environment_config.spawn_running.circulation_bottom = config.spawn_running.circulation_bottom;
+    //     globals.environment_config.spawn_running.lighting_setpoint = config.spawn_running.lighting_setpoint;
+    //     globals.environment_config.primordia_init.temp_setpoint = config.primordia_init.temp_setpoint;
+    //     globals.environment_config.primordia_init.humidity_setpoint = config.primordia_init.humidity_setpoint;
+    //     globals.environment_config.primordia_init.co2_setpoint = config.primordia_init.co2_setpoint;
+    //     globals.environment_config.primordia_init.circulation_top_setpoint = config.primordia_init.circulation_top_setpoint;
+    //     globals.environment_config.primordia_init.circulation_bottom_setpoint = config.primordia_init.circulation_bottom_setpoint;
+    //     globals.environment_config.primordia_init.lighting_setpoint = config.primordia_init.lighting_setpoint;
+    //     globals.environment_config.fruiting.temp_setpoint = config.fruiting.temp_setpoint;
+    //     globals.environment_config.fruiting.humidity_setpoint = config.fruiting.humidity_setpoint;
+    //     globals.environment_config.fruiting.co2_setpoint = config.fruiting.co2_setpoint;
+    //     globals.environment_config.fruiting.circulation_top_setpoint = config.fruiting.circulation_top_setpoint;
+    //     globals.environment_config.fruiting.circulation_bottom_setpoint = config.fruiting.circulation_bottom_setpoint;
+    //     globals.environment_config.fruiting.lighting_setpoint = config.fruiting.lighting_setpoint;
+    // }
 module.exports = {
     newSession,
     setEnvironmentConfig
