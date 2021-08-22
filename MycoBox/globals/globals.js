@@ -73,7 +73,7 @@ let globals = {
         ib_light: false, // 10 incubator light
         speakers: false // 11
     },
-    overrides = {
+    overrides: {
         flag: false, // must be true for overrrides to be honored
         circulation_bottom: false,
         circulation_top: false,
