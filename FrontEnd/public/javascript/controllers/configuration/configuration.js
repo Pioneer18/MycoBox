@@ -69,14 +69,14 @@ const mapForm = () => {
     if (!DEFAULTS) {
         let custom_config = {
             spawn_running: {
-                temperature = form.sr_temperature.value,
-                humidity = form.sr_humidity.value,
-                co2 = form.sr_co2.value,
-                circulation_top = form.sr_circulation_top,
-                circulation_bottom = form.sr_circulation_bottom,
-                lighting = form.sr_lighting.value,
-                trigger = form.sr_trigger.value,
-                duration = form.sr_duration.value
+                temperature: form.sr_temperature.value,
+                humidity: form.sr_humidity.value,
+                co2: form.sr_co2.value,
+                circulation_top: form.sr_circulation_top,
+                circulation_bottom: form.sr_circulation_bottom,
+                lighting: form.sr_lighting.value,
+                trigger: form.sr_trigger.value,
+                duration: form.sr_duration.value
             },
             primordia_init: {
                 temperature: form.pi_temperature,
