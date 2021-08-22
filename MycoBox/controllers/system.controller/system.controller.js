@@ -34,6 +34,7 @@ module.exports = {
     * - Start this sessions environment manager
     */
     newSession: async (config) => {
+        console.log(process.env.session_state)
         try {// start the new session
             if (!process.env.session_state.active_session) {
                 // console.log(`Starting session ${process.env.session_state.session_title} - ${process.env.session_state.session_id}`);
