@@ -28,10 +28,10 @@ const spawnRunningTrigger = () => {
     const overrides = document.getElementById('sr_duration_field');
     for (let i = 0; i < rad.length; i++) {
         rad[i].addEventListener('change', () => {
-            if (rad[i].value == 'Yes') {
+            if (rad[i].value == 'Duration') {
                 overrides.classList.remove('hidden');
             }
-            if (rad[i].value !== 'Yes') {
+            if (rad[i].value !== 'Duration') {
                 overrides.classList.add('hidden');
             }
         });
@@ -43,10 +43,10 @@ const primordiaInitTrigger = () => {
     const overrides = document.getElementById('pi_duration_field');
     for (let i = 0; i < rad.length; i++) {
         rad[i].addEventListener('change', () => {
-            if (rad[i].value == 'Yes') {
+            if (rad[i].value == 'Duration') {
                 overrides.classList.remove('hidden');
             }
-            if (rad[i].value !== 'Yes') {
+            if (rad[i].value !== 'Duration') {
                 overrides.classList.add('hidden');
             }
         });
