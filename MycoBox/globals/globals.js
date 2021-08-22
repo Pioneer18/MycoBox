@@ -2,51 +2,50 @@
  * Global Variables
  */
 // Session State
-process.env.session_state.active_session = false;
-process.env.session_state = {
-    session_title: '',
-    session_id: '',
-    user_id: '',
-    active_session: false,
-    canceled: false,
-    spawn_running: false,
-    primordia_init: false,
-    fruiting: false
-}
-// Envrionment Configuration
-process.env.environment_config = {
-    spawn_running: {
-        temperature: '',
-        humidity: '',
-        co2: '',
-        circulation_top: '',
-        circulation_bottom: '',
-        lighting: '',
-        trigger: true,
-        duration: '' || null // null if temp_trigger is true
-    },
-    primordia_init: {
-        user_confirmed: false, // if true, no duration
-        duration: '' || null,
-        temperature: '',
-        humidity: '',
-        co2: '',
-        circul: '',
-        circulation_bottom: '',
-        lightint: ''
-    },
-    fruiting: {
-        temperature: '',
-        humidity: '',
-        co2: '',
-        circulation_top: '',
-        circulation_bottom: '',
-        lighting: '',
-        duration: '',
-        numberOfharvests: '', // number of flush and domarncy cycles
-        dormancy: '' // duration in between flushes
-    }
-}
+// process.env.session_state = {
+//     session_title: '',
+//     session_id: '',
+//     user_id: '',
+//     active_session: false,
+//     canceled: false,
+//     spawn_running: false,
+//     primordia_init: false,
+//     fruiting: false
+// }
+// // Envrionment Configuration
+// process.env.environment_config = {
+//     spawn_running: {
+//         temperature: '',
+//         humidity: '',
+//         co2: '',
+//         circulation_top: '',
+//         circulation_bottom: '',
+//         lighting: '',
+//         trigger: true,
+//         duration: '' || null // null if temp_trigger is true
+//     },
+//     primordia_init: {
+//         user_confirmed: false, // if true, no duration
+//         duration: '' || null,
+//         temperature: '',
+//         humidity: '',
+//         co2: '',
+//         circul: '',
+//         circulation_bottom: '',
+//         lightint: ''
+//     },
+//     fruiting: {
+//         temperature: '',
+//         humidity: '',
+//         co2: '',
+//         circulation_top: '',
+//         circulation_bottom: '',
+//         lighting: '',
+//         duration: '',
+//         numberOfharvests: '', // number of flush and domarncy cycles
+//         dormancy: '' // duration in between flushes
+//     }
+// }
 
 // measured state
 process.env.internal_temp_1 = '' // dht22_1 bottom

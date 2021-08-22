@@ -32,7 +32,7 @@ const { set_environment_state } = require("../sensors.controller/sensors.control
     * - Set the environment state with the sensors.controller
     * - Start this sessions environment manager
     */
-   const active_session = process.env.session_state.active_session;
+   const active_session = process.env.humidifier;
 
     const newSession = async (config) => {
         try {// start the new session
