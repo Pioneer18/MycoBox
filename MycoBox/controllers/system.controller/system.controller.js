@@ -24,7 +24,6 @@
  */
 const { environmentManager } = require("../../services/system.service/system.service")
 const { set_environment_state } = require("../sensors.controller/sensors.controller")
-module.exports = {
 
     /**
     * Steps:
@@ -33,8 +32,8 @@ module.exports = {
     * - Set the environment state with the sensors.controller
     * - Start this sessions environment manager
     */
-    newSession: async (config) => {
-        console.log(process.env.session_state)
+
+    const newSession = async (config) => {
         try {// start the new session
             if (!process.env.session_state.active_session) {
                 // console.log(`Starting session ${process.env.session_state.session_title} - ${process.env.session_state.session_id}`);
@@ -52,15 +51,15 @@ module.exports = {
 
     },
 
-    endSession: () => {
+    const endSession = () => {
         return { TODO: 'build this handler' }
     },
 
-    addHoursToSession: () => {
+    const addHoursToSession = () => {
         return { TODO: 'build this handler' }
     },
 
-    subtractHoursFromSession: () => {
+    const subtractHoursFromSession = () => {
         return { TODO: 'build this handler' }
     },
 
@@ -98,7 +97,7 @@ module.exports = {
      *  },
      * } config data from the submitted configuration form
      */
-    setEnvironmentConfig: async (config) => {
+    const setEnvironmentConfig = async (config) => {
         process.env.environment_config.spawn_running.temp_setpoint = config.spawn_running.temp_setpoint;
         process.env.environment_config.spawn_running.irTemp_setpoint = config.spawn_running.irTemp_setpoint;
         process.env.environment_config.spawn_running.humidity_setpoint = config.spawn_running.humidity_setpoint;
@@ -119,5 +118,8 @@ module.exports = {
         process.env.environment_config.fruiting.circulation_bottom_setpoint = config.fruiting.circulation_bottom_setpoint;
         process.env.environment_config.fruiting.lighting_setpoint = config.fruiting.lighting_setpoint;
     }
+module.exports = {
+    newSession,
+    setEnvironmentConfig
 }
 
