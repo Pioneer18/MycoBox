@@ -36,11 +36,12 @@ module.exports = {
     newSession: async (config) => {
         try {// start the new session
             if (!process.env.session_state.active_session) {
-                console.log(`Starting session ${process.env.session_state.session_title} - ${process.env.session_state.session_id}`);
+                // console.log(`Starting session ${process.env.session_state.session_title} - ${process.env.session_state.session_id}`);
                 // await this.setEnvironmentConfig(config);
                 // await set_environment_state();
                 // await environmentManager();
                 console.log(config);
+                return 'tee-hee'
             } else {
                 throw new Error('There is already an active session')
             }

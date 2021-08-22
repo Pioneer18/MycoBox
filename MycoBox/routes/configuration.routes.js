@@ -12,7 +12,7 @@ router.post(`/system_controller/start_session`, async (req, res) => {
     try {
         console.log("here is the submitted config object:")
         console.log(req.body)
-       res.send(JSON.stringify(newSession('tee hee')))
+       res.send(JSON.stringify(newSession(req.body)))
     } catch (err) {
         console.log(`Error: ${err}`)
     }
