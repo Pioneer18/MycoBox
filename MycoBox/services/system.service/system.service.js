@@ -45,7 +45,7 @@ const get_config_state = async () => {
  */
 const calculate_measured = async (env_state) => {
     const validated = await validate_env_state(env_state)
-    let measured = { temperature: '', humidity: '', co2: '' }
+    let measured = { temperature: 1, humidity: 1, co2: 1 }
     if (validated === true) {
         console.log('Now Calculate the measured!!!!!')
         // temperature = t1(.2222) * t2(.2222) * t3(.2222) *pTemp(.3333) / 4
@@ -53,7 +53,7 @@ const calculate_measured = async (env_state) => {
         // humidity = h1(.2222) * h2(.2222) * h3(.2222) / 3
         measured.humidity = ((parseFloat(validated.internal_humidity_1) * 0.5) * (parseFloat(validated.internal_humidity_2) * 0.5)) / 2
         // co2 = co2
-        measured.co2 = validated.co2;
+        measured.co2 = 500
     }
     console.log(`Here is the Calculated Measured!!! Big Step, Woop Woop`)
     console.log(measured);
