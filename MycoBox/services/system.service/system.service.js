@@ -18,7 +18,7 @@ const { get } = require("../../globals/globals")
  * 4) pass the setpoints and measured to each PID
  */
 const environment_manager = async () => {
-    // get the env config and state
+    // while 'trigger' loops & timers
     const { env_config, env_state } = await get_config_state();
     console.log("Calling Calculate Measured");
     await calculate_measured(env_state);
@@ -34,11 +34,29 @@ const get_config_state = async () => {
     }
 }
 
+/**
+ * 
+ * @param {*} env_state 
+ * @returns {
+ *  temp,
+ *  humidity,
+ *  co2
+ * }  
+ */
 const calculate_measured = async (env_state) => {
     const validated = await validate_env_state(env_state)
-    if(validated === true){
-        console.log('Now do some other stuff!!!!!')
+    let measured = { temperature: '', humidity: '', co2: '' }
+    if (validated === true) {
+        console.log('Now Calculate the measured!!!!!')
+        // temperature = t1(.2222) * t2(.2222) * t3(.2222) *pTemp(.3333) / 4
+        measured.temperature = ((validated.internal_temp_1 * 0.275) * (validated.internal_temp_2 * 0.275) * (validated.precise_temp_c * 0.45)) / 3
+        // humidity = h1(.2222) * h2(.2222) * h3(.2222) / 3
+        measured.humidity = ((validated.internal_humidity_1 * 0.5) * (validated.internal_humidity_2 * 0.5)) / 2
+        // co2 = co2
+        measured.co2 = validated.co2;
     }
+    console.log(`Here is the Calculated Measured!!! Big Step, Woop Woop`)
+    console.log(measured);
     return;
 }
 
