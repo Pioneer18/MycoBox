@@ -53,7 +53,7 @@ const validate_env_state = async (env_state) => {
     if (env_state.timestamp = 'initial') {
         console.log('The initial environment_state has not been set; recalling env_state in 4 seconds');
         let response;
-        response = await recall(response)
+        await setTimeout(async () => { response = await get('environment_state') }, 4000);
         await validate_env_state(response);
     }
     if (env_state.internal_temp_1 || env_state.internal_temp_2 === '' || env_state.internal_temp_3 === '' ||
@@ -63,7 +63,7 @@ const validate_env_state = async (env_state) => {
     ) {
         console.log('The initial environment_state has not been set; recalling env_state in 4 seconds');
         let response;
-        setTimeout(async () => {
+        await setTimeout(async () => {
             response = await get('environment_state')
         }, 4000);
         await validate_env_state(response)
