@@ -3,18 +3,22 @@
  * =========================
  * Description: provides extra functionality to the system controller
  */
-const { globals } = require('../../globals/globals')
+
+const { get } = require("../../globals/globals")
+
+/**
+ * process:
+ * 2) get the environment_config (setpoints)
+ * 3) calculate measured from environment_state
+ * 4) pass the setpoints and measured to each PID
+ */
+const environment_manager = async () => {
+    const env_config = get('environment_config');
+    const env_state = get ('environment_state');
+    console.log('env_config from within environment manager: ' + env_config)
+    console.log('env_state from within environment manager: ' + env_state)
+}
 
 module.exports = {
-    /**
-     * process:
-     * 1) check the 
-     * 2) check the environementConfg
-     * 3) check the environmentState
-     */
-    environment_manager: async () => {
-
-    },
-
-    
+    environment_manager
 }
