@@ -30,7 +30,7 @@ const parse_co2_data = (reply) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     console.log('CO2 Data Below !!!!!!!!!')
     console.log(data)
-    set_environment_state('co2', data[1]);
+    set_environment_state('co2', data[0]);
     return
 }
 
