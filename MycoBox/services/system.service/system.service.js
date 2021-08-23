@@ -42,7 +42,7 @@ const get_config_state = async () => {
 
 const calculate_measured = async (env_state) => {
     await validate_env_state(env_state)
-
+    console.log('Now do some other stuff!!!!!')
     return;
 }
 
