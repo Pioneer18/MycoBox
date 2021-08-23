@@ -12,9 +12,9 @@ const { get } = require("../../globals/globals")
  * 3) calculate measured from environment_state
  * 4) pass the setpoints and measured to each PID
  */
-const environment_manager = () => {
-    const env_config = get('environment_config');
-    const env_state = get ('environment_state'); 
+const environment_manager = async () => {
+    const env_config = await get('environment_config');
+    const env_state = await get ('environment_state'); 
     console.log('env_config from within environment manager: ');
     console.log(env_config)
     console.log('env_state from within environment manager: ');
