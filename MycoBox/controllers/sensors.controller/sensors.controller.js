@@ -2,7 +2,7 @@
  * Sensors Controller
  */
 const { PythonShell } = require('python-shell');
-const {get} =require('../../globals/globals')
+const {get, set_environment_state} =require('../../globals/globals')
 const {
     parse_th_data,
     parse_pt_data,
@@ -65,15 +65,20 @@ const read_infrared = () => {
     return ["irTemp: 24C"]
 }
 
+const set_timestamp = async () => {
+    set_environment_state('timestamp', Date.now())
+}
+
 /**
- * Set Environment Model
+ * Set Environment State
  */
-const set_environment_state = () => {
+const set_environment_state_2 = () => {
     read_co2()
     read_temp_humidity()
     read_precise_temp()
     read_scale()
     read_infrared()
+    set_timestamp()
     return
 }
 
@@ -83,6 +88,7 @@ const set_environment_state = () => {
 const read_environment_state = async () => {
     const data = await get('environment_state');
     const env_state = await {
+        timestamp: data.timestamp,
         internal_temp_1: data.internal_temp_1,
         internal_temp_2: data.internal_temp_2,
         internal_temp_3: data.internal_temp_3,
@@ -105,6 +111,6 @@ module.exports = {
     read_co2,
     read_scale,
     read_infrared,
-    set_environment_state,
+    set_environment_state_2,
     read_environment_state
 }

@@ -47,6 +47,7 @@ let globals = {
         }
     },
     environment_state: {
+        timestamp: 'initial',
         internal_temp_1: '', // dht22_1 bottom
         internal_temp_2: '', // dht22_2 mid
         internal_temp_3: '', // dht22_3 top
