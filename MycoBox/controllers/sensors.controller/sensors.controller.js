@@ -68,7 +68,7 @@ const read_infrared = () => {
 /**
  * Set Environment Model
  */
-const set_environment_state = async () => {
+const set_environment_state = () => {
     read_co2()
     read_temp_humidity()
     read_precise_temp()

@@ -40,7 +40,7 @@ const { set_environment_state } = require("../sensors.controller/sensors.control
         if (!session_state.active_session) {
                 // console.log(`Starting session ${globals.session_state.session_title} - ${globals.session_state.session_id}`);
                 await set_environment_config(config);
-                await set_environment_state();
+                set_environment_state();
                 await environment_manager();
             } else {
                 throw new Error('There is already an active session');
