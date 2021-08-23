@@ -48,6 +48,7 @@ const calculate_measured = async (env_state) => {
 }
 
 const validate_env_state = async (env_state) => {
+    console.log('Validate Env State')
     if (!env_state.timestamp) throw new Error('missing a timestamp for the environment state')
     if (env_state.timestamp = 'initial') {
         console.log('The initial environment_state has not been set; recalling env_state in 4 seconds');
@@ -67,6 +68,7 @@ const validate_env_state = async (env_state) => {
         }, 4000);
         await validate_env_state(response)
     }
+    console.log('returning the validated environment state')
     return env_state;
 }
 
