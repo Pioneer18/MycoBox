@@ -48,6 +48,7 @@ const validate_th_data = (data) => {
  * Set dht22 values to environment model
  */
 const set_dht22_values = (i, data) => {
+    console.log('i: '+ i, 'data: '+ data);
     switch (i) {
         case 1:
             set_environment_state('internal_humidity_1', data);
