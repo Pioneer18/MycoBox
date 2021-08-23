@@ -97,7 +97,7 @@ let globals = {
  * @returns the section
  * todo: add 'element' param, for searching section and element
  */
-const get = async (section) => {
+const get = (section) => {
     switch (section) {
         case 'session_state':
             return globals.session_state    

@@ -81,7 +81,7 @@ const set_environment_state = () => {
  * Read Environment Model
  */
 const read_environment_state = async () => {
-    const data = await get('environment_state');
+    const data = get('environment_state');
     const env_state = await {
         internal_temp_1: data.internal_temp_1,
         internal_temp_2: data.internal_temp_2,
