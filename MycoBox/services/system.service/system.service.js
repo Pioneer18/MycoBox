@@ -4,6 +4,7 @@
  * Description: provides extra functionality to the system controller
  */
 
+const { response } = require("express");
 const { get } = require("../../globals/globals")
 
 /**
@@ -40,23 +41,37 @@ const get_config_state = async () => {
 }
 
 const calculate_measured = async (env_state) => {
-    // const bleh = await validate_env_state(env_state)
-    // console.log(bleh);
+    const validated_env_state = await validate_env_state(env_state);
+    console.log(validated_env_state)
     return;
 }
 
 const validate_env_state = async (env_state) => {
+    if (!env_state.timestamp) throw new Error('missing a timestamp for the environment state')
     if (env_state.timestamp = 'initial') {
-        console.log('The initial environment_state has not been set; recalling env_state in 2 seconds');
+        console.log('The initial environment_state has not been set; recalling env_state in 4 seconds');
         let response;
-        setTimeout(async () => {     
-            response = await get('environment_state')
-        }, 2000);
-        return response;
+        response = await recall(response)
+        await validate_env_state;
     }
-    if (!env_state.timestamp) throw new Error ('missing a timestamp for the environment state')
-    return env_state
+    if (env_state.internal_temp_1 || env_state.internal_temp_2 === '' || env_state.internal_temp_3 === '' ||
+        env_state.internal_humidity_1 === '' || env_state.internal_humidity_2 === '' || env_state.internal_humidity_3 === '' ||
+        env_state.precise_temp_c === '' || env_state.precise_temp_f === '' || env_state.external_temp === '' ||
+        env_state.external_humidity === ''
+    ) {
+        console.log('The initial environment_state has not been set; recalling env_state in 4 seconds');
+        let response;
+        setTimeout(async () => {
+            response = await get('environment_state')
+        }, 4000);
+        await validate_env_state(response)
+    }
+    return env_state;
+}
 
+const recall = async (response) => {
+    setTimeout(async () => { response = await get('environment_state') }, 4000);
+    return response
 }
 
 module.exports = {
