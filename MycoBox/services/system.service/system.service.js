@@ -40,7 +40,8 @@ const get_config_state = async () => {
 }
 
 const calculate_measured = async (env_state) => {
-    console.log(validate_env_state(env_state));
+    const bleh = await validate_env_state(env_state)
+    console.log(bleh);
     return;
 }
 
@@ -48,7 +49,7 @@ const validate_env_state = async (env_state) => {
     if (env_state.timestamp = 'initial') {
         console.log('The initial environment_state has not been set; recalling env_state in 2 seconds');
         let response;
-        setTimeout(() => {     
+        setTimeout(async () => {     
             response = await get('environment_state')
         }, 2000);
         return response;
