@@ -54,7 +54,7 @@ const validate_env_state = async (env_state) => {
         console.log('The initial environment_state has not been set; recalling env_state in 4 seconds');
         let response;
         response = await recall(response)
-        await validate_env_state;
+        await validate_env_state(response);
     }
     if (env_state.internal_temp_1 || env_state.internal_temp_2 === '' || env_state.internal_temp_3 === '' ||
         env_state.internal_humidity_1 === '' || env_state.internal_humidity_2 === '' || env_state.internal_humidity_3 === '' ||
