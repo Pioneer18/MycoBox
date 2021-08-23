@@ -47,7 +47,7 @@ const { set_environment_state } = require("../sensors.controller/sensors.control
                 throw new Error('There is already an active session');
             }
         } catch (err) {
-            console.log(`Failed to start a new session - Error: ${err}`);
+            console.log(`Failed to start a new session - Error: ${err}`); 
         }
 
     }
