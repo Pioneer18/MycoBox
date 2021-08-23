@@ -41,29 +41,21 @@ const get_config_state = async () => {
 }
 
 const calculate_measured = async (env_state) => {
-    const validated_env_state = await validate_env_state(env_state);
-    console.log('Validated Env State: might not be best to use async here...')
-    console.log(validated_env_state)
+    if (env_state.timestamp === 'Initial') {
+        setTimeout( async () => {
+            const res = await get('environment_state')
+            return calculate_measured(res);
+        }, 8000);
+    }
+    if (env_state.internal_temp_1 === '') {
+        setTimeout(async () => {
+            const res = await get('environment_state')
+            return calculate_measured(res);
+        },4000);
+    }
+    console.log('Valid Env State!')
+    console.log(env_state);
     return;
-}
-
-const validate_env_state = async (env_state) => {
-    console.log('Validate Env State')
-    if (!env_state.timestamp) throw new Error('missing a timestamp for the environment state')
-    if (env_state.timestamp = 'initial') {
-        console.log('tee-hee')
-        return env_state
-    }
-    if (env_state.internal_temp_1 || env_state.internal_temp_2 === '' || env_state.internal_temp_3 === '' ||
-        env_state.internal_humidity_1 === '' || env_state.internal_humidity_2 === '' || env_state.internal_humidity_3 === '' ||
-        env_state.precise_temp_c === '' || env_state.precise_temp_f === '' || env_state.external_temp === '' ||
-        env_state.external_humidity === ''
-    ) {
-        console.log('tee-hee')
-        return env_state
-    }
-    console.log('returning the validated environment state')
-    return env_state;
 }
 
 module.exports = {
