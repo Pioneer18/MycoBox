@@ -41,8 +41,10 @@ const get_config_state = async () => {
 }
 
 const calculate_measured = async (env_state) => {
-    await validate_env_state(env_state)
-    console.log('Now do some other stuff!!!!!')
+    const validated = await validate_env_state(env_state)
+    if(validated === true){
+        console.log('Now do some other stuff!!!!!')
+    }
     return;
 }
 
@@ -62,6 +64,7 @@ const validate_env_state = async (env_state) => {
     if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
         console.log('Valid Env State!')
         console.log(env_state);
+        return true
     }
     return;
 }
