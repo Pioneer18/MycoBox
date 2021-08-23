@@ -53,8 +53,9 @@ const calculate_measured = async (env_state) => {
             return calculate_measured(res);
         },4000);
     }
-    console.log('Valid Env State!')
-    console.log(env_state);
+    if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== ''){
+        console.log('Valid Env State!')
+        console.log(env_state);}
     return;
 }
 
