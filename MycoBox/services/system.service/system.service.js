@@ -42,6 +42,7 @@ const get_config_state = async () => {
 
 const calculate_measured = async (env_state) => {
     const validated_env_state = await validate_env_state(env_state);
+    console.log('Validated Env State: might not be best to use async here...')
     console.log(validated_env_state)
     return;
 }
