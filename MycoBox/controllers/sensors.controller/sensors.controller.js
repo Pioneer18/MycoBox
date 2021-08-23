@@ -81,7 +81,6 @@ const set_environment_state = async () => {
  * Read Environment Model
  */
 const read_environment_state = async () => {
-    console.log('Getting Started Reading the env_state Now')
     const data = await get('environment_state');
     const env_state = await {
         internal_temp_1: data.internal_temp_1,
@@ -97,8 +96,6 @@ const read_environment_state = async () => {
         co2: data.co2,
         weight: data.weight
     }
-    console.log('Here is the Environment Model to be returned: ')
-    console.log(env_state)
     return env_state;
 }
 

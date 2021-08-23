@@ -10,8 +10,6 @@ const { newSession } = require('../controllers/system.controller/system.controll
 */
 router.post(`/system_controller/start_session`, async (req, res) => {
     try {
-        console.log("here is the submitted config object:")
-        console.log(req.body)
        res.send((newSession(req.body)))
     } catch (err) {
         console.log(`Error: ${err}`)

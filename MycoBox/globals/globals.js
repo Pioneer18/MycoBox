@@ -120,15 +120,11 @@ const get = async (section) => {
 const set_environment_config = async (config) => {
     if (!config) throw new Error('Invlaid config');
     globals.environment_config = config;
-    console.log("Setting the set environment config")
-    console.log(globals.environment_config)
     return
 }
 
 const set_environment_state = async (element, value) => {
     if ( typeof element !== 'string') throw new Error('Invalid environment state element');
-    console.log('Value from inside set_environment_state')
-    console.log(value);
     if(value !== null && !value) throw new Error('No value to set, something is likely undefined')
     globals.environment_state[element] = value
 

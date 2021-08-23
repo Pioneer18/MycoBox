@@ -57,7 +57,6 @@ document.main_config_form.onsubmit = (e) => {
     e.preventDefault();
     // map the form
     const { config } = mapForm();
-    console.log(config)
     // send Http request to start process on MycoBox
     newSession(config)
 };
