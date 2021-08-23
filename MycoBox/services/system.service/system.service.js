@@ -40,8 +40,8 @@ const get_config_state = async () => {
 }
 
 const calculate_measured = async (env_state) => {
-    const bleh = await validate_env_state(env_state)
-    console.log(bleh);
+    // const bleh = await validate_env_state(env_state)
+    // console.log(bleh);
     return;
 }
 
