@@ -120,7 +120,7 @@ const get = async (section) => {
 const set_environment_config = async (config) => {
     if (!config) throw new Error('Invlaid config');
     globals.environment_config = config;
-    console.log("Here is the set environment config")
+    console.log("Setting the set environment config")
     console.log(globals.environment_config)
     return
 }
@@ -135,7 +135,6 @@ const set_environment_state = async (element, value) => {
 }
 
 module.exports = {
-    globals,
     get,
     set_environment_config,
     set_environment_state
