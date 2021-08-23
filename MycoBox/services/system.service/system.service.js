@@ -41,8 +41,14 @@ const get_config_state = async () => {
 }
 
 const calculate_measured = async (env_state) => {
+    await validate_env_state(env_state)
+
+    return;
+}
+
+const validate_env_state = async (env_state) => {
     if (env_state.timestamp === 'Initial') {
-        setTimeout( async () => {
+        setTimeout(async () => {
             const res = await get('environment_state')
             await calculate_measured(res);
         }, 8000);
@@ -51,9 +57,9 @@ const calculate_measured = async (env_state) => {
         setTimeout(async () => {
             const res = await get('environment_state')
             await calculate_measured(res);
-        },4000);
+        }, 4000);
     }
-    if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== ''){
+    if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
         console.log('Valid Env State!')
         console.log(env_state);
     }
