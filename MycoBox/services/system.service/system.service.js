@@ -48,7 +48,7 @@ const calculate_measured = async (env_state) => {
     let measured = { temperature: 1, humidity: 1, co2: 1 }
     if (validated === true) {
         console.log('Now Calculate the measured!!!!!')
-        console.log(parseFloat(validated.internal_temp_1))
+        console.log(validated.internal_temp_1)
         // temperature = t1(.2222) * t2(.2222) * t3(.2222) *pTemp(.3333) / 4
         // measured.temperature = ((parseFloat(validated.internal_temp_1) * 0.275) * (parseFloat(validated.internal_temp_2) * 0.275) * (parseFloat(validated.precise_temp_c) * 0.45)) / 3
         // // humidity = h1(.2222) * h2(.2222) * h3(.2222) / 3
