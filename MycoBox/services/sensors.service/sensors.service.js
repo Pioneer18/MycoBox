@@ -52,35 +52,35 @@ const set_dht22_values = (i, data) => {
     switch (i) {
         case 1:
             set_environment_state('internal_humidity_1', data);
-            console.log(`internal_humidity_1: ${globals.internal_humidity_1}`)
+            console.log(`internal_humidity_1: ${globals.environment_state.internal_humidity_1}`)
             break;
         case 3:
             set_environment_state('internal_humidity_2', data);
-            console.log(`internal_humidity_2: ${globals.internal_humidity_2}`)
+            console.log(`internal_humidity_2: ${globals.environment_state.internal_humidity_2}`)
             break
         case 5:
             set_environment_state('internal_humidity_3', data);
-            console.log(`internal_humidity_3: ${globals.internal_humidity_3}`)
+            console.log(`internal_humidity_3: ${globals.environment_state.internal_humidity_3}`)
             break
         case 7:
             set_environment_state('external_humidity', data);
-            console.log(`external_humidity: ${globals.external_humidity}`)
+            console.log(`external_humidity: ${globals.environment_state.external_humidity}`)
             break
         case 9:
             set_environment_state('internal_temp_1', data);
-            console.log(`internal_temp_1: ${globals.internal_temp_1}`)
+            console.log(`internal_temp_1: ${globals.environment_state.internal_temp_1}`)
             break
         case 11:
             set_environment_state('internal_temp_2', data);
-            console.log(`internal_temp_2: ${globals.internal_temp_2}`)
+            console.log(`internal_temp_2: ${globals.environment_state.internal_temp_2}`)
             break
         case 13:
             set_environment_state('internal_temp_3', data);
-            console.log(`internal_temp_3: ${globals.internal_temp_3}`)
+            console.log(`internal_temp_3: ${globals.environment_state.internal_temp_3}`)
             break
         case 15:
             set_environment_state('external_temp', data);
-            console.log(`external_temp: ${globals.external_temp}`)
+            console.log(`external_temp: ${globals.environment_state.external_temp}`)
             break
         default:
             break;

@@ -135,6 +135,7 @@ const set_environment_state = async (element, value) => {
 }
 
 module.exports = {
+    globals,
     get,
     set_environment_config,
     set_environment_state
