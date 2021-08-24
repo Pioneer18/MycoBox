@@ -76,6 +76,7 @@ let globals = {
     },
     pid_state: {
         temperature: {
+            integralOfError: '',
             lastError: '',
             lastTime: ''
         },
@@ -85,6 +86,7 @@ let globals = {
             lastTime: ''
         },
         ventilation: {
+            integralOfError: '',
             lastError: '',
             lastTime: ''            
         }

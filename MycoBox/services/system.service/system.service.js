@@ -25,7 +25,7 @@ const environment_manager = async () => {
         const measured = await calculate_measured(env_state);
         
         // create configs for each PID controller
-        const config = await create_tpc_config(measured, env_config, pid_state)
+        const config = await create_tpc_config(measured, env_config, pid_state.temperature)
         console.log("Here is a PID ready config: ")
         console.log(config);
 }
