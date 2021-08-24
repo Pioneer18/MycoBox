@@ -11,17 +11,23 @@ const { get } = require("../../globals/globals")
  * ii. maintain PID states
  * iii. call each EM PID
  * process:
- * 2) get the environment_config (setpoints)
+ * 2) get the environment_config (setpoints), env_state, and the pid_state from globabls
  * 3) calculate measured from environment_state
  * 4) pass the setpoints and measured to each PID
  */
 const environment_manager = async () => {
-    // while 'trigger' loops & timers
-    const { env_config, env_state, pid_state } = await get_state();
-    const measured = await calculate_measured(env_state);
-    // create configs for each PID controller
-    // maintain state for PIDs
+    // #1. while 'trigger' loops & timers
 
+        // #2. get the state
+        const { env_config, env_state, pid_state } = await get_state();
+
+        // #3. calculate measured
+        const measured = await calculate_measured(env_state);
+        
+        // create configs for each PID controller
+        const config = create_tpc_config(measured, env_config, pid_state)
+        console.log("Here is a PID ready config: ")
+        console.log(config);
 }
 
 /**
@@ -88,17 +94,15 @@ const validate_env_state = async (env_state) => {
  * Create TemperauturePidController config
  * Todo: move this to the temperaturePidController
  */
-const create_tpc_config = async (measured, previous_report) => {
-    let pr;
-    if (!previous_report) pr = {lastError: '', lastTime: ''}
-    if (previous_report) pr = previous_report;
+const create_tpc_config = async (measured, env_config, pid_state) => {
+
     const config = {
         settings: {
             kp: 1,
             ki: 1,
             kd: 1,
         },
-        previous_report: {
+        pid_state: {
             integralOfError: pr.integralOfError,
             lastError: pr.lastError,
             lastTime:pr.lastTime,
