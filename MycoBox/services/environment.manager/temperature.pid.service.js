@@ -12,6 +12,8 @@
  */
  class TempPidController {
     constructor(config) {
+        console.log("Config From Within the TempPidController!!");
+        console.log(config);
         // saturation has been reached if these limits are hit and clamping should happen
         let defaultIntegralLimit = { min: -1000, max: 1000}
         // Set PID weights (gain)
