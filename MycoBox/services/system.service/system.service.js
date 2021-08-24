@@ -22,9 +22,9 @@ const environment_manager = async () => {
         // #2. get the state
         const { env_config, env_state, pid_state } = await get_state();
 
-        // #3. calculate measured
+        // #3. calculate measured and generated a pid_config WHEN valid env_state returned
         console.log('Method Call: calculate_measured');
-        await calculate_measured(env_state);
+        await calculate_measured(env_state, env_config, pid_state);
     
 }
 
@@ -46,7 +46,7 @@ const get_state = async () => {
  * @param {*} env_state 
  * @returns { temp, humidity, co2 }  
  */
-const calculate_measured = async (env_state) => {
+const calculate_measured = async (env_state, env_config, pid_state) => {
     console.log("Method Call: validate_env_state ---------------------------------------------------------------------------")
     const validated = await validate_env_state(env_state)
     let measured = { temperature: 1, humidity: 1, co2: 1 }
