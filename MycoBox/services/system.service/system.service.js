@@ -19,11 +19,8 @@ const environment_manager = async () => {
     console.log('starting the EM')
     // #1. while 'trigger' loops & timers
 
-        // #2. get the state
-        const { env_config, env_state, pid_state } = await get_state();
-
         // #3. calculate measured and generated a pid_config WHEN valid env_state returned
-        console.log('Method Call: calculate_measured');
+        console.log('Method Call: calculate_measured (Generate PID Config)');
         await calculate_measured(env_state, env_config, pid_state);
     
 }
@@ -46,9 +43,13 @@ const get_state = async () => {
  * @param {*} env_state 
  * @returns { temp, humidity, co2 }  
  */
-const calculate_measured = async (env_state, env_config, pid_state) => {
-    console.log("Method Call: validate_env_state ---------------------------------------------------------------------------")
+const calculate_measured = async () => {
+     // #2. get the state
+    const { env_config, env_state, pid_state } = await get_state();
+
+    console.log("Method Call: validate_env_state (Block till valid env_state returned) ---------------------------------------------------------------------------")
     const validated = await validate_env_state(env_state)
+    
     let measured = { temperature: 1, humidity: 1, co2: 1 }
     if (validated === true) {
         console.log('Validation Cleared Inside of `calculate_measured`: Now returning a valid measurement')
@@ -80,15 +81,13 @@ const validate_env_state = async (env_state) => {
     if (env_state.timestamp === 'Initial') {
         console.log('Validate Env Recall: Timpestamp === Initial')
         setTimeout(async () => {
-            const res = await get('environment_state')
-            await calculate_measured(res);
+            await calculate_measured();
         }, 8000);
     }
     if (env_state.internal_temp_1 === '') {
         console.log('Validate Env Recall: Blank Env State')
         setTimeout(async () => {
-            const res = await get('environment_state')
-            await calculate_measured(res);
+            await calculate_measured();
         }, 4000);
     }
     if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
