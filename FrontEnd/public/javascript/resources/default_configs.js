@@ -1,6 +1,6 @@
 
 const default_configs = {
-    pink_oyster: {
+    pink_oyster: { 
         spawn_running: {
             temperature: '',
             humidity: '',
