@@ -12,8 +12,6 @@
  */
  class TempPidController {
     constructor(config) {
-        console.log("Config From Within the TempPidController!!");
-        console.log(config);
         // saturation has been reached if these limits are hit and clamping should happen
         let defaultIntegralLimit = { min: -1000, max: 1000}
         // Set PID weights (gain)
@@ -22,12 +20,14 @@
         this.kd = config.settings.kd || 0;
         // init properties for the integral of error
         this.integralLimit = config.settings.iLimit || defaultIntegralLimit;
-        this.integralOfError = config.previousReport.integralOfError;
-        this.lastError = config.previousReport.lastError;
-        this.lastTime = config.previousReport.lastTime;
+        this.integralOfError = config.pid_state.integralOfError;
+        this.lastError = config.pid_state.lastError;
+        this.lastTime = config.pid_state.lastTime;
         // init the set point
         this.setPoint = config.incomingReport.setPoint;
         this.measured = config.incomingReport.measured;
+        console.log('This: TempPidController Properties')
+        console.log(this)
     }
 
     async update() {
