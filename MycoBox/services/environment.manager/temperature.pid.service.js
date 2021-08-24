@@ -33,7 +33,7 @@
     async update() {
         console.log('Hello World Update() attempt --------------')
         // find the interval of time between previous and current reading
-        const dt = this.calculate_dt(this.lastTime);
+        const {dt, currentTime} = this.calculate_dt(this.lastTime);
         console.log('here is the calculated dt: ' + dt)
         this.lastTime = currentTime;
         // calculate the error and integral of the error; the total of error x time passed till current reading
@@ -70,13 +70,14 @@
     }
     // calculate_dt
     calculate_dt(lastTime) {
+        const currentTime = Date.now();
         let dt;
         if (lastTime === 0) {
             dt = 0;
         } else {
-            dt = (Date.now() - lastTime) / 1000;
+            dt = (currentTime - lastTime) / 1000;
         }
-        return dt;
+        return {dt, currentTime};
     }
     // clamp_check
     // calculate errors
