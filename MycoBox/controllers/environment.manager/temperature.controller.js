@@ -32,7 +32,7 @@ const { TempPidController } = require('../../services/environment.manager/temper
  *  } 
  * } config the previous (or initial) report & the incoming
  */
-updateEnvironment = async (config) => {
+const updateEnvironment = async (config) => {
     try {
         // initialize the controller
         const tempController = new TempPidController(config);
@@ -44,12 +44,38 @@ updateEnvironment = async (config) => {
 }
 
 /**
+ * Create TemperauturePidController config
+ * Todo: move this to the temperaturePidController
+ */
+ const temp_pid_controller_config = async (measured, env_config, pid_state) => {
+    console.log('Environment Config')
+    console.log(env_config)
+    const config = {
+        settings: {
+            kp: 1,
+            ki: 1,
+            kd: 1,
+        },
+        pid_state: {
+            integralOfError: pid_state.integralOfError,
+            lastError: pid_state.lastError,
+            lastTime:pid_state.lastTime,
+        },
+        incoming_report: {
+            setPoint: env_config.temperature,
+            measured: measured.temperature
+        }
+    }
+    return config
+}
+
+/**
  * Override:
  * Purpose: Manually switch the acuator on or off if OVERRIDE is true
  * Description: Commands the selected actuator to turn on/off regardless of the global context (EnvModel, SystemStatus, ...)
  * @param {string, string} command {actuator: '', status: ''}
  */
-override = async (command) => {
+const override = async (command) => {
     switch (command.actuator) {
         case 'AC':
             if (command.status === 'ON') s1r1_on();
@@ -67,6 +93,9 @@ override = async (command) => {
 
 
 module.exports = {
+    updateEnvironment,
+    temp_pid_controller_config,
+    override
 }
 
 
