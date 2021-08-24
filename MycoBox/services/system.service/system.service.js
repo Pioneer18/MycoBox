@@ -21,7 +21,7 @@ const environment_manager = async () => {
 
         // #3. calculate measured and generated a pid_config WHEN valid env_state returned
         console.log('Method Call: calculate_measured (Generate PID Config)');
-        await calculate_measured(env_state, env_config, pid_state);
+        await calculate_measured();
     
 }
 
