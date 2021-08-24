@@ -123,6 +123,8 @@ const get = async (section) => {
             return globals.environment_state
         case 'actuators_state':
             return globals.actuators_state
+        case 'pid_state':
+            return globals.pid_state
         case 'overrides':
             return globals.overrides
         default:
