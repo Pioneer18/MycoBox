@@ -96,7 +96,8 @@ const validate_env_state = async (env_state) => {
  * Todo: move this to the temperaturePidController
  */
 const create_tpc_config = async (measured, env_config, pid_state) => {
-
+    console.log('Environment Config')
+    console.log(env_config)
     const config = {
         settings: {
             kp: 1,
