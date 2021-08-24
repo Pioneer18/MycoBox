@@ -103,15 +103,16 @@ const create_tpc_config = async (measured, env_config, pid_state) => {
             kd: 1,
         },
         pid_state: {
-            integralOfError: pr.integralOfError,
-            lastError: pr.lastError,
-            lastTime:pr.lastTime,
+            integralOfError: pid_state.integralOfError,
+            lastError: pid_state.lastError,
+            lastTime:pid_state.lastTime,
         },
         incoming_report: {
             setPoint: env_config.temperature,
             measured: measured.temperature
         }
     }
+    return config
 }
 
 module.exports = {
