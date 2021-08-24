@@ -139,6 +139,9 @@ const get = async (section) => {
  */
 const set_environment_config = async (config) => {
     if (!config) throw new Error('Invlaid config');
+    console.log('Setting the Environment Config: ')
+    console.log(config)
+    // validate the config matches what is expected !!!
     globals.environment_config = config;
     return
 }

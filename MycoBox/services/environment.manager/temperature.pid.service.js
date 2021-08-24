@@ -31,6 +31,7 @@
     }
 
     async update() {
+        console.log('Hello World Update() attempt --------------')
         // find the interval of time between previous and current reading
         let dt;
         let currentTime = Date.now();

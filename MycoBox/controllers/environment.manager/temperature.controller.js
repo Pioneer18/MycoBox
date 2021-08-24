@@ -39,7 +39,9 @@ const update_temperature = async (config) => {
         // initialize the controller
         const tempController = new TempPidController(config);
         // update the actuator
-        tempController.update();
+        const value = tempController.update();
+        console.log('The calculated Update Value')
+        console.log(value);
     } catch (err) {
         console.log(`Error: ${err}`)
     }
