@@ -16,16 +16,19 @@ const { get } = require("../../globals/globals")
  * 4) pass the setpoints and measured to each PID
  */
 const environment_manager = async () => {
+    console.log('starting the EM')
     // #1. while 'trigger' loops & timers
 
         // #2. get the state
         const { env_config, env_state, pid_state } = await get_state();
 
         // #3. calculate measured
+        console.log('Method Call: calculate_measured');
         const measured = await calculate_measured(env_state);
         
         // create configs for each PID controller 
         // todo: 1) check for session stage (sr, pi, fr) 
+        console.log('Method Call: create_tpc_config')
         const config = await create_tpc_config(measured, env_config.spawn_running, pid_state.temperature)
         console.log("Here is a PID ready config: ")
         console.log(config);
@@ -36,6 +39,7 @@ const environment_manager = async () => {
  * @returns 
  */
 const get_state = async () => {
+    console.log("Method Call: get_state")
     return {
         env_config: await get('environment_config'),
         env_state: await get('environment_state'),
@@ -49,10 +53,11 @@ const get_state = async () => {
  * @returns { temp, humidity, co2 }  
  */
 const calculate_measured = async (env_state) => {
+    console.log("Method Call: validate_env_state ---------------------------------------------------------------------------")
     const validated = await validate_env_state(env_state)
     let measured = { temperature: 1, humidity: 1, co2: 1 }
     if (validated === true) {
-        console.log('Now Calculate the measured!!!!!')
+        console.log('Validation Cleared Inside of `calculate_measured`: Now returning a valid measurement')
         // temperature = t1(.2222) * t2(.2222) * t3(.2222) *pTemp(.3333) / 4
         measured.temperature = ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2) ) + (parseFloat(env_state.precise_temp_c))) / 3
         // humidity = h1(.2222) * h2(.2222) * h3(.2222) / 3
@@ -60,8 +65,8 @@ const calculate_measured = async (env_state) => {
         // co2 = co2
         measured.co2 = 500
     }
-    console.log(`Here is the Calculated Measured!!! Big Step, Woop Woop`)
     console.log(measured);
+    console.log('This is where the train ends, validate_env_state was the trailing callback to be completed');
     return measured;
 }
 
@@ -72,12 +77,14 @@ const calculate_measured = async (env_state) => {
  */
 const validate_env_state = async (env_state) => {
     if (env_state.timestamp === 'Initial') {
+        console.log('Validate Env Recall: Timpestamp === Initial')
         setTimeout(async () => {
             const res = await get('environment_state')
             await calculate_measured(res);
         }, 8000);
     }
     if (env_state.internal_temp_1 === '') {
+        console.log('Validate Env Recall: Blank Env State')
         setTimeout(async () => {
             const res = await get('environment_state')
             await calculate_measured(res);
