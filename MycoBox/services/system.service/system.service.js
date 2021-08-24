@@ -3,7 +3,7 @@
  * =========================
  * Description: provides extra functionality to the system controller
  */
-const { temp_pid_controller_config } = require("../../controllers/environment.manager/temperature.controller");
+const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
 const { get } = require("../../globals/globals")
 
 /**
@@ -67,6 +67,7 @@ const generate_pid_configs = async () => {
         console.log(config);
         // =========================================================================================================
         console.log('Call Each PID');
+        await update_temperature(config)
 
     }
 }

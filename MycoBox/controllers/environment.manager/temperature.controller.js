@@ -32,8 +32,10 @@ const { TempPidController } = require('../../services/environment.manager/temper
  *  } 
  * } config the previous (or initial) report & the incoming
  */
-const updateEnvironment = async (config) => {
+const update_temperature = async (config) => {
     try {
+        console.log("Config Before Handing to TempPidController constructor")
+        console.log(config);
         // initialize the controller
         const tempController = new TempPidController(config);
         // update the actuator
@@ -93,7 +95,7 @@ const override = async (command) => {
 
 
 module.exports = {
-    updateEnvironment,
+    update_temperature,
     temp_pid_controller_config,
     override
 }
