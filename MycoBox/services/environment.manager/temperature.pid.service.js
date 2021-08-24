@@ -24,8 +24,8 @@
         this.lastError = config.pid_state.lastError;
         this.lastTime = config.pid_state.lastTime;
         // init the set point
-        this.setPoint = config.incomingReport.setPoint;
-        this.measured = config.incomingReport.measured;
+        this.setPoint = config.incoming_report.setPoint;
+        this.measured = config.incoming_report.measured;
         console.log('This: TempPidController Properties')
         console.log(this)
     }
