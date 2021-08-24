@@ -33,13 +33,8 @@
     async update() {
         console.log('Hello World Update() attempt --------------')
         // find the interval of time between previous and current reading
-        let dt;
-        let currentTime = Date.now();
-        if (this.lastTime === 0) {
-            dt = 0 
-        } else {
-            dt = (currentTime - this.lastTime) / 1000;
-        }
+        const dt = this.calculate_dt(this.lastTime);
+        console.log('here is the calculated dt: ' + dt)
         this.lastTime = currentTime;
         // calculate the error and integral of the error; the total of error x time passed till current reading
         console.log('Set Point: ' + this.setPoint)
@@ -73,6 +68,19 @@
         this.lastError = 0;
         this.lastTime = 0;
     }
+    // calculate_dt
+    calculate_dt(lastTime) {
+        let dt;
+        if (lastTime === 0) {
+            dt = 0;
+        } else {
+            dt = (Date.now() - lastTime) / 1000;
+        }
+        return dt;
+    }
+    // clamp_check
+    // calculate errors
+    //calculate update
 }
 
 module.exports = {
