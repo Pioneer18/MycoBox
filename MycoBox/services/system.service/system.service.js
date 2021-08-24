@@ -24,14 +24,8 @@ const environment_manager = async () => {
 
         // #3. calculate measured
         console.log('Method Call: calculate_measured');
-        const measured = await calculate_measured(env_state);
-        
-        // create configs for each PID controller 
-        // todo: 1) check for session stage (sr, pi, fr) 
-        console.log('Method Call: create_tpc_config')
-        const config = await create_tpc_config(measured, env_config.spawn_running, pid_state.temperature)
-        console.log("Here is a PID ready config: ")
-        console.log(config);
+        await calculate_measured(env_state);
+    
 }
 
 /**
@@ -64,10 +58,17 @@ const calculate_measured = async (env_state) => {
         measured.humidity = ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2
         // co2 = co2
         measured.co2 = 500
+        // =========================================================================================================
+        console.log('A Valid Measured')
+        console.log(measured);
+        // create configs for each PID controller 
+        // todo: 1) check for session stage (sr, pi, fr) 
+        console.log('Method Call: create_tpc_config')
+        const config = await create_tpc_config(measured, env_config.spawn_running, pid_state.temperature)
+        console.log("Here is a PID ready config: ")
+        console.log(config);
+        console.log('This is where the train ends, validate_env_state was the trailing callback to be completed');
     }
-    console.log(measured);
-    console.log('This is where the train ends, validate_env_state was the trailing callback to be completed');
-    return measured;
 }
 
 /**
