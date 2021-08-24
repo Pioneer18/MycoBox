@@ -3,6 +3,7 @@
  * =========================
  * Description: provides extra functionality to the system controller
  */
+const { temp_pid_controller_config } = require("../../controllers/environment.manager/temperature.controller");
 const { get } = require("../../globals/globals")
 
 /**
@@ -10,10 +11,6 @@ const { get } = require("../../globals/globals")
  * i. coordinates through three session stages
  * ii. maintain PID states
  * iii. call each EM PID
- * process:
- * 2) get the environment_config (setpoints), env_state, and the pid_state from globabls
- * 3) calculate measured from environment_state
- * 4) pass the setpoints and measured to each PID
  */
 const environment_manager = async () => {
     console.log('starting the EM')
@@ -65,10 +62,12 @@ const generate_pid_configs = async () => {
         // create configs for each PID controller 
         // todo: 1) check for session stage (sr, pi, fr) 
         console.log('Method Call: create_tpc_config')
-        const config = await create_tpc_config(measured, env_config.spawn_running, pid_state.temperature)
+        const config = await temp_pid_controller_config(measured, env_config.spawn_running, pid_state.temperature)
         console.log("Here is a PID ready config: ")
         console.log(config);
-        console.log('This is where the train ends, validate_env_state was the trailing callback to be completed');
+        // =========================================================================================================
+        console.log('Call Each PID');
+
     }
 }
 
@@ -98,31 +97,6 @@ const validate_env_state = async (env_state) => {
     return;
 }
 
-/**
- * Create TemperauturePidController config
- * Todo: move this to the temperaturePidController
- */
-const create_tpc_config = async (measured, env_config, pid_state) => {
-    console.log('Environment Config')
-    console.log(env_config)
-    const config = {
-        settings: {
-            kp: 1,
-            ki: 1,
-            kd: 1,
-        },
-        pid_state: {
-            integralOfError: pid_state.integralOfError,
-            lastError: pid_state.lastError,
-            lastTime:pid_state.lastTime,
-        },
-        incoming_report: {
-            setPoint: env_config.temperature,
-            measured: measured.temperature
-        }
-    }
-    return config
-}
 
 module.exports = {
     environment_manager
