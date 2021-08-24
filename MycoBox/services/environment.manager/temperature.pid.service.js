@@ -56,7 +56,7 @@
         console.log('Error: ' + error);
         console.log('Derivative of Error: ' + derivativeOfError);
 
-        return (this.kp * error) + (this.ki * this.integralOfError) + (this.kd * derivativeOfError);
+        return (this.kp * error) + (this.ki * this.integralOfError) //+ (this.kd * derivativeOfError);
     }
 
     // Return the variables to be used for constructing the class next time
