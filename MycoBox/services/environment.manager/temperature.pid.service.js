@@ -42,6 +42,8 @@
         }
         this.lastTime = currentTime;
         // calculate the error and integral of the error; the total of error x time passed till current reading
+        console.log('Set Point: ' + this.setPoint)
+        console.log('Measured: ' + this.measured)
         let error = (this.setPoint - this.measured);
         this.integralOfError += error * dt; 
         if (this.integralOfError > this.integralLimit.max) this.integralOfError = this.integralLimit.max;
@@ -49,6 +51,8 @@
         // calculate the derivative of the error: rate of change
         let derivativeOfError = (error - this.lastError) / dt;
         this.lastError = error;
+        console.log('Error: ' + error);
+        console.log('Derivative of Error: ' + derivativeOfError);
 
         return (this.kp * error) + (this.ki * this.integralOfError) + (this.kd * derivativeOfError);
     }
