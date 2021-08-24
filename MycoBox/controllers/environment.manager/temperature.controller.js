@@ -34,8 +34,6 @@ const { TempPidController } = require('../../services/environment.manager/temper
  */
 updateEnvironment = async (config) => {
     try {
-        // validate the config object
-        validateConfig(config);
         // initialize the controller
         const tempController = new TempPidController(config);
         // update the actuator
@@ -45,25 +43,6 @@ updateEnvironment = async (config) => {
     }
 }
 
-
-validateConfig = async (config) => {
-    if (!config) throw new Error('Invalid Config Object!, it`s undefined or somethign')
-    if (!config.settings) throw new Error('Invalid config.settings')
-    if (!config.settings.kp || typeof config.settings.kp === 'number') throw new Error('Invalid `config.settings.kp`')
-    if (!config.settings.ki || typeof config.settings.ki === 'number') throw new Error('Invalid `config.settings.ki`')
-    if (!config.settings.kd || typeof config.settings.kd === 'number') throw new Error('Invalid `config.settings.kd`')
-    if (!config.settings.iLimit)
-    if (!config.settings.iLimit.max || typeof config.settings.iLimit.max !== 'number')
-    if (!config.settings.iLimit.min || typeof config.settings.iLimit.min !== 'number')
-    if (!config.previousReport) throw new Error('Invalid config.previousReport')
-    if (!config.previousReport.integralOfError || typeof config.previousReport.integralOfError !== 'number') throw new Error('Invlaid config.previousReport.integralOfError')
-    if (!config.previousReport.lastError || typeof config.previousReport.lastError !== 'number') throw new Error('Invlaid config.previousReport.lastError')
-    if (!config.previousReport.lastTime || typeof config.previousReport.lastTime !== 'number') throw new Error('Invlaid config.previousReport.lastTim')
-    if (!config.incomingReport) throw new Error('Invalid config.incomingReport')
-    if (!config.incomingReport.setPoint || typeof config.incomingReport.setPoint !== 'number') throw new Error('Invalid config.incomingReport.setPoint')
-    if (!config.incomingReport.measured || typeof config.incomingReport.measured !== 'number') throw new Error('Invalid config.incomingReport.measured')
-    return
-}
 /**
  * Override:
  * Purpose: Manually switch the acuator on or off if OVERRIDE is true

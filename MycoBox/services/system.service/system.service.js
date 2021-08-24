@@ -3,8 +3,6 @@
  * =========================
  * Description: provides extra functionality to the system controller
  */
-
-const { response } = require("express");
 const { get } = require("../../globals/globals")
 
 /**
@@ -19,29 +17,29 @@ const { get } = require("../../globals/globals")
  */
 const environment_manager = async () => {
     // while 'trigger' loops & timers
-    const { env_config, env_state } = await get_config_state();
-    console.log("Calling Calculate Measured");
-    await calculate_measured(env_state);
-    // call PIDs with config for current session_state (config, measured)
+    const { env_config, env_state, pid_state } = await get_state();
+    const measured = await calculate_measured(env_state);
+    // create configs for each PID controller
     // maintain state for PIDs
 
 }
 
-const get_config_state = async () => {
+/**
+ * Return the env_config, env_state, and pid_states
+ * @returns 
+ */
+const get_state = async () => {
     return {
         env_config: await get('environment_config'),
-        env_state: await get('environment_state')
+        env_state: await get('environment_state'),
+        pid_state: await get('pid_state')
     }
 }
 
 /**
- * 
+ * Average the temperature and humidity
  * @param {*} env_state 
- * @returns {
- *  temp,
- *  humidity,
- *  co2
- * }  
+ * @returns { temp, humidity, co2 }  
  */
 const calculate_measured = async (env_state) => {
     const validated = await validate_env_state(env_state)
@@ -57,9 +55,14 @@ const calculate_measured = async (env_state) => {
     }
     console.log(`Here is the Calculated Measured!!! Big Step, Woop Woop`)
     console.log(measured);
-    return;
+    return measured;
 }
 
+/**
+ * Validate Env State before calculating measured values
+ * @param {*} env_state 
+ * @returns 
+ */
 const validate_env_state = async (env_state) => {
     if (env_state.timestamp === 'Initial') {
         setTimeout(async () => {
@@ -79,6 +82,32 @@ const validate_env_state = async (env_state) => {
         return true
     }
     return;
+}
+
+/**
+ * Create TemperauturePidController config
+ * Todo: move this to the temperaturePidController
+ */
+const create_tpc_config = async (measured, previous_report) => {
+    let pr;
+    if (!previous_report) pr = {lastError: '', lastTime: ''}
+    if (previous_report) pr = previous_report;
+    const config = {
+        settings: {
+            kp: 1,
+            ki: 1,
+            kd: 1,
+        },
+        previous_report: {
+            integralOfError: pr.integralOfError,
+            lastError: pr.lastError,
+            lastTime:pr.lastTime,
+        },
+        incoming_report: {
+            setPoint: env_config.temperature,
+            measured: measured.temperature
+        }
+    }
 }
 
 module.exports = {

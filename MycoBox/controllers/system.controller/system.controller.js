@@ -24,7 +24,7 @@
  */
 const {get, set_environment_config} = require('../../globals/globals');
 const { environment_manager } = require("../../services/system.service/system.service")
-const { set_environment_state_2 } = require("../sensors.controller/sensors.controller")
+const { initialize_environment_state } = require("../sensors.controller/sensors.controller")
 
     /**
     * Steps:
@@ -40,7 +40,7 @@ const { set_environment_state_2 } = require("../sensors.controller/sensors.contr
         if (!session_state.active_session) {
                 // console.log(`Starting session ${globals.session_state.session_title} - ${globals.session_state.session_id}`);
                 await set_environment_config(config);
-                await set_environment_state_2();
+                await initialize_environment_state();
                 await environment_manager();
             } else {
                 throw new Error('There is already an active session');

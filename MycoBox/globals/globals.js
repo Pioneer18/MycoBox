@@ -74,6 +74,21 @@ let globals = {
         ib_light: false, // 10 incubator light
         speakers: false // 11
     },
+    pid_state: {
+        temperature: {
+            lastError: '',
+            lastTime: ''
+        },
+        humidity: {
+            integralOfError: '',
+            lastError: '',
+            lastTime: ''
+        },
+        ventilation: {
+            lastError: '',
+            lastTime: ''            
+        }
+    },
     overrides: {
         flag: false, // must be true for overrrides to be honored
         circulation_bottom: false,
@@ -101,7 +116,7 @@ let globals = {
 const get = async (section) => {
     switch (section) {
         case 'session_state':
-            return globals.session_state    
+            return globals.session_state
         case 'environment_config':
             return globals.environment_config
         case 'environment_state':
@@ -125,8 +140,8 @@ const set_environment_config = async (config) => {
 }
 
 const set_environment_state = async (element, value) => {
-    if ( typeof element !== 'string') throw new Error('Invalid environment state element');
-    if(value !== null && !value) throw new Error('No value to set, something is likely undefined')
+    if (typeof element !== 'string') throw new Error('Invalid environment state element');
+    if (value !== null && !value) throw new Error('No value to set, something is likely undefined')
     globals.environment_state[element] = value
 
 }

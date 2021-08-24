@@ -72,7 +72,7 @@ const set_timestamp = async () => {
 /**
  * Set Environment State
  */
-const set_environment_state_2 = () => {
+const initialize_environment_state = () => {
     read_co2()
     read_temp_humidity()
     read_precise_temp()
@@ -111,6 +111,6 @@ module.exports = {
     read_co2,
     read_scale,
     read_infrared,
-    set_environment_state_2,
+    initialize_environment_state,
     read_environment_state
 }
