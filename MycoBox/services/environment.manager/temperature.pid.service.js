@@ -49,6 +49,8 @@
         if (this.integralOfError > this.integralLimit.max) this.integralOfError = this.integralLimit.max;
         if (this.integralOfError < this.integralLimit.min) this.integralOfError = this.integralLimit.min;
         // calculate the derivative of the error: rate of change
+        console.log('error - lastError: ', error - this.lastError)
+        console.log('dt: ', dt)
         let derivativeOfError = (error - this.lastError) / dt;
         this.lastError = error;
         console.log('Error: ' + error);
