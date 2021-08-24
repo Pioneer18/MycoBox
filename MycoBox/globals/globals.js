@@ -76,19 +76,19 @@ let globals = {
     },
     pid_state: {
         temperature: {
-            integralOfError: '',
-            lastError: '',
-            lastTime: ''
+            integralOfError: 0,
+            lastError: 0,
+            lastTime: 0
         },
         humidity: {
-            integralOfError: '',
-            lastError: '',
-            lastTime: ''
+            integralOfError: 0,
+            lastError: 0,
+            lastTime: 0
         },
         ventilation: {
-            integralOfError: '',
-            lastError: '',
-            lastTime: ''            
+            integralOfError: 0,
+            lastError: 0,
+            lastTime: 0            
         }
     },
     overrides: {
