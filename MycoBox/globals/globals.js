@@ -42,7 +42,7 @@ let globals = {
             circulation_bottom: '',
             lighting: '',
             duration: '',
-            numberOfharvests: '', // number of flush and domarncy cycles
+            flushes: '', // number of flush and domarncy cycles
             dormancy: '' // duration in between flushes
         }
     },
