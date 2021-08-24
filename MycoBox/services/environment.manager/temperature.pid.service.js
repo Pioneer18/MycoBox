@@ -78,3 +78,15 @@
 module.exports = {
     TempPidController,
 }
+
+/**
+ * Temp PID Calculation Notes
+ * --------------------------
+ * #1. When the setpoint is below the measured, the error will be negative
+ * #2. When the lastTime is 0, the derivative will be +/- Infinity; because anything / 0 is infinity. So don't use derivative if there is no lastTime.
+ *     The Derivative may be unnecessary for the TempPidController
+ * #3. The weights right now are doing nothing
+ * #4. Update value is Negative: Temp is above setpoint, turn on the AC
+ * #5. Update value is Positive: Temp is below the setpoint, turn on the Heater
+ * #6. Value is zero, or close to it, then do nothing
+ */
