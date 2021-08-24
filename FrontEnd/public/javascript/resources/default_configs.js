@@ -2,134 +2,101 @@
 const default_configs = {
     pink_oyster: {
         spawn_running: {
-            ir_temp_trigger: true,
-            timer: '',
-            temp_setpoint: '',
-            irTemp_setpoint: '', // trigger session end
-            humidity_setpoint: '',
-            co2_setpoint: '',
+            temperature: '',
+            humidity: '',
+            co2: '',
             circulation_top: '',
             circulation_bottom: '',
-            lighting_setpoint: ''
+            lighting: '',
+            trigger: true,
+            duration: '' || null // null if temp_trigger is true
         },
         primordia_init: {
-            user_confirmed: false,
-            timer: '',
-            temp_setpoint: '',
-            humidity_setpoint: '',
-            co2_setpoint: '',
+            user_confirmed: false, // if true, no duration
+            duration: '' || null,
+            temperature: '',
+            humidity: '',
+            co2: '',
             circulation_top: '',
             circulation_bottom: '',
-            lighting_setpoint: ''
+            lighting: ''
         },
         fruiting: {
-            user_confirmed: false,
-            timer: '',
-            temp_setpoint: '',
-            humidity_setpoint: '',
-            co2_setpoint: '',
+            temperature: '',
+            humidity: '',
+            co2: '',
             circulation_top: '',
             circulation_bottom: '',
-            lighting_setpoint: ''
+            lighting: '',
+            duration: '',
+            numberOfharvests: '', // number of flush and domarncy cycles
+            dormancy: '' // duration in between flushes
         }
     },
     golden_oyster: {
         spawn_running: {
-            ir_temp_trigger: true,
-            timer: '',
-            temp_setpoint: '',
-            irTemp_setpoint: '', // trigger session end
-            humidity_setpoint: '',
-            co2_setpoint: '',
+            temperature: '',
+            humidity: '',
+            co2: '',
             circulation_top: '',
             circulation_bottom: '',
-            lighting_setpoint: ''
+            lighting: '',
+            trigger: true,
+            duration: '' || null // null if temp_trigger is true
         },
         primordia_init: {
-            user_confirmed: false,
-            timer: '',
-            temp_setpoint: '',
-            humidity_setpoint: '',
-            co2_setpoint: '',
+            user_confirmed: false, // if true, no duration
+            duration: '' || null,
+            temperature: '',
+            humidity: '',
+            co2: '',
             circulation_top: '',
             circulation_bottom: '',
-            lighting_setpoint: ''
+            lighting: ''
         },
         fruiting: {
-            user_confirmed: false,
-            timer: '',
-            temp_setpoint: '',
-            humidity_setpoint: '',
-            co2_setpoint: '',
+            temperature: '',
+            humidity: '',
+            co2: '',
             circulation_top: '',
             circulation_bottom: '',
-            lighting_setpoint: ''
-        }
-    },
-    blue_oyster: {
-        spawn_running: {
-            ir_temp_trigger: true,
-            timer: '',
-            temp_setpoint: '',
-            irTemp_setpoint: '', // trigger session end
-            humidity_setpoint: '',
-            co2_setpoint: '',
-            circulation_top: '',
-            circulation_bottom: '',
-            lighting_setpoint: ''
-        },
-        primordia_init: {
-            user_confirmed: false,
-            timer: '',
-            temp_setpoint: '',
-            humidity_setpoint: '',
-            co2_setpoint: '',
-            circulation_top: '',
-            circulation_bottom: '',
-            lighting_setpoint: ''
-        },
-        fruiting: {
-            user_confirmed: false,
-            timer: '',
-            temp_setpoint: '',
-            humidity_setpoint: '',
-            co2_setpoint: '',
-            circulation_top: '',
-            circulation_bottom: '',
-            lighting_setpoint: ''
+            lighting: '',
+            duration: '',
+            numberOfharvests: '', // number of flush and domarncy cycles
+            dormancy: '' // duration in between flushes
         }
     },
     shitake: {
         spawn_running: {
-            ir_temp_trigger: true,
-            timer: '',
-            temp_setpoint: '',
-            irTemp_setpoint: '', // trigger session end
-            humidity_setpoint: '',
-            co2_setpoint: '',
+            temperature: '',
+            humidity: '',
+            co2: '',
             circulation_top: '',
             circulation_bottom: '',
-            lighting_setpoint: ''
+            lighting: '',
+            trigger: true,
+            duration: '' || null // null if temp_trigger is true
         },
         primordia_init: {
-            user_confirmed: false,
-            timer: '',
-            temp_setpoint: '',
-            humidity_setpoint: '',
-            co2_setpoint: '',
+            user_confirmed: false, // if true, no duration
+            duration: '' || null,
+            temperature: '',
+            humidity: '',
+            co2: '',
             circulation_top: '',
             circulation_bottom: '',
-            lighting_setpoint: ''
+            lighting: ''
         },
         fruiting: {
-            user_confirmed: false,
-            timer: '',
-            temp_setpoint: '',
-            humidity_setpoint: '',
-            co2_setpoint: '',
+            temperature: '',
+            humidity: '',
+            co2: '',
             circulation_top: '',
             circulation_bottom: '',
-            lighting_setpoint: ''
+            lighting: '',
+            duration: '',
+            numberOfharvests: '', // number of flush and domarncy cycles
+            dormancy: '' // duration in between flushes
         }
     }
 }
