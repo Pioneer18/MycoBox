@@ -155,6 +155,7 @@ const set_environment_config = async (config) => {
  */
 const set_environment_config_validation = (config) => {
     console.log('Validating the Environment Config')
+    console.log('The typeof user_confirmed: ', typeof config.primordia_init.user_confirmed);
     if (!config.spawn_running) throw new Error('Missing Spawn Running');
     if (!config.spawn_running.temperature) throw new Error('Missing Spawn Running: temperature')
     if (!config.spawn_running.humidity) throw new Error('Missing Spawn Running: humidity')
@@ -162,7 +163,7 @@ const set_environment_config_validation = (config) => {
     if (!config.spawn_running.circulation_top) throw new Error('Missing Spawn Running: circulation_top')
     if (!config.spawn_running.circulation_bottom) throw new Error('Missing Spawn Running: circulation_bottom')
     if (!config.spawn_running.lighting) throw new Error('Missing Spawn Running: lighting')
-    if (!config.spawn_running.trigger) throw new Error('Missing Spawn Running: trigger')
+    if (typeof config.spawn_running.trigger !== 'boolean') throw new Error('Missing Spawn Running: trigger')
     if (!config.spawn_running.duration && config.spawn_running.duration !== null) throw new Error('Missing Spawn Running: duration')
     if (!config.primordia_init) throw new Error('Missing Primordia Init')
     if (!config.primordia_init.temperature) throw new Error('Missing Primordia Init: temperature')
@@ -171,7 +172,7 @@ const set_environment_config_validation = (config) => {
     if (!config.primordia_init.circulation_top) throw new Error('Missing Primordia Init: circulation_top')
     if (!config.primordia_init.circulation_bottom) throw new Error('Missing Primordia Init: circulation_bottom')
     if (!config.primordia_init.lighting) throw new Error('Missing Primordia Init: lighting')
-    if (!config.primordia_init.user_confirmed) throw new Error('Missing Primordia Init: user_confirmed')
+    if (typeof config.primordia_init.user_confirmed !== 'boolean') throw new Error('Missing Primordia Init: user_confirmed')
     if (!config.primordia_init.duration) throw new Error('Missing Primordia Init: duration')
     if (!config.fruiting) throw new Error('Missing Fruiting')
     if (!config.fruiting.temperature) throw new Error('Missing Fruiting: temperature')
