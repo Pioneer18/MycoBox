@@ -41,7 +41,7 @@ const newSession = async (config) => {
             await set_environment_config(config);
             await initialize_environment_state();
             await environment_manager();
-            set_session_state('active_session', 'fail');
+            set_session_state('active_session', true);
         } else {
             throw new Error('There is already an active session');
         }

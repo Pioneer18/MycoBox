@@ -153,12 +153,31 @@ const set_environment_config = async (config) => {
  */
 const set_environment_state = async (element, value) => {
     try {
+        set_environment_state_validation(element, value)
         if (typeof element !== 'string' || !value) throw new Error('No value to set, something is likely undefined')
         globals.environment_state[element] = value
         return
     } catch(err) {
         console.log('Error Setting the environment state: ' + err);
     }
+}
+
+const set_environment_state_validation = (element, value) => {
+    console.log('Validating Set Environment State Value')
+    if(element === 'timestamp' && typeof value === 'string') return
+    if(element === 'internal_temp_1' && typeof value === 'string') return
+    if(element === 'internal_temp_2' && typeof value === 'string') return
+    if(element === 'internal_temp_3' && typeof value === 'string') return
+    if(element === 'precise_temp_c' && typeof value === 'string') return
+    if(element === 'precise_temp_f' && typeof value === 'string') return
+    if(element === 'external_temp' && typeof value === 'string') return
+    if(element === 'internal_humidity_1' && typeof value === 'string') return
+    if(element === 'internal_humidity_2' && typeof value === 'string') return
+    if(element === 'internal_humidity_3' && typeof value === 'string') return
+    if(element === 'external_humidity' && typeof value === 'string') return
+    if(element === 'co2' && typeof value === 'string') return
+    if(element === 'weight' && typeof value === 'string') return
+    throw new Error('Invalid Environment State element or value given')
 }
 
 /**
@@ -175,10 +194,16 @@ const set_session_state = (element, value) => {
         globals.session_state[element] = value
         return
     } catch(err) {
-        console.log('Error Setting the session state: ' + err);
+        console.log('Error setting the session state: ' + err);
     }
 }
 
+/**
+ * validate the incoming element and value
+ * @param {*} element session state element to validate
+ * @param {*} value the value to be validated
+ * @returns 
+ */
 const set_session_state_validation = (element, value) => {
     console.log('Validating Set Session State Value')
     if (element === 'session_title' && typeof value === 'string') return
@@ -189,7 +214,7 @@ const set_session_state_validation = (element, value) => {
     if (element === 'spawn_running' && typeof value === 'boolean') return
     if (element === 'primordia_init' && typeof value === 'boolean') return
     if (element === 'fruiting' && typeof value === 'boolean') return
-    throw new Error('Invalide session_state element or value given')
+    throw new Error('Invalid session_state element or value given')
 }
 
 module.exports = {
