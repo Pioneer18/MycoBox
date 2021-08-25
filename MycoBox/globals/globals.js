@@ -163,7 +163,7 @@ const set_environment_config_validation = (config) => {
     if (!config.spawn_running.circulation_bottom) throw new Error('Missing Spawn Running: circulation_bottom')
     if (!config.spawn_running.lighting) throw new Error('Missing Spawn Running: lighting')
     if (!config.spawn_running.trigger) throw new Error('Missing Spawn Running: trigger')
-    if (!config.spawn_running.duration) throw new Error('Missing Spawn Running: duration')
+    if (!config.spawn_running.duration && config.spawn_running.duration !== null) throw new Error('Missing Spawn Running: duration')
     if (!config.primordia_init) throw new Error('Missing Primordia Init')
     if (!config.primordia_init.temperature) throw new Error('Missing Primordia Init: temperature')
     if (!config.primordia_init.humidity) throw new Error('Missing Primordia Init: humidity')
