@@ -167,6 +167,8 @@ const set_environment_state = async (element, value) => {
  * @param {*} value the value to set for the element
  */
 const set_session_state = (element, value) => {
+    console.log('Setting the Session State: Active Session Will Be true')
+    console.log(element, value)
     try {
         if (typeof element !== 'string' || !value) throw new Error('No value to set, something is likely undefined')
         globals.environment_state[element] = value
