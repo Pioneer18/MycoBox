@@ -171,7 +171,7 @@ const set_session_state = (element, value) => {
     console.log(element, value)
     try {
         if (typeof element !== 'string' || !value) throw new Error('No value to set, something is likely undefined')
-        globals.environment_state[element] = value
+        globals.session_state[element] = value
         return
     } catch(err) {
         console.log('Error Setting the session state: ' + err);
