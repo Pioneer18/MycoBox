@@ -88,7 +88,7 @@ let globals = {
         ventilation: {
             integralOfError: 0,
             lastError: 0,
-            lastTime: 0            
+            lastTime: 0
         }
     },
     overrides: {
@@ -146,15 +146,39 @@ const set_environment_config = async (config) => {
     return
 }
 
+/**
+ * Set the value of an environment state element
+ * @param {*} element evironment state element to set
+ * @param {*} value the value to set for the element
+ */
 const set_environment_state = async (element, value) => {
-    if (typeof element !== 'string') throw new Error('Invalid environment state element');
-    if (value !== null && !value) throw new Error('No value to set, something is likely undefined')
-    globals.environment_state[element] = value
+    try {
+        if (typeof element !== 'string' || !value) throw new Error('No value to set, something is likely undefined')
+        globals.environment_state[element] = value
+        return
+    } catch(err) {
+        console.log('Error Setting the environment state: ' + err);
+    }
+}
 
+/**
+ * Set the value of a session state element
+ * @param {*} element session state element to set
+ * @param {*} value the value to set for the element
+ */
+const set_session_state = (element, value) => {
+    try {
+        if (typeof element !== 'string' || !value) throw new Error('No value to set, something is likely undefined')
+        globals.environment_state[element] = value
+        return
+    } catch(err) {
+        console.log('Error Setting the session state: ' + err);
+    }
 }
 
 module.exports = {
     get,
     set_environment_config,
-    set_environment_state
+    set_environment_state,
+    set_session_state
 }

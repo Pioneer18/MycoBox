@@ -22,46 +22,46 @@
  * handle the update; by calling on the appropriate controllers for updating the environment.
  *  
  */
-const {get, set_environment_config} = require('../../globals/globals');
+const { get, set_environment_config, set_session_state } = require('../../globals/globals');
 const { environment_manager } = require("../../services/system.service/system.service")
 const { initialize_environment_state } = require("../sensors.controller/sensors.controller")
 
-    /**
-    * Steps:
-    * - Check the MycoBox 'System Status': If session already running then return error: session already active
-    * - set the environment configuration
-    * - Set the environment state with the sensors.controller
-    * - Start this sessions environment manager; which will run for some long duration
-    */
+/**
+* Steps:
+* - Check the MycoBox 'System Status': If session already running then return error: session already active
+* - set the environment configuration
+* - Set the environment state with the sensors.controller
+* - Start this sessions environment manager; which will run for some long duration
+*/
 
-   const newSession = async (config) => {
-       try { // start the new session
+const newSession = async (config) => {
+    try {
         const session_state = await get('session_state');
         if (!session_state.active_session) {
-                // console.log(`Starting session ${globals.session_state.session_title} - ${globals.session_state.session_id}`);
-                await set_environment_config(config);
-                await initialize_environment_state();
-                await environment_manager();
-            } else {
-                throw new Error('There is already an active session');
-            }
-        } catch (err) {
-            console.log(`Failed to start a new session - Error: ${err}`); 
+            await set_environment_config(config);
+            await initialize_environment_state();
+            await environment_manager();
+            set_session_state('active_session', true);
+        } else {
+            throw new Error('There is already an active session');
         }
-
+    } catch (err) {
+        console.log(`Failed to start a new session - Error: ${err}`);
     }
 
-    // const endSession = () => {
-    //     return { TODO: 'build this handler' }
-    // },
+}
 
-    // const addHoursToSession = () => {
-    //     return { TODO: 'build this handler' }
-    // },
+// const endSession = () => {
+//     return { TODO: 'build this handler' }
+// },
 
-    // const subtractHoursFromSession = () => {
-    //     return { TODO: 'build this handler' }
-    // },
+// const addHoursToSession = () => {
+//     return { TODO: 'build this handler' }
+// },
+
+// const subtractHoursFromSession = () => {
+//     return { TODO: 'build this handler' }
+// },
 
 
 module.exports = {
