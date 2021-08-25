@@ -22,17 +22,17 @@ let globals = {
             circulation_bottom: '',
             lighting: '',
             trigger: true,
-            duration: '' || null // null if temp_trigger is true
+            duration: '' // null if temp_trigger is true
         },
         primordia_init: {
-            user_confirmed: false, // if true, no duration
-            duration: '' || null,
             temperature: '',
             humidity: '',
             co2: '',
             circulation_top: '',
             circulation_bottom: '',
-            lighting: ''
+            lighting: '',
+            user_confirmed: false, // if true, no duration
+            duration: '',
         },
         fruiting: {
             temperature: '',
@@ -138,11 +138,51 @@ const get = async (section) => {
  * set globals section or element
  */
 const set_environment_config = async (config) => {
-    if (!config) throw new Error('Invlaid config');
-    console.log('Setting the Environment Config: ')
-    console.log(config)
-    // validate the config matches what is expected !!!
-    globals.environment_config = config;
+    try {
+        console.log(config)
+        set_environment_config_validation(config);
+        // validate the config matches what is expected !!!
+        globals.environment_config = config;
+        return
+    } catch(err) {
+        console.log('Invalid Environment Config Given: ' + err);
+    }
+}
+
+/**
+ * validate the incoming config
+ * @param {*} config the config object to be validated
+ */
+const set_environment_config_validation = (config) => {
+    console.log('Validating the Environment Config')
+    if (!config.spawn_running) throw new Error('Missing Spawn Running');
+    if (!config.spawn_running.temperature) throw new Error('Missing Spawn Running: temperature')
+    if (!config.spawn_running.humidity) throw new Error('Missing Spawn Running: humidity')
+    if (!config.spawn_running.co2) throw new Error('Missing Spawn Running: co2')
+    if (!config.spawn_running.circulation_top) throw new Error('Missing Spawn Running: circulation_top')
+    if (!config.spawn_running.circulation_bottom) throw new Error('Missing Spawn Running: circulation_bottom')
+    if (!config.spawn_running.lighting) throw new Error('Missing Spawn Running: lighting')
+    if (!config.spawn_running.trigger) throw new Error('Missing Spawn Running: trigger')
+    if (!config.spawn_running.duration) throw new Error('Missing Spawn Running: duration')
+    if (!config.primordia_init) throw new Error('Missing Primordia Init')
+    if (!config.primordia_init.temperature) throw new Error('Missing Primordia Init: temperature')
+    if (!config.primordia_init.humidity) throw new Error('Missing Primordia Init: humidity')
+    if (!config.primordia_init.co2) throw new Error('Missing Primordia Init: co2')
+    if (!config.primordia_init.circulation_top) throw new Error('Missing Primordia Init: circulation_top')
+    if (!config.primordia_init.circulation_bottom) throw new Error('Missing Primordia Init: circulation_bottom')
+    if (!config.primordia_init.lighting) throw new Error('Missing Primordia Init: lighting')
+    if (!config.primordia_init.user_confirmed) throw new Error('Missing Primordia Init: user_confirmed')
+    if (!config.primordia_init.duration) throw new Error('Missing Primordia Init: duration')
+    if (!config.fruiting) throw new Error('Missing Fruiting')
+    if (!config.fruiting.temperature) throw new Error('Missing Fruiting: temperature')
+    if (!config.fruiting.humidity) throw new Error('Missing Fruiting: humidity')
+    if (!config.fruiting.co2) throw new Error('Missing Fruiting: co2')
+    if (!config.fruiting.circulation_top) throw new Error('Missing Fruiting: circulation_top')
+    if (!config.fruiting.circulation_bottom) throw new Error('Missing Fruiting: circulation_bottom')
+    if (!config.fruiting.lighting) throw new Error('Missing Fruiting: lighting')
+    if (!config.fruiting.duration) throw new Error('Missing Fruiting: duration')
+    if (!config.fruiting.flushes) throw new Error('Missing Fruiting: flushes')
+    if (!config.fruiting.dormancy) throw new Error('Missing Fruiting: dormancy')
     return
 }
 
@@ -157,26 +197,31 @@ const set_environment_state = async (element, value) => {
         if (typeof element !== 'string' || !value) throw new Error('No value to set, something is likely undefined')
         globals.environment_state[element] = value
         return
-    } catch(err) {
+    } catch (err) {
         console.log('Error Setting the environment state: ' + err);
     }
 }
 
+/**
+ * validate the incoming element and value
+ * @param {*} element environment state element to be validated
+ * @param {*} value the value to be validated
+ * @returns 
+ */
 const set_environment_state_validation = (element, value) => {
-    console.log('Validating Set Environment State Value')
-    if(element === 'timestamp' && typeof value === 'string') return
-    if(element === 'internal_temp_1' && typeof value === 'string') return
-    if(element === 'internal_temp_2' && typeof value === 'string') return
-    if(element === 'internal_temp_3' && typeof value === 'string') return
-    if(element === 'precise_temp_c' && typeof value === 'string') return
-    if(element === 'precise_temp_f' && typeof value === 'string') return
-    if(element === 'external_temp' && typeof value === 'string') return
-    if(element === 'internal_humidity_1' && typeof value === 'string') return
-    if(element === 'internal_humidity_2' && typeof value === 'string') return
-    if(element === 'internal_humidity_3' && typeof value === 'string') return
-    if(element === 'external_humidity' && typeof value === 'string') return
-    if(element === 'co2' && typeof value === 'string') return
-    if(element === 'weight' && typeof value === 'string') return
+    if (element === 'timestamp' && typeof value === 'string') return
+    if (element === 'internal_temp_1' && typeof value === 'string') return
+    if (element === 'internal_temp_2' && typeof value === 'string') return
+    if (element === 'internal_temp_3' && typeof value === 'string') return
+    if (element === 'precise_temp_c' && typeof value === 'string') return
+    if (element === 'precise_temp_f' && typeof value === 'string') return
+    if (element === 'external_temp' && typeof value === 'string') return
+    if (element === 'internal_humidity_1' && typeof value === 'string') return
+    if (element === 'internal_humidity_2' && typeof value === 'string') return
+    if (element === 'internal_humidity_3' && typeof value === 'string') return
+    if (element === 'external_humidity' && typeof value === 'string') return
+    if (element === 'co2' && typeof value === 'string') return
+    if (element === 'weight' && typeof value === 'string') return
     throw new Error('Invalid Environment State element or value given')
 }
 
@@ -193,7 +238,7 @@ const set_session_state = (element, value) => {
         if (typeof element !== 'string' || !value) throw new Error('No value to set, something is likely undefined')
         globals.session_state[element] = value
         return
-    } catch(err) {
+    } catch (err) {
         console.log('Error setting the session state: ' + err);
     }
 }
