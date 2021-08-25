@@ -155,7 +155,6 @@ const set_environment_config = async (config) => {
  */
 const set_environment_config_validation = (config) => {
     console.log('Validating the Environment Config')
-    console.log('The typeof user_confirmed: ', typeof config.primordia_init.user_confirmed);
     if (!config.spawn_running) throw new Error('Missing Spawn Running');
     if (!config.spawn_running.temperature) throw new Error('Missing Spawn Running: temperature')
     if (!config.spawn_running.humidity) throw new Error('Missing Spawn Running: humidity')

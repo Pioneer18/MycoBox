@@ -28,9 +28,9 @@ const default_configs = {
             circulation_top: 'mid',
             circulation_bottom: 'mid',
             lighting: 'on',
-            duration: '',
-            flushes: '', // number of flush and domarncy cycles
-            dormancy: '' // duration in between flushes
+            duration: '14',
+            flushes: '3', // number of flush and domarncy cycles
+            dormancy: '10' // duration in between flushes
         }
     },
     golden_oyster: {
