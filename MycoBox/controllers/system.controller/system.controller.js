@@ -31,7 +31,7 @@ const { initialize_environment_state } = require("../sensors.controller/sensors.
     * - Check the MycoBox 'System Status': If session already running then return error: session already active
     * - set the environment configuration
     * - Set the environment state with the sensors.controller
-    * - Start this sessions environment manager
+    * - Start this sessions environment manager; which will run for some long duration
     */
 
    const newSession = async (config) => {

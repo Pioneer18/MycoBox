@@ -34,7 +34,6 @@
         console.log('Hello World Update() attempt --------------')
         // find the interval of time between previous and current reading
         const {dt, currentTime} = this.calculate_dt(this.lastTime);
-        console.log('here is the calculated dt: ' + dt)
         this.lastTime = currentTime;
         // calculate the error and integral of the error; the total of error x time passed till current reading
         console.log('Set Point: ' + this.setPoint)
@@ -80,6 +79,9 @@
         return {dt, currentTime};
     }
     // clamp_check
+    clamp_check() {
+        
+    }
     // calculate errors
     //calculate update
 }
