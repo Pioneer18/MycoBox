@@ -170,12 +170,26 @@ const set_session_state = (element, value) => {
     console.log('Setting the Session State: Active Session Will Be true')
     console.log(element, value)
     try {
+        set_session_state_validation(element, value);
         if (typeof element !== 'string' || !value) throw new Error('No value to set, something is likely undefined')
         globals.session_state[element] = value
         return
     } catch(err) {
         console.log('Error Setting the session state: ' + err);
     }
+}
+
+const set_session_state_validation = (element, value) => {
+    console.log('Validating Set Session State Value')
+    if (element === 'session_title' && typeof value === 'string') return
+    if (element === 'session_id' && typeof value === 'string') return
+    if (element === 'user_id' && typeof value === 'string') return
+    if (element === 'active_session' && typeof value === 'boolean') return
+    if (element === 'canceled' && typeof value === 'boolean') return
+    if (element === 'spawn_running' && typeof value === 'boolean') return
+    if (element === 'primordia_init' && typeof value === 'boolean') return
+    if (element === 'fruiting' && typeof value === 'boolean') return
+    throw new Error('Invalide session_state element or value given')
 }
 
 module.exports = {
