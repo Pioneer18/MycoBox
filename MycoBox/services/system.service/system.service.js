@@ -17,8 +17,8 @@ const environment_manager = async () => {
     // #1. while 'trigger' loops & timers
 
         // #3. calculate measured and generated a pid_config WHEN valid env_state returned
-        console.log('Method Call: generate_pid_configs (Generate PID Config)');
-        await generate_pid_configs();
+        console.log('Method Call: run_pid_controllers (Generate PID Config)');
+        await run_pid_controllers();
     
 }
 
@@ -40,7 +40,7 @@ const get_state = async () => {
  * @param {*} env_state 
  * @returns { temp, humidity, co2 }  
  */
-const generate_pid_configs = async () => {
+const run_pid_controllers = async () => {
      // #2. get the state
     const { env_config, env_state, pid_state } = await get_state();
 
@@ -49,7 +49,7 @@ const generate_pid_configs = async () => {
     
     let measured = { temperature: 1, humidity: 1, co2: 1 }
     if (validated === true) {
-        console.log('Validation Cleared Inside of `generate_pid_configs`: Now returning a valid measurement')
+        console.log('Validation Cleared Inside of `run_pid_controllers`: Now returning a valid measurement')
         // temperature = t1(.2222) * t2(.2222) * t3(.2222) *pTemp(.3333) / 4
         measured.temperature = ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2) ) + (parseFloat(env_state.precise_temp_c))) / 3
         // humidity = h1(.2222) * h2(.2222) * h3(.2222) / 3
@@ -81,13 +81,13 @@ const validate_env_state = async (env_state) => {
     if (env_state.timestamp === 'Initial') {
         console.log('Validate Env Recall: Timpestamp === Initial')
         setTimeout(async () => {
-            await generate_pid_configs();
+            await run_pid_controllers();
         }, 8000);
     }
     if (env_state.internal_temp_1 === '') {
         console.log('Validate Env Recall: Blank Env State')
         setTimeout(async () => {
-            await generate_pid_configs();
+            await run_pid_controllers();
         }, 4000);
     }
     if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {

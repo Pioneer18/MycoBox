@@ -34,14 +34,13 @@ const { TempPidController } = require('../../services/environment.manager/temper
  */
 const update_temperature = async (config) => {
     try {
-        console.log("Config Before Handing to TempPidController constructor")
-        console.log(config);
         // initialize the controller
         const tempController = new TempPidController(config);
         // update the actuator
         const value = tempController.update();
         console.log('The calculated Update Value')
         console.log(value);
+        return
     } catch (err) {
         console.log(`Error: ${err}`)
     }
