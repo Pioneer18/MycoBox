@@ -76,9 +76,9 @@ const initialize_environment_state = () => {
     read_co2()
     read_temp_humidity()
     read_precise_temp()
-    read_scale()
-    read_infrared()
-    set_timestamp()
+    read_scale() // make this real
+    read_infrared() // make this real
+    set_timestamp() 
     return
 }
 

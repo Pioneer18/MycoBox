@@ -41,15 +41,14 @@ const get_state = async () => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = async () => {
-     // #2. get the state
-    const { env_config, env_state, pid_state } = await get_state();
 
+    const { env_config, env_state, pid_state } = await get_state();
     console.log("Method Call: validate_env_state (Block till valid env_state returned) ---------------------------------------------------------------------------")
     const validated = await validate_env_state(env_state)
     
     let measured = { temperature: 1, humidity: 1, co2: 1 }
     if (validated === true) {
-        console.log('Validation Cleared Inside of `run_pid_controllers`: Now returning a valid measurement')
+        console.log('Valid Environment State Returned')
         // temperature = t1(.2222) * t2(.2222) * t3(.2222) *pTemp(.3333) / 4
         measured.temperature = ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2) ) + (parseFloat(env_state.precise_temp_c))) / 3
         // humidity = h1(.2222) * h2(.2222) * h3(.2222) / 3
@@ -61,10 +60,8 @@ const run_pid_controllers = async () => {
         console.log(measured);
         // create configs for each PID controller 
         // todo: 1) check for session stage (sr, pi, fr) 
-        console.log('Method Call: create_tpc_config')
+        console.log('Method Call: temp_pid_controller_config')
         const config = await temp_pid_controller_config(measured, env_config.spawn_running, pid_state.temperature)
-        console.log("Here is a PID ready config: ")
-        console.log(config);
         // =========================================================================================================
         console.log('Call Each PID');
         await update_temperature(config)
