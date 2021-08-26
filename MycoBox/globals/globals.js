@@ -144,7 +144,7 @@ const set_environment_config = async (config) => {
         // validate the config matches what is expected !!!
         globals.environment_config = config;
         return
-    } catch(err) {
+    } catch (err) {
         console.log('Invalid Environment Config Given: ' + err);
     }
 }
@@ -233,7 +233,6 @@ const set_environment_state_validation = (element, value) => {
 const set_session_state = (element, value) => {
     try {
         set_session_state_validation(element, value);
-        if (typeof element !== 'string' || !value) throw new Error('No value to set, something is likely undefined')
         globals.session_state[element] = value
         return
     } catch (err) {
@@ -260,9 +259,41 @@ const set_session_state_validation = (element, value) => {
     throw new Error('Invalid session_state element or value given')
 }
 
+/**
+ * Set the pid state for the selected controller
+ * @param {string} controller the controller to update
+ * @param { integralOfError, lastError, lastTime } state the state of the PID
+ */
+const set_pid_state = (controller, state) => {
+    try {
+        console.log('Setting the PID State for: ' + controller);
+        set_pid_state_validation(controller, state);
+        globals.pid_state[controller].integralOfError = [state.integralOfError];
+        globals.pid_state[controller].lastError = [state.lastError];
+        globals.pid_state[controller].lastTime = [state.lastTime];
+
+    } catch (err) {
+        throw new Error('Error setting the PID state: ' + err);
+    }
+}
+
+const set_pid_state_validation = (controller, state) => {
+    try {
+        console.log('Validating the PID State')
+        if (!controller || !state) throw new Error('Either the controller or state has not been provided');
+        if (typeof controller !== 'string') throw new Error('Invalid controller given, not a string');
+        if (!state.integralOfError || typeof integralOfError !== 'string') throw new Error('Invalid integralOfError provided')
+        if (!state.lastError || typeof lastError !== 'string') throw new Error('Invalid lastError provided')
+        if (!state.lastTime || typeof lastTime !== 'string') throw new Error('Invalid lastTime provided')
+    } catch (err) {
+        throw new Error('Invalid controller or state given: ' + state);
+    }
+}
+
 module.exports = {
     get,
     set_environment_config,
     set_environment_state,
-    set_session_state
+    set_session_state,
+    set_pid_state
 }
