@@ -53,7 +53,7 @@
         return (this.kp * error) + (this.ki * this.integralOfError) //+ (this.kd * derivativeOfError);
     }
 
-    // Return the variables to be used for constructing the class next time
+    // set the global pid state for this controller
     async report() {
         return {
             integralOfError: this.integralOfError,

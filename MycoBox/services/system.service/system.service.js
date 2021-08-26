@@ -14,7 +14,13 @@ const { get } = require("../../globals/globals")
  */
 const environment_manager = async () => {
     console.log('starting the EM')
-    // #1. while 'trigger' loops & timers
+    const session_state = await get('session_state');
+    // #1. Check the Session State is active
+    // #2. Check which stage is true
+        // check the environment config for its trigger, if not 'fruiting' stage
+            // if it's a trigger, check if the trigger flag has been set true
+            // if it's a setTimeout, go to next stage when the time is up
+        // NOTE: run_pid_controllers should be using the current env_config stage, this is currently hardcoded :(
 
         // #3. calculate measured and generated a pid_config WHEN valid env_state returned
         console.log('Method Call: run_pid_controllers (Generate PID Config)');
@@ -31,7 +37,8 @@ const get_state = async () => {
     return {
         env_config: await get('environment_config'),
         env_state: await get('environment_state'),
-        pid_state: await get('pid_state')
+        pid_state: await get('pid_state'),
+        session_state: await get('session_state')
     }
 }
 
@@ -42,7 +49,23 @@ const get_state = async () => {
  */
 const run_pid_controllers = async () => {
 
-    const { env_config, env_state, pid_state } = await get_state();
+    const { env_config, env_state, pid_state, session_state } = await get_state();
+
+    // #1. Check the Session State is active
+    if(!session_state.active_session) {
+        console.log('This is NOT an Active Session: Aborting process now ...')
+        return
+    }
+    // #2. Check which stage is true
+    let stage;
+    if (session_state.spawn_running) stage = 'spawn_running';
+    if (session_state.primordia_init) stage = 'primordia_init';
+    if (session_state.fruiting) stage = 'fruiting';
+        // check the environment config for its trigger, if not 'fruiting' stage
+            // if it's a trigger, check if the trigger flag has been set true
+            // if it's a setTimeout, go to next stage when the time is up
+        // NOTE: run_pid_controllers should be using the current env_config stage, this is currently hardcoded :(
+    
     console.log("Method Call: validate_env_state (Block till valid env_state returned) ---------------------------------------------------------------------------")
     const validated = await validate_env_state(env_state)
     
@@ -54,7 +77,7 @@ const run_pid_controllers = async () => {
         // humidity = h1(.2222) * h2(.2222) * h3(.2222) / 3
         measured.humidity = ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2
         // co2 = co2
-        measured.co2 = 500
+        measured.co2 = 500 // debug the co2 meter so this is not hardcoded
         // =========================================================================================================
         console.log('A Valid Measured')
         console.log(measured);
