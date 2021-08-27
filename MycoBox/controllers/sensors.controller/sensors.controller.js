@@ -82,7 +82,7 @@ const initialize_environment_state = () => {
     read_scale() // make this real
     read_infrared() // make this real
     set_timestamp() 
-    return
+    return true;
 }
 
 /**
