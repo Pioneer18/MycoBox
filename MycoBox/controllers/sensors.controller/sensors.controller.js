@@ -73,6 +73,7 @@ const set_timestamp = async () => {
  * Set Environment State
  */
 const initialize_environment_state = () => {
+    console.log("METHOD CALL: initialize_environment_state")
     read_co2()
     read_temp_humidity()
     read_precise_temp()

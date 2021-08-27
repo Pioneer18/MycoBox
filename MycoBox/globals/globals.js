@@ -139,7 +139,7 @@ const get = (section) => {
  */
 const set_environment_config = (config) => {
     try {
-        console.log(config)
+        console.log("METHOD CALL: set_environment_config")
         set_environment_config_validation(config);
         // validate the config matches what is expected !!!
         globals.environment_config = config;
