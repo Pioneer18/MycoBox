@@ -34,6 +34,7 @@ const { TempPidController } = require('../../services/environment.manager/temper
  */
 const update_temperature = async (config) => {
     try {
+        console.log('METHOD CALL: update_temperature')
         // initialize the controller
         const tempController = new TempPidController(config);
         // update the actuator

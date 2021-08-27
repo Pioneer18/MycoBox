@@ -14,13 +14,14 @@ const { get } = require("../../globals/globals")
  * iii. call each EM PID
  */
 const environment_manager = async () => {
-    console.log('Top of the Environment Manager')
+    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Top of the Environment Manager ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
     // #1. Validate the session is still active
     const active_session = validate_active_session();
     if (!active_session) return; // create a terminate function, to properly end the session
     // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
 
     while (active_session) {
+        console.log('Still an Active Session ???????????????????????')
         // #3. calculate measured and generated a pid_config WHEN valid env_state returned
         console.log('Method Call: run_pid_controllers (Generate PID Config)');
         await run_pid_controllers();
