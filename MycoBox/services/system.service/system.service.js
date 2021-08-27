@@ -90,7 +90,7 @@ const validate_env_state = async (env_state) => {
         return true
     }
     return;
-}
+} 
 
 /**
  * validate that the session is still active
