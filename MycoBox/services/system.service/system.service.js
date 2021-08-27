@@ -46,12 +46,12 @@ const get_state = () => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = async () => {
-    const { env_config, env_state, pid_state, session_state } = get_state();    
+    const { env_config, env_state, pid_state } = get_state();    
     const validated = await validate_env_state(env_state)
     console.log("Method Call: validate_env_state (Block till valid env_state returned) ---------------------------------------------------------------------------")
     if (validated === true) {
         console.log('Valid Environment State Returned')
-        const measured = calculate_measured();
+        const measured = calculate_measured(env_state);
         // =========================================================================================================
         console.log('A Valid Measured')
         console.log(measured);
@@ -111,7 +111,7 @@ const process_session_state = async (measured) => {
 
 }
 
-const calculate_measured = () => {
+const calculate_measured = (env_state) => {
     return { 
         temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2) ) + (parseFloat(env_state.precise_temp_c))) / 3,
         humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2, 
