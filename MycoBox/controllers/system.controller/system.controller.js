@@ -38,6 +38,7 @@ const newSession = async (config) => {
     try {
         const session_state = get('session_state');
         if (!session_state.active_session) {
+            console.log('Starting the Environment Manager and setting session_state.active_session TRUE')
             set_environment_config(config);
             await initialize_environment_state();
             await environment_manager();
