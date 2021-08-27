@@ -50,14 +50,10 @@ const run_pid_controllers = async () => {
     const validated = await validate_env_state(env_state)
     console.log("Method Call: validate_env_state (Block till valid env_state returned) ---------------------------------------------------------------------------")
     if (validated === true) {
-        console.log('Valid Environment State Returned')
         const measured = calculate_measured(env_state);
         // =========================================================================================================
-        console.log('A Valid Measured')
-        console.log(measured);
         // create configs for each PID controller 
-        // todo: 1) check for session stage (sr, pi, fr) 
-        console.log('Method Call: temp_pid_controller_config')
+        // todo: check for session stage (sr, pi, fr) 
         const config = await temp_pid_controller_config(measured, env_config.spawn_running, pid_state.temperature)
         // =========================================================================================================
         console.log('Call Each PID');
@@ -85,8 +81,7 @@ const validate_env_state = async (env_state) => {
         }, 4000);
     }
     if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
-        console.log('Valid Env State!')
-        console.log(env_state);
+        console.log('Environment State has been validated $$')
         return true
     }
     return;
@@ -112,6 +107,7 @@ const process_session_state = async (measured) => {
 }
 
 const calculate_measured = (env_state) => {
+    console.log('METHOD CALL: calculate_measured')
     return { 
         temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2) ) + (parseFloat(env_state.precise_temp_c))) / 3,
         humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2, 
