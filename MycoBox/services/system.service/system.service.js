@@ -89,7 +89,7 @@ const validate_env_state = async (env_state) => {
         initialize_environment_state();
         setTimeout(async () => {
             await run_pid_controllers();
-        }, 4000);
+        }, 16000);
     }
     if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
         console.log('Environment State has been validated $$')
