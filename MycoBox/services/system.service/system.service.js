@@ -5,6 +5,7 @@
  */
 const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
 const { get } = require("../../globals/globals")
+const {initialize_environment_state} = require("../../controllers/sensors.controller/sensors.controller");
 
 
 /**
