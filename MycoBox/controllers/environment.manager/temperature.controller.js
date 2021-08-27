@@ -51,8 +51,7 @@ const update_temperature = (config) => {
  * Todo: move this to the temperaturePidController
  */
  const temp_pid_controller_config = (measured, env_config, pid_state) => {
-    console.log('Environment Config')
-    console.log(env_config)
+    console.log('Method Call: temp_pid_controller_config')
     const config = {
         settings: {
             kp: 1,

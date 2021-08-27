@@ -14,16 +14,16 @@ const { get } = require("../../globals/globals")
  * iii. call each EM PID
  */
 const environment_manager = () => {
-    console.log('Top of the Environment Manager')
+    console.log('METHOD CALL: environment_manager')
     // #1. Validate the session is still active
     const active_session = validate_active_session();
-    if (!active_session) return; // create a terminate function, to properly end the session
-    // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
-
-    // #3. calculate measured and generated a pid_config WHEN valid env_state returned
-    console.log('Method Call: run_pid_controllers (Generate PID Config)');
-    run_pid_controllers();
-
+    while (active_session) {
+        // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
+    
+        // #3. calculate measured and generated a pid_config WHEN valid env_state returned
+        run_pid_controllers();
+    }
+    return
 }
 
 /**
@@ -46,18 +46,15 @@ const get_state = () => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = () => {
+    console.log('Method Call: run_pid_controllers (Generate PID Config)');
     const { env_config, env_state, pid_state } = get_state();    
     const validated = validate_env_state(env_state)
-    console.log("Method Call: validate_env_state (Block till valid env_state returned) ---------------------------------------------------------------------------")
+    console.log("Block till valid env_state returned) ---------------------------------------------------------------------------")
     if (validated === true) {
-        console.log('Valid Environment State Returned')
         const measured = calculate_measured(env_state);
         // =========================================================================================================
-        console.log('A Valid Measured')
-        console.log(measured);
-        // create configs for each PID controller 
-        // todo: 1) check for session stage (sr, pi, fr) 
-        console.log('Method Call: temp_pid_controller_config')
+        // todo: check for session stage (sr, pi, fr) 
+        // generate config for each controller: add the other controller functions for this
         const config = temp_pid_controller_config(measured, env_config.spawn_running, pid_state.temperature)
         // =========================================================================================================
         console.log('Call Each PID');
@@ -72,6 +69,7 @@ const run_pid_controllers = () => {
  * @returns 
  */
 const validate_env_state = (env_state) => {
+    console.log("METHOD CALL: validate_env_state")
     if (env_state.timestamp === 'Initial') {
         console.log('Validate Env Recall: Timpestamp === Initial')
         setTimeout(async () => {
@@ -112,6 +110,7 @@ const process_session_state = async (measured) => {
 }
 
 const calculate_measured = (env_state) => {
+    console.log("METHOD CALL: calculate_measured")
     return { 
         temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2) ) + (parseFloat(env_state.precise_temp_c))) / 3,
         humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2, 

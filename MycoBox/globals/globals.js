@@ -139,7 +139,7 @@ const get = (section) => {
  */
 const set_environment_config = (config) => {
     try {
-        console.log(config)
+        console.log('METHOD CALL: Set_environment_config')
         set_environment_config_validation(config);
         // validate the config matches what is expected !!!
         globals.environment_config = config;
@@ -154,7 +154,7 @@ const set_environment_config = (config) => {
  * @param {*} config the config object to be validated
  */
 const set_environment_config_validation = (config) => {
-    console.log('Validating the Environment Config')
+    console.log('METHOD CALL: set_environment_config_validation')
     if (!config.spawn_running) throw new Error('Missing Spawn Running');
     if (!config.spawn_running.temperature) throw new Error('Missing Spawn Running: temperature')
     if (!config.spawn_running.humidity) throw new Error('Missing Spawn Running: humidity')
@@ -233,6 +233,7 @@ const set_environment_state_validation = (element, value) => {
  * @param {*} value the value to set for the element
  */
 const set_session_state = (element, value) => {
+    console.log('METHOD CALL: set_session_state');
     try {
         set_session_state_validation(element, value);
         globals.session_state[element] = value
