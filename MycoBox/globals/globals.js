@@ -224,7 +224,7 @@ const set_environment_state_validation = (element, value) => {
     if (element === 'external_humidity' && typeof value === 'string') return
     if (element === 'co2' && typeof value === 'string') return
     if (element === 'weight' && typeof value === 'string') return
-    throw new Error('Invalid Environment State element or value given')
+    throw new Error('Invalid Environment State element or value given: ' + element, value)
 }
 
 /**
