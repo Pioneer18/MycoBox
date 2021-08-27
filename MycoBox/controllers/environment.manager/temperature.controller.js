@@ -32,7 +32,7 @@ const { TempPidController } = require('../../services/environment.manager/temper
  *  } 
  * } config the previous (or initial) report & the incoming
  */
-const update_temperature = async (config) => {
+const update_temperature = (config) => {
     try {
         // initialize the controller
         const tempController = new TempPidController(config);
@@ -50,7 +50,7 @@ const update_temperature = async (config) => {
  * Create TemperauturePidController config
  * Todo: move this to the temperaturePidController
  */
- const temp_pid_controller_config = async (measured, env_config, pid_state) => {
+ const temp_pid_controller_config = (measured, env_config, pid_state) => {
     console.log('Environment Config')
     console.log(env_config)
     const config = {
@@ -78,7 +78,7 @@ const update_temperature = async (config) => {
  * Description: Commands the selected actuator to turn on/off regardless of the global context (EnvModel, SystemStatus, ...)
  * @param {string, string} command {actuator: '', status: ''}
  */
-const override = async (command) => {
+const override = (command) => {
     switch (command.actuator) {
         case 'AC':
             if (command.status === 'ON') s1r1_on();

@@ -13,7 +13,7 @@ const { get } = require("../../globals/globals")
  * ii. maintain PID states
  * iii. call each EM PID
  */
-const environment_manager = async () => {
+const environment_manager = () => {
     console.log('Top of the Environment Manager')
     // #1. Validate the session is still active
     const active_session = validate_active_session();
@@ -22,7 +22,7 @@ const environment_manager = async () => {
 
     // #3. calculate measured and generated a pid_config WHEN valid env_state returned
     console.log('Method Call: run_pid_controllers (Generate PID Config)');
-    await run_pid_controllers();
+    run_pid_controllers();
 
 }
 
@@ -45,9 +45,9 @@ const get_state = () => {
  * @param {*} env_state 
  * @returns { temp, humidity, co2 }  
  */
-const run_pid_controllers = async () => {
+const run_pid_controllers = () => {
     const { env_config, env_state, pid_state, session_state } = get_state();    
-    const validated = await validate_env_state(env_state)
+    const validated = validate_env_state(env_state)
     console.log("Method Call: validate_env_state (Block till valid env_state returned) ---------------------------------------------------------------------------")
     if (validated === true) {
         console.log('Valid Environment State Returned')
@@ -58,10 +58,10 @@ const run_pid_controllers = async () => {
         // create configs for each PID controller 
         // todo: 1) check for session stage (sr, pi, fr) 
         console.log('Method Call: temp_pid_controller_config')
-        const config = await temp_pid_controller_config(measured, env_config.spawn_running, pid_state.temperature)
+        const config = temp_pid_controller_config(measured, env_config.spawn_running, pid_state.temperature)
         // =========================================================================================================
         console.log('Call Each PID');
-        return await update_temperature(config)
+        return update_temperature(config)
     }
 
 }
@@ -71,17 +71,17 @@ const run_pid_controllers = async () => {
  * @param {*} env_state 
  * @returns 
  */
-const validate_env_state = async (env_state) => {
+const validate_env_state = (env_state) => {
     if (env_state.timestamp === 'Initial') {
         console.log('Validate Env Recall: Timpestamp === Initial')
         setTimeout(async () => {
-            await run_pid_controllers();
+            run_pid_controllers();
         }, 8000);
     }
     if (env_state.internal_temp_1 === '') {
         console.log('Validate Env Recall: Blank Env State')
         setTimeout(async () => {
-            await run_pid_controllers();
+            run_pid_controllers();
         }, 4000);
     }
     if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
