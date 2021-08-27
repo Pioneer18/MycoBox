@@ -4,6 +4,7 @@
  * Description: provides extra functionality to the system controller
  */
 const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
+const { initialize_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
 const { get } = require("../../globals/globals")
 
 
@@ -72,15 +73,13 @@ const validate_env_state = (env_state) => {
     console.log("METHOD CALL: validate_env_state")
     if (env_state.timestamp === 'Initial') {
         console.log('Validate Env Recall: Timpestamp === Initial')
-        setTimeout(async () => {
+            initialize_environment_state();
             run_pid_controllers();
-        }, 8000);
     }
     if (env_state.internal_temp_1 === '') {
         console.log('Validate Env Recall: Blank Env State')
-        setTimeout(async () => {
+            initialize_environment_state();
             run_pid_controllers();
-        }, 4000);
     }
     if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
         console.log('Valid Env State!')
@@ -95,6 +94,7 @@ const validate_env_state = (env_state) => {
  * @returns true or false
  */
 const validate_active_session = () => {
+    console.log('Validating Active Session *********************************************')
     const session_state = get('session_state');
     if (session_state) return true
     return false
