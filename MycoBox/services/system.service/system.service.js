@@ -23,7 +23,7 @@ const environment_manager = async () => {
     // #3. calculate measured and generated a pid_config WHEN valid env_state returned
     console.log('Method Call: run_pid_controllers (Generate PID Config)');
     await run_pid_controllers();
-    
+
 }
 
 /**
@@ -46,36 +46,12 @@ const get_state = () => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = async () => {
-
-    const { env_config, env_state, pid_state, session_state } = get_state();
-
-    // #1. Check the Session State is active
-    if(!session_state.active_session) {
-        console.log('This is NOT an Active Session: Aborting process now ...')
-        return
-    }
-    // #2. Check which stage is true
-    let stage;
-    if (session_state.spawn_running) stage = 'spawn_running';
-    if (session_state.primordia_init) stage = 'primordia_init';
-    if (session_state.fruiting) stage = 'fruiting';
-        // check the environment config for its trigger, if not 'fruiting' stage
-            // if it's a trigger, check if the trigger flag has been set true
-            // if it's a setTimeout, go to next stage when the time is up
-        // NOTE: run_pid_controllers should be using the current env_config stage, this is currently hardcoded :(
-    
-    console.log("Method Call: validate_env_state (Block till valid env_state returned) ---------------------------------------------------------------------------")
+    const { env_config, env_state, pid_state, session_state } = get_state();    
     const validated = await validate_env_state(env_state)
-    
-    let measured = { temperature: 1, humidity: 1, co2: 1 }
+    console.log("Method Call: validate_env_state (Block till valid env_state returned) ---------------------------------------------------------------------------")
     if (validated === true) {
         console.log('Valid Environment State Returned')
-        // temperature = t1(.2222) * t2(.2222) * t3(.2222) *pTemp(.3333) / 4
-        measured.temperature = ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2) ) + (parseFloat(env_state.precise_temp_c))) / 3
-        // humidity = h1(.2222) * h2(.2222) * h3(.2222) / 3
-        measured.humidity = ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2
-        // co2 = co2
-        measured.co2 = 500 // debug the co2 meter so this is not hardcoded
+        const measured = calculate_measured();
         // =========================================================================================================
         console.log('A Valid Measured')
         console.log(measured);
@@ -85,9 +61,9 @@ const run_pid_controllers = async () => {
         const config = await temp_pid_controller_config(measured, env_config.spawn_running, pid_state.temperature)
         // =========================================================================================================
         console.log('Call Each PID');
-        await update_temperature(config)
-
+        return await update_temperature(config)
     }
+
 }
 
 /**
@@ -130,11 +106,18 @@ const validate_active_session = () => {
  * check the status of the current session_state 'stage' (spawn running, primordia init, fruiting), then calculate and 
  * initiate the correct response; e.g. switch to primordia init and call run_pid_controllers with the configuration for primordia_init
  */
-const process_session_state = async () => {
+const process_session_state = async (measured) => {
     const session_state = get('session_state');
 
 }
 
+const calculate_measured = () => {
+    return { 
+        temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2) ) + (parseFloat(env_state.precise_temp_c))) / 3,
+        humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2, 
+        co2: 500 // Debug the co2 meter so this isn't hardcoded
+    }
+}
 
 module.exports = {
     environment_manager
