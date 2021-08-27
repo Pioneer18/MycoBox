@@ -115,7 +115,7 @@ let globals = {
  * @returns the section
  * todo: add 'element' param, for searching section and element
  */
-const get = async (section) => {
+const get = (section) => {
     switch (section) {
         case 'session_state':
             return globals.session_state
@@ -137,7 +137,7 @@ const get = async (section) => {
 /**
  * set globals section or element
  */
-const set_environment_config = async (config) => {
+const set_environment_config = (config) => {
     try {
         console.log(config)
         set_environment_config_validation(config);
@@ -191,7 +191,7 @@ const set_environment_config_validation = (config) => {
  * @param {*} element evironment state element to set
  * @param {*} value the value to set for the element
  */
-const set_environment_state = async (element, value) => {
+const set_environment_state = (element, value) => {
     try {
         set_environment_state_validation(element, value)
         if (typeof element !== 'string' || !value) throw new Error('No value to set, something is likely undefined')

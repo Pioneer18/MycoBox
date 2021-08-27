@@ -6,6 +6,7 @@
 const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
 const { get } = require("../../globals/globals")
 
+
 /**
  * Responsibilities: 
  * i. coordinates through three session stages
@@ -13,18 +14,15 @@ const { get } = require("../../globals/globals")
  * iii. call each EM PID
  */
 const environment_manager = async () => {
-    console.log('starting the EM')
-    const session_state = await get('session_state');
-    // #1. Check the Session State is active
-    // #2. Check which stage is true
-        // check the environment config for its trigger, if not 'fruiting' stage
-            // if it's a trigger, check if the trigger flag has been set true
-            // if it's a setTimeout, go to next stage when the time is up
-        // NOTE: run_pid_controllers should be using the current env_config stage, this is currently hardcoded :(
+    console.log('Top of the Environment Manager')
+    // #1. Validate the session is still active
+    const active_session = await validate_active_session();
+    if (!active_session) return; // create a terminate function, to properly end the session
+    // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
 
-        // #3. calculate measured and generated a pid_config WHEN valid env_state returned
-        console.log('Method Call: run_pid_controllers (Generate PID Config)');
-        await run_pid_controllers();
+    // #3. calculate measured and generated a pid_config WHEN valid env_state returned
+    console.log('Method Call: run_pid_controllers (Generate PID Config)');
+    await run_pid_controllers();
     
 }
 
@@ -32,13 +30,13 @@ const environment_manager = async () => {
  * Return the env_config, env_state, and pid_states
  * @returns 
  */
-const get_state = async () => {
+const get_state = () => {
     console.log("Method Call: get_state")
     return {
-        env_config: await get('environment_config'),
-        env_state: await get('environment_state'),
-        pid_state: await get('pid_state'),
-        session_state: await get('session_state')
+        env_config: get('environment_config'),
+        env_state: get('environment_state'),
+        pid_state: get('pid_state'),
+        session_state: get('session_state')
     }
 }
 
@@ -49,7 +47,7 @@ const get_state = async () => {
  */
 const run_pid_controllers = async () => {
 
-    const { env_config, env_state, pid_state, session_state } = await get_state();
+    const { env_config, env_state, pid_state, session_state } = get_state();
 
     // #1. Check the Session State is active
     if(!session_state.active_session) {
@@ -116,6 +114,25 @@ const validate_env_state = async (env_state) => {
         return true
     }
     return;
+}
+
+/**
+ * validate that the session is still active
+ * @returns true or false
+ */
+const validate_active_session = async () => {
+    const session_state = get('session_state');
+    if (session_state) return true
+    return false
+}
+
+/**
+ * check the status of the current session_state 'stage' (spawn running, primordia init, fruiting), then calculate and 
+ * initiate the correct response; e.g. switch to primordia init and call run_pid_controllers with the configuration for primordia_init
+ */
+const process_session_state = async () => {
+    const session_state = get('session_state');
+
 }
 
 
