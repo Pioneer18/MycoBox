@@ -16,7 +16,7 @@ const { get } = require("../../globals/globals")
 const environment_manager = async () => {
     console.log('Top of the Environment Manager')
     // #1. Validate the session is still active
-    const active_session = await validate_active_session();
+    const active_session = validate_active_session();
     if (!active_session) return; // create a terminate function, to properly end the session
     // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
 
@@ -120,7 +120,7 @@ const validate_env_state = async (env_state) => {
  * validate that the session is still active
  * @returns true or false
  */
-const validate_active_session = async () => {
+const validate_active_session = () => {
     const session_state = get('session_state');
     if (session_state) return true
     return false
