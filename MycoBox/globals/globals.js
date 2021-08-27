@@ -210,6 +210,7 @@ const set_environment_state = (element, value) => {
 const set_environment_state_validation = (element, value) => {
     console.log(`Validating the Environment State to be set`)
     console.log(element, value)
+    console.log( typeof element)
     if (element === 'timestamp' && typeof value === 'string') return
     if (element === 'internal_temp_1' && typeof value === 'string') return
     if (element === 'internal_temp_2' && typeof value === 'string') return
