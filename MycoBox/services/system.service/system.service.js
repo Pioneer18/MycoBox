@@ -4,7 +4,7 @@
  * Description: provides extra functionality to the system controller
  */
 const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
-const { get } = require("../../globals/globals")
+const { get, set_session_state } = require("../../globals/globals")
 
 
 /**
@@ -14,6 +14,7 @@ const { get } = require("../../globals/globals")
  * iii. call each EM PID
  */
 const environment_manager = async () => {
+    const session_state = get('session_state');
     console.log('Top of the Environment Manager')
     // #1. Validate the session is still active
     const active_session = validate_active_session();
@@ -21,8 +22,13 @@ const environment_manager = async () => {
     // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
 
     // #3. calculate measured and generated a pid_config WHEN valid env_state returned
-    console.log('Method Call: run_pid_controllers (Generate PID Config)');
-    await run_pid_controllers();
+    while (active_session) {
+        // will stop calling run_pid_controllers while waiting for the actuators etc to update
+        if (session_state.restart){
+            console.log('Method Call: run_pid_controllers (Generate PID Config)');
+            await run_pid_controllers();
+        }
+    }
 
 }
 
@@ -46,18 +52,20 @@ const get_state = () => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = async () => {
-    const { env_config, env_state, pid_state } = get_state();    
+    const { env_config, env_state, pid_state, session_state } = get_state();
     const validated = await validate_env_state(env_state)
+    // validate the run_pid controllers has completed once
     console.log("Method Call: validate_env_state (Block till valid env_state returned) ---------------------------------------------------------------------------")
-    if (validated === true) {
+    if (validated & session_state.restart) {
+        set_session_state('restart', false);
         const measured = calculate_measured(env_state);
-        // =========================================================================================================
-        // create configs for each PID controller 
-        // todo: check for session stage (sr, pi, fr) 
-        const config = await temp_pid_controller_config(measured, env_config.spawn_running, pid_state.temperature)
-        // =========================================================================================================
         console.log('Call Each PID');
-        return await update_temperature(config)
+        // =========================================================================================================
+        const completed = await update_actuators(measured, env_config, pid_state)
+        if (completed) {
+            console.log('Update Actuators has completed, run_pid_controllers cam run an update again now')
+            set_session_state('restart', true);
+        }
     }
 
 }
@@ -85,7 +93,7 @@ const validate_env_state = async (env_state) => {
         return true
     }
     return;
-} 
+}
 
 /**
  * validate that the session is still active
@@ -106,11 +114,20 @@ const process_session_state = async (measured) => {
 
 }
 
+/**
+ * Generates a config for each controller and runs each controller
+ */
+const update_actuators = async (measured, env_config, pid_state) => {
+    const temp_config = await temp_pid_controller_config(measured, env_config.spawn_running, pid_state.temperature)
+    const temp_controller = await update_temperature(temp_config)
+    if (temp_controller) return true
+}
+
 const calculate_measured = (env_state) => {
     console.log('METHOD CALL: calculate_measured')
-    return { 
-        temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2) ) + (parseFloat(env_state.precise_temp_c))) / 3,
-        humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2, 
+    return {
+        temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2)) + (parseFloat(env_state.precise_temp_c))) / 3,
+        humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2,
         co2: 500 // Debug the co2 meter so this isn't hardcoded
     }
 }

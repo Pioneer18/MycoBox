@@ -41,7 +41,7 @@ const update_temperature = async (config) => {
         const value = tempController.update();
         console.log('The calculated Update Value')
         console.log(value);
-        return
+        return value
     } catch (err) {
         console.log(`Error: ${err}`)
     }
