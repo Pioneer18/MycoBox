@@ -19,6 +19,7 @@ let options = {
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
 const read_temp_humidity = () => {
+    console.log('Reading the Temp & Humidity')
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err;
         parse_th_data(reply) // validate and load into env model
@@ -30,6 +31,7 @@ const read_temp_humidity = () => {
  * MAX31855 Temperature - internal precise temp
  */
 const read_precise_temp = () => {
+    console.log("Reading the Precise Temp")
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
         parse_pt_data(reply)
@@ -42,6 +44,7 @@ const read_precise_temp = () => {
  * @param {Array} reply ["CO2 PPM = 536.0"]
  */
 const read_co2 = () => {
+    console.log('Reading the CO2')
     PythonShell.run('co2.py', options, function (err, reply) {
         if (err) throw err;
         parse_co2_data(reply)
@@ -54,6 +57,7 @@ const read_co2 = () => {
  * @param {Array} reply
  */
 const read_scale = () => {
+    console.log('Reading the Scale')
     return ['weight: 45lbs']
 }
 
