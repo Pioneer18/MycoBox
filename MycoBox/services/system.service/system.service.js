@@ -14,18 +14,15 @@ const { get } = require("../../globals/globals")
  * iii. call each EM PID
  */
 const environment_manager = async () => {
-    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Top of the Environment Manager ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+    console.log('Top of the Environment Manager')
     // #1. Validate the session is still active
     const active_session = validate_active_session();
     if (!active_session) return; // create a terminate function, to properly end the session
     // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
 
-    while (active_session) {
-        console.log('Still an Active Session ???????????????????????')
-        // #3. calculate measured and generated a pid_config WHEN valid env_state returned
-        console.log('Method Call: run_pid_controllers (Generate PID Config)');
-        await run_pid_controllers();
-    }
+    // #3. calculate measured and generated a pid_config WHEN valid env_state returned
+    console.log('Method Call: run_pid_controllers (Generate PID Config)');
+    await run_pid_controllers();
 
 }
 
@@ -49,7 +46,7 @@ const get_state = () => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = async () => {
-    const { env_config, env_state, pid_state } = get_state();
+    const { env_config, env_state, pid_state } = get_state();    
     const validated = await validate_env_state(env_state)
     console.log("Method Call: validate_env_state (Block till valid env_state returned) ---------------------------------------------------------------------------")
     if (validated === true) {
@@ -93,7 +90,7 @@ const validate_env_state = async (env_state) => {
         return true
     }
     return;
-}
+} 
 
 /**
  * validate that the session is still active
@@ -115,9 +112,9 @@ const process_session_state = async (measured) => {
 }
 
 const calculate_measured = (env_state) => {
-    return {
-        temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2)) + (parseFloat(env_state.precise_temp_c))) / 3,
-        humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2,
+    return { 
+        temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2) ) + (parseFloat(env_state.precise_temp_c))) / 3,
+        humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2, 
         co2: 500 // Debug the co2 meter so this isn't hardcoded
     }
 }
