@@ -88,7 +88,7 @@ const validate_env_state = () => {
                     initialize_environment_state()
                         .then(() => {
                             setTimeout(() => {
-                                recheck_env_state()
+                                recheck_env_state(resolve)
                             }, 8000);
                         })
                 }
@@ -103,7 +103,7 @@ const validate_env_state = () => {
     })
 }
 
-const recheck_env_state = () => {
+const recheck_env_state = (resolve) => {
     get('environment_state')
         .then(env_state => {
             if (env_state.internal_temp_1 === '') {
