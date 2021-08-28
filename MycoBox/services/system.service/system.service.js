@@ -104,10 +104,9 @@ const validate_env_state = () => {
                 if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
                     console.log('Valid Env State!')
                     console.log(env_state);
-                    return true
+                    resolve(true)
                 }
             })
-            .then(result => resolve(result))
 
     })
 }
