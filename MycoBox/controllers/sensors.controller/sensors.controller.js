@@ -22,7 +22,7 @@ const read_temp_humidity = async () => {
     console.log('Reading the Temp & Humidity')
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err;
-        await parse_th_data(reply) // validate and load into env model
+        parse_th_data(reply) // validate and load into env model
         return
     })
 }
@@ -34,7 +34,7 @@ const read_precise_temp = async () => {
     console.log("Reading the Precise Temp")
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
-        await parse_pt_data(reply)
+        parse_pt_data(reply)
         return
     })
 }
@@ -47,7 +47,7 @@ const read_co2 = async () => {
     console.log('Reading the CO2')
     PythonShell.run('co2.py', options, function (err, reply) {
         if (err) throw err;
-        await parse_co2_data(reply)
+        parse_co2_data(reply)
         return
     });
 }
