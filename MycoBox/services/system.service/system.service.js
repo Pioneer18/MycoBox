@@ -88,7 +88,7 @@ const validate_env_state = () => {
                     initialize_environment_state()
                         .then(() => {
                             setTimeout(() => {
-                                validate_env_state()
+                                recheck_env_state()
                             }, 8000);
                         })
                 }
@@ -101,6 +101,27 @@ const validate_env_state = () => {
             })
 
     })
+}
+
+const recheck_env_state = () => {
+    get('environment_state')
+        .then(env_state => {
+            if (env_state.internal_temp_1 === '') {
+                console.log('Validate Env Recall: Blank Env State')
+                initialize_environment_state()
+                    .then(() => {
+                        setTimeout(() => {
+                            recheck_env_state()
+                        }, 8000);
+                    })
+            }
+            if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
+                console.log('Valid Env State!')
+                console.log(env_state);
+                console.log('Should be resolving true now')
+                resolve(true)
+            }
+        })
 }
 
 /**
