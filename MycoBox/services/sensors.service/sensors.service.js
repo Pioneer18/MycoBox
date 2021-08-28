@@ -21,13 +21,15 @@ const parse_th_data = (reply) => {
     });
 }
 
-const parse_pt_data = new Promise((resolve, reject) => {
-    const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-    set_environment_state('precise_temp_c', data[1])
-        .then(set_environment_state('precise_temp_f', data[3]))
-        .then(resolve())
-        .catch()
-})
+const parse_pt_data = (reply) => {
+    return new Promise((resolve) => {
+        const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
+        set_environment_state('precise_temp_c', data[1])
+            .then(set_environment_state('precise_temp_f', data[3]))
+            .then(resolve())
+            .catch()
+    })
+}
 
 const parse_co2_data = new Promise((resolve, reject) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
