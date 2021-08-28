@@ -80,7 +80,7 @@ const run_pid_controllers = () => {
  * @param {*} env_state 
  * @returns 
  */
-const validate_env_state = (env_state) => {
+const validate_env_state = () => {
     // get the latet environment state
     const { env_state } = get('environment_state')  
 
