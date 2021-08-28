@@ -8,15 +8,18 @@ const { set_environment_state } = require('../../globals/globals');
  * @param {Array} reply h1,h2,h3,h4,temp1,temp2,
  * @returns 
  */
-const parse_th_data = new Promise((resolve) => {
+const parse_th_data = (reply) => {
+    console.log('Method Call: parse_th_data')
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-    for (let i = 1; i < 16; i += 2) {
-        validate_th_data(data[i])
-            .then(set_dht22_values(i, data[i]))
-            .catch()
-    }
-    resolve()
-})
+    return new Promise((resolve) => {
+        for (let i = 1; i < 16; i += 2) {
+            validate_th_data(data[i])
+                .then(set_dht22_values(i, data[i]))
+                .catch()
+        }
+        resolve()
+    });
+}
 
 const parse_pt_data = new Promise((resolve, reject) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
