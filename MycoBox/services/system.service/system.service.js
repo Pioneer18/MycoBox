@@ -52,7 +52,7 @@ const get_state = () => {
 const run_pid_controllers = () => {
     // Don't move forward till you have a valid env_state
     const { env_config, pid_state } = get_state();  
-    const validated = await validate_env_state()
+    const validated = validate_env_state()
     // While validated is false, wait for 8 seconds and call it again
     while (!validated) {
         setTimeout(() => {
@@ -80,19 +80,19 @@ const run_pid_controllers = () => {
  * @param {*} env_state 
  * @returns 
  */
-const validate_env_state = async (env_state) => {
+const validate_env_state = (env_state) => {
     // get the latet environment state
     const { env_state } = get('environment_state')  
 
     console.log("METHOD CALL: validate_env_state")
     if (env_state.timestamp === 'Initial') {
         console.log('Validate Env Recall: Timpestamp === Initial')
-        await initialize_environment_state();
+        initialize_environment_state();
         // wait, and check again
     }
     if (env_state.internal_temp_1 === '') {
         console.log('Validate Env Recall: Blank Env State')
-        await initialize_environment_state();
+        initialize_environment_state();
     }
     if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
         console.log('Valid Env State!')
