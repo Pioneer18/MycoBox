@@ -8,28 +8,31 @@ const { set_environment_state } = require('../../globals/globals');
  * @param {Array} reply h1,h2,h3,h4,temp1,temp2,
  * @returns 
  */
-const parse_th_data = new Promise((resolve, reject) => {
+const parse_th_data = new Promise((resolve) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     for (let i = 1; i < 16; i += 2) {
-        validate_th_data(data[i]) // probably should skip if not valid...
-        set_dht22_values(i, data[i])
+        validate_th_data(data[i])
+            .then(set_dht22_values(i, data[i]))
+            .reject(err => `Error Caught: parse_th_data: ${err}`)
     }
-    return
+    resolve()
 })
 
 const parse_pt_data = new Promise((resolve, reject) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-    set_environment_state('precise_temp_c', data[1]);
-    set_environment_state('precise_temp_f', data[3]);
-    return
+    set_environment_state('precise_temp_c', data[1])
+        .then(set_environment_state('precise_temp_f', data[3]))
+        .then(resolve())
+        .catch()
 })
 
 const parse_co2_data = new Promise((resolve, reject) => {
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     console.log('CO2 Data Below !!!!!!!!!')
     console.log(data)
-    set_environment_state('co2', data[0]);
-    return
+    set_environment_state('co2', data[0])
+        .then(resolve())
+        .catch(err => console.log(`Error Caught: parse_co2_dta: ${err}`))
 })
 
 /**
@@ -46,34 +49,35 @@ const validate_th_data = new Promise((resolve, reject) => {
 /**
  * Set dht22 values to environment model
  */
-const set_dht22_values = new Promise((resolve, reject) => {
+const set_dht22_values = new Promise((resolve) => {
     switch (i) {
         case 1:
-            await set_environment_state('internal_humidity_1', data);
-            break;
+            set_environment_state('internal_humidity_1', data).then(resolve());
+            break
         case 3:
-            await set_environment_state('internal_humidity_2', data);
+            set_environment_state('internal_humidity_2', data).then(resolve());
             break
         case 5:
-            await set_environment_state('internal_humidity_3', data);
+            set_environment_state('internal_humidity_3', data).then(resolve());
             break
         case 7:
-            await set_environment_state('external_humidity', data);
+            set_environment_state('external_humidity', data).then(resolve());
             break
         case 9:
-            await set_environment_state('internal_temp_1', data);
+            set_environment_state('internal_temp_1', data).then(resolve());
             break
         case 11:
-            await set_environment_state('internal_temp_2', data);
+            set_environment_state('internal_temp_2', data).then(resolve());
             break
         case 13:
-            await set_environment_state('internal_temp_3', data);
+            set_environment_state('internal_temp_3', data).then(resolve());
             break
         case 15:
-            await set_environment_state('external_temp', data);
+            set_environment_state('external_temp', data).then(resolve());
             break
         default:
-            break;
+            console.log('set_dht22_values: Default')
+            break
     }
 })
 
