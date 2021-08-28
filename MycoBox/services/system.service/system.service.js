@@ -9,21 +9,24 @@ const {initialize_environment_state} = require("../../controllers/sensors.contro
 
 
 /**
- * Responsibilities: 
+ * Responsibilities: Calls Promises 
  * i. coordinates through three session stages
  * ii. maintain PID states
  * iii. call each EM PID
  */
-const environment_manager = async () => {
+const environment_manager = () => {
     console.log('METHOD CALL: environment_manager')
-    // #1. Validate the session is still active
-    const active_session = validate_active_session();
-    while (active_session) {
-        // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
-    
-        // #3. calculate measured and generated a pid_config WHEN valid env_state returned
-        await run_pid_controllers();
-    }
+    // #1. Validate the session is still active and THEN
+    validate_active_session()
+        .then(()=> {
+            console.log('Environment Manager Has Validated Session')
+            // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
+        
+            // #3. calculate measured and generated a pid_config WHEN valid env_state returned
+            run_pid_controllers();
+        })
+
+
     return
 }
 
@@ -46,7 +49,7 @@ const get_state = () => {
  * @param {*} env_state 
  * @returns { temp, humidity, co2 }  
  */
-const run_pid_controllers = async () => {
+const run_pid_controllers = () => {
     // Don't move forward till you have a valid env_state
     const { env_config, pid_state } = get_state();  
     const validated = await validate_env_state()
@@ -103,12 +106,12 @@ const validate_env_state = async (env_state) => {
  * validate that the session is still active
  * @returns true or false
  */
-const validate_active_session = () => {
+const validate_active_session = new Promise((resolve, reject) => {
     console.log('Validating Active Session *********************************************')
     const session_state = get('session_state');
-    if (session_state) return true
-    return false
-}
+    if (session_state.active_session) resolve()
+    reject('Session is not active')
+})
 
 /**
  * check the status of the current session_state 'stage' (spawn running, primordia init, fruiting), then calculate and 

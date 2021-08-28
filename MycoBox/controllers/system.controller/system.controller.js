@@ -36,31 +36,19 @@ const { initialize_environment_state } = require("../sensors.controller/sensors.
 */
 
 function newSession(config) {
-    return new Promise ( (resolve, reject)=> {
+    return new Promise ( (resolve)=> {
         const session_state = get('session_state');
         if (!session_state.active_session) {
-            set_environment_config();
+            set_environment_config(config)
+                .then(initialize_environment_state())
+                .then(set_session_state('active_session', true))
+                .then(environment_manager())
+                .then(resolve())
+                .catch(err => console.log(`Error Caught: new_session: ${err}`))
             
         } else {
             throw new Error('There is already an active session')
         }
-
-
-
-
-
-
-        // const session_state = get('session_state');
-        // if (!session_state.active_session) {
-        //     console.log('Starting the Environment Manager and setting session_state.active_session TRUE')
-        //     set_environment_config(config);
-        //     initialize_environment_state();
-        //     set_session_state('active_session', true);
-        //     await environment_manager();
-        // } else {
-        //     throw new Error('There is already an active session');
-        // }
-
     });
 }
 
