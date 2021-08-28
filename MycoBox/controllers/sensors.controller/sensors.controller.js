@@ -21,9 +21,9 @@ let options = {
 const read_temp_humidity = new Promise((resolve, reject) => {
     console.log('Reading the Temp & Humidity')
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
-        if (err) throw err;
+        if (err) reject(err)
         parse_th_data(reply) // validate and load into env model
-        return
+        resolve();
     })
 })
 
@@ -33,9 +33,9 @@ const read_temp_humidity = new Promise((resolve, reject) => {
 const read_precise_temp = new Promise( (resolve, reject)=> {
     console.log("Reading the Precise Temp")
     PythonShell.run('temp.precise.py', options, function (err, reply) {
-        if (err) throw err
+        if (err) reject(err)
         parse_pt_data(reply)
-        return
+        resolve()
     })
 })
 
@@ -46,9 +46,9 @@ const read_precise_temp = new Promise( (resolve, reject)=> {
 const read_co2 = new Promise((resolve, reject) => {
     console.log('Reading the CO2')
     PythonShell.run('co2.py', options, function (err, reply) {
-        if (err) throw err;
+        if (err) reject(err)
         parse_co2_data(reply)
-        return
+        resolve()
     });
 })
 
@@ -58,7 +58,7 @@ const read_co2 = new Promise((resolve, reject) => {
  */
 const read_scale = new Promise((resolve, reject) => {
     console.log('Reading the Scale')
-    return ['weight: 45lbs']
+    resolve(['weight: 45lbs'])
 })
 
 /**
@@ -66,13 +66,14 @@ const read_scale = new Promise((resolve, reject) => {
  * @param {Array} reply
  */
 const read_infrared = new Promise((resolve, reject) => {
-    return ["irTemp: 24C"]
+    resolve(["irTemp: 24C"])
 })
 
 const set_timestamp = new Promise((resolve, reject) => {
     console.log('Setting the timestamp');
     console.log(typeof Date.now())
     await set_environment_state('timestamp', Date.now())
+    resolve()
 })
 
 /**
