@@ -60,37 +60,39 @@ const validate_th_data = (data) => {
 /**
  * Set dht22 values to environment model
  */
-const set_dht22_values = new Promise((resolve) => {
-    switch (i) {
-        case 1:
-            set_environment_state('internal_humidity_1', data).then(resolve());
-            break
-        case 3:
-            set_environment_state('internal_humidity_2', data).then(resolve());
-            break
-        case 5:
-            set_environment_state('internal_humidity_3', data).then(resolve());
-            break
-        case 7:
-            set_environment_state('external_humidity', data).then(resolve());
-            break
-        case 9:
-            set_environment_state('internal_temp_1', data).then(resolve());
-            break
-        case 11:
-            set_environment_state('internal_temp_2', data).then(resolve());
-            break
-        case 13:
-            set_environment_state('internal_temp_3', data).then(resolve());
-            break
-        case 15:
-            set_environment_state('external_temp', data).then(resolve());
-            break
-        default:
-            console.log('set_dht22_values: Default')
-            break
-    }
-})
+const set_dht22_values = (i, data) => {
+    return new Promise((resolve) => {
+        switch (i) {
+            case 1:
+                set_environment_state('internal_humidity_1', data).then(resolve());
+                break
+            case 3:
+                set_environment_state('internal_humidity_2', data).then(resolve());
+                break
+            case 5:
+                set_environment_state('internal_humidity_3', data).then(resolve());
+                break
+            case 7:
+                set_environment_state('external_humidity', data).then(resolve());
+                break
+            case 9:
+                set_environment_state('internal_temp_1', data).then(resolve());
+                break
+            case 11:
+                set_environment_state('internal_temp_2', data).then(resolve());
+                break
+            case 13:
+                set_environment_state('internal_temp_3', data).then(resolve());
+                break
+            case 15:
+                set_environment_state('external_temp', data).then(resolve());
+                break
+            default:
+                console.log('set_dht22_values: Default')
+                break
+        }
+    })
+}
 
 module.exports = {
     parse_th_data,
