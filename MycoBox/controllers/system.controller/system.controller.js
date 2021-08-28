@@ -40,9 +40,9 @@ const newSession = async (config) => {
         if (!session_state.active_session) {
             console.log('Starting the Environment Manager')
             set_environment_config(config);
-            initialize_environment_state();
+            await initialize_environment_state();
             set_session_state('active_session', true);
-            environment_manager();
+            await environment_manager();
         } else {
             throw new Error('There is already an active session');
         }

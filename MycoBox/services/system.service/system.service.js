@@ -14,7 +14,7 @@ const {initialize_environment_state} = require("../../controllers/sensors.contro
  * ii. maintain PID states
  * iii. call each EM PID
  */
-const environment_manager = () => {
+const environment_manager = async () => {
     console.log('METHOD CALL: environment_manager')
     // #1. Validate the session is still active
     const active_session = validate_active_session();
@@ -22,7 +22,7 @@ const environment_manager = () => {
         // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
     
         // #3. calculate measured and generated a pid_config WHEN valid env_state returned
-        run_pid_controllers();
+        await run_pid_controllers();
     }
     return
 }
@@ -46,7 +46,7 @@ const get_state = () => {
  * @param {*} env_state 
  * @returns { temp, humidity, co2 }  
  */
-const run_pid_controllers = () => {
+const run_pid_controllers = async () => {
     // Don't move forward till you have a valid env_state
     const { env_config, pid_state } = get_state();  
     const validated = await validate_env_state()
