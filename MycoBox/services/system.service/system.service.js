@@ -54,6 +54,7 @@ const run_pid_controllers = () => {
     const { env_config, pid_state } = get_state();
     validate_env_state()
         .then(validation => {
+            console.log('makin bacon panckages ???????')
             if (validation) {
                 console.log('$$$$$$$$$$$$ The Environment State Was Validated $$$$$$$$$$$$')
                 const measured = calculate_measured(env_state);
