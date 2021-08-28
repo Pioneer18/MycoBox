@@ -138,7 +138,7 @@ const get = (section) => {
  * set globals section or element
  */
 const set_environment_config = (config) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         console.log('METHOD CALL: Set_environment_config')
         set_environment_config_validation(config)
             .then(globals.environment_config = config) // validate the config matches what is expected !!!
@@ -155,7 +155,7 @@ const set_environment_config = (config) => {
  * @param {*} config the config object to be validated
  */
 const set_environment_config_validation = (config) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         console.log('METHOD CALL: set_environment_config_validation')
         if (!config.spawn_running) throw new Error('Missing Spawn Running');
         if (!config.spawn_running.temperature) throw new Error('Missing Spawn Running: temperature')
@@ -195,7 +195,6 @@ const set_environment_config_validation = (config) => {
  * @param {*} value the value to set for the element
  */
 const set_environment_state = ((element, value) => {
-
     return new Promise((resolve) => {
         set_environment_state_validation(element, value)
             .then(() => globals.environment_state[element] = value)
@@ -240,13 +239,9 @@ const set_environment_state_validation = (element, value) => {
  */
 const set_session_state = (element, value) => {
     console.log('METHOD CALL: set_session_state');
-    try {
-        set_session_state_validation(element, value);
-        globals.session_state[element] = value
-        return
-    } catch (err) {
-        console.log('Error setting the session state: ' + err);
-    }
+    set_session_state_validation(element, value);
+    globals.session_state[element] = value
+    return
 }
 
 /**
