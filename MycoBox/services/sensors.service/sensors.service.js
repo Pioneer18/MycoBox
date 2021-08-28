@@ -13,7 +13,7 @@ const parse_th_data = new Promise((resolve) => {
     for (let i = 1; i < 16; i += 2) {
         validate_th_data(data[i])
             .then(set_dht22_values(i, data[i]))
-            .reject(err => `Error Caught: parse_th_data: ${err}`)
+            .catch()
     }
     resolve()
 })
