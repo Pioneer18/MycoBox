@@ -5,7 +5,7 @@
  */
 const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
 const { get } = require("../../globals/globals")
-const {initialize_environment_state} = require("../../controllers/sensors.controller/sensors.controller");
+const { initialize_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
 
 
 /**
@@ -18,10 +18,10 @@ const environment_manager = () => {
     console.log('METHOD CALL: environment_manager')
     // #1. Validate the session is still active and THEN
     validate_active_session()
-        .then(()=> {
+        .then(() => {
             console.log('Environment Manager Has Validated Session')
             // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
-        
+
             // #3. calculate measured and generated a pid_config WHEN valid env_state returned
             run_pid_controllers();
         })
@@ -51,7 +51,7 @@ const get_state = () => {
  */
 const run_pid_controllers = () => {
     // Don't move forward till you have a valid env_state
-    const { env_config, pid_state } = get_state();  
+    const { env_config, pid_state } = get_state();
     const validated = validate_env_state()
     // While validated is false, wait for 8 seconds and call it again
     while (!validated) {
@@ -82,7 +82,7 @@ const run_pid_controllers = () => {
  */
 const validate_env_state = () => {
     // get the latet environment state
-    const { env_state } = get('environment_state')  
+    const { env_state } = get('environment_state')
 
     console.log("METHOD CALL: validate_env_state")
     if (env_state.timestamp === 'Initial') {
@@ -106,12 +106,14 @@ const validate_env_state = () => {
  * validate that the session is still active
  * @returns true or false
  */
-const validate_active_session = new Promise((resolve, reject) => {
-    console.log('Validating Active Session *********************************************')
-    const session_state = get('session_state');
-    if (session_state.active_session) resolve()
-    reject('Session is not active')
-})
+const validate_active_session = () => {
+    return new Promise((resolve, reject) => {
+        console.log('Validating Active Session *********************************************')
+        const session_state = get('session_state');
+        if (session_state.active_session) resolve()
+        reject('Session is not active')
+    })
+}
 
 /**
  * check the status of the current session_state 'stage' (spawn running, primordia init, fruiting), then calculate and 
@@ -124,9 +126,9 @@ const process_session_state = async (measured) => {
 
 const calculate_measured = (env_state) => {
     console.log("METHOD CALL: calculate_measured")
-    return { 
-        temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2) ) + (parseFloat(env_state.precise_temp_c))) / 3,
-        humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2, 
+    return {
+        temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2)) + (parseFloat(env_state.precise_temp_c))) / 3,
+        humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2,
         co2: 500 // Debug the co2 meter so this isn't hardcoded
     }
 }
