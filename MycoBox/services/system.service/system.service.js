@@ -85,20 +85,30 @@ const validate_env_state = () => {
                 if (env_state.timestamp === 'Initial') {
                     console.log('Validate Env Recall: Timpestamp === Initial')
                     initialize_environment_state()
-                        .then(() => validate_env_state())
+                        .then(() => {
+                            setTimeout(() => {
+                                validate_env_state()
+                            }, 8000);
+                        })
                     // wait, and check again
                 }
                 if (env_state.internal_temp_1 === '') {
                     console.log('Validate Env Recall: Blank Env State')
                     initialize_environment_state()
-                        .then(() => validate_env_state())
+                        .then(() => {
+                            setTimeout(() => {
+                                validate_env_state()
+                            }, 8000);
+                        })
                 }
                 if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
                     console.log('Valid Env State!')
                     console.log(env_state);
-                    resolve(true)
+                    return true
                 }
             })
+            .then(result => resolve(result))
+
     })
 }
 
