@@ -31,25 +31,31 @@ const parse_pt_data = (reply) => {
     })
 }
 
-const parse_co2_data = new Promise((resolve, reject) => {
-    const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-    console.log('CO2 Data Below !!!!!!!!!')
-    console.log(data)
-    set_environment_state('co2', data[0])
-        .then(resolve())
-        .catch(err => console.log(`Error Caught: parse_co2_dta: ${err}`))
-})
+const parse_co2_data = (reply) => {
+    return new Promise((resolve) => {
+        const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
+        console.log('CO2 Data Below !!!!!!!!!')
+        console.log(data)
+        set_environment_state('co2', data[0])
+            .then(resolve())
+            .catch(err => console.log(`Error Caught: parse_co2_dta: ${err}`))
+    })
+}
 
 /**
  * Validate parsed sensor data
  * @param {Array} data e.g. ['43.55', 44.25, 43.40]
  */
-const validate_th_data = new Promise((resolve, reject) => {
-    if (typeof data !== typeof 'string') reject(`received temp/humidity value that is not a string, check the sensors! ${data}`)
-    if (data === '') reject(`received an empty value for temp/humidity, check the sensors! ${data}`)
-    if (data == null || data == undefined) reject(`uh oh, got a null or undefined sensor value, check the sensors! ${data}`)
-    resolve()
-})
+const validate_th_data = (data) => {
+    console.log("METHOD CALL: validate_th_data")
+    console.log(data)
+    return new Promise((resolve, reject) => {
+        if (typeof data !== typeof 'string') reject(`received temp/humidity value that is not a string, check the sensors! ${data}`)
+        if (data === '') reject(`received an empty value for temp/humidity, check the sensors! ${data}`)
+        if (data == null || data == undefined) reject(`uh oh, got a null or undefined sensor value, check the sensors! ${data}`)
+        resolve()
+    })
+}
 
 /**
  * Set dht22 values to environment model
