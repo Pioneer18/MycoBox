@@ -101,6 +101,7 @@ const validate_env_state = () => {
                         .then(() => {
                             setTimeout(() => {
                                 validate_env_state()
+                                return
                             }, 8000);
                         })
                 }
