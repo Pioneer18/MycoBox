@@ -23,7 +23,7 @@ const read_temp_humidity = new Promise((resolve, reject) => {
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) reject(err)
         parse_th_data(reply) // validate and load into env model
-        resolve();
+            .then(resolve())
     })
 })
 
@@ -35,7 +35,7 @@ const read_precise_temp = new Promise( (resolve, reject)=> {
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) reject(err)
         parse_pt_data(reply)
-        resolve()
+            .then(resolve())
     })
 })
 
@@ -48,7 +48,7 @@ const read_co2 = new Promise((resolve, reject) => {
     PythonShell.run('co2.py', options, function (err, reply) {
         if (err) reject(err)
         parse_co2_data(reply)
-        resolve()
+            .then(resolve())
     });
 })
 
@@ -72,28 +72,29 @@ const read_infrared = new Promise((resolve, reject) => {
 const set_timestamp = new Promise((resolve, reject) => {
     console.log('Setting the timestamp');
     console.log(typeof Date.now())
-    await set_environment_state('timestamp', Date.now())
-    resolve()
+    set_environment_state('timestamp', Date.now())
+        .then(resolve())
 })
 
 /**
  * Set Environment State
  */
-const initialize_environment_state = new Promise ((resolve, reject) =>{
+const initialize_environment_state = new Promise ((resolve) =>{
     console.log("METHOD CALL: initialize_environment_state")
     read_co2()
-    read_temp_humidity()
-    read_precise_temp()
-    read_scale() // make this real
-    read_infrared() // make this real
-    set_timestamp() 
-    
+        .then(read_temp_humidity())
+        .then(read_precise_temp())
+        .then(read_scale())
+        .then(read_infrared())
+        .then(set_timestamp())
+        .then(resolve)
+        .catch(err => console.log(`Error Caught: initialize_environment: ${err}`)) 
 })
 
 /**
  * Read Environment Model
  */
-const read_environment_state = async () => {
+const read_environment_state = new Promise((resolve, reject) => {
     const data =  get('environment_state');
     const env_state = {
         timestamp: data.timestamp,
@@ -111,7 +112,7 @@ const read_environment_state = async () => {
         weight: data.weight
     }
     return env_state;
-}
+})
 
 module.exports = {
     read_temp_humidity,
