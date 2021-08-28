@@ -138,15 +138,16 @@ const get = (section) => {
  * set globals section or element
  */
 const set_environment_config = (config) => {
-    try {
+    return new Promise((resolve, reject) => {
         console.log('METHOD CALL: Set_environment_config')
-        set_environment_config_validation(config);
-        // validate the config matches what is expected !!!
-        globals.environment_config = config;
-        return
-    } catch (err) {
-        console.log('Invalid Environment Config Given: ' + err);
-    }
+        set_environment_config_validation(config)
+            .then(globals.environment_config = config) // validate the config matches what is expected !!!
+            .then(resolve())
+            .catch(err => console.log('Error Caught: set_environment_config: ' + err))
+
+        console.log('Invalid Environment Config Given: ' + err)
+    })
+
 }
 
 /**
@@ -154,36 +155,38 @@ const set_environment_config = (config) => {
  * @param {*} config the config object to be validated
  */
 const set_environment_config_validation = (config) => {
-    console.log('METHOD CALL: set_environment_config_validation')
-    if (!config.spawn_running) throw new Error('Missing Spawn Running');
-    if (!config.spawn_running.temperature) throw new Error('Missing Spawn Running: temperature')
-    if (!config.spawn_running.humidity) throw new Error('Missing Spawn Running: humidity')
-    if (!config.spawn_running.co2) throw new Error('Missing Spawn Running: co2')
-    if (!config.spawn_running.circulation_top) throw new Error('Missing Spawn Running: circulation_top')
-    if (!config.spawn_running.circulation_bottom) throw new Error('Missing Spawn Running: circulation_bottom')
-    if (!config.spawn_running.lighting) throw new Error('Missing Spawn Running: lighting')
-    if (typeof config.spawn_running.trigger !== 'boolean') throw new Error('Missing Spawn Running: trigger')
-    if (!config.spawn_running.duration && config.spawn_running.duration !== null) throw new Error('Missing Spawn Running: duration')
-    if (!config.primordia_init) throw new Error('Missing Primordia Init')
-    if (!config.primordia_init.temperature) throw new Error('Missing Primordia Init: temperature')
-    if (!config.primordia_init.humidity) throw new Error('Missing Primordia Init: humidity')
-    if (!config.primordia_init.co2) throw new Error('Missing Primordia Init: co2')
-    if (!config.primordia_init.circulation_top) throw new Error('Missing Primordia Init: circulation_top')
-    if (!config.primordia_init.circulation_bottom) throw new Error('Missing Primordia Init: circulation_bottom')
-    if (!config.primordia_init.lighting) throw new Error('Missing Primordia Init: lighting')
-    if (typeof config.primordia_init.user_confirmed !== 'boolean') throw new Error('Missing Primordia Init: user_confirmed')
-    if (!config.primordia_init.duration) throw new Error('Missing Primordia Init: duration')
-    if (!config.fruiting) throw new Error('Missing Fruiting')
-    if (!config.fruiting.temperature) throw new Error('Missing Fruiting: temperature')
-    if (!config.fruiting.humidity) throw new Error('Missing Fruiting: humidity')
-    if (!config.fruiting.co2) throw new Error('Missing Fruiting: co2')
-    if (!config.fruiting.circulation_top) throw new Error('Missing Fruiting: circulation_top')
-    if (!config.fruiting.circulation_bottom) throw new Error('Missing Fruiting: circulation_bottom')
-    if (!config.fruiting.lighting) throw new Error('Missing Fruiting: lighting')
-    if (!config.fruiting.duration) throw new Error('Missing Fruiting: duration')
-    if (!config.fruiting.flushes) throw new Error('Missing Fruiting: flushes')
-    if (!config.fruiting.dormancy) throw new Error('Missing Fruiting: dormancy')
-    return
+    return new Promise((resolve, reject) => {
+        console.log('METHOD CALL: set_environment_config_validation')
+        if (!config.spawn_running) throw new Error('Missing Spawn Running');
+        if (!config.spawn_running.temperature) throw new Error('Missing Spawn Running: temperature')
+        if (!config.spawn_running.humidity) throw new Error('Missing Spawn Running: humidity')
+        if (!config.spawn_running.co2) throw new Error('Missing Spawn Running: co2')
+        if (!config.spawn_running.circulation_top) throw new Error('Missing Spawn Running: circulation_top')
+        if (!config.spawn_running.circulation_bottom) throw new Error('Missing Spawn Running: circulation_bottom')
+        if (!config.spawn_running.lighting) throw new Error('Missing Spawn Running: lighting')
+        if (typeof config.spawn_running.trigger !== 'boolean') throw new Error('Missing Spawn Running: trigger')
+        if (!config.spawn_running.duration && config.spawn_running.duration !== null) throw new Error('Missing Spawn Running: duration')
+        if (!config.primordia_init) throw new Error('Missing Primordia Init')
+        if (!config.primordia_init.temperature) throw new Error('Missing Primordia Init: temperature')
+        if (!config.primordia_init.humidity) throw new Error('Missing Primordia Init: humidity')
+        if (!config.primordia_init.co2) throw new Error('Missing Primordia Init: co2')
+        if (!config.primordia_init.circulation_top) throw new Error('Missing Primordia Init: circulation_top')
+        if (!config.primordia_init.circulation_bottom) throw new Error('Missing Primordia Init: circulation_bottom')
+        if (!config.primordia_init.lighting) throw new Error('Missing Primordia Init: lighting')
+        if (typeof config.primordia_init.user_confirmed !== 'boolean') throw new Error('Missing Primordia Init: user_confirmed')
+        if (!config.primordia_init.duration) throw new Error('Missing Primordia Init: duration')
+        if (!config.fruiting) throw new Error('Missing Fruiting')
+        if (!config.fruiting.temperature) throw new Error('Missing Fruiting: temperature')
+        if (!config.fruiting.humidity) throw new Error('Missing Fruiting: humidity')
+        if (!config.fruiting.co2) throw new Error('Missing Fruiting: co2')
+        if (!config.fruiting.circulation_top) throw new Error('Missing Fruiting: circulation_top')
+        if (!config.fruiting.circulation_bottom) throw new Error('Missing Fruiting: circulation_bottom')
+        if (!config.fruiting.lighting) throw new Error('Missing Fruiting: lighting')
+        if (!config.fruiting.duration) throw new Error('Missing Fruiting: duration')
+        if (!config.fruiting.flushes) throw new Error('Missing Fruiting: flushes')
+        if (!config.fruiting.dormancy) throw new Error('Missing Fruiting: dormancy')
+        resolve()
+    })
 }
 
 /**
@@ -195,7 +198,7 @@ const set_environment_state = ((element, value) => {
 
     return new Promise((resolve) => {
         set_environment_state_validation(element, value)
-            .then(()=> globals.environment_state[element] = value)
+            .then(() => globals.environment_state[element] = value)
             .then(resolve())
             .catch(err => console.log(`Error Caught: set_enviornment_state: ${err}`));
     });
