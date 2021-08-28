@@ -116,22 +116,24 @@ let globals = {
  * todo: add 'element' param, for searching section and element
  */
 const get = (section) => {
-    switch (section) {
-        case 'session_state':
-            return globals.session_state
-        case 'environment_config':
-            return globals.environment_config
-        case 'environment_state':
-            return globals.environment_state
-        case 'actuators_state':
-            return globals.actuators_state
-        case 'pid_state':
-            return globals.pid_state
-        case 'overrides':
-            return globals.overrides
-        default:
-            return null;
-    }
+    return new Promise((resolve) => {
+        switch (section) {
+            case 'session_state':
+                resolve(globals.session_state)
+            case 'environment_config':
+                resolve(globals.environment_config)
+            case 'environment_state':
+                resolve(globals.environment_state)
+            case 'actuators_state':
+                resolve(globals.actuators_state)
+            case 'pid_state':
+                resolve(globals.pid_state)
+            case 'overrides':
+                resolve(globals.overrides)
+            default:
+                resolve(null);
+        }
+    })
 }
 
 /**
@@ -214,7 +216,6 @@ const set_environment_state_validation = (element, value) => {
     return new Promise((resolve) => {
         console.log(`Validating the Environment State to be set`)
         console.log(element, value)
-        console.log(typeof element)
         if (element === 'timestamp' && typeof value === 'number') resolve()
         if (element === 'internal_temp_1' && typeof value === 'string') resolve()
         if (element === 'internal_temp_2' && typeof value === 'string') resolve()

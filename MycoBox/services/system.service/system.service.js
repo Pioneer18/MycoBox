@@ -82,24 +82,29 @@ const run_pid_controllers = () => {
  */
 const validate_env_state = () => {
     // get the latet environment state
-    const { env_state } = get('environment_state')
-
-    console.log("METHOD CALL: validate_env_state")
-    if (env_state.timestamp === 'Initial') {
-        console.log('Validate Env Recall: Timpestamp === Initial')
-        initialize_environment_state();
-        // wait, and check again
-    }
-    if (env_state.internal_temp_1 === '') {
-        console.log('Validate Env Recall: Blank Env State')
-        initialize_environment_state();
-    }
-    if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
-        console.log('Valid Env State!')
-        console.log(env_state);
-        return true
-    }
-    return;
+    
+    get('environment_state')
+    .then(env_state => {
+        console.log("METHOD CALL: validate_env_state")
+        console.log(env_state)
+        if (env_state.timestamp === 'Initial') {
+            console.log('Validate Env Recall: Timpestamp === Initial')
+            initialize_environment_state()
+                .then(validate_env_state())
+            // wait, and check again
+        }
+        if (env_state.internal_temp_1 === '') {
+            console.log('Validate Env Recall: Blank Env State')
+            initialize_environment_state()
+                .then(validate_env_state())
+        }
+        if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
+            console.log('Valid Env State!')
+            console.log(env_state);
+            resolve(true)
+        }
+        return;
+    })
 }
 
 /**
