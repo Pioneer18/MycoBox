@@ -27,29 +27,41 @@ const { environment_manager } = require("../../services/system.service/system.se
 const { initialize_environment_state } = require("../sensors.controller/sensors.controller")
 
 /**
+ * New Session: A promise to run the Environment Manager after the initial setup
 * Steps:
-* - Check the MycoBox 'System Status': If session already running then return error: session already active
+* - check if there is already an active session
 * - set the environment configuration
 * - Set the environment state with the sensors.controller
 * - Start this sessions environment manager; which will run for some long duration
 */
 
-const newSession = async (config) => {
-    try {
+function newSession(config) {
+    return new Promise ( (resolve, reject)=> {
         const session_state = get('session_state');
         if (!session_state.active_session) {
-            console.log('Starting the Environment Manager')
-            set_environment_config(config);
-            await initialize_environment_state();
-            set_session_state('active_session', true);
-            await environment_manager();
+            set_environment_config();
+            
         } else {
-            throw new Error('There is already an active session');
+            throw new Error('There is already an active session')
         }
-    } catch (err) {
-        console.log(`Failed to start a new session - Error: ${err}`);
-    }
 
+
+
+
+
+
+        // const session_state = get('session_state');
+        // if (!session_state.active_session) {
+        //     console.log('Starting the Environment Manager and setting session_state.active_session TRUE')
+        //     set_environment_config(config);
+        //     initialize_environment_state();
+        //     set_session_state('active_session', true);
+        //     await environment_manager();
+        // } else {
+        //     throw new Error('There is already an active session');
+        // }
+
+    });
 }
 
 // const endSession = () => {
