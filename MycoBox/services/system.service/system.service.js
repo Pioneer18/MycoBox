@@ -95,7 +95,7 @@ const validate_env_state = () => {
                 initialize_environment_state()
                     .then(() => {
                         setTimeout(() => {
-                            validate_env_state()
+                            validate_env_state() 
                         }, 8000);
                     })
                 // wait, and check again
@@ -105,7 +105,7 @@ const validate_env_state = () => {
                 initialize_environment_state()
                     .then(() => {
                         setTimeout(() => {
-                            validate_env_state()
+                            validate_env_state() 
                         }, 8000);
                     })
             }
