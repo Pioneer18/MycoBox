@@ -55,6 +55,7 @@ const run_pid_controllers = () => {
     const run_validation = new Promise ((resolve)=> {
         let result = validate_env_state()
         while (!result) {
+            console.log('testing testing testing')
             setTimeout(() => {
                 result = validate_env_state()
             }, 4000);
