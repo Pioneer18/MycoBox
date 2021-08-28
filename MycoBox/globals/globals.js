@@ -191,15 +191,16 @@ const set_environment_config_validation = (config) => {
  * @param {*} element evironment state element to set
  * @param {*} value the value to set for the element
  */
-const set_environment_state = async (element, value) => {
-    try {
+const set_environment_state = ((element, value) => {
+
+    return new Promise((resolve) => {
         set_environment_state_validation(element, value)
-        globals.environment_state[element] = value
-        return
-    } catch (err) {
-        console.log('Error Setting the environment state: ' + err);
-    }
-}
+            .then(()=> globals.environment_state[element] = value)
+            .then(resolve())
+            .catch(err => console.log(`Error Caught: set_enviornment_state: ${err}`));
+    });
+
+})
 
 /**
  * validate the incoming element and value
@@ -208,23 +209,25 @@ const set_environment_state = async (element, value) => {
  * @returns 
  */
 const set_environment_state_validation = (element, value) => {
-    console.log(`Validating the Environment State to be set`)
-    console.log(element, value)
-    console.log( typeof element)
-    if (element === 'timestamp' && typeof value === 'number') return
-    if (element === 'internal_temp_1' && typeof value === 'string') return
-    if (element === 'internal_temp_2' && typeof value === 'string') return
-    if (element === 'internal_temp_3' && typeof value === 'string') return
-    if (element === 'precise_temp_c' && typeof value === 'string') return
-    if (element === 'precise_temp_f' && typeof value === 'string') return
-    if (element === 'external_temp' && typeof value === 'string') return
-    if (element === 'internal_humidity_1' && typeof value === 'string') return
-    if (element === 'internal_humidity_2' && typeof value === 'string') return
-    if (element === 'internal_humidity_3' && typeof value === 'string') return
-    if (element === 'external_humidity' && typeof value === 'string') return
-    if (element === 'co2' && typeof value === 'string') return
-    if (element === 'weight' && typeof value === 'string') return
-    throw new Error('Invalid Environment State element or value given: ' + element, value);
+    return new Promise((resolve) => {
+        console.log(`Validating the Environment State to be set`)
+        console.log(element, value)
+        console.log(typeof element)
+        if (element === 'timestamp' && typeof value === 'number') resolve()
+        if (element === 'internal_temp_1' && typeof value === 'string') resolve()
+        if (element === 'internal_temp_2' && typeof value === 'string') resolve()
+        if (element === 'internal_temp_3' && typeof value === 'string') resolve()
+        if (element === 'precise_temp_c' && typeof value === 'string') resolve()
+        if (element === 'precise_temp_f' && typeof value === 'string') resolve()
+        if (element === 'external_temp' && typeof value === 'string') resolve()
+        if (element === 'internal_humidity_1' && typeof value === 'string') resolve()
+        if (element === 'internal_humidity_2' && typeof value === 'string') resolve()
+        if (element === 'internal_humidity_3' && typeof value === 'string') resolve()
+        if (element === 'external_humidity' && typeof value === 'string') resolve()
+        if (element === 'co2' && typeof value === 'string') resolve()
+        if (element === 'weight' && typeof value === 'string') resolve()
+        throw new Error('Invalid Environment State element or value given: ' + element, value);
+    })
 }
 
 /**
