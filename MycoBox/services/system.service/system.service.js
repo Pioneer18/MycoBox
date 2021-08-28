@@ -82,29 +82,29 @@ const run_pid_controllers = () => {
  */
 const validate_env_state = () => {
     // get the latet environment state
-    
+
     get('environment_state')
-    .then(env_state => {
-        console.log("METHOD CALL: validate_env_state")
-        console.log(env_state)
-        if (env_state.timestamp === 'Initial') {
-            console.log('Validate Env Recall: Timpestamp === Initial')
-            initialize_environment_state()
-                .then(validate_env_state())
-            // wait, and check again
-        }
-        if (env_state.internal_temp_1 === '') {
-            console.log('Validate Env Recall: Blank Env State')
-            initialize_environment_state()
-                .then(validate_env_state())
-        }
-        if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
-            console.log('Valid Env State!')
-            console.log(env_state);
-            resolve(true)
-        }
-        return;
-    })
+        .then(env_state => {
+            console.log("METHOD CALL: validate_env_state")
+            console.log(env_state)
+            if (env_state.timestamp === 'Initial') {
+                console.log('Validate Env Recall: Timpestamp === Initial')
+                initialize_environment_state()
+                    .then(validate_env_state())
+                // wait, and check again
+            }
+            if (env_state.internal_temp_1 === '') {
+                console.log('Validate Env Recall: Blank Env State')
+                initialize_environment_state()
+                    .then(validate_env_state())
+            }
+            if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
+                console.log('Valid Env State!')
+                console.log(env_state);
+                resolve(true)
+            }
+            return;
+        })
 }
 
 /**
@@ -112,11 +112,14 @@ const validate_env_state = () => {
  * @returns true or false
  */
 const validate_active_session = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         console.log('Validating Active Session *********************************************')
-        const session_state = get('session_state');
-        if (session_state.active_session) resolve()
-        reject('Session is not active')
+        get('session_state')
+            .then(session_state => {
+                if (session_state.active_session) resolve()
+            })
+            .catch(err => console.log('ERROR CAUGHT: validate_active_session: ' + err))
+
     })
 }
 
