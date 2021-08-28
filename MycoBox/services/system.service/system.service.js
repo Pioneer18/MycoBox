@@ -52,19 +52,7 @@ const get_state = () => {
 const run_pid_controllers = () => {
     console.log('Running PID Controllers now ------------------------------------------------------------------------')
     const { env_config, pid_state } = get_state();
-    const run_validation = new Promise ((resolve)=> {
-        let result = validate_env_state()
-        while (!result) {
-            console.log('testing testing testing')
-            setTimeout(() => {
-                result = validate_env_state()
-            }, 4000);
-        }
-        console.log('env_state is validated!')
-        resolve()
-        
-    })
-    run_validation
+    validate_env_state()
         .then(validation => {
             console.log('makin bacon panckages ???????')
             if (validation) {
@@ -79,7 +67,6 @@ const run_pid_controllers = () => {
                 return update_temperature(config)
             }
         })
-        .catch(err => console.log('ERROR CAUGHT: run_pid_controllers validation: ' + err))
 
 }
 
@@ -91,7 +78,7 @@ const run_pid_controllers = () => {
 const validate_env_state = () => {
     console.log('METHOD CALL: validate_env_state ----------------------–----------------------–----------------------–')
     // get the latet environment state
-
+    return new Promise((resolve) => {
         get('environment_state')
             .then(env_state => {
                 console.log("METHOD CALL: validate_env_state")
@@ -102,7 +89,6 @@ const validate_env_state = () => {
                         .then(() => {
                             setTimeout(() => {
                                 validate_env_state()
-                                return
                             }, 8000);
                         })
                 }
@@ -110,10 +96,11 @@ const validate_env_state = () => {
                     console.log('Valid Env State!')
                     console.log(env_state);
                     console.log('Should be resolving true now')
-                    return true
+                    resolve(true)
                 }
             })
 
+    })
 }
 
 /**
