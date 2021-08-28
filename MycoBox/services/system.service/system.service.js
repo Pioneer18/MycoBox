@@ -47,11 +47,19 @@ const get_state = () => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = () => {
-    console.log('Method Call: run_pid_controllers (Generate PID Config)');
-    const { env_config, env_state, pid_state } = get_state();    
-    const validated = validate_env_state(env_state)
-    console.log("Block till valid env_state returned) ---------------------------------------------------------------------------")
+    // Don't move forward till you have a valid env_state
+    const { env_config, pid_state } = get_state();  
+    const validated = await validate_env_state()
+    // While validated is false, wait for 8 seconds and call it again
+    while (!validated) {
+        setTimeout(() => {
+            console.log('------------------------ recalling validate_env_state ------------------------')
+            await validate_env_state()
+        }, 8000);
+    }
+
     if (validated === true) {
+        console.log('$$$$$$$$$$$$ The Environment State Was Validated $$$$$$$$$$$$')
         const measured = calculate_measured(env_state);
         // =========================================================================================================
         // todo: check for session stage (sr, pi, fr) 
@@ -69,17 +77,19 @@ const run_pid_controllers = () => {
  * @param {*} env_state 
  * @returns 
  */
-const validate_env_state = (env_state) => {
+const validate_env_state = async (env_state) => {
+    // get the latet environment state
+    const { env_state } = get('environment_state')  
+
     console.log("METHOD CALL: validate_env_state")
     if (env_state.timestamp === 'Initial') {
         console.log('Validate Env Recall: Timpestamp === Initial')
-        const signal = initialize_environment_state();
-        if (signal) run_pid_controllers();
+        await initialize_environment_state();
+        // wait, and check again
     }
     if (env_state.internal_temp_1 === '') {
         console.log('Validate Env Recall: Blank Env State')
-        const signal = initialize_environment_state();
-        if (signal) run_pid_controllers();
+        await initialize_environment_state();
     }
     if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
         console.log('Valid Env State!')

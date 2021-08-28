@@ -86,7 +86,7 @@ const initialize_environment_state = async () => {
     await read_scale() // make this real
     await read_infrared() // make this real
     await set_timestamp() 
-    return true;
+    return
 }
 
 /**
