@@ -54,7 +54,7 @@ const run_pid_controllers = async () => {
     while (!validated) {
         setTimeout(() => {
             console.log('------------------------ recalling validate_env_state ------------------------')
-            await validate_env_state()
+            validate_env_state()
         }, 8000);
     }
 
