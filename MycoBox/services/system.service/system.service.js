@@ -52,7 +52,18 @@ const get_state = () => {
 const run_pid_controllers = () => {
     console.log('Running PID Controllers now ------------------------------------------------------------------------')
     const { env_config, pid_state } = get_state();
-    validate_env_state()
+    const run_validation = new Promise ((resolve)=> {
+        let result = validate_env_state()
+        while (!result) {
+            setTimeout(() => {
+                result = validate_env_state()
+            }, 4000);
+        }
+        console.log('env_state is validated!')
+        resolve()
+        
+    })
+    run_validation
         .then(validation => {
             console.log('makin bacon panckages ???????')
             if (validation) {
@@ -67,6 +78,7 @@ const run_pid_controllers = () => {
                 return update_temperature(config)
             }
         })
+        .catch(err => console.log('ERROR CAUGHT: run_pid_controllers validation: ' + err))
 
 }
 
@@ -99,7 +111,6 @@ const validate_env_state = () => {
                     return true
                 }
             })
-            .then(resolve())
 
 }
 
