@@ -50,9 +50,12 @@ const get_state = () => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = () => {
+    console.log('Running PID Controllers now')
     // Don't move forward till you have a valid env_state
     const { env_config, pid_state } = get_state();
     const validated = validate_env_state()
+    console.log('Validated');
+    console.log(validated);
     // While validated is false, wait for 8 seconds and call it again
     while (!validated) {
         setTimeout(() => {
@@ -81,9 +84,9 @@ const run_pid_controllers = () => {
  * @returns 
  */
 const validate_env_state = () => {
+    console.log('METHOD CALL: validate_env_state ----------------------–----------------------–----------------------–')
     // get the latet environment state
-
-    get('environment_state')
+    return get('environment_state')
         .then(env_state => {
             console.log("METHOD CALL: validate_env_state")
             console.log(env_state)
@@ -103,7 +106,6 @@ const validate_env_state = () => {
                 console.log(env_state);
                 resolve(true)
             }
-            return;
         })
 }
 
@@ -119,7 +121,6 @@ const validate_active_session = () => {
                 if (session_state.active_session) resolve()
             })
             .catch(err => console.log('ERROR CAUGHT: validate_active_session: ' + err))
-
     })
 }
 
