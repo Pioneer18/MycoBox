@@ -191,7 +191,7 @@ const set_environment_config_validation = (config) => {
  * @param {*} element evironment state element to set
  * @param {*} value the value to set for the element
  */
-const set_environment_state = (element, value) => {
+const set_environment_state = async (element, value) => {
     try {
         set_environment_state_validation(element, value)
         globals.environment_state[element] = value

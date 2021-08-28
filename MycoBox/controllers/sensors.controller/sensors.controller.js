@@ -18,11 +18,11 @@ let options = {
  * DHT22 Temperature & humidity readings - internal & external
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
-const read_temp_humidity = () => {
+const read_temp_humidity = async () => {
     console.log('Reading the Temp & Humidity')
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err;
-        parse_th_data(reply) // validate and load into env model
+        await parse_th_data(reply) // validate and load into env model
         return
     })
 }
@@ -30,11 +30,11 @@ const read_temp_humidity = () => {
 /**
  * MAX31855 Temperature - internal precise temp
  */
-const read_precise_temp = () => {
+const read_precise_temp = async () => {
     console.log("Reading the Precise Temp")
     PythonShell.run('temp.precise.py', options, function (err, reply) {
         if (err) throw err
-        parse_pt_data(reply)
+        await parse_pt_data(reply)
         return
     })
 }
@@ -43,11 +43,11 @@ const read_precise_temp = () => {
  * CO2 readings from COZIR-A sensor
  * @param {Array} reply ["CO2 PPM = 536.0"]
  */
-const read_co2 = () => {
+const read_co2 = async () => {
     console.log('Reading the CO2')
     PythonShell.run('co2.py', options, function (err, reply) {
         if (err) throw err;
-        parse_co2_data(reply)
+        await parse_co2_data(reply)
         return
     });
 }
@@ -56,7 +56,7 @@ const read_co2 = () => {
  * Weight readings from Esp8266 scale ** HTTP or Serial request
  * @param {Array} reply
  */
-const read_scale = () => {
+const read_scale = async () => {
     console.log('Reading the Scale')
     return ['weight: 45lbs']
 }
@@ -65,27 +65,27 @@ const read_scale = () => {
  * Infrared Temp readings - grow bags
  * @param {Array} reply
  */
-const read_infrared = () => {
+const read_infrared = async () => {
     return ["irTemp: 24C"]
 }
 
 const set_timestamp = async () => {
     console.log('Setting the timestamp');
     console.log(typeof Date.now())
-    set_environment_state('timestamp', Date.now())
+    await set_environment_state('timestamp', Date.now())
 }
 
 /**
  * Set Environment State
  */
-const initialize_environment_state = () => {
+const initialize_environment_state = async () => {
     console.log("METHOD CALL: initialize_environment_state")
-    read_co2()
-    read_temp_humidity()
-    read_precise_temp()
-    read_scale() // make this real
-    read_infrared() // make this real
-    set_timestamp() 
+    await read_co2()
+    await read_temp_humidity()
+    await read_precise_temp()
+    await read_scale() // make this real
+    await read_infrared() // make this real
+    await set_timestamp() 
     return true;
 }
 
@@ -93,7 +93,7 @@ const initialize_environment_state = () => {
  * Read Environment Model
  */
 const read_environment_state = async () => {
-    const data = get('environment_state');
+    const data =  get('environment_state');
     const env_state = {
         timestamp: data.timestamp,
         internal_temp_1: data.internal_temp_1,
