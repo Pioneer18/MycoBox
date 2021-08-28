@@ -2,7 +2,7 @@
  * Sensors Controller
  */
 const { PythonShell } = require('python-shell');
-const {get, set_environment_state} =require('../../globals/globals')
+const { get, set_environment_state } = require('../../globals/globals')
 const {
     parse_th_data,
     parse_pt_data,
@@ -18,84 +18,98 @@ let options = {
  * DHT22 Temperature & humidity readings - internal & external
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
-const read_temp_humidity = new Promise((resolve, reject) => {
-    console.log('Reading the Temp & Humidity')
-    PythonShell.run('temp.humidity.py', options, function (err, reply) {
-        if (err) reject(err)
-        parse_th_data(reply) // validate and load into env model
-            .then(resolve())
+const read_temp_humidity = () => {
+    return new Promise((resolve, reject) => {
+        console.log('Reading the Temp & Humidity')
+        PythonShell.run('temp.humidity.py', options, function (err, reply) {
+            if (err) reject(err)
+            parse_th_data(reply) // validate and load into env model
+                .then(resolve())
+        })
     })
-})
+}
 
 /**
  * MAX31855 Temperature - internal precise temp
  */
-const read_precise_temp = new Promise( (resolve, reject)=> {
-    console.log("Reading the Precise Temp")
-    PythonShell.run('temp.precise.py', options, function (err, reply) {
-        if (err) reject(err)
-        parse_pt_data(reply)
-            .then(resolve())
+const read_precise_temp = () => {
+    return new Promise((resolve, reject) => {
+        console.log("Reading the Precise Temp")
+        PythonShell.run('temp.precise.py', options, function (err, reply) {
+            if (err) reject(err)
+            parse_pt_data(reply)
+                .then(resolve())
+        })
     })
-})
+}
 
 /**
  * CO2 readings from COZIR-A sensor
  * @param {Array} reply ["CO2 PPM = 536.0"]
  */
-const read_co2 = new Promise((resolve, reject) => {
-    console.log('Reading the CO2')
-    PythonShell.run('co2.py', options, function (err, reply) {
-        if (err) reject(err)
-        parse_co2_data(reply)
-            .then(resolve())
-    });
-})
+const read_co2 = () => {
+    return new Promise((resolve, reject) => {
+        console.log('Reading the CO2')
+        PythonShell.run('co2.py', options, function (err, reply) {
+            if (err) reject(err)
+            parse_co2_data(reply)
+                .then(resolve())
+        });
+    })
+}
 
 /**
  * Weight readings from Esp8266 scale ** HTTP or Serial request
  * @param {Array} reply
  */
-const read_scale = new Promise((resolve, reject) => {
-    console.log('Reading the Scale')
-    resolve(['weight: 45lbs'])
-})
+const read_scale = () => {
+    return new Promise((resolve, reject) => {
+        console.log('Reading the Scale')
+        resolve(['weight: 45lbs'])
+    })
+}
 
 /**
  * Infrared Temp readings - grow bags
  * @param {Array} reply
  */
-const read_infrared = new Promise((resolve, reject) => {
-    resolve(["irTemp: 24C"])
-})
+const read_infrared = () => {
+    return new Promise((resolve, reject) => {
+        resolve(["irTemp: 24C"])
+    })
+}
 
-const set_timestamp = new Promise((resolve, reject) => {
-    console.log('Setting the timestamp');
-    console.log(typeof Date.now())
-    set_environment_state('timestamp', Date.now())
-        .then(resolve())
-})
+const set_timestamp = () => {
+    return new Promise((resolve, reject) => {
+        console.log('Setting the timestamp');
+        console.log(typeof Date.now())
+        set_environment_state('timestamp', Date.now())
+            .then(resolve())
+    })
+}
 
 /**
  * Set Environment State
  */
-const initialize_environment_state = new Promise ((resolve) =>{
-    console.log("METHOD CALL: initialize_environment_state")
-    read_co2()
-        .then(read_temp_humidity())
-        .then(read_precise_temp())
-        .then(read_scale())
-        .then(read_infrared())
-        .then(set_timestamp())
-        .then(resolve)
-        .catch(err => console.log(`Error Caught: initialize_environment: ${err}`)) 
-})
+const initialize_environment_state = () => {
+    return new Promise((resolve) => {
+        console.log("METHOD CALL: initialize_environment_state")
+        read_co2()
+            .then(read_temp_humidity())
+            .then(read_precise_temp())
+            .then(read_scale())
+            .then(read_infrared())
+            .then(set_timestamp())
+            .then(resolve)
+            .catch(err => console.log(`Error Caught: initialize_environment: ${err}`))
+    })
+}
 
 /**
  * Read Environment Model
  */
 const read_environment_state = new Promise((resolve, reject) => {
-    const data =  get('environment_state');
+    const data = get('environment_state');
     const env_state = {
         timestamp: data.timestamp,
         internal_temp_1: data.internal_temp_1,
