@@ -78,7 +78,7 @@ const run_pid_controllers = () => {
 const validate_env_state = () => {
     console.log('METHOD CALL: validate_env_state ----------------------–----------------------–----------------------–')
     // get the latet environment state
-    return new Promise((resolve) => {
+
         get('environment_state')
             .then(env_state => {
                 console.log("METHOD CALL: validate_env_state")
@@ -96,11 +96,11 @@ const validate_env_state = () => {
                     console.log('Valid Env State!')
                     console.log(env_state);
                     console.log('Should be resolving true now')
-                    return resolve(true)
+                    return true
                 }
             })
+            .then(resolve())
 
-    })
 }
 
 /**
