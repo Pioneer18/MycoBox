@@ -50,31 +50,22 @@ const get_state = () => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = () => {
-    console.log('Running PID Controllers now')
-    // Don't move forward till you have a valid env_state
+    console.log('Running PID Controllers now ------------------------------------------------------------------------')
     const { env_config, pid_state } = get_state();
-    const validated = validate_env_state()
-    console.log('Validated');
-    console.log(validated);
-    // While validated is false, wait for 8 seconds and call it again
-    while (!validated) {
-        setTimeout(() => {
-            console.log('------------------------ recalling validate_env_state ------------------------')
-            validate_env_state()
-        }, 8000);
-    }
-
-    if (validated === true) {
-        console.log('$$$$$$$$$$$$ The Environment State Was Validated $$$$$$$$$$$$')
-        const measured = calculate_measured(env_state);
-        // =========================================================================================================
-        // todo: check for session stage (sr, pi, fr) 
-        // generate config for each controller: add the other controller functions for this
-        const config = temp_pid_controller_config(measured, env_config.spawn_running, pid_state.temperature)
-        // =========================================================================================================
-        console.log('Call Each PID');
-        return update_temperature(config)
-    }
+    validate_env_state()
+        .then(validation => {
+            if (validation) {
+                console.log('$$$$$$$$$$$$ The Environment State Was Validated $$$$$$$$$$$$')
+                const measured = calculate_measured(env_state);
+                // =========================================================================================================
+                // todo: check for session stage (sr, pi, fr) 
+                // generate config for each controller: add the other controller functions for this
+                const config = temp_pid_controller_config(measured, env_config.spawn_running, pid_state.temperature)
+                // =========================================================================================================
+                console.log('Call Each PID');
+                return update_temperature(config)
+            }
+        })
 
 }
 
@@ -86,35 +77,37 @@ const run_pid_controllers = () => {
 const validate_env_state = () => {
     console.log('METHOD CALL: validate_env_state ----------------------–----------------------–----------------------–')
     // get the latet environment state
-    return get('environment_state')
-        .then(env_state => {
-            console.log("METHOD CALL: validate_env_state")
-            console.log(env_state)
-            if (env_state.timestamp === 'Initial') {
-                console.log('Validate Env Recall: Timpestamp === Initial')
-                initialize_environment_state()
-                    .then(() => {
-                        setTimeout(() => {
-                            validate_env_state() 
-                        }, 8000);
-                    })
-                // wait, and check again
-            }
-            if (env_state.internal_temp_1 === '') {
-                console.log('Validate Env Recall: Blank Env State')
-                initialize_environment_state()
-                    .then(() => {
-                        setTimeout(() => {
-                            validate_env_state() 
-                        }, 8000);
-                    })
-            }
-            if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
-                console.log('Valid Env State!')
-                console.log(env_state);
-                resolve(true)
-            }
-        })
+    return new Promise((resolve) => {
+        get('environment_state')
+            .then(env_state => {
+                console.log("METHOD CALL: validate_env_state")
+                console.log(env_state)
+                if (env_state.timestamp === 'Initial') {
+                    console.log('Validate Env Recall: Timpestamp === Initial')
+                    initialize_environment_state()
+                        .then(() => {
+                            setTimeout(() => {
+                                validate_env_state()
+                            }, 8000);
+                        })
+                    // wait, and check again
+                }
+                if (env_state.internal_temp_1 === '') {
+                    console.log('Validate Env Recall: Blank Env State')
+                    initialize_environment_state()
+                        .then(() => {
+                            setTimeout(() => {
+                                validate_env_state()
+                            }, 8000);
+                        })
+                }
+                if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
+                    console.log('Valid Env State!')
+                    console.log(env_state);
+                    resolve(true)
+                }
+            })
+    })
 }
 
 /**
