@@ -290,7 +290,7 @@ const set_pid_state_validation = (controller, state) => {
         if (!state.lastError || typeof state.lastError !== 'number') throw new Error('Invalid lastError provided')
         if (!state.lastTime || typeof state.lastTime !== 'number') throw new Error('Invalid lastTime provided')
     } catch (err) {
-        throw new Error('Invalid controller or state given: ');
+        throw new Error('Invalid controller or state given: ' + err);
     }
 }
 
