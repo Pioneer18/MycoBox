@@ -39,7 +39,7 @@ const update_temperature = (config) => {
         const value = tempController.update();
         console.log('The calculated Update Value')
         console.log(value);
-        return
+        return value
  
 }
 

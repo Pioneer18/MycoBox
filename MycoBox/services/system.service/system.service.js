@@ -24,7 +24,8 @@ const environment_manager = () => {
 
             // #3. calculate measured and generated a pid_config WHEN valid env_state returned
             run_pid_controllers()
-            
+                .then(data => console.log('Run Pid Has finished ' + data))
+
         })
 
     return
