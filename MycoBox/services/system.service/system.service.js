@@ -37,10 +37,10 @@ const environment_manager = () => {
 const get_state = () => {
     console.log("Method Call: get_state")
     return {
-        env_config: get('environment_config'),
-        env_state: get('environment_state'),
-        pid_state: get('pid_state'),
-        session_state: get('session_state')
+        env_config: get('environment_config').then(env_config => env_config),
+        env_state: get('environment_state').then( environment_state => environment_state),
+        pid_state: get('pid_state').then( pid_state => pid_state),
+        session_state: get('session_state').then( session_state => session_state)
     }
 }
 
