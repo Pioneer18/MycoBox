@@ -14,7 +14,7 @@ html, body {
     flex-direction: column;
     justify-content: space-around;
     height: 100%;
-    background-color: green;
+    background-color: #32de84;
 }
 
 .sensor_panel--output {
