@@ -27,12 +27,4 @@ const insert_sensor_values = async () => {
     document.getElementById('weight').innerHTML = values['weight']
 }
 
-const run_dashboard = () => {
-    while (active_session) {
-        setTimeout(() => {
-            insert_sensor_values()
-        }, 6000);
-    }
-}
-
-run_dashboard()
+insert_sensor_values()
