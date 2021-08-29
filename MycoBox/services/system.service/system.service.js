@@ -24,7 +24,15 @@ const environment_manager = () => {
 
             // #3. calculate measured and generated a pid_config WHEN valid env_state returned
             run_pid_controllers()
-                .then(data => console.log('Run Pid Has finished ' + data))
+                .then(data => {
+                    console.log('Run Pid Has finished ' + data)
+                    // run the appropriate actuator python-shell
+                    if(data < 0) {
+                        console.log('Airconditioner Turning On: Setpoint is below the measure')
+                    } else {
+                        console.log('Heater Turning On: Setpoint is above the measured')
+                    }
+                })
 
         })
 
