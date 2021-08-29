@@ -55,9 +55,10 @@ const run_pid_controllers = () => {
     validate_env_state()
         .then(validation => {
             console.log('makin bacon panckages ???????')
-            if (validation[0]) {
+            console.log(validation)
+            if (validation) {
                 console.log('$$$$$$$$$$$$ The Environment State Was Validated $$$$$$$$$$$$')
-                const measured = calculate_measured(validation[1]);
+                const measured = calculate_measured(env_state);
                 // =========================================================================================================
                 // todo: check for session stage (sr, pi, fr) 
                 // generate config for each controller: add the other controller functions for this
@@ -96,7 +97,7 @@ const validate_env_state = () => {
                     console.log('Valid Env State!')
                     console.log(env_state);
                     console.log('Should be resolving true now')
-                    return resolve([true, env_state])
+                    return resolve(true)
                 }
             })
 
@@ -119,7 +120,7 @@ const recheck_env_state = (resolve) => {
                 console.log('Valid Env State!')
                 console.log(env_state);
                 console.log('Should be resolving true now')
-                return resolve([true, env_state])
+                return resolve(true)
             }
         })
 }
