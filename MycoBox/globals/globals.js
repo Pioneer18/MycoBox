@@ -283,10 +283,10 @@ const set_pid_state_validation = (controller, state) => {
     try {
         console.log('Validating the PID State')
         console.log(controller)
-        console.log(state)
+        console.log(state.integralOfError)
         if (!controller || !state) throw new Error('Either the controller or state has not been provided');
         if (typeof controller !== 'string') throw new Error('Invalid controller given, not a string');
-        if (!state['integralOfError'] || typeof state['integralOfError'] !== 'string') throw new Error('Invalid integralOfError provided')
+        if (!state.integralOfError || typeof state.integralOfError !== 'string') throw new Error('Invalid integralOfError provided')
         if (!state.lastError || typeof state.lastError !== 'number') throw new Error('Invalid lastError provided')
         if (!state.lastTime || typeof state.lastTime !== 'number') throw new Error('Invalid lastTime provided')
     } catch (err) {
