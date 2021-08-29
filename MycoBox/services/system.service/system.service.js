@@ -58,7 +58,7 @@ const run_pid_controllers = () => {
             console.log(validation)
             if (validation.validation) {
                 console.log('$$$$$$$$$$$$ The Environment State Was Validated $$$$$$$$$$$$')
-                const measured = calculate_measured(env_state);
+                const measured = calculate_measured(validation.env_state);
                 // =========================================================================================================
                 // todo: check for session stage (sr, pi, fr) 
                 // generate config for each controller: add the other controller functions for this
