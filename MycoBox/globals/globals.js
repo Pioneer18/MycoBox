@@ -199,16 +199,7 @@ const set_environment_config_validation = (config) => {
 const set_environment_state = ((element, value) => {
     return new Promise((resolve) => {
         set_environment_state_validation(element, value)
-            .then(() => {
-                if(typeof value === 'number') {
-                    console.log('++++++++++++++++++++++++++++++++++++ Rounding to 2 ++++++++++++++++++++++++++++++++++++')
-                    console.log(value)
-                    console.log(Math.round(value))
-                    console.log(Math.round((value * 100) / 100))
-                    globals.environment_state[element] =  Math.round((value + Number.EPSILON) * 100) / 100
-                }
-                globals.environment_state[element] = value
-            })
+            .then(() => globals.environment_state[element] = value)
             .then(resolve())
             .catch(err => console.log(`Error Caught: set_enviornment_state: ${err}`));
     });
