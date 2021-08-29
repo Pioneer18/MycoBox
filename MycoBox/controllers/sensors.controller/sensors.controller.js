@@ -131,6 +131,19 @@ const read_environment_state = () => {
     })
 }
 
+const clean_environment_state = (env_state) => {
+    console.log('env_state before vvvvvvvvvvvvvvvvvvvvvvvvvv')
+    console.log(env_state)
+    for (x in env_state) {
+        if (typeof env_state[x] === 'number'){
+            env_state[x] = Math.round((env_state[x] + Number.EPSILON) * 100) / 100;
+            console.log(env_state[x]);
+        }
+    }
+    console.log('env_state after ^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+    return env_state
+}
+
 module.exports = {
     read_temp_humidity,
     read_precise_temp,
