@@ -21,7 +21,7 @@ let options = {
 const read_temp_humidity = () => {
     return new Promise((resolve, reject) => {
         console.log('Reading the Temp & Humidity')
-        PythonShell.run('tsensors/emp.humidity.py', options, function (err, reply) {
+        PythonShell.run('temp.humidity.py', options, function (err, reply) {
             if (err) reject(err)
             parse_th_data(reply) // validate and load into env model
                 .then(resolve())
@@ -35,7 +35,7 @@ const read_temp_humidity = () => {
 const read_precise_temp = () => {
     return new Promise((resolve, reject) => {
         console.log("Reading the Precise Temp")
-        PythonShell.run('sensors/temp.precise.py', options, function (err, reply) {
+        PythonShell.run('temp.precise.py', options, function (err, reply) {
             if (err) reject(err)
             parse_pt_data(reply)
                 .then(resolve())
@@ -50,7 +50,7 @@ const read_precise_temp = () => {
 const read_co2 = () => {
     return new Promise((resolve, reject) => {
         console.log('Reading the CO2')
-        PythonShell.run('sensors/co2.py', options, function (err, reply) {
+        PythonShell.run('co2.py', options, function (err, reply) {
             if (err) reject(err)
             parse_co2_data(reply)
                 .then(resolve())
