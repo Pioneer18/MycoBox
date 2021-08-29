@@ -62,6 +62,9 @@ const run_pid_controllers = () => {
                 // =========================================================================================================
                 // todo: check for session stage (sr, pi, fr) 
                 // generate config for each controller: add the other controller functions for this
+                console.log('Here are the params for temp_pid_controller_config')
+                console.log(env_config)
+                console.log(pid_state)
                 const config = temp_pid_controller_config(measured, env_config.spawn_running, pid_state.temperature)
                 // =========================================================================================================
                 console.log('Call Each PID');
