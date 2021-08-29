@@ -55,7 +55,7 @@ Promise.all([promise1, promise2, promise3]).then((values) => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = () => {
-    console.log('Running PID Controllers now ------------------------------------------------------------------------')
+    console.log('Running PID Controllers now ------------------------------------------------------------------------') 
     validate_env_state()
         .then(validation => {
             console.log('makin bacon panckages ???????')
