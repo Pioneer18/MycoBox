@@ -108,25 +108,28 @@ const initialize_environment_state = () => {
 /**
  * Read Environment Model
  */
-const read_environment_state = new Promise((resolve, reject) => {
-    const data = get('environment_state');
-    const env_state = {
-        timestamp: data.timestamp,
-        internal_temp_1: data.internal_temp_1,
-        internal_temp_2: data.internal_temp_2,
-        internal_temp_3: data.internal_temp_3,
-        precise_temp_c: data.precise_temp_c,
-        precise_temp_f: data.precise_temp_f,
-        external_temp: data.external_temp,
-        internal_humidity_1: data.internal_humidity_1,
-        internal_humidity_2: data.internal_humidity_2,
-        internal_humidity_3: data.internal_humidity_3,
-        external_humidity: data.external_humidity,
-        co2: data.co2,
-        weight: data.weight
-    }
-    return env_state;
-})
+const read_environment_state = () => {
+    new Promise((resolve) => {
+        get('environment_state')
+            .then(env_state => {
+                return resolve({
+                    timestamp: env_state.timestamp,
+                    internal_temp_1: env_state.internal_temp_1,
+                    internal_temp_2: env_state.internal_temp_2,
+                    internal_temp_3: env_state.internal_temp_3,
+                    precise_temp_c: env_state.precise_temp_c,
+                    precise_temp_f: env_state.precise_temp_f,
+                    external_temp: env_state.external_temp,
+                    internal_humidity_1: env_state.internal_humidity_1,
+                    internal_humidity_2: env_state.internal_humidity_2,
+                    internal_humidity_3: env_state.internal_humidity_3,
+                    external_humidity: env_state.external_humidity,
+                    co2: env_state.co2,
+                    weight: env_state.weight
+                })
+            })
+    })
+}
 
 module.exports = {
     read_temp_humidity,
