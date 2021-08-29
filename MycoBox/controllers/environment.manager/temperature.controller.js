@@ -33,7 +33,6 @@ const { TempPidController } = require('../../services/environment.manager/temper
  * } config the previous (or initial) report & the incoming
  */
 const update_temperature = (config) => {
-    try {
         // initialize the controller
         const tempController = new TempPidController(config);
         // update the actuator
@@ -41,9 +40,7 @@ const update_temperature = (config) => {
         console.log('The calculated Update Value')
         console.log(value);
         return
-    } catch (err) {
-        console.log(`Error: ${err}`)
-    }
+ 
 }
 
 /**

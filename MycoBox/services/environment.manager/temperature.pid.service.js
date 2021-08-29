@@ -30,7 +30,7 @@
         console.log(this)
     }
 
-    async update() {
+    update() {
         console.log('Hello World Update() attempt --------------')
         // find the interval of time between previous and current reading
         const {dt, currentTime} = this.calculate_dt(this.lastTime);
