@@ -55,7 +55,7 @@ const run_pid_controllers = () => {
     validate_env_state()
         .then(validation => {
             console.log('makin bacon panckages ???????')
-            console.log(validation)
+            console.log(validation['env_state'])
             if (validation.validation) {
                 console.log('$$$$$$$$$$$$ The Environment State Was Validated $$$$$$$$$$$$')
                 const measured = calculate_measured(validation.env_state);
@@ -157,6 +157,7 @@ const process_session_state = async (measured) => {
 
 const calculate_measured = (env_state) => {
     console.log("METHOD CALL: calculate_measured")
+    console.log(env_state)
     return {
         temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2)) + (parseFloat(env_state.precise_temp_c))) / 3,
         humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2,
