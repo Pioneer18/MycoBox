@@ -25,9 +25,6 @@ const environment_manager = () => {
             // #3. calculate measured and generated a pid_config WHEN valid env_state returned
             run_pid_controllers();
         })
-        .then(()=>{
-            console.log('************************** Post PID Processor **************************')
-        })
 
     return
 }
@@ -44,11 +41,11 @@ const get_state = () => {
 const promise1 = Promise.resolve(3);
 const promise2 = 42;
 const promise3 = new Promise((resolve, reject) => {
-  setTimeout(resolve, 100, 'foo');
+    setTimeout(resolve, 100, 'foo');
 });
 
 Promise.all([promise1, promise2, promise3]).then((values) => {
-  console.log(values);
+    console.log(values);
 });
 
 /**
@@ -57,28 +54,30 @@ Promise.all([promise1, promise2, promise3]).then((values) => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = () => {
-    console.log('Running PID Controllers now ------------------------------------------------------------------------') 
-    validate_env_state()
-        .then(validation => {
-            console.log('makin bacon panckages ???????')
-            console.log(validation['env_state'])
-            if (validation.validation) {
-                console.log('$$$$$$$$$$$$ The Environment State Was Validated $$$$$$$$$$$$')
-                const measured = calculate_measured(validation.env_state);
-                // =========================================================================================================
-                // todo: check for session stage (sr, pi, fr) 
-                // generate config for each controller: add the other controller functions for this
-                get_state()
-                    .then(state => {
-                        console.log('Here is the state!!!!!!!!!!!!!!')
-                        console.log(state)
-                        const config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
-                        console.log('Call Each PID');
-                        return update_temperature(config)
-                    })
-            }
-        })
-
+    console.log('Running PID Controllers now ------------------------------------------------------------------------')
+    return new Promise((resolve) => {
+        validate_env_state()
+            .then(validation => {
+                console.log('makin bacon panckages ???????')
+                console.log(validation['env_state'])
+                if (validation.validation) {
+                    console.log('$$$$$$$$$$$$ The Environment State Was Validated $$$$$$$$$$$$')
+                    const measured = calculate_measured(validation.env_state);
+                    // =========================================================================================================
+                    // todo: check for session stage (sr, pi, fr) 
+                    // generate config for each controller: add the other controller functions for this
+                    get_state()
+                        .then(state => {
+                            console.log('Here is the state!!!!!!!!!!!!!!')
+                            console.log(state)
+                            const config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
+                            console.log('Call Each PID');
+                            return update_temperature(config)
+                        })
+                        .then(results => resolve(results))
+                }
+            })
+    })
 }
 
 /**
