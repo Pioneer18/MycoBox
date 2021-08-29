@@ -109,7 +109,7 @@ const initialize_environment_state = () => {
  * Read Environment Model
  */
 const read_environment_state = () => {
-    new Promise((resolve) => {
+    return new Promise((resolve) => {
         get('environment_state')
             .then(env_state => {
                 return resolve({
