@@ -23,7 +23,7 @@ const read_temp_humidity = () => {
         console.log('Reading the Temp & Humidity')
         PythonShell.run('temp.humidity.py', options, function (err, reply) {
             if (err) reject(err)
-            parse_th_data(reply) // validate and load into env model
+            parse_th_data(reply) // validate and load into env_state
                 .then(resolve())
         })
     })
