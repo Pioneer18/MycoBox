@@ -56,7 +56,7 @@ const run_pid_controllers = () => {
         .then(validation => {
             console.log('makin bacon panckages ???????')
             console.log(validation)
-            if (validation) {
+            if (validation.validation) {
                 console.log('$$$$$$$$$$$$ The Environment State Was Validated $$$$$$$$$$$$')
                 const measured = calculate_measured(env_state);
                 // =========================================================================================================
@@ -97,7 +97,10 @@ const validate_env_state = () => {
                     console.log('Valid Env State!')
                     console.log(env_state);
                     console.log('Should be resolving true now')
-                    return resolve(true)
+                    return resolve({
+                        validation: true,
+                        env_state: env_state
+                    })
                 }
             })
 
@@ -120,7 +123,10 @@ const recheck_env_state = (resolve) => {
                 console.log('Valid Env State!')
                 console.log(env_state);
                 console.log('Should be resolving true now')
-                return resolve(true)
+                return resolve({
+                    validation: true,
+                    env_state: env_state
+                })
             }
         })
 }
