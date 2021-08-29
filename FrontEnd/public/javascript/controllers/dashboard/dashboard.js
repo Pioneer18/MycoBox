@@ -11,8 +11,8 @@ const active_session = true;
 const insert_sensor_values = async () => {
     console.log('Reading the Environment Model')
     const values = await readEnvironmentModel()
-    console.log('Here are the Values from within the controller')
-    console.log(values)
+    console.log('Here is the tyoeof internal_temp_1')
+    console.log(typeof values['internal_temp_1'])
     document.getElementById('iTemp1').innerHTML = (values['internal_temp_1'])
     document.getElementById('iTemp2').innerHTML = values['internal_temp_2']
     document.getElementById('iTemp3').innerHTML = values['internal_temp_3']
