@@ -54,7 +54,7 @@
     }
 
     // set the global pid state for this controller
-    async report() {
+    report() {
         return {
             integralOfError: this.integralOfError,
             lastError: this.lastError,
@@ -62,7 +62,7 @@
         }
     }
 
-    async reset () {
+    reset () {
         this.integralOfError = 0;
         this.lastError = 0;
         this.lastTime = 0;
