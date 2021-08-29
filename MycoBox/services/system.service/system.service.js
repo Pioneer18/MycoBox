@@ -36,7 +36,7 @@ const environment_manager = () => {
  */
 const get_state = () => {
     console.log("Method Call: get_state")
-    return Promise.all(get('environment_config'), get('environment_state'), get('pid_state'), get('session_state')).then(values => console.log(values));
+    return Promise.all([get('environment_config'), get('environment_state'), get('pid_state'), get('session_state')]).then(values => console.log(values));
 }
 
 const promise1 = Promise.resolve(3);
