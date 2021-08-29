@@ -282,6 +282,8 @@ const set_pid_state = (controller, state) => {
 const set_pid_state_validation = (controller, state) => {
     try {
         console.log('Validating the PID State')
+        console.log(controller)
+        console.log(state)
         if (!controller || !state) throw new Error('Either the controller or state has not been provided');
         if (typeof controller !== 'string') throw new Error('Invalid controller given, not a string');
         if (!state.integralOfError || typeof integralOfError !== 'string') throw new Error('Invalid integralOfError provided')
