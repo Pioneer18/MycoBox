@@ -70,7 +70,7 @@ const run_pid_controllers = () => {
                     .then(state => {
                         console.log('Here is the state!!!!!!!!!!!!!!')
                         console.log(state)
-                        const config = temp_pid_controller_config(measured, state.env_config.spawn_running, state.pid_state.temperature)
+                        const config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
                         console.log('Call Each PID');
                         return update_temperature(config)
                     })
