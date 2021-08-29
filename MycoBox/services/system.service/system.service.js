@@ -36,19 +36,12 @@ const environment_manager = () => {
  */
 const get_state = () => {
     console.log("Method Call: get_state")
-    let env_config, env_state, pid_state, session_state
-    return new Promise((resolve, reject) => {
-        get('environment_config').then(result => env_config = result)
-            .then(get('environment_state').then(result => env_state = result))
-            .then(get('pid_state').then(result => pid_state = result))
-            .then(get('session_state').then(result => session_state = result))
-            .then(resolve({
-                env_config,
-                env_state,
-                pid_state,
-                session_state
-            }))
-    })
+    return {
+        env_config: get('environment_config').then(env_config => env_config),
+        env_state: get('environment_state').then( environment_state=> environment_state),
+        pid_state: get('pid_state').then( pid_state=> pid_state),
+        session_state: get('session_state').then( session_state=> session_state)
+    }
 }
 
 /**
@@ -58,7 +51,6 @@ const get_state = () => {
  */
 const run_pid_controllers = () => {
     console.log('Running PID Controllers now ------------------------------------------------------------------------')
-    const { env_config, pid_state } = get_state();
     validate_env_state()
         .then(validation => {
             console.log('makin bacon panckages ???????')
@@ -69,13 +61,12 @@ const run_pid_controllers = () => {
                 // =========================================================================================================
                 // todo: check for session stage (sr, pi, fr) 
                 // generate config for each controller: add the other controller functions for this
-                console.log('Here are the params for temp_pid_controller_config')
-                console.log(env_config)
-                console.log(pid_state)
-                const config = temp_pid_controller_config(measured, env_config.spawn_running, pid_state.temperature)
-                // =========================================================================================================
-                console.log('Call Each PID');
-                return update_temperature(config)
+                get_state()
+                    .then(state => {
+                        const config = temp_pid_controller_config(measured, state.env_config.spawn_running, state.pid_state.temperature)
+                        console.log('Call Each PID');
+                        return update_temperature(config)
+                    })
             }
         })
 
