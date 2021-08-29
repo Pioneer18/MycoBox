@@ -36,12 +36,18 @@ const environment_manager = () => {
  */
 const get_state = () => {
     console.log("Method Call: get_state")
+    let env_config, env_state, pid_state, session_state
     return new Promise((resolve, reject) => {
-        env_config = get('environment_config').then(env_config => env_config),
-        env_state = get('environment_state').then(environment_state => environment_state),
-        pid_state = get('pid_state').then(pid_state => pid_state),
-        session_state = get('session_state').then(session_state => session_state)
-        resolve(env_config,env_state, pid_state, sesssion_state)
+        get('environment_config').then(result => env_config = result)
+            .then(get('environment_state').then(result => env_state = result))
+            .then(get('pid_state').then(result => pid_state = result))
+            .then(get('session_state').then(result => session_state = result))
+            .then(resolve({
+                env_config,
+                env_state,
+                pid_state,
+                session_state
+            }))
     })
 }
 
