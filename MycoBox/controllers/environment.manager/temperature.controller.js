@@ -41,10 +41,10 @@ const update_temperature = (config) => {
         console.log('The calculated Update Value')
         console.log(value);
         // get the report and set the global
-        const state = tempController.report();
-        console.log('State to set pid_state')
-        console.log(state)
-        set_pid_state('temperature', state)
+        // const state = tempController.report();
+        // console.log('State to set pid_state')
+        // console.log(state)
+        set_pid_state('temperature', tempController.report())
         return value
  
 }
