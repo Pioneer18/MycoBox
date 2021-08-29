@@ -12,8 +12,6 @@ router.get(`/sensors_controller/read_environment_state`, async (req, res) => {
         initialize_environment_state()
                 .then(()=> read_environment_state())
                 .then(env_state => {
-                        console.log('Router.GET: Environment State ****************************************************')
-                        console.log(env_state)
                         res.json(env_state)
                 });
 })
