@@ -1,9 +1,12 @@
 /**
  * Dashboard Controller
  * note: make the values importable constants
+ * TODO: make globals that's synced with the backend (session state)
  */
 import { readEnvironmentModel } from '../../api/dashboard.js';
 console.log('Starting the Dashboard Controller')
+
+const active_session = true;
 
 const insert_sensor_values = async () => {
     console.log('Reading the Environment Model')
@@ -24,4 +27,12 @@ const insert_sensor_values = async () => {
     document.getElementById('weight').innerHTML = values['weight']
 }
 
-insert_sensor_values()
+const run_dashboard = () => {
+    while (active_session) {
+        setTimeout(() => {
+            insert_sensor_values()
+        }, 6000);
+    }
+}
+
+run_dashboard()
