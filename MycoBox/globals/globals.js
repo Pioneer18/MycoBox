@@ -199,7 +199,12 @@ const set_environment_config_validation = (config) => {
 const set_environment_state = ((element, value) => {
     return new Promise((resolve) => {
         set_environment_state_validation(element, value)
-            .then(() => globals.environment_state[element] = value)
+            .then(() => {
+                if(typeof value === 'number') {
+                    globals.environment_state[element] =  Math.round((value + Number.EPSILON) * 100) / 100
+                }
+                globals.environment_state[element] = value
+            })
             .then(resolve())
             .catch(err => console.log(`Error Caught: set_enviornment_state: ${err}`));
     });
@@ -270,11 +275,11 @@ const set_session_state_validation = (element, value) => {
  * @param { integralOfError, lastError, lastTime } state the state of the PID
  */
 const set_pid_state = (controller, state) => {
-        console.log('Setting the PID State for: ' + controller);
-        set_pid_state_validation(controller, state);
-        globals.pid_state[controller].integralOfError = [state.integralOfError];
-        globals.pid_state[controller].lastError = [state.lastError];
-        globals.pid_state[controller].lastTime = [state.lastTime];
+    console.log('Setting the PID State for: ' + controller);
+    set_pid_state_validation(controller, state);
+    globals.pid_state[controller].integralOfError = [state.integralOfError];
+    globals.pid_state[controller].lastError = [state.lastError];
+    globals.pid_state[controller].lastTime = [state.lastTime];
 
 
 }
