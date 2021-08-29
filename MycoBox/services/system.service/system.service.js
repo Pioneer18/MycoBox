@@ -36,15 +36,18 @@ const environment_manager = () => {
  */
 const get_state = () => {
     console.log("Method Call: get_state")
-    return new Promise((resolve) => {
-        resolve({
-            env_config: get('environment_config').then(env_config => env_config),
-            env_state: get('environment_state').then(environment_state => environment_state),
-            pid_state: get('pid_state').then(pid_state => pid_state),
-            session_state: get('session_state').then(session_state => session_state)
-        })
-    })
+    return Promise.all(get('environment_config'), get('environment_state'), get('pid_state'), get('session_state')).then(values => console.log(values));
 }
+
+const promise1 = Promise.resolve(3);
+const promise2 = 42;
+const promise3 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 100, 'foo');
+});
+
+Promise.all([promise1, promise2, promise3]).then((values) => {
+  console.log(values);
+});
 
 /**
  * Average the temperature and humidity
