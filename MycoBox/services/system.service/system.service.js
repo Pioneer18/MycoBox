@@ -36,19 +36,17 @@ const environment_manager = () => {
  */
 const get_state = () => {
     console.log("Method Call: get_state")
-    return new Promise((resolve) => {
-        resolve(Promise.all([get('environment_config'), get('environment_state'), get('pid_state'), get('session_state')]).then(values => values))
-    })
+    return Promise.all([get('environment_config'), get('environment_state'), get('pid_state'), get('session_state')]).then(values => Promise.resolve(values));
 }
 
 const promise1 = Promise.resolve(3);
 const promise2 = 42;
 const promise3 = new Promise((resolve, reject) => {
-    setTimeout(resolve, 100, 'foo');
+  setTimeout(resolve, 100, 'foo');
 });
 
 Promise.all([promise1, promise2, promise3]).then((values) => {
-    console.log(values);
+  console.log(values);
 });
 
 /**
@@ -57,7 +55,7 @@ Promise.all([promise1, promise2, promise3]).then((values) => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = () => {
-    console.log('Running PID Controllers now ------------------------------------------------------------------------')
+    console.log('Running PID Controllers now ------------------------------------------------------------------------') 
     validate_env_state()
         .then(validation => {
             console.log('makin bacon panckages ???????')
