@@ -23,8 +23,8 @@ const environment_manager = () => {
             // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
 
             // #3. calculate measured and generated a pid_config WHEN valid env_state returned
-            run_pid_controllers
-
+            run_pid_controllers()
+            
         })
 
     return
@@ -55,7 +55,7 @@ Promise.all([promise1, promise2, promise3]).then((values) => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = () => {
-
+    console.log('Running PID Controllers now ------------------------------------------------------------------------')
     return new Promise((resolve) => {
         validate_env_state()
             .then(validation => {
@@ -75,10 +75,7 @@ const run_pid_controllers = () => {
                             console.log('Call Each PID');
                             return update_temperature(config)
                         })
-                        .then(results => {
-                            console.log('Secondary blehhhhhhhhhhhhhhhhhhh')
-                            return resolve(results)
-                        })
+                        .then(results => resolve(results))
                 }
             })
     })
