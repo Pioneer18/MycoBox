@@ -270,16 +270,13 @@ const set_session_state_validation = (element, value) => {
  * @param { integralOfError, lastError, lastTime } state the state of the PID
  */
 const set_pid_state = (controller, state) => {
-    try {
         console.log('Setting the PID State for: ' + controller);
         set_pid_state_validation(controller, state);
         globals.pid_state[controller].integralOfError = [state.integralOfError];
         globals.pid_state[controller].lastError = [state.lastError];
         globals.pid_state[controller].lastTime = [state.lastTime];
 
-    } catch (err) {
-        throw new Error('Error setting the PID state: ' + err);
-    }
+
 }
 
 const set_pid_state_validation = (controller, state) => {

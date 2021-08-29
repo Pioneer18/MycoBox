@@ -8,6 +8,7 @@
 */
 
 const { s1r1_on, s1r1_off, s2r1_off, s2r1_on } = require('../../cli_control_panel/relay');
+const { set_pid_state } = require('../../globals/globals');
 const { TempPidController } = require('../../services/environment.manager/temperature.pid.service');
 
 
@@ -39,6 +40,8 @@ const update_temperature = (config) => {
         const value = tempController.update();
         console.log('The calculated Update Value')
         console.log(value);
+        // get the report and set the global
+        set_pid_state('temperature', tempController.report())
         return value
  
 }
