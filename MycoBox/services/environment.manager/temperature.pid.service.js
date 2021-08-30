@@ -32,10 +32,10 @@
 
     update() {
         console.log('Hello World Update() attempt --------------')
-        // find the interval of time between previous and current reading
+        // #1) find the interval of time between previous and current reading
         const {dt, currentTime} = this.calculate_dt(this.lastTime);
         this.lastTime = currentTime;
-        // calculate the error and integral of the error; the total of error x time passed till current reading
+        // #2) calculate the error and integral of the error; the total of error x time passed till current reading
         console.log('Set Point: ' + this.setPoint)
         console.log('Measured: ' + this.measured)
         let error = (this.setPoint - this.measured);
@@ -51,7 +51,7 @@
         console.log('Derivative of Error: ' + derivativeOfError);
 
         // CALCULATED UPDATE VALUE IS GETTING REALLY BIG
-        return (this.kp * error) + (this.ki * this.integralOfError) //+ (this.kd * derivativeOfError);
+        return (this.kp * error) + (this.ki * this.integralOfError) + (this.kd * derivativeOfError);
     }
 
     // set the global pid state for this controller
@@ -83,8 +83,6 @@
     clamp_check() {
         
     }
-    // calculate errors
-    //calculate update
 }
 
 module.exports = {
