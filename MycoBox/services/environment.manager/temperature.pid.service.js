@@ -65,6 +65,7 @@
         this.lastTime = currentTime;
         // #2. calculate the error: setpoint - measured
         const err = this.setPoint - this.measured;
+        this.lastError = err;
         // #3. calculate P => kp * err
         const P = this.kp * err;
         // #4. calculate It => It + (ki * error * dt)
