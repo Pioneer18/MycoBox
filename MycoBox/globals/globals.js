@@ -62,13 +62,41 @@ let globals = {
         weight: '' // esp8266
     },
     actuators_state: {
-        circulation_bottom: false, // 1
-        circulation_top: false, // 2
-        intake: false, // 3
-        exhaust: false, // 4
-        ac: false, // 5
-        heater: false, // 6 
-        humidifier: false, // 7
+        circulation_bottom: {
+            active: false,
+            stopped: 0,
+            idle: true,
+        },
+        circulation_top: {
+            active: false,
+            stopped: 0,
+            idle: true,
+        },
+        intake: {
+            active: false,
+            stopped: 0,
+            idle: true,
+        },
+        exhaust: {
+            active: false,
+            stopped: 0,
+            idle: true,
+        },
+        ac: {
+            active: false,
+            stopped: 0,
+            idle: true,
+        },
+        heater: {
+            active: false,
+            stopped: 0,
+            idle: true,
+        },
+        humidifier: {
+            active: false,
+            stopped: 0,
+            idle: true,
+        },
         mb_light_1: false, // 8
         mb_light_2: false, // 9
         ib_light: false, // 10 incubator light
