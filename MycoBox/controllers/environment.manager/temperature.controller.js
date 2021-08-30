@@ -115,12 +115,12 @@ const temp_actuator_controller = (update) => {
     // get the actuator state now please
     if (update > 1) {
         // turn on the ac and set active
-
+        console.log('Switching on the AC!')
         s2r1_on()
     }
     if (update < -1) {
         // turn on the heater and set active
-
+        console.log('Switching off the AC!')
         s2r1_off()
     }
 }
