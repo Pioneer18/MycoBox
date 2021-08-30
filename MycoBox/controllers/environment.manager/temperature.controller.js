@@ -112,17 +112,36 @@ const temp_actuator_controller = (update) => {
      *   - on first reading that hits with +/- 0.2 of zero, set the stopped count to 1; and stop the actuator of course
      *   - for the next 2 readings (18 seconds), if the update value is +/- 1 from zero reset stopped to 0 and set idle as true
      */
+
+    const charge = check_charge(update);
     // get the actuator state now please
-    if (update > 1) {
+    // apply additional logic to below
+    if (!charge) {
         // turn on the ac and set active
         console.log('Switching on the AC!')
         s2r1_on()
     }
-    if (update < -1) {
+    if (charge) {
         // turn on the heater and set active
         console.log('Switching off the AC!')
         s2r1_off()
     }
+    if (charge === 0) {
+        console.log('No Temp Acuators on')
+        // turn AC and Heater off
+        s2r1_off()
+    }
+    return
+}
+
+/**
+ * @param {number} num is the update value 
+ * @returns true, false, or 0
+ */
+const check_charge = (num) => {
+    if (num === 0) return 0
+    if (num < 0) return false
+    if (num > 0) return true
 }
 
 
