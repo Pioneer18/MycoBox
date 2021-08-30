@@ -61,6 +61,7 @@
 
         // #1. find the cycle-time (dt) and update lastTime
         const {dt, currentTime} = this.calculate_dt(this.lastTime)
+        let D;
         this.lastTime = currentTime;
         // #2. calculate the error: setpoint - measured
         const err = this.setPoint - this.measured;
@@ -72,7 +73,6 @@
         if (this.integralOfError > this.integralLimit.max) this.integralOfError = this.integralLimit.max;
         if (this.integralOfError < this.integralLimit.min) this.integralOfError = this.integralLimit.min;
         // #6. calculate D => kd * (err - lastErr) / dt
-        let D;
         dt === 0 ? D = 0 : D = this.kd * (err - this.lastError) / dt;
         // #7. Output => P + It + D
         console.log('PID Calculation Report:')
