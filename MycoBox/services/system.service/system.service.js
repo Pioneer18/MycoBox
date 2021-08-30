@@ -24,23 +24,6 @@ const environment_manager = () => {
 
             // #3. calculate measured and generated a pid_config WHEN valid env_state returned
             run_pid_controllers()
-                .then(data => {
-                    console.log('Run Pid Has finished ' + data)
-                    // run the appropriate actuator python-shell
-                    /**
-                     * Temp
-                     * if the update value is greater or equal than +/- 1 from 0 for 3 consecutive readings, then turn on the appropriate acuator and enter 'set mode'
-                     * once the update value hits within 0.2 of zero or switches positive/negative, stop and don't start until more than or equal to +/-1 from 0 again
-                     * actuator will stay on till update value can reach .2 of 0, and then it'll switch on again once the update is > or = +/- 1 for 3 consecutive readings
-                     */
-                    
-                    if(data < 0) {
-                        console.log('Airconditioner Turning On: Setpoint is below the measure')
-                    } else {
-                        console.log('Heater Turning On: Setpoint is above the measured')
-                    }
-                })
-
         })
 
     return

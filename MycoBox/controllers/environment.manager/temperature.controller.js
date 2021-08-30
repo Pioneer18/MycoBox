@@ -45,6 +45,7 @@ const update_temperature = (config) => {
     // console.log('State to set pid_state')
     // console.log(state)
     set_pid_state('temperature', tempController.report())
+    temp_actuator_controller(value)
     return value
 
 }
@@ -102,14 +103,22 @@ const override = (command) => {
  * once the update value hits within 0.2 of zero or switches positive/negative, stop and don't start until more than or equal to +/-1 from 0 again
  * actuator will stay on till update value can reach .2 of 0, and then it'll switch on again once the update is > or = +/- 1 for 3 consecutive readings
  */
-const temp_actuator_controller = () => {
+const temp_actuator_controller = (update) => {
     /**
      * note: acuators have states: active, stopped (instant it happens), idle
      * 
-     * if update value is greater or equal to +/- 1 turn on the corresponding actuator
+     * if update value is greater or equal to +/- 1 turn on the corresponding actuator and set it's state as active
      *   - this is the first check level, with a default response
-     * once the update value hits within 0.2 of zero for 3 counts, or switches positive/negative, stop and don't start until more than or equal to +/-1 from 0 again
+     * once the update value hits within 0.2 of zero for 2 counts (and actuator has been active), or switches positive/negative, stop and don't start until more than or equal to +/-1 from 0 again
+     *   - on first reading that hits with +/- 0.2 of zero, set the stopped count to 1; and stop the actuator of course
+     *   - for the next 2 readings (18 seconds), if the update value is +/- 1 from zero reset stopped to 0 and set idle as true
      */
+    console.log('Update Value to be processed by temp_actuator_controller')
+    console.log(update)
+    // get the actuator state now please
+    if(Math.abs(update) > 1) {
+        console.log('Temp Actuator Controller Will Be Turning An Actuator On Now')
+    }
 }
 
 
