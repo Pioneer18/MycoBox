@@ -50,6 +50,7 @@
         console.log('Error: ' + error);
         console.log('Derivative of Error: ' + derivativeOfError);
 
+        // CALCULATED UPDATE VALUE IS GETTING REALLY BIG
         return (this.kp * error) + (this.ki * this.integralOfError) //+ (this.kd * derivativeOfError);
     }
 

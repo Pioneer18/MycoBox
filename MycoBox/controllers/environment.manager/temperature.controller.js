@@ -139,9 +139,11 @@ const temp_actuator_controller = (update) => {
  * @returns true, false, or 0
  */
 const check_charge = (num) => {
-    if (num === 0) return 0
-    if (num < 0) return false
-    if (num > 0) return true
+    console.log('$$$$$$$$$$$$$ Checking Charge $$$$$$$$$$$$$')
+    console.log(Math.round((num + Number.EPSILON) * 100) / 100)
+    if (Math.round((num + Number.EPSILON) * 100) / 100 === 0) return 0
+    if (Math.round((num + Number.EPSILON) * 100) / 100 < 0) return false
+    if (Math.round((num + Number.EPSILON) * 100) / 100 > 0) return true
 }
 
 
