@@ -7,7 +7,6 @@
  * Could be that the controller calls it everytime with env_sate, and runs the function with the previous report
 */
 
-const { s1r1_on, s1r1_off, s2r1_off, s2r1_on, s2r2_off } = require('../../cli_control_panel/relay');
 const { set_pid_state } = require('../../globals/globals');
 const { TempPidController } = require('../../services/environment.manager/temperature.pid.service');
 const { s2r1_off, s2r1_on } = require('../../cli_control_panel/relay');
@@ -122,7 +121,7 @@ const temp_actuator_controller = (update) => {
     if (update < -1) {
         // turn on the heater and set active
 
-        s2r2_off()
+        s2r1_off()
     }
 }
 
