@@ -322,10 +322,38 @@ const set_pid_state_validation = (controller, state) => {
     }
 }
 
+/**
+ * set actuator state
+ * @param {string} element
+ * @param {string} status
+ * @param {boolean || number} value
+ */
+const set_actuator_state = (element, status, value) => {
+    console.log('Setting Actuator State')
+    validate_set_actuator_state(element, status, value)
+    if (element === 'mb_light_1' || element === 'mb_light_2' || element === 'ib_light' || element === 'speakers') {
+        globals.actuators_state[element][value]
+    }
+    globals[element][status] = value
+    return
+}
+
+const validate_set_actuator_state = (element, status, value) => {
+    if (!element || typeof element !== 'string') throw new Error('missing element for set_actuator_state')
+    if (!value || !(typeof value === 'boolean' || typeof value === 'number')) throw new Error('missing value for set_actuator_state')
+    if (element === 'mb_light_1' || element === 'mb_light_2' || element === 'ib_light' || element === 'speakers') {
+        return
+    } else {
+        if (!status || typeof status !== 'string') throw new Error('missing status for set_actuator_state')
+        return
+    }
+}
+
 module.exports = {
     get,
     set_environment_config,
     set_environment_state,
     set_session_state,
-    set_pid_state
+    set_pid_state,
+    set_actuator_state
 }

@@ -7,10 +7,10 @@
  * Could be that the controller calls it everytime with env_sate, and runs the function with the previous report
 */
 
-const { s1r1_on, s1r1_off, s2r1_off, s2r1_on } = require('../../cli_control_panel/relay');
+const { s1r1_on, s1r1_off, s2r1_off, s2r1_on, s2r2_off } = require('../../cli_control_panel/relay');
 const { set_pid_state } = require('../../globals/globals');
 const { TempPidController } = require('../../services/environment.manager/temperature.pid.service');
-
+const { s2r1_off, s2r1_on } = require('../../cli_control_panel/relay');
 
 /**
  * Run PID:
@@ -113,11 +113,16 @@ const temp_actuator_controller = (update) => {
      *   - on first reading that hits with +/- 0.2 of zero, set the stopped count to 1; and stop the actuator of course
      *   - for the next 2 readings (18 seconds), if the update value is +/- 1 from zero reset stopped to 0 and set idle as true
      */
-    console.log('Update Value to be processed by temp_actuator_controller')
-    console.log(Math.abs(update))
     // get the actuator state now please
-    if(Math.abs(update) > 1) {
-        console.log('Temp Actuator Controller Will Be Turning An Actuator On Now')
+    if (update > 1) {
+        // turn on the ac and set active
+
+        s2r1_on()
+    }
+    if (update < -1) {
+        // turn on the heater and set active
+
+        s2r2_off()
     }
 }
 
