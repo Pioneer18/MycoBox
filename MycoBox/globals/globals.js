@@ -299,6 +299,8 @@ const set_session_state_validation = (element, value) => {
  */
 const set_pid_state = (controller, state) => {
     console.log('Setting the PID State for: ' + controller);
+    console.log('State to be Set')
+    console.log(state)
     set_pid_state_validation(controller, state);
     globals.pid_state[controller].integralOfError = [state.integralOfError];
     globals.pid_state[controller].lastError = [state.lastError];
