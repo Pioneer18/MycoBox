@@ -114,7 +114,7 @@ const temp_actuator_controller = (update) => {
      *   - for the next 2 readings (18 seconds), if the update value is +/- 1 from zero reset stopped to 0 and set idle as true
      */
     console.log('Update Value to be processed by temp_actuator_controller')
-    console.log(update)
+    console.log(Math.abs(update))
     // get the actuator state now please
     if(Math.abs(update) > 1) {
         console.log('Temp Actuator Controller Will Be Turning An Actuator On Now')
