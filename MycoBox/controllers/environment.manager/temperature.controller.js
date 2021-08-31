@@ -58,7 +58,7 @@ const temp_pid_controller_config = (measured, env_config, pid_state) => {
     const config = {
         settings: {
             kp: 0.95,
-            ki: 0.01,
+            ki: 0.005,
             kd: 0.1,
         },
         pid_state: {
