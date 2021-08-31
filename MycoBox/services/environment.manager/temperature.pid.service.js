@@ -76,6 +76,8 @@
         // #6. calculate D => kd * (err - lastErr) / dt
         dt === 0 ? D = 0 : D = this.kd * (err - this.lastError) / dt;
         // #7. Output => P + It + D
+        console.log('Current Time: ' + currentTime)
+        console.log('Cycle Time: ' + dt)
         console.log('PID Calculation Report:')
         console.log(`P: ${P}`);
         console.log(`I: ${this.integralOfError}`);
