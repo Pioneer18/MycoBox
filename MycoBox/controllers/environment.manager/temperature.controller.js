@@ -117,7 +117,7 @@ const temp_actuator_controller = (update) => {
     get('actuators_state')
         .then(state => {
             console.log('Here is the Actuator State 😃')
-
+            console.log(state)
         })
 }
 
