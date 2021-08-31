@@ -109,7 +109,7 @@ const temp_actuator_controller = (update) => {
         // The switch on threshold (st) should be a variable
         .then(state => {
             console.log('Here is the Actuator State 😃')
-            console.log(state.ac.active)
+            console.log(state.ac.stopped)
             if (state.ac.active) {
                 console.log(`active: ${active}`)
                 // check if update is within .2 of zero +/-
@@ -118,8 +118,9 @@ const temp_actuator_controller = (update) => {
                     // if it's more than .2 from zero and in the opposite sign also switch to idle 0
             }
             if (state.ac.stopped) {
-                console.log(`stopped: ${stopped}`)
+                console.log(`^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^stopped^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^: ${stopped}`)
                 // check update proximity to zero
+
                     // if beyond +/- 1 turn on the appropriate actuator and set state as 'active'
                         // heater for +1
                         // ac for -1
