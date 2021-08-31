@@ -116,7 +116,7 @@ const validate_env_state = () => {
     })
 }
 
-const recheck_env_state = () => {
+const recheck_env_state = (resolve) => {
     return new Promise(() => {
         get('environment_state')
             .then(env_state => {
