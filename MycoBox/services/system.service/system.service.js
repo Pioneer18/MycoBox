@@ -34,6 +34,10 @@ const environment_manager = () => {
         .then(data => {
             // if there is any data returned do whatever with it here
             // otherwise recall environment_manager, because the session must still be active
+            console.log('#############################################################################')
+            console.log('Recalling ENV MANAGER')
+            console.log('#############################################################################')
+
             return environment_manager();
         })
 }
