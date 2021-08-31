@@ -34,7 +34,7 @@ const environment_manager = () => {
  * @returns 
  */
 const get_state = () => {
-    console.log("Method Call: get_state")
+    console.log("Method Call: get_state") 
     return Promise.all([get('environment_config'), get('environment_state'), get('pid_state'), get('session_state')]).then(values => values);
 }
 
@@ -98,7 +98,7 @@ const validate_env_state = () => {
                     initialize_environment_state()
                         .then(() => {
                             setTimeout(() => {
-                                return recheck_env_state()
+                                recheck_env_state(resolve)
                             }, 8000);
                         })
                 }
@@ -116,30 +116,28 @@ const validate_env_state = () => {
     })
 }
 
-const recheck_env_state = () => {
-    return new Promise((resolve) => {
-        get('environment_state')
-            .then(env_state => {
-                if (env_state.internal_temp_1 === '') {
-                    console.log('Validate Env Recall: Blank Env State')
-                    initialize_environment_state()
-                        .then(() => {
-                            setTimeout(() => {
-                                recheck_env_state()
-                            }, 8000);
-                        })
-                }
-                if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
-                    console.log('Valid Env State!')
-                    console.log(env_state);
-                    console.log('Should be resolving true now')
-                    return resolve({
-                        validation: true,
-                        env_state: env_state
+const recheck_env_state = (resolve) => {
+    get('environment_state')
+        .then(env_state => {
+            if (env_state.internal_temp_1 === '') {
+                console.log('Validate Env Recall: Blank Env State')
+                initialize_environment_state()
+                    .then(() => {
+                        setTimeout(() => {
+                            recheck_env_state(resolve)
+                        }, 8000);
                     })
-                }
-            })
-    })
+            }
+            if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
+                console.log('Valid Env State!')
+                console.log(env_state);
+                console.log('Should be resolving true now')
+                return resolve({
+                    validation: true,
+                    env_state: env_state
+                })
+            }
+        })
 }
 
 /**
