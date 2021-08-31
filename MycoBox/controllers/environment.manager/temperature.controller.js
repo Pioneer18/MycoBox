@@ -57,7 +57,7 @@ const temp_pid_controller_config = (measured, env_config, pid_state) => {
     console.log('Method Call: temp_pid_controller_config')
     const config = {
         settings: {
-            kp: 0.95,
+            kp: 1,
             ki: 0.005,
             kd: 0.1,
         },
