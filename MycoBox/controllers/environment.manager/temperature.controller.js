@@ -7,7 +7,7 @@
  * Could be that the controller calls it everytime with env_sate, and runs the function with the previous report
 */
 
-const { set_pid_state } = require('../../globals/globals');
+const { set_pid_state, get } = require('../../globals/globals');
 const { TempPidController } = require('../../services/environment.manager/temperature.pid.service');
 const { s2r1_off, s2r1_on } = require('../../cli_control_panel/relay');
 
@@ -114,33 +114,46 @@ const temp_actuator_controller = (update) => {
 
     const charge = check_charge(update);
     // get the actuator state now please
-    // apply additional logic to below
-    if (!charge) {
-        // turn on the ac and set active
-        console.log('Switching on the AC!')
-        s2r1_on()
-    }
-    if (charge) {
-        // turn on the heater and set active
-        console.log('Switching off the AC!')
-        s2r1_off()
-    }
-    if (charge === 0) {
-        console.log('No Temp Acuators on')
-        // turn AC and Heater off
-        s2r1_off()
-    }
-    return
+    get('actuators_state')
+        .then(state => {
+            // Negative Update Value
+            if (!charge) {
+                // AC Actuator logic
+                // check the state
+
+                console.log('Switching on the AC!')
+                s2r1_on()
+            }
+            // Positive Update Value
+            if (charge) {
+
+                // turn on the heater and set active
+                console.log('Switching off the AC!')
+                s2r1_off()
+            }
+            // Perfect 0
+            if (charge === 0) {
+                console.log('No Temp Acuators on')
+
+                // turn AC and Heater off
+                s2r1_off()
+            }
+            return
+        })
 }
 
 /**
  * @param {number} num is the update value 
  * @returns true, false, or 0
+ * true is positive
+ * false is negative
+ * zero is when update is between -.02 and 0.2
  */
 const check_charge = (num) => {
     console.log('$$$$$$$$$$$$$ Checking Charge $$$$$$$$$$$$$')
     console.log(Math.round((num + Number.EPSILON) * 100) / 100)
-    if (Math.round((num + Number.EPSILON) * 100) / 100 === 0) return 0
+    if (Math.round((num + Number.EPSILON) * 100) / 100 < 0.2 && Math.round((num + Number.EPSILON) * 100) / 100 >= 0 ||
+        Math.round((num + Number.EPSILON) * 100) / 100 > -0.2 && Math.round((num + Number.EPSILON) * 100) / 100 <= 0) return 0
     if (Math.round((num + Number.EPSILON) * 100) / 100 < 0) return false
     if (Math.round((num + Number.EPSILON) * 100) / 100 > 0) return true
 }
