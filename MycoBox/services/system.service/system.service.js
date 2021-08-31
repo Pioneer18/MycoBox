@@ -23,22 +23,22 @@ const environment_manager = () => {
             // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
 
             // #3. calculate measured and generated a pid_config WHEN valid env_state returned
-            if (validation){
+            if (validation) {
                 console.log('Environment Manager Has Validated Session')
                 run_pid_controllers()
+                    .then(data => {
+                        // if there is any data returned do whatever with it here
+                        // otherwise recall environment_manager, because the session must still be active
+                        console.log('#############################################################################')
+                        console.log('Update Value Returned | ' + data + ' | Recalling ENV MANAGER')
+                        console.log('#############################################################################')
+
+                        return environment_manager();
+                    })
             }
             if (!validation) {
                 resolve('Session has ended')
             }
-        })
-        .then(data => {
-            // if there is any data returned do whatever with it here
-            // otherwise recall environment_manager, because the session must still be active
-            console.log('#############################################################################')
-            console.log('Recalling ENV MANAGER')
-            console.log('#############################################################################')
-
-            return environment_manager();
         })
 }
 

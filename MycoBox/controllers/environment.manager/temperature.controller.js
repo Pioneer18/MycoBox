@@ -46,7 +46,6 @@ const update_temperature = (config) => {
     set_pid_state('temperature', tempController.report())
     temp_actuator_controller(value)
     return value
-
 }
 
 /**
