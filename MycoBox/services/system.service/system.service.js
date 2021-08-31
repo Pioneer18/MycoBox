@@ -133,7 +133,7 @@ const recheck_env_state = () => {
                     console.log('Valid Env State!')
                     console.log(env_state);
                     console.log('Should be resolving true now')
-                    resolve({
+                    return resolve({
                         validation: true,
                         env_state: env_state
                     })
