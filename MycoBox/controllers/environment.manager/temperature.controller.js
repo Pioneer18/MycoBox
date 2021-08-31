@@ -109,7 +109,7 @@ const temp_actuator_controller = (update) => {
         // The switch on threshold (st) should be a variable
         .then(state => {
             console.log('Here is the Actuator State 😃')
-            console.log(state)
+            console.log(state.ac.active)
             if (state.ac.active) {
                 console.log(`active: ${active}`)
                 // check if update is within .2 of zero +/-
