@@ -64,37 +64,37 @@ let globals = {
     actuators_state: {
         circulation_bottom: {
             active: false,
-            stopped: false,
+            stopped: true,
             idle: 0,
         },
         circulation_top: {
             active: false,
-            stopped: false,
+            stopped: true,
             idle: 0,
         },
         intake: {
             active: false,
-            stopped: false,
+            stopped: true,
             idle: 0,
         },
         exhaust: {
             active: false,
-            stopped: false,
+            stopped: true,
             idle: 0,
         },
         ac: {
             active: false,
-            stopped: false,
+            stopped: true,
             idle: 0,
         },
         heater: {
             active: false,
-            stopped: false,
+            stopped: true,
             idle: 0,
         },
         humidifier: {
             active: false,
-            stopped: false,
+            stopped: true,
             idle: 0,
         },
         mb_light_1: false, // 8
