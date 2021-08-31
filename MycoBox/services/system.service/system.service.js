@@ -98,7 +98,7 @@ const validate_env_state = () => {
                     initialize_environment_state()
                         .then(() => {
                             setTimeout(() => {
-                                recheck_env_state()
+                                return recheck_env_state()
                             }, 8000);
                         })
                 }
