@@ -34,7 +34,7 @@ const environment_manager = () => {
  * @returns 
  */
 const get_state = () => {
-    console.log("Method Call: get_state") 
+    console.log("Method Call: get_state")
     return Promise.all([get('environment_config'), get('environment_state'), get('pid_state'), get('session_state')]).then(values => values);
 }
 
@@ -98,7 +98,7 @@ const validate_env_state = () => {
                     initialize_environment_state()
                         .then(() => {
                             setTimeout(() => {
-                                recheck_env_state(resolve)
+                                recheck_env_state()
                             }, 8000);
                         })
                 }
@@ -116,7 +116,7 @@ const validate_env_state = () => {
     })
 }
 
-const recheck_env_state = (resolve) => {
+const recheck_env_state = new Promise(() => {
     get('environment_state')
         .then(env_state => {
             if (env_state.internal_temp_1 === '') {
@@ -132,13 +132,13 @@ const recheck_env_state = (resolve) => {
                 console.log('Valid Env State!')
                 console.log(env_state);
                 console.log('Should be resolving true now')
-                return resolve({
+                resolve({
                     validation: true,
                     env_state: env_state
                 })
             }
         })
-}
+})
 
 /**
  * validate that the session is still active
