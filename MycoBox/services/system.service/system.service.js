@@ -18,15 +18,24 @@ const environment_manager = () => {
     console.log('METHOD CALL: environment_manager')
     // #1. Validate the session is still active and THEN
     validate_active_session()
-        .then(() => {
-            console.log('Environment Manager Has Validated Session')
+        .then((validation) => {
+            console.log('Validation Results: ' + validation)
             // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
 
             // #3. calculate measured and generated a pid_config WHEN valid env_state returned
-            run_pid_controllers()
+            if (validation){
+                console.log('Environment Manager Has Validated Session')
+                run_pid_controllers()
+            }
+            if (!validation) {
+                resolve('Session has ended')
+            }
         })
-
-    return
+        .then(data => {
+            // if there is any data returned do whatever with it here
+            // otherwise recall environment_manager, because the session must still be active
+            return environment_manager();
+        })
 }
 
 /**
@@ -34,7 +43,6 @@ const environment_manager = () => {
  * @returns 
  */
 const get_state = () => {
-    console.log("Method Call: get_state") 
     return Promise.all([get('environment_config'), get('environment_state'), get('pid_state'), get('session_state')]).then(values => values);
 }
 
@@ -58,7 +66,6 @@ const run_pid_controllers = () => {
     return new Promise((resolve) => {
         validate_env_state()
             .then(validation => {
-                console.log('makin bacon panckages ???????')
                 console.log(validation['env_state'])
                 if (validation.validation) {
                     console.log('$$$$$$$$$$$$ The Environment State Was Validated $$$$$$$$$$$$')
@@ -68,7 +75,6 @@ const run_pid_controllers = () => {
                     // generate config for each controller: add the other controller functions for this
                     get_state()
                         .then(state => {
-                            console.log('Here is the state!!!!!!!!!!!!!!')
                             console.log(state)
                             const config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
                             console.log('Call Each PID');
@@ -149,7 +155,10 @@ const validate_active_session = () => {
         console.log('Validating Active Session *********************************************')
         get('session_state')
             .then(session_state => {
-                if (session_state.active_session) resolve()
+                if (session_state.active_session) resolve(true)
+                else {
+                    resolve(false)
+                }
             })
             .catch(err => console.log('ERROR CAUGHT: validate_active_session: ' + err))
     })
