@@ -116,29 +116,8 @@ const temp_actuator_controller = (update) => {
     // get the actuator state now please
     get('actuators_state')
         .then(state => {
-            // Negative Update Value
-            if (!charge) {
-                // AC Actuator logic
-                // check the state
+            console.log('Here is the Actuator State 😃')
 
-                console.log('Switching on the AC!')
-                s2r1_on()
-            }
-            // Positive Update Value
-            if (charge) {
-
-                // turn on the heater and set active
-                console.log('Switching off the AC!')
-                s2r1_off()
-            }
-            // Perfect 0
-            if (charge === 0) {
-                console.log('No Temp Acuators on')
-
-                // turn AC and Heater off
-                s2r1_off()
-            }
-            return
         })
 }
 
@@ -152,6 +131,7 @@ const temp_actuator_controller = (update) => {
 const check_charge = (num) => {
     console.log('$$$$$$$$$$$$$ Checking Charge $$$$$$$$$$$$$')
     console.log(Math.round((num + Number.EPSILON) * 100) / 100)
+    // update between -0.2 and 0.2
     if (Math.round((num + Number.EPSILON) * 100) / 100 < 0.2 && Math.round((num + Number.EPSILON) * 100) / 100 >= 0 ||
         Math.round((num + Number.EPSILON) * 100) / 100 > -0.2 && Math.round((num + Number.EPSILON) * 100) / 100 <= 0) return 0
     if (Math.round((num + Number.EPSILON) * 100) / 100 < 0) return false
