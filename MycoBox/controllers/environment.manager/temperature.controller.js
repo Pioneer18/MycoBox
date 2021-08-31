@@ -118,7 +118,7 @@ const temp_actuator_controller = (update) => {
                     // if it's more than .2 from zero and in the opposite sign also switch to idle 0
             }
             if (state.ac.stopped) {
-                console.log(`^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^stopped^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^: ${stopped}`)
+                console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^stopped^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^: ${stopped}')
                 // check update proximity to zero
 
                     // if beyond +/- 1 turn on the appropriate actuator and set state as 'active'
