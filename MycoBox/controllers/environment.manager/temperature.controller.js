@@ -102,40 +102,33 @@ const override = (command) => {
  * actuator will stay on till update value can reach .2 of 0, and then it'll switch on again once the update is > or = +/- 1 for 3 consecutive readings
  */
 const temp_actuator_controller = (update) => {
-    /**
-     * note: acuators have states: active, stopped (instant it happens), idle
-     * 
-     * if update value is greater or equal to +/- 1 turn on the corresponding actuator and set it's state as active
-     *   - this is the first check level, with a default response
-     * once the update value hits within 0.2 of zero for 2 counts (and actuator has been active), or switches positive/negative, stop and don't start until more than or equal to +/-1 from 0 again
-     *   - on first reading that hits with +/- 0.2 of zero, set the stopped count to 1; and stop the actuator of course
-     *   - for the next 2 readings (18 seconds), if the update value is +/- 1 from zero reset stopped to 0 and set idle as true
-     */
-
-    const charge = check_charge(update);
-    // get the actuator state now please
+    // #1. Check if update is negative, positive, or zero
+    const charge = check_sign(update);
+    // #2. Check the actuator state
     get('actuators_state')
         .then(state => {
             console.log('Here is the Actuator State 😃')
             console.log(state)
+            if (state.ac.active) {
+                
+            }
+            if (state.ac.stopped) {
+                
+            }
+            if (state.ac.idle) {
+                
+            }
         })
 }
 
 /**
- * @param {number} num is the update value 
- * @returns true, false, or 0
- * true is positive
- * false is negative
- * zero is when update is between -.02 and 0.2
+ * Check if the update value (num) is negative, positive, or exactly 0 
  */
-const check_charge = (num) => {
-    console.log('$$$$$$$$$$$$$ Checking Charge $$$$$$$$$$$$$')
-    console.log(Math.round((num + Number.EPSILON) * 100) / 100)
-    // update between -0.2 and 0.2
-    if (Math.round((num + Number.EPSILON) * 100) / 100 < 0.2 && Math.round((num + Number.EPSILON) * 100) / 100 >= 0 ||
-        Math.round((num + Number.EPSILON) * 100) / 100 > -0.2 && Math.round((num + Number.EPSILON) * 100) / 100 <= 0) return 0
+const check_sign = (num) => {
+    console.log('temp_actuator_controller: checking update value`s sign: positive or negative')
     if (Math.round((num + Number.EPSILON) * 100) / 100 < 0) return false
     if (Math.round((num + Number.EPSILON) * 100) / 100 > 0) return true
+    if (Math.round((num + Number.EPSILON) * 100) / 100 === 0) return 0
 }
 
 
