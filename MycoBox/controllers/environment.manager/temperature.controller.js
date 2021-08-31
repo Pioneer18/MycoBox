@@ -59,7 +59,7 @@ const temp_pid_controller_config = (measured, env_config, pid_state) => {
         settings: {
             kp: 1,
             ki: 0.005,
-            kd: 0.1,
+            kd: 0.005,
         },
         pid_state: {
             integralOfError: pid_state.integralOfError,
