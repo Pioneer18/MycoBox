@@ -116,8 +116,8 @@ const validate_env_state = () => {
     })
 }
 
-const recheck_env_state = (resolve) => {
-    return new Promise(() => {
+const recheck_env_state = () => {
+    return new Promise((resolve) => {
         get('environment_state')
             .then(env_state => {
                 if (env_state.internal_temp_1 === '') {
