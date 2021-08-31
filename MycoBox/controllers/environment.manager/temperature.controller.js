@@ -111,12 +111,14 @@ const temp_actuator_controller = (update) => {
             console.log('Here is the Actuator State 😃')
             console.log(state)
             if (state.ac.active) {
+                console.log(`active: ${active}`)
                 // check if update is within .2 of zero +/-
                     // if it's within .2 of 0 then switch status to idle 0
                     // if it's not within .2 of zero continue in active state
                     // if it's more than .2 from zero and in the opposite sign also switch to idle 0
             }
             if (state.ac.stopped) {
+                console.log(`stopped: ${stopped}`)
                 // check update proximity to zero
                     // if beyond +/- 1 turn on the appropriate actuator and set state as 'active'
                         // heater for +1
@@ -124,6 +126,7 @@ const temp_actuator_controller = (update) => {
                     // if within +/-1 of zero do nothing
             }
             if (state.ac.idle) {
+                console.log(`idle: ${idle}`)
                 // check if update is within .2 of 0
                     // if it is, check if idle equals 3
                         // if it does switch state to 'stopped' and switch off the actuator
