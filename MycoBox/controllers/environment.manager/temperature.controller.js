@@ -7,9 +7,9 @@
  * Could be that the controller calls it everytime with env_sate, and runs the function with the previous report
 */
 
-const { set_pid_state, get } = require('../../globals/globals');
+const { set_pid_state, get, set_actuator_state } = require('../../globals/globals');
 const { TempPidController } = require('../../services/environment.manager/temperature.pid.service');
-const { s2r1_off, s2r1_on } = require('../../cli_control_panel/relay');
+const { s2r1_off, s2r1_on, s1r1_on } = require('../../cli_control_panel/relay');
 
 /**
  * Run PID:
@@ -123,28 +123,33 @@ const temp_actuator_controller = (update) => {
                 console.log('Remain Stopped Check: Return Code => ' + opZ)
                 // if beyond +/- 1 turn on the appropriate actuator and set state as 'active'
                 switch (opZ) {
-                    
                     case 0: // update equals 0
                         console.log('Remain Stopped Check: Code 0: Remaining Stopped')
                         break;
-                    
+
                     case 1: // +/1 within 1
                         console.log('Remain Stopped Check: Code 1: Remaining Stopped')
                         break;
-                    
-                    case 2: // negative outside 1
+
+                    case 2: // positive greater than 1
                         console.log('Remain Stopped Check: Code 2: Switching Active Heater')
+                        set_actuator_state('heater', 'stopped', false)
+                        set_actuator_state('heater', 'active', true)
+                        s1r1_on()
                         break;
-                    
-                    case 3: // positive outside 1
+
+                    case 3: // negative less than -1
                         console.log('Remain Stopped Check: Code 3: Switching Active AC')
+                        set_actuator_state('ac', 'stopped', false)
+                        set_actuator_state('ac', 'active', true)
+                        s2r1_on()
                         break;
-                
+
                     default:
                         break;
                 }
-                    // heater for +1
-                    // ac for -1
+                // heater for +1
+                // ac for -1
                 // if within +/-1 of zero do nothing
             }
             if (state.ac.idle) {
@@ -262,7 +267,7 @@ const remain_stopped_check = (update) => {
                 return 1
             }
             // more than -1 from zero
-            if (update < -1 ) {
+            if (update < -1) {
                 console.log('Outside 1')
                 return 3
             }
