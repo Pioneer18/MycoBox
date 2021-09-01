@@ -121,6 +121,7 @@ const temp_actuator_controller = (update) => {
             if (state.ac.stopped) {
                 console.log('temp_actuator_controller: STOPPED')
                 const opZ = remain_stopped_check(update)
+                console.log('Remain Stopped Check: Return Code - ' + opZ)
                 // check update proximity to zero
                 // if beyond +/- 1 turn on the appropriate actuator and set state as 'active'
                 // heater for +1
