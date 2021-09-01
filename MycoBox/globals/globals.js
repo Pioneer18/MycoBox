@@ -345,6 +345,7 @@ const validate_set_actuator_state = (element, status, value) => {
     if (!element || (typeof element !== 'string')) throw new Error('Missing or Invalid Element for setting actuator state');
     // if (!value || !((typeof value === 'boolean') || (typeof value === 'number'))) throw new Error('Missing or Invalid Value for setting actuator state');
     if (!value) throw new Error('Missing or Invalid value for setting actuator state')
+    if ((typeof value !== 'number') || (typeof value !== 'boolean')) throw new Error('Invalid or Missing Value for setting actuator state')
     if (element === 'mb_light_1' || element === 'mb_light_2' || element === 'ib_light' || element === 'speakers') {
         return
     }
