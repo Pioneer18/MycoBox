@@ -113,14 +113,14 @@ const temp_actuator_controller = (update) => {
             if (state.ac.active) {
                 console.log(`active: ${active}`)
                 // check if update is within .2 of zero +/-
-                const zp2 = zero_point_two_check(update)
+                const zpT = zero_point_two_check(update)
                 // if it's within .2 of 0 then switch status to idle 0
                 // if it's not within .2 of zero continue in active state
                 // if it's more than .2 from zero and in the opposite sign also switch to idle 0    --- Think about this one more
             }
             if (state.ac.stopped) {
                 console.log('temp_actuator_controller: STOPPED')
-                const zp2 = zero_point_two_check(update)
+                const opZ = one_point_zero_check(update)
                 // check update proximity to zero
                 // if beyond +/- 1 turn on the appropriate actuator and set state as 'active'
                 // heater for +1
@@ -196,6 +196,61 @@ const zero_point_two_check = (update) => {
         // update is 0    
         case 0:
             console.log('Zero Point Two Check: Update is 0')
+            // if the sign is exactly zero
+            return 0
+        // default
+        default:
+            break;
+    }
+}
+
+/**
+ * 
+ * @param {*} update 
+ * @returns
+ * 0: update is 0
+ * 1: negative within 1
+ * 2: positive within 1
+ * 3: negative outside 1
+ * 4: positive outside 1
+ */
+const one_point_zero_check = (update) => {
+    console.log('Starting One Point Zero Check')
+    // check the sign
+    const sign = check_sign(update)
+    // check if within .2 for sign
+    switch (sign) {
+        // positive sign
+        case true:
+            console.log('One Point Zero Check: Positive Sign')
+            // within 1 of zero
+            if (update >= 0 && update <= 1) {
+                console.log('Within 1')
+                return 2
+            }
+            // more than 1 from zero
+            if (update > 0.2) {
+                console.log('Outside 1')
+                return 4
+            }
+            break;
+        // negative sign
+        case false:
+            console.log('One Point Zero Check: Negative Sign')
+            // within -1 of zer0
+            if (update > -1 && update <= 0) {
+                console.log('Within 1')
+                return 1
+            }
+            // more than -1 from zero
+            if (update < -1 ) {
+                console.log('Outside 1')
+                return 3
+            }
+            break;
+        // update is 0    
+        case 0:
+            console.log('One Point Zero Check: Update is 0')
             // if the sign is exactly zero
             return 0
         // default
