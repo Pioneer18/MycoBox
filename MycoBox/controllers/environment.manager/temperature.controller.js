@@ -109,13 +109,33 @@ const temp_actuator_controller = (update) => {
             console.log('Here is the Actuator State 😃')
             console.log(state.ac)
             if (state.ac.active) {
-                console.log('Hello World?????????????????')
                 // check if update is within .2 of zero +/-
                 const zpT = idle_check(update)
                 console.log('Remain Active Check Code: Return Code => ' + zpT)
-                // if it's within .2 of 0 then switch status to idle 0
-                // if it's not within .2 of zero continue in active state
-                // if it's more than .2 from zero and in the opposite sign also switch to idle 0    --- Think about this one more
+                switch (zpT) {
+                    case 0: // update value equals 0
+                        // set active status false and idle status true (don't switch anything off)
+                        set_actuator_state('ac', 'active', false).then(set_actuator_state('ac', 'idle', 1))
+                        break;
+
+                    case 1: // +/- within .2 of 0
+                        // set active status false and idle status true (don't switch anything off)
+                        set_actuator_state('ac', 'active', false).then(set_actuator_state('ac', 'idle', 1))
+                        break;
+
+                    case 2: // positive greater than .2
+                        console.log('Heater Remaining Active')
+                        // if ac is on and sudden positive (run overshoot - similar to idle)
+                        break;
+
+                    case 3: // negative less than -.2
+                        // keep the ac on
+                        console.log('AC Remaining Active')
+                        break;
+
+                    default:
+                        break;
+                }
             }
             if (state.ac.stopped) {
                 console.log('temp_actuator_controller: STOPPED')
@@ -128,7 +148,7 @@ const temp_actuator_controller = (update) => {
                         console.log('Remain Stopped Check: Code 0: Remaining Stopped')
                         break;
 
-                    case 1: // +/1 within 1
+                    case 1: // +/- within 1
                         console.log('Remain Stopped Check: Code 1: Remaining Stopped')
                         break;
 
@@ -149,14 +169,41 @@ const temp_actuator_controller = (update) => {
                 // ac for -1
                 // if within +/-1 of zero do nothing
             }
-            if (state.ac.idle) {
+            if (state.ac.idle > 0) {
                 console.log(`idle: ${idle}`)
                 // check if update is within .2 of 0
                 const zp2 = idle_check(update)
-                // if it is, check if idle equals 3
-                // if it does switch state to 'stopped' and switch off the actuator
-                // otherwise increment and continue
-                // if it's outside of .2, reset idle to 0 and switch state to active
+                console.log('Remain Idle Check: Return Code => ' + zp2)
+                switch (zp2) {
+
+                    case 0:
+                        if (state.ac.idle >= 3) {
+                            // switch to stopped and shut off the AC
+                            set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac', 'stopped', true).then(s2r1_off()))
+                        } else {
+                            // increment up
+                        }
+                        break;
+
+                    case 1:
+                        if (state.ac.idle >= 3) {
+                            set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac','stopped', true).then(s2r1_off()))
+                        } else {
+                            // increment up 
+                        }
+                            break;
+
+                    case 2: // positive greater than .2
+
+                        break;
+
+                    case 3: // negative less than .2
+
+                        break;
+
+                    default:
+                        break;
+                }
             }
         })
 }
@@ -175,11 +222,10 @@ const check_sign = (num) => {
  * 
  * @param {*} update 
  * @returns
- * 0: update is 0
- * 1: negative within .2
- * 2: positive within .2
+* 0: update is 0
+ * 1: +/- within .2
+ * 2: positive outside .2
  * 3: negative outside .2
- * 4: positive outside .2
  */
 const idle_check = (update) => {
     console.log('Idle Check Starting')
@@ -193,23 +239,23 @@ const idle_check = (update) => {
             // within .2 of zero
             if (update >= 0 && update <= 0.2) {
                 console.log('Within 0.2')
-                return 2
+                return 1
             }
             // more than .2 from zero
             if (update > 0.2) {
                 console.log('Outside 0.2')
-                return 4
+                return 2
             }
             break;
         // negative sign
         case false:
             console.log('Idle Check: Negative Sign')
-            // within .2 of zer0
+            // within -.2 of zer0
             if (update > -0.2 && update <= 0) {
                 console.log('Within 0.2')
                 return 1
             }
-            // more than .2 from zero
+            // less than -.2
             if (update) {
                 console.log('Outside 0.2')
                 return 3
