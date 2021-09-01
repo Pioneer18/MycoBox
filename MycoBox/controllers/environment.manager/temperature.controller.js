@@ -125,19 +125,19 @@ const temp_actuator_controller = (update) => {
                 switch (opz) {
                     
                     case 0: // update equals 0
-                        // stay stopped
+                        console.log('Remain Stopped Check: Code 0: Remaining Stopped')
                         break;
                     
                     case 1: // +/1 within 1
-                        // stay stopped
+                        console.log('Remain Stopped Check: Code 1: Remaining Stopped')
                         break;
                     
                     case 2: // negative outside 1
-                        // stay stopped
+                        console.log('Remain Stopped Check: Code 2: Switching Active AC')
                         break;
                     
                     case 3: // positive outside 1
-                        
+                        console.log('Remain Stopped Check: Code 3: Switching Active Heater')
                         break;
                 
                     default:
