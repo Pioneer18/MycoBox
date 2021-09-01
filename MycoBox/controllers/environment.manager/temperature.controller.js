@@ -102,8 +102,6 @@ const override = (command) => {
  * actuator will stay on till update value can reach .2 of 0, and then it'll switch on again once the update is > or = +/- 1 for 3 consecutive readings
  */
 const temp_actuator_controller = (update) => {
-    // #1. Check if update is negative, positive, or zero
-    const charge = check_sign(update);
     // #2. Check the actuator state
     get('actuators_state')
         // The switch on threshold (st) should be a variable
@@ -120,12 +118,33 @@ const temp_actuator_controller = (update) => {
             }
             if (state.ac.stopped) {
                 console.log('temp_actuator_controller: STOPPED')
+                // check if the update is within or outside of 1 from zero
                 const opZ = remain_stopped_check(update)
-                console.log('Remain Stopped Check: Return Code - ' + opZ)
-                // check update proximity to zero
+                console.log('Remain Stopped Check: Return Code => ' + opZ)
                 // if beyond +/- 1 turn on the appropriate actuator and set state as 'active'
-                // heater for +1
-                // ac for -1
+                switch (opz) {
+                    
+                    case 0: // update equals 0
+                        // stay stopped
+                        break;
+                    
+                    case 1: // +/1 within 1
+                        // stay stopped
+                        break;
+                    
+                    case 2: // negative outside 1
+                        // stay stopped
+                        break;
+                    
+                    case 3: // positive outside 1
+                        
+                        break;
+                
+                    default:
+                        break;
+                }
+                    // heater for +1
+                    // ac for -1
                 // if within +/-1 of zero do nothing
             }
             if (state.ac.idle) {
@@ -210,10 +229,9 @@ const idle_check = (update) => {
  * @param {*} update 
  * @returns
  * 0: update is 0
- * 1: negative within 1
- * 2: positive within 1
- * 3: negative outside 1
- * 4: positive outside 1
+ * 1: +/- within 1
+ * 2: negative outside 1
+ * 3: positive outside 1
  */
 const remain_stopped_check = (update) => {
     console.log('Starting Remain Stopped Check')
@@ -227,12 +245,12 @@ const remain_stopped_check = (update) => {
             // within 1 of zero
             if (update >= 0 && update <= 1) {
                 console.log('Within 1')
-                return 2
+                return 1
             }
             // more than 1 from zero
             if (update > 0.2) {
                 console.log('Outside 1')
-                return 4
+                return 2
             }
             break;
         // negative sign
