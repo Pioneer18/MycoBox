@@ -342,11 +342,13 @@ const set_actuator_state = (element, status, value) => {
 }
 
 const validate_set_actuator_state = (element, status, value) => {
-    console.log(element, status, value)
-    console.log('Inside validate_set_actuator_state ???????????????????????')
-    if(!element || (typeof element !== 'string')) throw new Error('Missing or Invalid Element for setting actuator state')
-    console.log('validate_set_actuator_state is returning???????????????????????????????')
-    return
+    if (!element || (typeof element !== 'string')) throw new Error('Missing or Invalid Element for setting actuator state')
+    if (!value || !((typeof value === 'boolean') || (typeof value === 'number'))) throw new Error('Missing or Invalid Value for setting actuator state')
+    if (element === 'mb_light_1' || element === 'mb_light_2' || element === 'ib_light' || element === 'speakers') {
+        return // no need for status
+    }
+    if (!status || (typeof status !== 'string')) throw new Error('Missing or Invalid status given for setting actuator state')
+        return
 }
 
 module.exports = {
