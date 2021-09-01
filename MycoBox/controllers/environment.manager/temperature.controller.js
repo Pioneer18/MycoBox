@@ -113,14 +113,14 @@ const temp_actuator_controller = (update) => {
             if (state.ac.active) {
                 console.log(`active: ${active}`)
                 // check if update is within .2 of zero +/-
-                const zpT = zero_point_two_check(update)
+                const zpT = idle_check(update)
                 // if it's within .2 of 0 then switch status to idle 0
                 // if it's not within .2 of zero continue in active state
                 // if it's more than .2 from zero and in the opposite sign also switch to idle 0    --- Think about this one more
             }
             if (state.ac.stopped) {
                 console.log('temp_actuator_controller: STOPPED')
-                const opZ = one_point_zero_check(update)
+                const opZ = remain_stopped_check(update)
                 // check update proximity to zero
                 // if beyond +/- 1 turn on the appropriate actuator and set state as 'active'
                 // heater for +1
@@ -130,7 +130,7 @@ const temp_actuator_controller = (update) => {
             if (state.ac.idle) {
                 console.log(`idle: ${idle}`)
                 // check if update is within .2 of 0
-                const zp2 = zero_point_two_check(update)
+                const zp2 = idle_check(update)
                 // if it is, check if idle equals 3
                 // if it does switch state to 'stopped' and switch off the actuator
                 // otherwise increment and continue
@@ -159,15 +159,15 @@ const check_sign = (num) => {
  * 3: negative outside .2
  * 4: positive outside .2
  */
-const zero_point_two_check = (update) => {
-    console.log('Zero Point Two Check Starting')
+const idle_check = (update) => {
+    console.log('Idle Check Starting')
     // check the sign
     const sign = check_sign(update)
     // check if within .2 for sign
     switch (sign) {
         // positive sign
         case true:
-            console.log('Zero Point Two Check: Positive Sign')
+            console.log('Idle Check: Positive Sign')
             // within .2 of zero
             if (update >= 0 && update <= 0.2) {
                 console.log('Within 0.2')
@@ -181,7 +181,7 @@ const zero_point_two_check = (update) => {
             break;
         // negative sign
         case false:
-            console.log('Zero Point Two Check: Negative Sign')
+            console.log('Idle Check: Negative Sign')
             // within .2 of zer0
             if (update > -0.2 && update <= 0) {
                 console.log('Within 0.2')
@@ -195,7 +195,7 @@ const zero_point_two_check = (update) => {
             break;
         // update is 0    
         case 0:
-            console.log('Zero Point Two Check: Update is 0')
+            console.log('Idle Check: Update is 0')
             // if the sign is exactly zero
             return 0
         // default
@@ -214,15 +214,15 @@ const zero_point_two_check = (update) => {
  * 3: negative outside 1
  * 4: positive outside 1
  */
-const one_point_zero_check = (update) => {
-    console.log('Starting One Point Zero Check')
+const remain_stopped_check = (update) => {
+    console.log('Starting Remain Stopped Check')
     // check the sign
     const sign = check_sign(update)
     // check if within .2 for sign
     switch (sign) {
         // positive sign
         case true:
-            console.log('One Point Zero Check: Positive Sign')
+            console.log('Remain Stopped Check: Positive Sign')
             // within 1 of zero
             if (update >= 0 && update <= 1) {
                 console.log('Within 1')
@@ -236,7 +236,7 @@ const one_point_zero_check = (update) => {
             break;
         // negative sign
         case false:
-            console.log('One Point Zero Check: Negative Sign')
+            console.log('Remain Stopped Check: Negative Sign')
             // within -1 of zer0
             if (update > -1 && update <= 0) {
                 console.log('Within 1')
@@ -250,7 +250,7 @@ const one_point_zero_check = (update) => {
             break;
         // update is 0    
         case 0:
-            console.log('One Point Zero Check: Update is 0')
+            console.log('Remain Stopped Check: Update is 0')
             // if the sign is exactly zero
             return 0
         // default
