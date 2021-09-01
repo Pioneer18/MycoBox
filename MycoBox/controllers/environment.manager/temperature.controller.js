@@ -122,7 +122,7 @@ const temp_actuator_controller = (update) => {
                 const opZ = remain_stopped_check(update)
                 console.log('Remain Stopped Check: Return Code => ' + opZ)
                 // if beyond +/- 1 turn on the appropriate actuator and set state as 'active'
-                switch (opz) {
+                switch (opZ) {
                     
                     case 0: // update equals 0
                         console.log('Remain Stopped Check: Code 0: Remaining Stopped')
@@ -133,11 +133,11 @@ const temp_actuator_controller = (update) => {
                         break;
                     
                     case 2: // negative outside 1
-                        console.log('Remain Stopped Check: Code 2: Switching Active AC')
+                        console.log('Remain Stopped Check: Code 2: Switching Active Heater')
                         break;
                     
                     case 3: // positive outside 1
-                        console.log('Remain Stopped Check: Code 3: Switching Active Heater')
+                        console.log('Remain Stopped Check: Code 3: Switching Active AC')
                         break;
                 
                     default:
@@ -230,8 +230,8 @@ const idle_check = (update) => {
  * @returns
  * 0: update is 0
  * 1: +/- within 1
- * 2: negative outside 1
- * 3: positive outside 1
+ * 2: positive outside 1
+ * 3: negative outside 1
  */
 const remain_stopped_check = (update) => {
     console.log('Starting Remain Stopped Check')
