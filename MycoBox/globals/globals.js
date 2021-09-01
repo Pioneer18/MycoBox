@@ -342,6 +342,7 @@ const set_actuator_state = (element, status, value) => {
 }
 
 const validate_set_actuator_state = (element, status, value) => {
+    console.log(element,status,value)
     console.log('Inside validate_set_actuator_state ???????????????????????')
     if (!element || typeof element !== 'string') throw new Error('missing element for set_actuator_state')
     if (!value || !(typeof value === 'boolean' || typeof value === 'number')) throw new Error('missing value for set_actuator_state')
