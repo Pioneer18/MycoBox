@@ -113,6 +113,7 @@ const temp_actuator_controller = (update) => {
             if (state.ac.active) {
                 console.log(`active: ${active}`)
                 // check if update is within .2 of zero +/-
+                const zp2 = zero_point_two_check(update)
                 // if it's within .2 of 0 then switch status to idle 0
                 // if it's not within .2 of zero continue in active state
                 // if it's more than .2 from zero and in the opposite sign also switch to idle 0    --- Think about this one more
@@ -128,6 +129,7 @@ const temp_actuator_controller = (update) => {
             if (state.ac.idle) {
                 console.log(`idle: ${idle}`)
                 // check if update is within .2 of 0
+                const zp2 = zero_point_two_check(update)
                 // if it is, check if idle equals 3
                 // if it does switch state to 'stopped' and switch off the actuator
                 // otherwise increment and continue
@@ -157,6 +159,7 @@ const check_sign = (num) => {
  * 4: positive outside .2
  */
 const zero_point_two_check = (update) => {
+    console.log('Zero Point Two Check Starting')
     // check the sign
     const sign = check_sign(update)
     // check if within .2 for sign
