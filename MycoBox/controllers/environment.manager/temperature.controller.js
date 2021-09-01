@@ -113,26 +113,25 @@ const temp_actuator_controller = (update) => {
             if (state.ac.active) {
                 console.log(`active: ${active}`)
                 // check if update is within .2 of zero +/-
-                    // if it's within .2 of 0 then switch status to idle 0
-                    // if it's not within .2 of zero continue in active state
-                    // if it's more than .2 from zero and in the opposite sign also switch to idle 0
+                // if it's within .2 of 0 then switch status to idle 0
+                // if it's not within .2 of zero continue in active state
+                // if it's more than .2 from zero and in the opposite sign also switch to idle 0    --- Think about this one more
             }
             if (state.ac.stopped) {
-                console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^stopped^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^: ${stopped}')
+                console.log('temp_actuator_controller: STOPPED')
                 // check update proximity to zero
-
-                    // if beyond +/- 1 turn on the appropriate actuator and set state as 'active'
-                        // heater for +1
-                        // ac for -1
-                    // if within +/-1 of zero do nothing
+                // if beyond +/- 1 turn on the appropriate actuator and set state as 'active'
+                // heater for +1
+                // ac for -1
+                // if within +/-1 of zero do nothing
             }
             if (state.ac.idle) {
                 console.log(`idle: ${idle}`)
                 // check if update is within .2 of 0
-                    // if it is, check if idle equals 3
-                        // if it does switch state to 'stopped' and switch off the actuator
-                        // otherwise increment and continue
-                    // if it's outside of .2, reset idle to 0 and switch state to active
+                // if it is, check if idle equals 3
+                // if it does switch state to 'stopped' and switch off the actuator
+                // otherwise increment and continue
+                // if it's outside of .2, reset idle to 0 and switch state to active
             }
         })
 }
@@ -145,6 +144,60 @@ const check_sign = (num) => {
     if (Math.round((num + Number.EPSILON) * 100) / 100 < 0) return false
     if (Math.round((num + Number.EPSILON) * 100) / 100 > 0) return true
     if (Math.round((num + Number.EPSILON) * 100) / 100 === 0) return 0
+}
+
+/**
+ * 
+ * @param {*} update 
+ * @returns
+ * 0: update is 0
+ * 1: negative within .2
+ * 2: positive within .2
+ * 3: negative outside .2
+ * 4: positive outside .2
+ */
+const zero_point_two_check = (update) => {
+    // check the sign
+    const sign = check_sign(update)
+    // check if within .2 for sign
+    switch (sign) {
+        // positive sign
+        case true:
+            console.log('Zero Point Two Check: Positive Sign')
+            // within .2 of zero
+            if (update >= 0 && update <= 0.2) {
+                console.log('Within 0.2')
+                return 2
+            }
+            // more than .2 from zero
+            if (update > 0.2) {
+                console.log('Outside 0.2')
+                return 4
+            }
+            break;
+        // negative sign
+        case false:
+            console.log('Zero Point Two Check: Negative Sign')
+            // within .2 of zer0
+            if (update > -0.2 && update <= 0) {
+                console.log('Within 0.2')
+                return 1
+            }
+            // more than .2 from zero
+            if (update) {
+                console.log('Outside 0.2')
+                return 3
+            }
+            break;
+        // update is 0    
+        case 0:
+            console.log('Zero Point Two Check: Update is 0')
+            // if the sign is exactly zero
+            return 0
+        // default
+        default:
+            break;
+    }
 }
 
 
