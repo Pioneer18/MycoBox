@@ -345,11 +345,11 @@ const validate_set_actuator_state = (element, status, value) => {
     if (!element || typeof element !== 'string') throw new Error('missing element for set_actuator_state')
     if (!value || !(typeof value === 'boolean' || typeof value === 'number')) throw new Error('missing value for set_actuator_state')
     if (element === 'mb_light_1' || element === 'mb_light_2' || element === 'ib_light' || element === 'speakers') {
-        return
-    } else {
-        if (!status || typeof status !== 'string') throw new Error('missing status for set_actuator_state')
+        console.log('Actuator With No Status')
         return
     }
+    if (!status || typeof status !== 'string') throw new Error('missing status for set_actuator_state')
+    return
 }
 
 module.exports = {
