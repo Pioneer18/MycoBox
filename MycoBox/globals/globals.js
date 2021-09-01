@@ -357,6 +357,9 @@ const validate_set_actuator_state = (element, status, value) => {
     if (!status || typeof status !== 'string') {
         throw new Error('missing status for set_actuator_state')
     }
+    if (element) {
+        console.log('There is a valid Element for the Validation to check...............????????????')
+    }
     console.log('validate_set_actuator_state is returning???????????????????????????????')
     return
 }
