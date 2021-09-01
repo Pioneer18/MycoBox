@@ -10,6 +10,7 @@
  
      // Air Conditioner - 8
      s1r1_on:() => {
+         console.log('Switching ON The AC now')
          const relay = new Gpio(0, 'out');
          relay.writeSync(0)
      },

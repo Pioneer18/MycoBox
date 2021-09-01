@@ -135,6 +135,7 @@ const temp_actuator_controller = (update) => {
                         console.log('Remain Stopped Check: Code 2: Switching Active Heater')
                         set_actuator_state('heater', 'stopped', false)
                         set_actuator_state('heater', 'active', true)
+                        console.log('Switching the Relay on now?')
                         s1r1_on()
                         break;
 
