@@ -336,6 +336,7 @@ const set_actuator_state = (element, status, value) => {
     console.log('Actuator State Validated ????????')
     if (element === 'mb_light_1' || element === 'mb_light_2' || element === 'ib_light' || element === 'speakers') {
         globals.actuators_state[element][value]
+        return
     }
     globals[element][status] = value
     return
