@@ -339,7 +339,7 @@ const set_actuator_state = (element, status, value) => {
             globals.actuators_state[element][value]
             return resolve()
         }
-        globals[element][status] = value
+        globals.actuators_state[element][status] = value
         return resolve()
     })
 }
