@@ -109,7 +109,7 @@ const temp_actuator_controller = (update) => {
             console.log('Here is the Actuator State 😃')
             console.log(state.ac.stopped)
             if (state.ac.active) {
-                console.log(`active: ${active}`)
+                console.log(`active: <<<<<<<<<<<<<<<<<<< ${active} >>>>>>>>>>>>>>>>>>>>`)
                 // check if update is within .2 of zero +/-
                 const zpT = idle_check(update)
                 // if it's within .2 of 0 then switch status to idle 0
