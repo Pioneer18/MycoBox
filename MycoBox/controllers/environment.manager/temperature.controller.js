@@ -143,6 +143,7 @@ const temp_actuator_controller = (update) => {
                         console.log('Remain Stopped Check: Code 3: Switching Active AC')
                         set_actuator_state('ac', 'stopped', false)
                         set_actuator_state('ac', 'active', true)
+                        console.log('Should be switching on the AC now')
                         s2r1_on()
                         break;
 
