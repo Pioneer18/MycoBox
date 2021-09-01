@@ -344,22 +344,22 @@ const set_actuator_state = (element, status, value) => {
 const validate_set_actuator_state = (element, status, value) => {
     console.log(element, status, value)
     console.log('Inside validate_set_actuator_state ???????????????????????')
-    if (!element || typeof element !== 'string') {
-        throw new Error('missing element for set_actuator_state')
-    }
-    if (!value || !(typeof value === 'boolean' || typeof value === 'number')) {
-        throw new Error('missing value for set_actuator_state')
-    }
-    if (element === 'mb_light_1' || element === 'mb_light_2' || element === 'ib_light' || element === 'speakers') {
-        console.log('Actuator With No Status')
-        return
-    }
-    if (!status || typeof status !== 'string') {
-        throw new Error('missing status for set_actuator_state')
-    }
-    if (element) {
-        console.log('There is a valid Element for the Validation to check...............????????????')
-    }
+    // if (!element || typeof element !== 'string') {
+    //     throw new Error('missing element for set_actuator_state')
+    // }
+    // if (!value || !(typeof value === 'boolean' || typeof value === 'number')) {
+    //     throw new Error('missing value for set_actuator_state')
+    // }
+    // if (element === 'mb_light_1' || element === 'mb_light_2' || element === 'ib_light' || element === 'speakers') {
+    //     console.log('Actuator With No Status')
+    //     return
+    // }
+    // if (!status || typeof status !== 'string') {
+    //     throw new Error('missing status for set_actuator_state')
+    // }
+    // if (element) {
+    //     console.log('There is a valid Element for the Validation to check...............????????????')
+    // }
     console.log('validate_set_actuator_state is returning???????????????????????????????')
     return
 }
