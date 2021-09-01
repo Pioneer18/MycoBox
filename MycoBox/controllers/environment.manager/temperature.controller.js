@@ -134,8 +134,7 @@ const temp_actuator_controller = (update) => {
                     case 2: // positive greater than 1
                         console.log('Remain Stopped Check: Code 2: Switching Active Heater')
                         set_actuator_state('heater', 'stopped', false)
-                            .then(() => set_actuator_state('heater', 'active', true))
-                            .then(() => s1r1_on())
+                            .then(set_actuator_state('heater', 'active', true).then(s1r1_on()))
                         break;
 
                     case 3: // negative less than -1
