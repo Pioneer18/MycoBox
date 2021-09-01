@@ -331,15 +331,17 @@ const set_pid_state_validation = (controller, state) => {
  * @param {boolean || number} value
  */
 const set_actuator_state = (element, status, value) => {
-    console.log('Setting Actuator State')
-    validate_set_actuator_state(element, status, value)
-    console.log('Actuator State Validated ????????')
-    if (element === 'mb_light_1' || element === 'mb_light_2' || element === 'ib_light' || element === 'speakers') {
-        globals.actuators_state[element][value]
-        return
-    }
-    globals[element][status] = value
-    return
+    return new Promise((resolve) => {
+        console.log('Setting Actuator State')
+        validate_set_actuator_state(element, status, value)
+        console.log('Actuator State Validated ????????')
+        if (element === 'mb_light_1' || element === 'mb_light_2' || element === 'ib_light' || element === 'speakers') {
+            globals.actuators_state[element][value]
+            return resolve()
+        }
+        globals[element][status] = value
+        return resolve()
+    })
 }
 
 const validate_set_actuator_state = (element, status, value) => {
