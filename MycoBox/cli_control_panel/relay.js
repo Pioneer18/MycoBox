@@ -28,6 +28,7 @@ module.exports = {
     },
 
     s2r1_off: () => {
+        console.log('Switching OFF the AC')
         const relay = new Gpio(5, 'out')
         relay.writeSync(1)
     },
