@@ -125,7 +125,7 @@ const temp_actuator_controller = (update) => {
 
                     case 2: // positive greater than .2
                         console.log('Temperature Actuator Controller: Entering Overshoot Protocol')
-                        // if update > .2 it has overshot, switch status to overshoot and turn off the ac
+                        // the ac has overshot, switch status to overshoot and turn off the ac
                         set_actuator_state('ac', 'active', false).then(set_actuator_state('ac', 'overshoot', 1).then(s2r1_off()))
                         break;
 
