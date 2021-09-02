@@ -58,7 +58,7 @@
         console.log(`I: ${this.integralOfError}`);
         console.log('RAW Integral of Error: ' + this.ki * err * dt);
         console.log(`D: ${D}`);
-        return P + this.integralOfError + D 
+        return P 
     }
 
     // set the global pid state for this controller
