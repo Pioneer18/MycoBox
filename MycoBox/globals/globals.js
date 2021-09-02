@@ -66,43 +66,36 @@ let globals = {
             active: false,
             stopped: true,
             idle: 0,
-            overshoot: 0
         },
         circulation_top: {
             active: false,
             stopped: true,
             idle: 0,
-            overshoot: 0
         },
         intake: {
             active: false,
             stopped: true,
             idle: 0,
-            overshoot: 0
         },
         exhaust: {
             active: false,
             stopped: true,
             idle: 0,
-            overshoot: 0
         },
         ac: {
             active: false,
             stopped: true,
             idle: 0,
-            overshoot: 0
         },
         heater: {
             active: false,
             stopped: true,
             idle: 0,
-            overshoot: 0
         },
         humidifier: {
             active: false,
             stopped: true,
             idle: 0,
-            overshoot: 0
         },
         mb_light_1: false, // 8
         mb_light_2: false, // 9
