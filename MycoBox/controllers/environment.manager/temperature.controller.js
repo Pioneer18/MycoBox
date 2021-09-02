@@ -106,8 +106,9 @@ const temp_actuator_controller = (update) => {
     get('actuators_state')
         // The switch on threshold (st) should be a variable
         .then(state => {
-            console.log('Here is the Actuator State 😃')
+            console.log('Actuator State:')
             console.log(state.ac)
+            // AC Protocol
             if (state.ac.active) {
                 // check if update is within .2 of zero +/-
                 const zpT = idle_check(update)
@@ -126,7 +127,7 @@ const temp_actuator_controller = (update) => {
                     case 2: // positive greater than .2
                         console.log('Temperature Actuator Controller: Entering Overshoot Protocol')
                         // the ac has overshot, switch status to overshoot and turn off the ac
-                        set_actuator_state('ac', 'active', false).then(set_actuator_state('ac', 'overshoot', 1).then(s2r1_off()))
+                        set_actuator_state('ac', 'active', false).then(set_actuator_state('ac','stopped',true).then(s2r1_off()))
                         break;
 
                     case 3: // negative less than -.2
@@ -152,7 +153,7 @@ const temp_actuator_controller = (update) => {
                         console.log('Remain Stopped Check: Code 1: Remaining Stopped')
                         break;
 
-                    case 2: // positive greater than 1
+                    case 2: // positive greater than 1 REWORK THIS!!!!!!!
                         console.log('Remain Stopped Check: Code 2: Switching Active Heater')
                         set_actuator_state('heater', 'stopped', false).then(set_actuator_state('heater', 'active', true).then(s1r1_on()))
                         break;
@@ -204,6 +205,16 @@ const temp_actuator_controller = (update) => {
                     default:
                         break;
                 }
+            }
+            // Heater Protocol
+            if (state.heater.active) {
+
+            }
+            if (state.heater.stopped) {
+
+            }
+            if (state.heater.idle) {
+
             }
         })
 }
