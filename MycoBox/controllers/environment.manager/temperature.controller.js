@@ -132,6 +132,7 @@ const temp_actuator_controller = (update) => {
                 switch (stopped) {
                     case 1: // AC stays OFF
                         console.log('AC Remain Stopped')
+                        s2r1_off()
                         break;
 
                     case 2: // AC switches ON
