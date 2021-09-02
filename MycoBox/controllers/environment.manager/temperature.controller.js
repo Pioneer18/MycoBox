@@ -132,12 +132,12 @@ const temp_actuator_controller = (update) => {
                 switch (stopped) {
                     case 1: // AC stays OFF
                         console.log('AC Remain Stopped')
-                        
+
                         break;
 
                     case 2: // AC switches ON
                         console.log('AC Switching Active')
-                        set_actuator_state('ac', 'stopped', false).then(set_actuator_state('ac', 'active', true).then(s2r1_on()))
+                        set_actuator_state('ac', 'stopped', false).then(set_actuator_state('ac', 'active', true).then(() => s2r1_on()))
                         break;
 
                     default:
@@ -156,7 +156,7 @@ const temp_actuator_controller = (update) => {
                     case 2: // increment up or switch to stopped and turn off the ac
                         if (state.ac.idle >= 3) {
                             console.log('AC Switching OFF From Idle ')
-                            set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac', 'stopped', true).then(s2r1_off()))
+                            set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac', 'stopped', true).then(() => s2r1_off()))
                         } else {
                             console.log('Incrementing Idle:')
                             set_actuator_state('ac', 'idle', state.ac.idle + 1)
