@@ -33,7 +33,10 @@ const environment_manager = () => {
                         console.log('Update Value Returned | ' + data + ' | Recalling ENV MANAGER')
                         console.log('#############################################################################')
 
-                        return environment_manager();
+                        setTimeout(() => {
+                            console.log('**************************** Waited 2 Seconds ****************************')
+                            return environment_manager();
+                        }, 2000);
                     })
             }
             if (!validation) {
