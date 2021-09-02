@@ -124,12 +124,12 @@ const temp_actuator_controller = (update) => {
                         break;
 
                     case 2: // positive greater than .2
-                        console.log('Heater Remaining Active')
-                        // if ac is on and sudden positive (run overshoot - similar to idle)
+                        console.log('Temperature Actuator Controller: Entering Overshoot Protocol')
+                        // if update > .2 it has overshot, switch status to overshoot
+                        set_actuator_state('ac', 'active', false).then(set_actuator_state('ac', 'overshoot', 1))
                         break;
 
                     case 3: // negative less than -.2
-                        // keep the ac on
                         console.log('AC Remaining Active')
                         break;
 
@@ -187,11 +187,11 @@ const temp_actuator_controller = (update) => {
 
                     case 1:
                         if (state.ac.idle >= 3) {
-                            set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac','stopped', true).then(s2r1_off()))
+                            set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac', 'stopped', true).then(s2r1_off()))
                         } else {
                             // increment up 
                         }
-                            break;
+                        break;
 
                     case 2: // positive greater than .2
 
