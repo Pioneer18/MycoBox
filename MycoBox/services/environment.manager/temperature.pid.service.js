@@ -13,7 +13,7 @@
  class TempPidController {
     constructor(config) {
         // saturation has been reached if these limits are hit and clamping should happen
-        let defaultIntegralLimit = { min: -1000, max: 1000}
+        let defaultIntegralLimit = { min: -10, max: 10}
         // Set PID weights (gain)
         this.kp = config.settings.kp || 0.8;
         this.ki = config.settings.ki || 0.1;
@@ -31,34 +31,6 @@
     }
 
     update() {
-        // console.log('Hello World Update() attempt --------------')
-        // // #1) find the interval of time between previous and current reading
-        // const {dt, currentTime} = this.calculate_dt(this.lastTime);
-        // this.lastTime = currentTime;
-        // // #2) calculate the error and integral of the error; the total of error x time passed till current reading
-        // console.log('Set Point: ' + this.setPoint)
-        // console.log('Measured: ' + this.measured)
-        // let error = (this.setPoint - this.measured);
-        // this.integralOfError += error * dt; 
-        // if (this.integralOfError > this.integralLimit.max) this.integralOfError = this.integralLimit.max;
-        // if (this.integralOfError < this.integralLimit.min) this.integralOfError = this.integralLimit.min;
-        // // calculate the derivative of the error: rate of change
-        // console.log('error - lastError: ', error - this.lastError)
-        // console.log('dt: ', dt)
-        // let derivativeOfError = (error - this.lastError) / dt;
-        // this.lastError = error;
-        // console.log('Error: ' + error);
-        // console.log('Derivative of Error: ' + derivativeOfError);
-
-        // // CALCULATED UPDATE VALUE IS GETTING REALLY BIG
-        // return (this.kp * error) + (this.ki * this.integralOfError) + (this.kd * derivativeOfError);
-
-        /**
-         * Update Redo:
-         * What are the Gains?
-         * kp = 0, ki = 0, kp = 0
-         */
-
         // #1. find the cycle-time (dt) and update lastTime
         const {dt, currentTime} = this.calculate_dt(this.lastTime)
         let D;
