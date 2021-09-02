@@ -11,20 +11,6 @@ const newSession = (config) => {
     makeRequest('POST', `http://192.168.1.97:3000${api}/system_controller/start_session`, JSON.stringify(config)) // add a content-type param
 };
 
-// where does config go?
-const _newSession = (config) => {
-    const response = await fetch(`http://192.168.1.97:3000${api}/system_controller/start_session`, {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'omit',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'http://192.168.1.97:3000/',
-            'Access-Control-Allow-Headers': '*'
-        }
-    })
-}
 
 export {
     newSession
