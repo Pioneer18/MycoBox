@@ -104,8 +104,6 @@ const validate_env_state = () => {
     return new Promise((resolve) => {
         get('environment_state')
             .then(env_state => {
-                console.log("METHOD CALL: validate_env_state")
-                console.log(env_state)
                 if (env_state.internal_temp_1 === '') {
                     console.log('Validate Env Recall: Blank Env State')
                     initialize_environment_state()
@@ -116,9 +114,6 @@ const validate_env_state = () => {
                         })
                 }
                 if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
-                    console.log('Valid Env State!')
-                    console.log(env_state);
-                    console.log('Should be resolving true now')
                     return resolve({
                         validation: true,
                         env_state: env_state
@@ -133,7 +128,6 @@ const recheck_env_state = (resolve) => {
     get('environment_state')
         .then(env_state => {
             if (env_state.internal_temp_1 === '') {
-                console.log('Validate Env Recall: Blank Env State')
                 initialize_environment_state()
                     .then(() => {
                         setTimeout(() => {
@@ -142,9 +136,6 @@ const recheck_env_state = (resolve) => {
                     })
             }
             if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
-                console.log('Valid Env State!')
-                console.log(env_state);
-                console.log('Should be resolving true now')
                 return resolve({
                     validation: true,
                     env_state: env_state
