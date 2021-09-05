@@ -37,6 +37,7 @@ const environment_manager = () => {
                         //     console.log('**************************** Waited 2 Seconds ****************************')
                         //     return environment_manager();
                         // }, 2000);
+                        return environment_manager()
                     })
             }
             if (!validation) {
