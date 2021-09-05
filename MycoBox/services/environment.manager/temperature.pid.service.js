@@ -15,7 +15,7 @@
         // saturation has been reached if these limits are hit and clamping should happen
         let defaultIntegralLimit = { min: -10, max: 10}
         // Set PID weights (gain)
-        this.kp = config.settings.kp || 0.8;
+        this.kp = config.settings.kp || 1;
         this.ki = config.settings.ki || 0.1;
         this.kd = config.settings.kd || 0.1;
         // init properties for the integral of error
