@@ -47,17 +47,18 @@
         if (this.integralOfError < this.integralLimit.min) this.integralOfError = this.integralLimit.min;
         // #6. calculate D => kd * (err - lastErr) / dt
         dt === 0 ? D = 0 : D = this.kd * (err - this.lastError) / dt;
-        console.log('Calculating Derivative')
-        console.log('dt : ' + dt)
-        console.log(this.kd + ' * ( err: ' + err + ' - ' + this.lastError + ' ) / ' + dt + ') =' + (this.kd * (err - this.lastError) / dt));
-        // #7. Output => P + It + D
-        console.log('Current Time: ' + currentTime)
-        console.log('Cycle Time: ' + dt)
+        // console.log('Calculating Derivative')
+        // console.log('dt : ' + dt)
+        // console.log(this.kd + ' * ( err: ' + err + ' - ' + this.lastError + ' ) / ' + dt + ') =' + (this.kd * (err - this.lastError) / dt));
+        // // #7. Output => P + It + D
+        // console.log('Current Time: ' + currentTime)
+        // console.log('Cycle Time: ' + dt)
         console.log('PID Calculation Report:')
         console.log(`P: ${P}`);
-        console.log(`I: ${this.integralOfError}`);
-        console.log('RAW Integral of Error: ' + this.ki * err * dt);
-        console.log(`D: ${D}`);
+        console.log(`Error: ${err}`);
+        // console.log(`I: ${this.integralOfError}`);
+        // console.log('RAW Integral of Error: ' + this.ki * err * dt);
+        // console.log(`D: ${D}`);
         return P 
     }
 
