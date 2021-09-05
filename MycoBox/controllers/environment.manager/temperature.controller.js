@@ -106,8 +106,8 @@ const temp_actuator_controller = (update) => {
     get('actuators_state')
         // The switch on threshold (st) should be a variable
         .then(state => {
-            console.log('Actuator State:')
-            console.log(state.ac)
+            // console.log('Actuator State:')
+            // console.log(state.ac)
             // AC Protocol
             if (state.ac.active) {
                 // check if update is within -0.2 from 0
