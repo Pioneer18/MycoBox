@@ -127,6 +127,7 @@ const temp_actuator_controller = (update) => {
                 }
             }
             if (state.ac.stopped) {
+                // Start if more than .5 or .7 off not 1
                 console.log('temp_actuator_controller: Stopped^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
                 const stopped = remain_stopped_check(update, false)
                 switch (stopped) {
