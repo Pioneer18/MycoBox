@@ -159,7 +159,8 @@ const temp_actuator_controller = (update) => {
                             set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac', 'stopped', true)).then(() => s2r1_off())
                         } else {
                             console.log('Incrementing Idle:')
-                            set_actuator_state('ac', 'idle', state.ac.idle + 1)
+                            const increment = (state.ac.idle + 1) 
+                            set_actuator_state('ac', 'idle', increment)
                         }
                         break;
 
