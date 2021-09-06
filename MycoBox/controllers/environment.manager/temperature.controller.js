@@ -149,12 +149,12 @@ const temp_actuator_controller = (update) => {
                 const idle = idle_check(update, false)
                 console.log('IDLE CHECK CODE: ' + idle)
                 switch (idle) {
-                    case 1: // switch back to active
+                    case 2: // switch back to active
                         console.log('AC Switching Back to Active')
                         set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac', 'active', true))
                         break;
 
-                    case 2: // increment up or switch to stopped and turn off the ac
+                    case 1: // increment up or switch to stopped and turn off the ac
                         if (state.ac.idle >= 3) {
                             console.log('AC Switching OFF From Idle ')
                             set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac', 'stopped', true)).then(() => s2r1_off())
