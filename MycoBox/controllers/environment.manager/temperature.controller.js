@@ -261,7 +261,7 @@ const remain_stopped_check = (update, sign) => {
         case false:
             console.log('Remain Stopped Check: Negative Sign')
             // within -1 of zer0
-            if (update > -1 && update <= 0) {
+            if (update > -1) {
                 console.log('Within 1')
                 return 1
             }
