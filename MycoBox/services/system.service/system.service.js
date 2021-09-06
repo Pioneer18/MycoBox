@@ -106,7 +106,14 @@ const validate_env_state = () => {
     return new Promise((resolve) => {
         get('environment_state')
             .then(env_state => {
-                if (env_state.internal_temp_1 === '') {
+                if (typeof env_state.internal_temp_1 !== 'number' ||
+                    typeof env_state.internal_temp_2 !== 'number' ||
+                    typeof env_state.internal_temp_3 !== 'number' ||
+                    typeof env_state.precise_temp_c !== 'number' ||
+                    typeof env_state.internal_humidity_1 !== 'number' ||
+                    typeof env_state.internal_humidity_2 !== 'number' ||
+                    typeof env_state.internal_humidity_3 !== 'number'
+                ) {
                     console.log('Validate Env Recall: Blank Env State')
                     update_environment_state()
                         .then(() => {
@@ -115,7 +122,13 @@ const validate_env_state = () => {
                             }, 8000);
                         })
                 }
-                if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
+                if (typeof env_state.internal_temp_1 === 'number' ||
+                    typeof env_state.internal_temp_2 === 'number' ||
+                    typeof env_state.internal_temp_3 === 'number' ||
+                    typeof env_state.precise_temp_c === 'number' ||
+                    typeof env_state.internal_humidity_1 === 'number' ||
+                    typeof env_state.internal_humidity_2 === 'number' ||
+                    typeof env_state.internal_humidity_3 === 'number') {
                     return resolve({
                         validation: true,
                         env_state: env_state
