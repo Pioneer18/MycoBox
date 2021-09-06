@@ -112,7 +112,7 @@ const temp_actuator_controller = (update) => {
             if (state.ac.active) {
                 // check if update is within -0.2 from 0
                 const idle = idle_check(update, false)
-                console.log('Temp Actuator Controller: Active')
+                console.log('Temp Actuator Controller: Active ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
                 switch (idle) {
                     case 1: // AC switches to idle
                         set_actuator_state('ac', 'active', false).then(set_actuator_state('ac', 'idle', 1))
@@ -127,7 +127,7 @@ const temp_actuator_controller = (update) => {
                 }
             }
             if (state.ac.stopped) {
-                console.log('temp_actuator_controller: Stopped')
+                console.log('temp_actuator_controller: Stopped^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
                 const stopped = remain_stopped_check(update, false)
                 switch (stopped) {
                     case 1: // AC stays OFF
@@ -145,7 +145,7 @@ const temp_actuator_controller = (update) => {
                 }
             }
             if (state.ac.idle > 0) {
-                console.log('temp_acutator_controller: Idle ' + state.ac.idle)
+                console.log('temp_acutator_controller: Idle ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^' + state.ac.idle)
                 const idle = idle_check(update, false)
                 switch (idle) {
                     case 1: // switch back to active
