@@ -145,7 +145,7 @@ const temp_actuator_controller = (update) => {
                 }
             }
             if (state.ac.idle > 0) {
-                console.log('temp_acutator_controller: Idle ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^' + state.ac.idle)
+                console.log('temp_acutator_controller: Idle ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ' + state.ac.idle)
                 const idle = idle_check(update, false)
                 switch (idle) {
                     case 1: // switch back to active
@@ -160,6 +160,7 @@ const temp_actuator_controller = (update) => {
                         } else {
                             console.log('Incrementing Idle:')
                             const increment = (state.ac.idle + 1) 
+                            console.log('Increment: ' + increment)
                             set_actuator_state('ac', 'idle', increment)
                         }
                         break;
