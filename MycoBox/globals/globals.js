@@ -242,8 +242,8 @@ const set_environment_state = ((element, value) => {
  */
 const set_environment_state_validation = (element, value) => {
     return new Promise((resolve) => {
-        console.log(`Validating the Environment State to be set`)
-        console.log(element, value)
+        // console.log(`Validating the Environment State to be set`)
+        // console.log(element, value)
         if (element === 'timestamp' && typeof value === 'number') resolve()
         if (element === 'internal_temp_1' && typeof value === 'string') resolve()
         if (element === 'internal_temp_2' && typeof value === 'string') resolve()
