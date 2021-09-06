@@ -241,6 +241,7 @@ const idle_check = (update, sign) => {
  * 3: Heater stay OFF
  * 4: Heater turn ON
  */
+//NOTE: the comparator value should be a parameter?
 const remain_stopped_check = (update, sign) => {
     // check if within .2 for sign
     switch (sign) {

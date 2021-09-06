@@ -47,8 +47,8 @@ const parse_co2_data = (reply) => {
  * @param {Array} data e.g. ['43.55', 44.25, 43.40]
  */
 const validate_th_data = (data) => {
-    console.log("METHOD CALL: validate_th_data")
-    console.log(data)
+    // console.log("METHOD CALL: validate_th_data")
+    // console.log(data)
     return new Promise((resolve, reject) => {
         if (typeof data !== typeof 'string') reject(`received temp/humidity value that is not a string, check the sensors! ${data}`)
         if (data === '') reject(`received an empty value for temp/humidity, check the sensors! ${data}`)
