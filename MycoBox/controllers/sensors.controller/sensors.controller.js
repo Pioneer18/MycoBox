@@ -91,9 +91,9 @@ const set_timestamp = () => {
 /**
  * Set Environment State
  */
-const initialize_environment_state = () => {
+const update_environment_state = () => {
     return new Promise((resolve) => {
-        console.log("METHOD CALL: initialize_environment_state")
+        console.log("METHOD CALL: update_environment_state")
         read_co2()
             .then(read_temp_humidity())
             .then(read_precise_temp())
@@ -150,6 +150,6 @@ module.exports = {
     read_co2,
     read_scale,
     read_infrared,
-    initialize_environment_state,
+    update_environment_state,
     read_environment_state
 }

@@ -5,7 +5,7 @@
  */
 const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
 const { get } = require("../../globals/globals")
-const { initialize_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
+const { update_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
 
 
 /**
@@ -36,7 +36,7 @@ const environment_manager = () => {
                         setTimeout(() => {
                             console.log('**************************** Waited 2 Seconds ****************************')
                             return environment_manager();
-                        }, 10000);
+                        }, 2000);
                     })
             }
             if (!validation) {
@@ -106,7 +106,7 @@ const validate_env_state = () => {
             .then(env_state => {
                 if (env_state.internal_temp_1 === '') {
                     console.log('Validate Env Recall: Blank Env State')
-                    initialize_environment_state()
+                    update_environment_state()
                         .then(() => {
                             setTimeout(() => {
                                 recheck_env_state(resolve)
@@ -128,7 +128,7 @@ const recheck_env_state = (resolve) => {
     get('environment_state')
         .then(env_state => {
             if (env_state.internal_temp_1 === '') {
-                initialize_environment_state()
+                update_environment_state()
                     .then(() => {
                         setTimeout(() => {
                             recheck_env_state(resolve)

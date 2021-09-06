@@ -1,2 +1,2 @@
-const {initialize_environment_state} = require('./sensors.controller')
-await initialize_environment_state()
+const {update_environment_state} = require('./sensors.controller')
+await update_environment_state()

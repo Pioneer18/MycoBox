@@ -24,7 +24,7 @@
  */
 const { get, set_environment_config, set_session_state } = require('../../globals/globals');
 const { environment_manager } = require("../../services/system.service/system.service")
-const { initialize_environment_state } = require("../sensors.controller/sensors.controller")
+const { update_environment_state } = require("../sensors.controller/sensors.controller")
 
 /**
  * New Session: A promise to run the Environment Manager after the initial setup
@@ -40,7 +40,7 @@ function newSession(config) {
         const session_state = get('session_state');
         if (!session_state.active_session) {
             set_environment_config(config)
-                .then(initialize_environment_state())
+                .then(update_environment_state())
                 .then(set_session_state('active_session', true))
                 .then(environment_manager())
                 .then(resolve())
