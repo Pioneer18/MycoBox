@@ -37,7 +37,7 @@ const environment_manager = () => {
                             setTimeout(() => {
                                 console.log('**************************** Waited 2 Seconds ****************************')
                                 return environment_manager();
-                            }, 2000);
+                            }, 4000);
                         }))
 
             }
