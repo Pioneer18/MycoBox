@@ -147,6 +147,7 @@ const temp_actuator_controller = (update) => {
             if (state.ac.idle > 0) {
                 console.log('temp_acutator_controller: Idle ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ' + state.ac.idle)
                 const idle = idle_check(update, false)
+                console.log('IDLE CHECK CODE: ' + idle)
                 switch (idle) {
                     case 1: // switch back to active
                         console.log('AC Switching Back to Active')
