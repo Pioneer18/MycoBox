@@ -25,19 +25,21 @@ const environment_manager = () => {
             // #3. calculate measured and generated a pid_config WHEN valid env_state returned
             if (validation) {
                 console.log('Environment Manager Has Validated Session')
-                run_pid_controllers()
-                    .then(data => {
-                        // if there is any data returned do whatever with it here
-                        // otherwise recall environment_manager, because the session must still be active
-                        console.log('#############################################################################')
-                        console.log('Update Value Returned | ' + data + ' | Recalling ENV MANAGER')
-                        console.log('#############################################################################')
+                update_environment_state()
+                    .then(run_pid_controllers()
+                        .then(data => {
+                            // if there is any data returned do whatever with it here
+                            // otherwise recall environment_manager, because the session must still be active
+                            console.log('#############################################################################')
+                            console.log('Update Value Returned | ' + data + ' | Recalling ENV MANAGER')
+                            console.log('#############################################################################')
 
-                        setTimeout(() => {
-                            console.log('**************************** Waited 2 Seconds ****************************')
-                            return environment_manager();
-                        }, 2000);
-                    })
+                            setTimeout(() => {
+                                console.log('**************************** Waited 2 Seconds ****************************')
+                                return environment_manager();
+                            }, 2000);
+                        }))
+
             }
             if (!validation) {
                 resolve('Session has ended')
