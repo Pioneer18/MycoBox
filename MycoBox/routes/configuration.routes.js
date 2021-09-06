@@ -10,7 +10,8 @@ const { newSession } = require('../controllers/system.controller/system.controll
 */
 router.post(`/system_controller/start_session`, async (req, res) => {
     try {
-       res.send((newSession(req.body)))
+        newSession(req.body)
+        res.send('New Session Has Started')
     } catch (err) {
         console.log(`Error: ${err}`)
     }
