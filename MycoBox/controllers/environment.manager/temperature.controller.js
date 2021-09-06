@@ -201,7 +201,7 @@ const idle_check = (update, sign) => {
         case true:
             console.log('Idle Check: Positive Sign')
             // within .2 of zero
-            if (update >= 0 && update <= 0.2) {
+            if (update <= 0.2) {
                 console.log('Within 0.2')
                 return 3
             }
@@ -215,12 +215,12 @@ const idle_check = (update, sign) => {
         case false:
             console.log('Idle Check: Negative Sign')
             // within -.2 of zer0
-            if (update > -0.3) {
+            if (update > -0.2) {
                 console.log('Within 0.2')
                 return 1
             }
             // less than -.2
-            if (update) {
+            if (update < -0.2) {
                 console.log('Outside 0.2')
                 return 2
             }
