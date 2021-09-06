@@ -161,7 +161,7 @@ const temp_actuator_controller = (update) => {
                             set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac', 'stopped', true)).then(() => s2r1_off())
                         } else {
                             console.log('Incrementing Idle:')
-                            const increment = (state.ac.idle + 1) 
+                            const increment = (state.ac.idle + 1)
                             console.log('Increment: ' + increment)
                             set_actuator_state('ac', 'idle', increment)
                         }
@@ -248,12 +248,12 @@ const remain_stopped_check = (update, sign) => {
         case true:
             console.log('Remain Stopped Check: Positive Sign')
             // within 1 of zero
-            if (update >= 0 && update <= 1) {
-                console.log('Update is Less than 1 greater than 0')
+            if (update <= .6) {
+                console.log('Update is Less than .5 greater than 0')
                 return 3
             }
             // more than 1 from zero
-            if (update > 0.2) {
+            if (update > 0.6) {
                 console.log('Update is Greater than 1 from 0')
                 return 4
             }
@@ -262,12 +262,12 @@ const remain_stopped_check = (update, sign) => {
         case false:
             console.log('Remain Stopped Check: Negative Sign')
             // within -1 of zer0
-            if (update > -1) {
+            if (update > -0.6) {
                 console.log('Within 1')
                 return 1
             }
             // more than -1 from zero
-            if (update < -1) {
+            if (update < -0.6) {
                 console.log('Outside 1')
                 return 2
             }
