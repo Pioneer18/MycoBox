@@ -47,18 +47,9 @@
         if (this.integralOfError < this.integralLimit.min) this.integralOfError = this.integralLimit.min;
         // #6. calculate D => kd * (err - lastErr) / dt
         dt === 0 ? D = 0 : D = this.kd * (err - this.lastError) / dt;
-        // console.log('Calculating Derivative')
-        // console.log('dt : ' + dt)
-        // console.log(this.kd + ' * ( err: ' + err + ' - ' + this.lastError + ' ) / ' + dt + ') =' + (this.kd * (err - this.lastError) / dt));
-        // // #7. Output => P + It + D
-        // console.log('Current Time: ' + currentTime)
-        // console.log('Cycle Time: ' + dt)
         console.log('PID Calculation Report:')
         console.log(`P: ${P}`);
         console.log(`Error: ${err}`);
-        // console.log(`I: ${this.integralOfError}`);
-        // console.log('RAW Integral of Error: ' + this.ki * err * dt);
-        // console.log(`D: ${D}`);
         return P 
     }
 
@@ -96,15 +87,3 @@
 module.exports = {
     TempPidController,
 }
-
-/**
- * Temp PID Calculation Notes
- * --------------------------
- * #1. When the setpoint is below the measured, the error will be negative
- * #2. When the lastTime is 0, the derivative will be +/- Infinity; because anything / 0 is infinity. So don't use derivative if there is no lastTime.
- *     The Derivative may be unnecessary for the TempPidController
- * #3. The weights right now are doing nothing
- * #4. Update value is Negative: Temp is above setpoint, turn on the AC
- * #5. Update value is Positive: Temp is below the setpoint, turn on the Heater
- * #6. Value is zero, or close to it, then do nothing
- */

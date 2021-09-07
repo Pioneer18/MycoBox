@@ -39,10 +39,6 @@ const update_temperature = (config) => {
     const value = tempController.update();
     console.log('The calculated Update Value')
     console.log(value);
-    // get the report and set the global
-    // const state = tempController.report();
-    // console.log('State to set pid_state')
-    // console.log(state)
     set_pid_state('temperature', tempController.report())
     temp_actuator_controller(value)
     return value
@@ -106,9 +102,6 @@ const temp_actuator_controller = (update) => {
     get('actuators_state')
         // The switch on threshold (st) should be a variable
         .then(state => {
-            // console.log('Actuator State:')
-            // console.log(state.ac)
-            // AC Protocol
             if (state.ac.active) {
                 // check if update is within -0.2 from 0
                 const idle = idle_check(update, false)

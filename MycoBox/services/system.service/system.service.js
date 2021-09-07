@@ -66,7 +66,8 @@ Promise.all([promise1, promise2, promise3]).then((values) => {
 });
 
 /**
- * Average the temperature and humidity
+ * Validate the current environment state, the calculate the measured and call each controller with its
+ * respective configuration object
  * @param {*} env_state 
  * @returns { temp, humidity, co2 }  
  */
