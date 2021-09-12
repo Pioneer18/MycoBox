@@ -211,7 +211,7 @@ const temp_actuator_controller = (update) => {
                         break;
                 
                     case 3: // increment up or switch to stopped and turn off the heater
-                        if (state.heater.idle > 3) {
+                        if (state.heater.idle > 2) {
                             console.log('Heater Switching OFF from Idle')
                             set_actuator_state('heater', 'idle', '0').then(set_actuator_state('heater', 'stopped', true)).then(() => {
                                 s4r1_off()
@@ -248,12 +248,12 @@ const idle_check = (update, sign) => {
         case true:
             console.log('Idle Check: Positive Sign')
             // within .2 of zero
-            if (update <= 0.2) {
+            if (update <= 0.35) {
                 console.log('Within 0.2')
                 return 3
             }
             // more than .2 from zero
-            if (update > 0.2) {
+            if (update > 0.35) {
                 console.log('Outside 0.2')
                 return 4
             }
