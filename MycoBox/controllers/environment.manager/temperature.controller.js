@@ -9,7 +9,7 @@
 
 const { set_pid_state, get, set_actuator_state } = require('../../globals/globals');
 const { TempPidController } = require('../../services/environment.manager/temperature.pid.service');
-const { s2r1_off, s2r1_on, s1r1_on, s4r1_on, s6r2_on } = require('../../cli_control_panel/relay');
+const { s2r1_off, s2r1_on, s1r1_on, s4r1_on, s6r2_on, s4r1_off, s6r2_off } = require('../../cli_control_panel/relay');
 
 /**
  * Run PID:
@@ -139,9 +139,8 @@ const temp_actuator_controller = (update) => {
                 }
             }
             if (state.ac.idle > 0) {
-                console.log('temp_acutator_controller: Idle ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ' + state.ac.idle)
+                console.log('temp_acutator_controller: Idle ---- ' + state.ac.idle)
                 const idle = idle_check(update, false)
-                console.log('IDLE CHECK CODE: ' + idle)
                 switch (idle) {
                     case 2: // switch back to active
                         console.log('AC Switching Back to Active')
@@ -153,7 +152,6 @@ const temp_actuator_controller = (update) => {
                             console.log('AC Switching OFF From Idle ')
                             set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac', 'stopped', true)).then(() => s2r1_off())
                         } else {
-                            console.log('Incrementing Idle:')
                             const increment = (state.ac.idle + 1)
                             console.log('Increment: ' + increment)
                             set_actuator_state('ac', 'idle', increment)
@@ -204,7 +202,31 @@ const temp_actuator_controller = (update) => {
                 }
             }
             if (state.heater.idle > 0) {
+                console.log('Heater Idle --- ' + state.heater.idle)
+                const idle = idle_check(update, true)
+                switch (idle) {
+                    case 4: // switch back to active
+                        console.log('Heater switching back to active')
+                        set_actuator_state('heater', 'idle', 0).then(set_actuator_state('heater', 'active', true))
+                        break;
                 
+                    case 3: // increment up or switch to stopped and turn off the heater
+                        if (state.heater.idle > 3) {
+                            console.log('Heater Switching OFF from Idle')
+                            set_actuator_state('heater', 'idle', '0').then(set_actuator_state('heater', 'stopped', true)).then(() => {
+                                s4r1_off()
+                                s6r2_off()
+                            })
+                        } else {
+                            const increment = (state.heater.idle + 1)
+                            console.log('Increment: ' + increment)
+                            set_actuator_state('heater', 'idle', increment)
+                        }
+                        break;
+                
+                    default:
+                        break;
+                }
             }
         })
 }
