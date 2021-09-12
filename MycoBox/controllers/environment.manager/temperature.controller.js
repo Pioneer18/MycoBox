@@ -9,7 +9,7 @@
 
 const { set_pid_state, get, set_actuator_state } = require('../../globals/globals');
 const { TempPidController } = require('../../services/environment.manager/temperature.pid.service');
-const { s2r1_off, s2r1_on, s1r1_on } = require('../../cli_control_panel/relay');
+const { s2r1_off, s2r1_on, s1r1_on, s4r1_on, s6r2_on } = require('../../cli_control_panel/relay');
 
 /**
  * Run PID:
@@ -121,7 +121,7 @@ const temp_actuator_controller = (update) => {
             }
             if (state.ac.stopped) {
                 // Start if more than .5 or .7 off not 1
-                console.log('temp_actuator_controller: Stopped^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+                console.log('AC Stopped --------')
                 const stopped = remain_stopped_check(update, false)
                 switch (stopped) {
                     case 1: // AC stays OFF
@@ -166,10 +166,29 @@ const temp_actuator_controller = (update) => {
             }
             // Heater Protocol
             if (state.heater.active) {
-
+                
             }
             if (state.heater.stopped) {
-
+                // start if more than .5 off from the setpoint
+                console.log('Heater Stopped -------')
+                const stopped = remain_stopped_check(update, true)
+                switch (stopped) {
+                    // less than 0.6, remain stopped
+                    case 3:
+                        console.log('Heater Remain Stopped')
+                        break;
+                    // greater than 0.6, switch on
+                    case 4:
+                        console.log('Heater Switching Active')
+                        set_actuator_state('heater', 'stopped', false).then(set_actuator_state('heater', 'active', true).then(()=> {
+                            s4r1_on()
+                            s6r2_on() 
+                        }))
+                        break;
+                
+                    default:
+                        break;
+                }
             }
             if (state.heater.idle) {
 
@@ -255,14 +274,14 @@ const remain_stopped_check = (update, sign) => {
         // negative sign
         case false:
             console.log('Remain Stopped Check: Negative Sign')
-            // within -1 of zer0
+            // within -1 of 0
             if (update > -0.6) {
-                console.log('Within 1')
+                console.log('Within -0.6')
                 return 1
             }
             // more than -1 from zero
             if (update < -0.6) {
-                console.log('Outside 1')
+                console.log('Outside -0.6')
                 return 2
             }
             break;
