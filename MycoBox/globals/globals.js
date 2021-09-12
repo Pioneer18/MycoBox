@@ -346,7 +346,7 @@ const validate_set_actuator_state = (element, status, value) => {
     // if (!value || !((typeof value === 'boolean') || (typeof value === 'number'))) throw new Error('Missing or Invalid Value for setting actuator state');
     // if (!value) throw new Error('Missing or Invalid value for setting actuator state')
     console.log('Validate Set Actuator State: Value Here')
-    console.log(value)
+    console.log(element, value)
     console.log(typeof value)
     if (element === 'mb_light_1' || element === 'mb_light_2' || element === 'ib_light' || element === 'speakers') {
         return
@@ -358,7 +358,6 @@ const validate_set_actuator_state = (element, status, value) => {
         console.log('The Value is not a Boolean or a Number!')
         throw new Error('The Value is not a Boolean or a Number')
     }
-    return
 }
 
 module.exports = {
