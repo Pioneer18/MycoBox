@@ -104,8 +104,8 @@ const temp_actuator_controller = (update) => {
         .then(state => {
             if (state.ac.active) {
                 // check if update is within -0.2 from 0
+                console.log("AC Active ----")
                 const idle = idle_check(update, false)
-                console.log('Temp Actuator Controller: Active ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
                 switch (idle) {
                     case 1: // AC switches to idle
                         set_actuator_state('ac', 'active', false).then(set_actuator_state('ac', 'idle', 1))
@@ -166,7 +166,20 @@ const temp_actuator_controller = (update) => {
             }
             // Heater Protocol
             if (state.heater.active) {
+                console.log('Heater Active ---')
+                const idle = idle_check(update, true)
+                switch (idle) {
+                    case 3: // Heater switches to idle
+                        set_actuator_state('heater', 'active', false).then(set_actuator_state('heater', 'idle', 1))
+                        break;
                 
+                    case 4: // Heater stays on
+                        set_actuator_state('heater', 'active', true)
+                        break;
+                
+                    default:
+                        break;
+                }
             }
             if (state.heater.stopped) {
                 // start if more than .5 off from the setpoint
@@ -190,8 +203,8 @@ const temp_actuator_controller = (update) => {
                         break;
                 }
             }
-            if (state.heater.idle) {
-
+            if (state.heater.idle > 0) {
+                
             }
         })
 }
