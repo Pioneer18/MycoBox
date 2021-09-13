@@ -1,11 +1,11 @@
 /**
  * Humidifier PID Controller
+ * -------------------------
  * This controller calculates a PID udpate value to be sent to the Mega controlled Dimmer for the Humidifier Fan
  * It passes it's command to the raspi_to_mega.py file. Humidifier Command will start with an 'H' and end with a
  * value (The error will need to be translated to an appropriate Dimmer value)
  * design of PID greatly influenced by https://github.com/Philmod/node-pid-controller/blob/master/lib/index.js 
  * & https://gist.github.com/DzikuVx/f8b146747c029947a996b9a3b070d5e7
- * ----------------------
  */
 
 // Create a HumidityPidController 

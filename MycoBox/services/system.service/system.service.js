@@ -85,10 +85,14 @@ const run_pid_controllers = () => {
                     // generate config for each controller: add the other controller functions for this
                     get_state()
                         .then(state => {
+                            // pass correct stage to the pid controllers to select the correct env_config, different setpoints for each stage!
                             console.log(state)
                             const config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
                             console.log('Call Each PID');
                             return update_temperature(config)
+                            // update_humidity()
+                            // update_ventilation - co2 reading (temp and humidity are considered)
+                            // update_circulation configuration selected state, not a pid
                         })
                         .then(results => resolve(results))
                 }
