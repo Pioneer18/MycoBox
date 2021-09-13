@@ -8,7 +8,7 @@ import time
 #     if ser.in_waiting > 0:
 #         line = ser.readline().decode('utf-8').rstrip()
 #         print(line)
-ser = serial.Serial('/dev/ttyACM0', 115200)
+ser = serial.Serial('/dev/ttyACM0', 115200), timeout=1
 while True:
     ser.write("H 25\r\n".encode())
     line = ser.readline().decode('utf-8').rstrip()
