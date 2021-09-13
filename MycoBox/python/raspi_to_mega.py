@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# This file needs to be generic and usable by any PID controller
+# Parameters: Command
+# How it works: Send command and report if it was successfully initiated by Arduino
+# The Arduino will notify an error or confirmation
 import serial
 import time
 
