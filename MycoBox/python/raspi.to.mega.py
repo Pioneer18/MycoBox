@@ -10,7 +10,7 @@ ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 ser.flush()
 finished = False
 
-# print('Number of Arguments: ', len(sys.argv), 'arguments.')
+print('Number of Arguments: ', len(sys.argv), 'arguments.')
 # print('Argument List: ', str(sys.argv)) # stdout print the argument(s)
 while finished == False:
     ser.write("H 25\n".encode())
@@ -19,5 +19,4 @@ while finished == False:
         print(line)
         finished = True
     time.sleep(1)
-# print('Command Successfully Sent!')
-# ser.readline().decode('utf-8').rstrip()
+
