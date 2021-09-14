@@ -21,12 +21,13 @@ const { PythonShell } = require("python-shell")
 // Right NOW, just test sending a command to the raspi_to_mega.py file and turning the dimmer
 // on correctly. And focus on making the single shot communication between arduino and raspi work
 // this is fundamental functionality to using the dimmers
-let options = {
-    mode: 'text',
-    pythonOptions: ['-u'], // get print results in real-time
-    scriptPath: '../../python',
-};
-const send_command = (command) => {
+const send_command = () => {
+    let options = {
+        mode: 'text',
+        pythonOptions: ['-u'], // get print results in real-time
+        scriptPath: '../../python',
+        // args: ['H 25']
+    };
     console.log('Current Directory:')
     console.log(__dirname)
     PythonShell.run('temp.humidity.py', options, function (err, reply) {
