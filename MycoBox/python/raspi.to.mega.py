@@ -9,10 +9,10 @@ import sys
 ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 ser.flush()
 finished = False
-
-print('Number of Arguments: ', len(sys.argv), 'arguments.')
 print('Argument List: ', str(sys.argv)) # stdout print the argument(s)
 while finished == False:
+    command = sys.argv[1] + '\n'
+    print(command)
     # capture the argument and send it
     ser.write(sys.argv[1].encode())
     if ser.in_waiting > 0:
