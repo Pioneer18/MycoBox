@@ -30,7 +30,7 @@ const send_command = () => {
     };
     console.log('Current Directory:')
     console.log(__dirname)
-    PythonShell.run('temp.humidity.py', options, function (err, reply) {
+    PythonShell.run('raspi.to.mega.py', options, function (err, reply) {
         if (err) throw err;
         console.log('Hello, World!')
         console.log(reply)
