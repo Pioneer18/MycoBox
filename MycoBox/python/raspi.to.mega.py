@@ -12,9 +12,8 @@ finished = False
 print('Argument List: ', str(sys.argv)) # stdout print the argument(s)
 while finished == False:
     command = sys.argv[1] + '\n'
-    print(command)
     # capture the argument and send it
-    ser.write(sys.argv[1].encode())
+    ser.write(command.encode())
     if ser.in_waiting > 0:
         line = ser.readline().decode('utf-8')
         print(line)
