@@ -11,7 +11,7 @@ ser.flush()
 finished = False
 
 print('Number of Arguments: ', len(sys.argv), 'arguments.')
-# print('Argument List: ', str(sys.argv)) # stdout print the argument(s)
+print('Argument List: ', str(sys.argv)) # stdout print the argument(s)
 while finished == False:
     ser.write("H 25\n".encode())
     if ser.in_waiting > 0:
