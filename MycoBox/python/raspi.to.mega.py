@@ -8,13 +8,16 @@ import time
 import sys
 ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 ser.flush()
+finished = False
 
 # print('Number of Arguments: ', len(sys.argv), 'arguments.')
 # print('Argument List: ', str(sys.argv)) # stdout print the argument(s)
-while True:
+while finished == False:
     ser.write("H 25\n".encode())
     if ser.in_waiting > 0:
         line = ser.readline().decode('utf-8')
         print(line)
+        finished = True
     time.sleep(1)
+print('Command Successfully Sent!')
 # ser.readline().decode('utf-8').rstrip()
