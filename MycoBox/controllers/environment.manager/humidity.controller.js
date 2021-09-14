@@ -21,17 +21,17 @@ const { PythonShell } = require("python-shell")
 // Right NOW, just test sending a command to the raspi_to_mega.py file and turning the dimmer
 // on correctly. And focus on making the single shot communication between arduino and raspi work
 // this is fundamental functionality to using the dimmers
-const send_command = (command) => {
-    const options = {
-        mode: 'text',
-        pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: 'MycoBox/python',
-        args: [command]
-    }
+const options = {
+    mode: 'text',
+    pythonOptions: ['-u'], // get print results in real-time
+    scriptPath: 'MycoBox/python',
+    args: ["H 25"]
+}
+const send_command = () => {
     PythonShell.run('raspi_to_mega.py', options, function (err, reply) {
         if (err) throw err;
         console.log('Reply: ' + reply)
     })
 }
 
-send_command("H 25");
+send_command();
