@@ -8,15 +8,13 @@ import time
 import sys
 ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 ser.flush()
-finshed = False
+
 # print('Number of Arguments: ', len(sys.argv), 'arguments.')
 # print('Argument List: ', str(sys.argv)) # stdout print the argument(s)
-ser.write("H 300\r\n".encode())
-while finshed == False:
+while True:
+    ser.write("H 25\n".encode())
     if ser.in_waiting > 0:
         line = ser.readline().decode('utf-8')
         print(line)
-        finshed = True
-    time.sleep(1)
-    print('makin bacon pancakes')
+time.sleep(1)
 # ser.readline().decode('utf-8').rstrip()
