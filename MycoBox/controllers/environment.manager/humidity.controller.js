@@ -24,12 +24,12 @@ const { PythonShell } = require("python-shell")
 let options = {
     mode: 'text',
     pythonOptions: ['-u'], // get print results in real-time
-    scriptPath: '../../python',
+    scriptPath: 'MycoBox/python',
 };
 const send_command = (command) => {
     console.log('Current Directory:')
     console.log(__dirname)
-    PythonShell.run('raspi_to_mega.py', options, function (err, reply) {
+    PythonShell.run('temp.humidity.py', options, function (err, reply) {
         if (err) throw err;
         console.log('Hello, World!')
         console.log(reply)
