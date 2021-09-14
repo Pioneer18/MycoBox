@@ -34,11 +34,9 @@ const send_command = () => {
         if (err) throw err;
         console.log('Hello, World!')
         while (!reply) {
-            setTimeout(() => {
-                console.log('waiting on reply');
-            }, 2000);
+           console.log('waiting on reply')
         }
-        if (reply) console.log(reply)
+        console.log('Finished')
     })
 }
 
