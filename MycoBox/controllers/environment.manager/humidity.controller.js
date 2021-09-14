@@ -28,8 +28,6 @@ const send_command = () => {
         scriptPath: '../../python',
         args: ['H 25']
     };
-    console.log('Current Directory:')
-    console.log(__dirname)
     PythonShell.run('raspi.to.mega.py', options, function (err, reply) {
         if (err) throw err;
         console.log('Hello, World!')
