@@ -13,7 +13,8 @@ finished = False
 print('Number of Arguments: ', len(sys.argv), 'arguments.')
 print('Argument List: ', str(sys.argv)) # stdout print the argument(s)
 while finished == False:
-    ser.write("H 25\n".encode())
+    # capture the argument and send it
+    ser.write(sys.argv[1] + "\n".encode())
     if ser.in_waiting > 0:
         line = ser.readline().decode('utf-8')
         print(line)
