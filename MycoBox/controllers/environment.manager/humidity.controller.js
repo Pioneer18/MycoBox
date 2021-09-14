@@ -34,7 +34,7 @@ const send_command = () => {
         if (err) throw err;
         console.log('Hello, World!')
         while (!reply) {
-           console.log('waiting on reply')
+           continue
         }
         console.log('Finished')
     })
