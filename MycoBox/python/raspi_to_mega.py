@@ -6,11 +6,11 @@
 import serial
 import time
 import sys
+ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
+ser.flush()
 
 print('Number of Arguments: ', len(sys.argv), 'arguments.')
 print('Argument List: ', str(sys.argv)) # stdout print the argument(s)
-ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
-ser.flush()
 while True:
     ser.write("H 25\n".encode())
     if ser.in_waiting > 0:
