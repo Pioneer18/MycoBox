@@ -33,6 +33,11 @@ const send_command = () => {
     PythonShell.run('raspi_to_mega.py', options, function (err, reply) {
         if (err) throw err;
         console.log('Hello, World!')
+        while (!reply) {
+            setTimeout(() => {
+                console.log('waiting on reply');
+            }, 2000);
+        }
         if (reply) console.log(reply)
     })
 }
