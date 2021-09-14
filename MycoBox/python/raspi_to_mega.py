@@ -11,10 +11,9 @@ ser.flush()
 
 # print('Number of Arguments: ', len(sys.argv), 'arguments.')
 # print('Argument List: ', str(sys.argv)) # stdout print the argument(s)
-while True:
-    ser.write("H 25\n".encode())
-    if ser.in_waiting > 0:
-        line = ser.readline().decode('utf-8')
-        print(line)
-    time.sleep(1)
+ser.write("H 25\n".encode())
+if ser.in_waiting > 0:
+    line = ser.readline().decode('utf-8')
+    print(line)
+time.sleep(1)
 # ser.readline().decode('utf-8').rstrip()
