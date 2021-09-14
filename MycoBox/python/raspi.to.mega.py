@@ -19,5 +19,5 @@ while finished == False:
         print(line)
         finished = True
     time.sleep(1)
-print('Command Successfully Sent!')
+# print('Command Successfully Sent!')
 # ser.readline().decode('utf-8').rstrip()
