@@ -5,7 +5,10 @@
 # The Arduino will notify an error or confirmation
 import serial
 import time
+import sys
 
+print('Number of Arguments: ', len(sys.argv), 'arguments.')
+print('Argument List: ', str(sys.argv)) # stdout print the argument(s)
 ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 ser.flush()
 while True:
