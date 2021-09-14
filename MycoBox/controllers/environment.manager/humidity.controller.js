@@ -26,7 +26,7 @@ const send_command = () => {
         mode: 'text',
         pythonOptions: ['-u'], // get print results in real-time
         scriptPath: '../../python',
-        // args: ['H 25']
+        args: ['H 25']
     };
     console.log('Current Directory:')
     console.log(__dirname)
