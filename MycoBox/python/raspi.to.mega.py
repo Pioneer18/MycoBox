@@ -16,5 +16,5 @@ while True:
     if ser.in_waiting > 0:
         line = ser.readline().decode('utf-8')
         print(line)
-time.sleep(1)
+    time.sleep(1)
 # ser.readline().decode('utf-8').rstrip()
