@@ -76,9 +76,7 @@ const run_pid_controllers = () => {
     return new Promise((resolve) => {
         validate_env_state()
             .then(validation => {
-                console.log(validation['env_state'])
                 if (validation.validation) {
-                    console.log('$$$$$$$$$$$$ The Environment State Was Validated $$$$$$$$$$$$')
                     const measured = calculate_measured(validation.env_state);
                     // =========================================================================================================
                     // todo: check for session stage (sr, pi, fr) 

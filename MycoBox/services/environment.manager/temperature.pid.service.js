@@ -1,14 +1,19 @@
 /**
- * PID Controller Class
+ * Temperature PID Controller Class
  * @param {number} kp proportional gain
  * @param {number} ki integral gain
  * @param {number} kd derivative gain
  * @param {min: number, max: number} iLimit limits for the integral
  * ----------------------------------------------------------------------------------------
- * Steps:
- * #1. create a new controller: e.g. let tempCtr = new TempPidController(0.25,0.01,0.01)
- * #2. create the set-point: e.g. tempCtr.setPoint(21)
- * #3. read the updated environment model every time it's available; flag indicating updated
+ * Contstructor: Needs the kp, ki, kd values for the pid calculation, as well as the setpoint and current measured environment values.
+ * The constuctor also needs the previous error and time
+ * 
+ * Methods:
+ * update: Runs the PID algorithim to return an udpate value
+ * report: report necessary data to the globals
+ * reset:  reset the pid report in the globals
+ * calculate_dt: calculate the inteveral of time between updates
+ * clamp_check: limit the udpate value returned by the pid algorithm to its min and max values
  */
  class TempPidController {
     constructor(config) {
