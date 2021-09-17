@@ -56,6 +56,9 @@ class HumidityPidController {
         console.log('PID Calculation Report:')
         console.log(`P: ${P}`);
         console.log(`Error: ${err}`);
+        console.log(`It: ${this.integralOfError}`);
+        console.log(`D: ${D}`);
+        console.log(`Error: ${err}`);
         return P 
     }
 }
