@@ -9,6 +9,7 @@
  */
 
 const { PythonShell } = require("python-shell")
+const { set_pid_state, get, set_actuator_state } = require('../../globals/globals');
 const {HumidityPidController} = require("../../services/environment.manager/humidity.pid.service")
 
 /**
