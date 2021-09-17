@@ -4,7 +4,7 @@
  * Description: provides extra functionality to the system controller
  */
 const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
-const { humidity_pid_controller_config} = require("../../controllers/environment.manager/humidity.controller");
+const { humidity_pid_controller_config, update_humidity} = require("../../controllers/environment.manager/humidity.controller");
 const { get } = require("../../globals/globals")
 const { update_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
 
@@ -89,7 +89,7 @@ const run_pid_controllers = () => {
                             const temp_config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
                             const humidity_config = humidity_pid_controller_config(measured, state[0].spawn_running, state[2].humidity)
                             update_temperature(temp_config)
-                            // update_humidity()
+                            update_humidity(humidity_config)
                             // update_ventilation - co2 reading (temp and humidity are considered)
                             // update_circulation configuration selected state, not a pid
                             return
