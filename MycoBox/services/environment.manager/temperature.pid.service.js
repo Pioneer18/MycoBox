@@ -45,14 +45,14 @@
         this.lastError = err;
         // #3. calculate P => kp * err
         const P = this.kp * err;
-        // #4. calculate It => It + (ki * error * dt)
+        // #4. calculate It (cumulative error) => It + (ki * error * dt)
         this.integralOfError += (this.ki * err * dt)
         // #5. limit the It
         if (this.integralOfError > this.integralLimit.max) this.integralOfError = this.integralLimit.max;
         if (this.integralOfError < this.integralLimit.min) this.integralOfError = this.integralLimit.min;
-        // #6. calculate D => kd * (err - lastErr) / dt
+        // #6. calculate D (rate of error) => kd * (err - lastErr) / dt
         dt === 0 ? D = 0 : D = this.kd * (err - this.lastError) / dt;
-        console.log('PID Calculation Report:')
+        console.log('PID Calculation Report:');
         console.log(`P: ${P}`);
         console.log(`Error: ${err}`);
         return P 
