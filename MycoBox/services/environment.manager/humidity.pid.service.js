@@ -71,6 +71,24 @@ class HumidityPidController {
             lastTime: this.lastTime
         }
     }
+
+    reset() {
+        this.integralOfError = 0;
+        this.lastError = 0;
+        this.lastTime = 0;
+    }
+
+      // calculate_dt
+      calculate_dt(lastTime) {
+        const currentTime = Date.now();
+        let dt;
+        if (lastTime === 0) {
+            dt = 0;
+        } else {
+            dt = (currentTime - lastTime) / 1000;
+        }
+        return { dt, currentTime };
+    }
 }
 
 module.exports = { HumidityPidController }
