@@ -59,6 +59,7 @@ const {HumidityPidController} = require("../../services/environment.manager/humi
  *  } 
  * } config 
  */
+// Right now this will return a raw pid update value, no wrapper logic applied; e.g. normalizing to the AC phase module's fan speeds scale
 const update_humidity = (config) => {
     // initialize the controller
     const humidityController = new HumidityPidController(config);
