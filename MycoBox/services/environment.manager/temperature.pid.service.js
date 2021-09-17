@@ -15,10 +15,10 @@
  * calculate_dt: calculate the inteveral of time between updates
  * clamp_check: limit the udpate value returned by the pid algorithm to its min and max values
  */
- class TempPidController {
+class TempPidController {
     constructor(config) {
         // saturation has been reached if these limits are hit and clamping should happen
-        let defaultIntegralLimit = { min: -10, max: 10}
+        let defaultIntegralLimit = { min: -10, max: 10 }
         // Set PID weights (gain)
         this.kp = config.settings.kp || 1;
         this.ki = config.settings.ki || 0.1;
@@ -37,7 +37,7 @@
 
     update() {
         // #1. find the cycle-time (dt) and update lastTime
-        const {dt, currentTime} = this.calculate_dt(this.lastTime)
+        const { dt, currentTime } = this.calculate_dt(this.lastTime)
         let D;
         this.lastTime = currentTime;
         // #2. calculate the error: setpoint - measured
@@ -55,7 +55,7 @@
         console.log('PID Calculation Report:');
         console.log(`P: ${P}`);
         console.log(`Error: ${err}`);
-        return P 
+        return P
     }
 
     // set the global pid state for this controller
@@ -67,7 +67,7 @@
         }
     }
 
-    reset () {
+    reset() {
         this.integralOfError = 0;
         this.lastError = 0;
         this.lastTime = 0;
@@ -81,14 +81,12 @@
         } else {
             dt = (currentTime - lastTime) / 1000;
         }
-        return {dt, currentTime};
+        return { dt, currentTime };
     }
     // clamp_check
     clamp_check() {
-        
+
     }
 }
 
-module.exports = {
-    TempPidController,
-}
+module.exports = { TempPidController }

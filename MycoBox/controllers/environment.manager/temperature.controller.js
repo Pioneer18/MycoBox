@@ -37,7 +37,7 @@ const update_temperature = (config) => {
     const tempController = new TempPidController(config);
     // update the actuator
     const value = tempController.update();
-    console.log('The calculated Update Value')
+    console.log('The Temperature Calculated Update Value')
     console.log(value);
     set_pid_state('temperature', tempController.report())
     temp_actuator_controller(value)
