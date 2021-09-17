@@ -53,13 +53,14 @@ class HumidityPidController {
         if (this.integralOfError < this.integralLimit.min) this.integralOfError = this.integralLimit.min;
         // #6. calculate D => kd * (err - lastErr) / dt
         dt === 0 ? D = 0 : D = this.kd * (err - this.lastError) / dt;
-        console.log('PID Calculation Report:')
+        console.log('PID Calculation Report:');
         console.log(`P: ${P}`);
         console.log(`Error: ${err}`);
         console.log(`It: ${this.integralOfError}`);
         console.log(`D: ${D}`);
         console.log(`Error: ${err}`);
-        return P
+        console.log(`DT: ${dt}`);
+        return P + this.integralOfError + D
     }
 
      // set the global pid state for this controller

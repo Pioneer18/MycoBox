@@ -55,6 +55,7 @@ class TempPidController {
         console.log('PID Calculation Report:');
         console.log(`P: ${P}`);
         console.log(`Error: ${err}`);
+        console.log('DT: ' + dt);
         return P
     }
 
