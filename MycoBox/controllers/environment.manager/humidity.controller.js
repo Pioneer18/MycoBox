@@ -84,7 +84,7 @@ const send_command = (command) => {
     let options = {
         mode: 'text',
         pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: '../../python',
+        scriptPath: 'MycoBox/python',
         args: [command]
     };
     PythonShell.run('raspi.to.mega.py', options, function (err, reply) {
