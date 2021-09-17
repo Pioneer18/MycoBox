@@ -9,8 +9,8 @@
  */
 
 const { PythonShell } = require("python-shell")
+const {HumidityPidController} = require("../../services/environment.manager/humidity.pid.service")
 
-// Create a HumidityPidController 
 /**
  * Create HumidityPidController config
  */
@@ -38,7 +38,38 @@ const { PythonShell } = require("python-shell")
     }
     return config
 }
-// Use the controller's udpate method to get an upadte value
+/**
+ * Update Humidity:
+ * run the PID service with the latest measured value, and any configuration updates
+ * @param {
+ *  settings: {
+ *    kp,
+ *    ki,
+ *    kd,
+ *    iLimit  
+ *  },
+ *  previousReport: {
+ *    integralOfError,
+ *    lastError,
+ *    lastTime
+ *  }
+ *  incomingReport: {
+ *    setPoint,
+ *    measured
+ *  } 
+ * } config 
+ */
+const update_humidity = (config) => {
+    // initialize the controller
+    const humidityController = new HumidityPidController(config);
+    // update the actuator
+    const value = humidityController.update();
+    console.log('The Humidity Calculated Update Value')
+    console.log(value);
+    set_pid_state('humidity', humidityController.report())
+    // humidity_actuator_controller(value)
+    return value
+}
 // process the update value into an appropriate Dimmer Value (convert 1 - 450 to a percentage)
 // Send the Command with the Dimmer value; e.g. "H 300"
 // Use the relay to turn the Humidifier on or Off when appropriate
@@ -64,5 +95,6 @@ send_command('H 110');
 
 module.exports = {
     humidity_pid_controller_config,
+    update_humidity,
     send_command
 }
