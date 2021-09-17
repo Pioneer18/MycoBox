@@ -72,13 +72,14 @@ const update_humidity = (config) => {
     return value
 }
 // process the update value into an appropriate Dimmer Value (convert 1 - 450 to a percentage)
+const normalize_update = () => {
+    //
+}
+// Use the relay to turn the Humidifier on or Off when appropriate (pid indicates this? nah...controller logic )
+const humidity_actuator_controller = () => {
+    //
+}
 // Send the Command with the Dimmer value; e.g. "H 300"
-// Use the relay to turn the Humidifier on or Off when appropriate
-
-
-// Right NOW, just test sending a command to the raspi_to_mega.py file and turning the dimmer
-// on correctly. And focus on making the single shot communication between arduino and raspi work
-// this is fundamental functionality to using the dimmers
 const send_command = (command) => {
     let options = {
         mode: 'text',
