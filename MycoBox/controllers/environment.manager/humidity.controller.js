@@ -34,4 +34,4 @@ const send_command = (command) => {
     })
 }
 
-send_command('H 160');
+send_command('H 110');
