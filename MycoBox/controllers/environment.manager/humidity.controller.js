@@ -11,7 +11,33 @@
 const { PythonShell } = require("python-shell")
 
 // Create a HumidityPidController 
-// Generate a config for the controller
+/**
+ * Create HumidityPidController config
+ */
+ const humidity_pid_controller_config = (measured, env_config, pid_state) => {
+    console.log('Method Call: temp_pid_controller_config')
+    const config = {
+        settings: {
+            kp: 1,
+            ki: 0.005,
+            kd: 0.005,
+            iLimit: {
+                min: 0,
+                max: 300
+            }
+        },
+        pid_state: {
+            integralOfError: pid_state.integralOfError,
+            lastError: pid_state.lastError,
+            lastTime: pid_state.lastTime,
+        },
+        incoming_report: {
+            setPoint: env_config.humidity,
+            measured: measured.humidity
+        }
+    }
+    return config
+}
 // Use the controller's udpate method to get an upadte value
 // process the update value into an appropriate Dimmer Value (convert 1 - 450 to a percentage)
 // Send the Command with the Dimmer value; e.g. "H 300"
@@ -35,3 +61,8 @@ const send_command = (command) => {
 }
 
 send_command('H 110');
+
+module.exports = {
+    humidity_pid_controller_config,
+    send_command
+}
