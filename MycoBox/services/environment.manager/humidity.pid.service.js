@@ -38,7 +38,7 @@ class HumidityPidController {
 
     update() {
         // #1. find the cycle-time (dt) and update lastTime
-        const {dt, currentTime} = this.calculate_dt(this.lastTime)
+        const { dt, currentTime } = this.calculate_dt(this.lastTime)
         let D;
         this.lastTime = currentTime;
         // #2. calculate the error: setpoint - measured
@@ -59,6 +59,17 @@ class HumidityPidController {
         console.log(`It: ${this.integralOfError}`);
         console.log(`D: ${D}`);
         console.log(`Error: ${err}`);
-        return P 
+        return P
+    }
+
+     // set the global pid state for this controller
+     report() {
+        return {
+            integralOfError: this.integralOfError,
+            lastError: this.lastError,
+            lastTime: this.lastTime
+        }
     }
 }
+
+module.exports = { HumidityPidController }
