@@ -46,7 +46,6 @@ const update_temperature = (config) => {
 
 /**
  * Create TemperauturePidController config
- * Todo: move this to the temperaturePidController
  */
 const temp_pid_controller_config = (measured, env_config, pid_state) => {
     console.log('Method Call: temp_pid_controller_config')
@@ -55,6 +54,7 @@ const temp_pid_controller_config = (measured, env_config, pid_state) => {
             kp: 1,
             ki: 0.005,
             kd: 0.005,
+            // iLimit
         },
         pid_state: {
             integralOfError: pid_state.integralOfError,
