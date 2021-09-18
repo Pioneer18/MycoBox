@@ -23,9 +23,9 @@ const parse_th_data = (reply) => {
 
 const read_mega_data = (reply) => {
     console.log("Method Call: parse the Mega 2560 data")
-    const data = JSON.stringify(reply[0])
+    // const data = JSON.stringify(reply[0])
     return new Promise((resolve) => {
-        console.log(data);
+        console.log(reply);
         resolve()
         // .catch(err => console.log("Error Reading Arduino Mega Sensor Data"))
     })
