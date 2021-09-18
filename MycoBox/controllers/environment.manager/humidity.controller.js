@@ -94,7 +94,7 @@ const send_command = (command) => {
     })
 }
 
-send_command('H 110');
+send_command('H 300');
 
 module.exports = {
     humidity_pid_controller_config,
