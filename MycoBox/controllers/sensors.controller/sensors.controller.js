@@ -31,7 +31,7 @@ const read_temp_humidity = () => {
 }
 
 const mega_temp_humidity = () => {
-    let options = {
+    let mega = {
         mode: 'text',
         pythonOptions: ['-u'], // get print results in real-time
         scriptPath: 'MycoBox/python',
@@ -39,7 +39,7 @@ const mega_temp_humidity = () => {
     };
     return new Promise((resolve, reject) => {
         console.log("Mega Reading DHT22 Sensors")
-        PythonShell.run('raspi.to.mega.py', options, function (err, reply) {
+        PythonShell.run('raspi.to.mega.py', mega, function (err, reply) {
             if (err) throw err;
             read_mega_data(reply)
                 .then(resolve())
