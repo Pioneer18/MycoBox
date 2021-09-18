@@ -16,7 +16,7 @@ temp2 = 0
 temp3 = 0
 temp4 = 0
 
-# h1, temp1 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_1)
+h1, temp1 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_1)
 # h2, temp2 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_2)
 # h3, temp3 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_3)
 # h4, temp4 = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_4)
