@@ -40,7 +40,7 @@ const mega_temp_humidity = () => {
     return new Promise((resolve, reject) => {
         console.log("Mega Reading DHT22 Sensors")
         PythonShell.run('raspi.to.mega.py', mega, function (err, reply) {
-            if (err) throw err;
+            if (err) reject(err)
             read_mega_data(reply)
                 .then(resolve())
         })
