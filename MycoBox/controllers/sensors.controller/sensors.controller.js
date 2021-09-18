@@ -96,7 +96,7 @@ const update_environment_state = () => {
         console.log("METHOD CALL: update_environment_state")
         read_co2()
             .then(read_temp_humidity())
-            // .then(read_precise_temp())
+            .then(read_precise_temp())
             .then(read_scale())
             .then(read_infrared())
             .then(set_timestamp())
