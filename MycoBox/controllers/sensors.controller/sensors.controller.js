@@ -6,7 +6,8 @@ const { get, set_environment_state } = require('../../globals/globals')
 const {
     parse_th_data,
     parse_pt_data,
-    parse_co2_data
+    parse_co2_data,
+    read_mega_data
 } = require('../../services/sensors.service/sensors.service');
 let options = {
     mode: 'text',
@@ -40,8 +41,8 @@ const mega_temp_humidity = () => {
         console.log("Mega Reading DHT22 Sensors")
         PythonShell.run('raspi.to.mega.py', options, function (err, reply) {
             if (err) throw err;
-            console.log(reply)
-            resolve()
+            read_mega_data(reply)
+                .then(resolve())
         })
     })
 }

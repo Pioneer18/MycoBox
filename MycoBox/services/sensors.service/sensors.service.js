@@ -21,6 +21,16 @@ const parse_th_data = (reply) => {
     });
 }
 
+const read_mega_data = (reply) => {
+    console.log("Method Call: parse the Mega 2560 data")
+    const data = JSON.stringify(reply[0])
+    return new Promise((resolve) => {
+        console.log(data[0]);
+        resolve()
+        .catch(err => console.log("Error Reading Arduino Mega Sensor Data"))
+    })
+}
+
 const parse_pt_data = (reply) => {
     return new Promise((resolve) => {
         const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
@@ -97,5 +107,6 @@ const set_dht22_values = (i, data) => {
 module.exports = {
     parse_th_data,
     parse_pt_data,
-    parse_co2_data
+    parse_co2_data,
+    read_mega_data
 }
