@@ -2,7 +2,7 @@
 const default_configs = {
     pink_oyster: { 
         spawn_running: {
-            temperature: '31',
+            temperature: '25',
             humidity: '75',
             co2: '15000',
             circulation_top: 'off',
