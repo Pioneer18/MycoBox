@@ -194,8 +194,8 @@ const process_session_state = async (measured) => {
 const calculate_measured = (env_state) => {
     console.log("METHOD CALL: calculate_measured")
     return {
-        temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2)) + (parseFloat(env_state.precise_temp_c))) / 3,
-        humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2))) / 2,
+        temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2)) + (parseFloat(env_state.internal_temp_3)) + (parseFloat(env_state.precise_temp_c))) / 4,
+        humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2)) + (parseFloat(env_state.internal_humidity_3))) / 3,
         co2: 500 // Debug the co2 meter so this isn't hardcoded
     }
 }
