@@ -83,6 +83,7 @@ const humidity_actuator_controller = () => {
 }
 // Send the Command with the Dimmer value; e.g. "H 300"
 const send_command = (command) => {
+    console.log("Sending Humidifier Command: ---------------------------")
     let options = {
         mode: 'text',
         pythonOptions: ['-u'], // get print results in real-time
