@@ -43,7 +43,8 @@ const parse_pt_data = (reply) => {
         console.log(data)
         set_environment_state('precise_temp_c', data[1])
             .then(set_environment_state('precise_temp_f', data[3]))
-            .then(()=>resolve())
+            .then(resolve())
+            .catch()
     })
 }
 
