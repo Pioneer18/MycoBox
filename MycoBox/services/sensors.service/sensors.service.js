@@ -22,11 +22,9 @@ const parse_th_data = (reply) => {
 }
 
 const read_mega_data = (reply) => {
-    console.log('Method Call: read_mega_data')
+    console.log('Temperature & Humidity Data:')
     console.log(reply)
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-    console.log("Mega Data: ");
-    console.log(data);
     return new Promise((resolve) => {
         for (let i = 1; i < 16; i += 2) {
             validate_th_data(data[i])
