@@ -161,7 +161,9 @@ const recheck_env_state = (resolve) => {
                     if (env_state.internal_temp_1 === '') {
                         update_environment_state()
                             .then(() => {
+                                setTimeout(() => {
                                     recheck_env_state(resolve)
+                                }, 12000);
                             })
                     }
                     if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
