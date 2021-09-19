@@ -23,7 +23,7 @@ const mega_temp_humidity = () => {
         mode: 'text',
         pythonOptions: ['-u'], // get print results in real-time
         scriptPath: 'MycoBox/python',
-        args: ["D 4"]
+        args: ["D 5"] // Read All Sensors
     };
     return new Promise((resolve, reject) => {
         console.log("Mega Reading DHT22 Sensors")
