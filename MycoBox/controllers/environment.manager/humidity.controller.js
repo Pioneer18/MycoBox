@@ -10,12 +10,13 @@
 
 const { PythonShell } = require("python-shell")
 const { set_pid_state, get, set_actuator_state } = require('../../globals/globals');
-const {HumidityPidController} = require("../../services/environment.manager/humidity.pid.service")
+const { HumidityPidController } = require("../../services/environment.manager/humidity.pid.service")
+const { s3r1_on, s3r1_off, s5r2_on, s5r2_off } = require('../../cli_control_panel/relay');
 
 /**
  * Create HumidityPidController config
  */
- const humidity_pid_controller_config = (measured, env_config, pid_state) => {
+const humidity_pid_controller_config = (measured, env_config, pid_state) => {
     console.log('Method Call: temp_pid_controller_config')
     const config = {
         settings: {
@@ -94,7 +95,9 @@ const send_command = (command) => {
     })
 }
 
-//send_command('H 300');
+send_command('H 300'); // command
+s3r1_on(); // mister on
+s5r2_on(); // fan on
 
 module.exports = {
     humidity_pid_controller_config,

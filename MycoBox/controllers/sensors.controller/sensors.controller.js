@@ -72,6 +72,8 @@ const read_scale = () => {
     return new Promise((resolve, reject) => {
         console.log('Reading the Scale')
         resolve(['weight: 45lbs'])
+        // make bluetooth request
+        // make serial request
     })
 }
 
