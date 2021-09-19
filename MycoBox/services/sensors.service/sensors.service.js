@@ -40,10 +40,10 @@ const parse_pt_data = (reply) => {
     return new Promise((resolve) => {
         const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
         console.log('moving through parse pt data')
+        console.log(data)
         set_environment_state('precise_temp_c', data[1])
             .then(set_environment_state('precise_temp_f', data[3]))
             .then(()=>resolve())
-            .catch()
     })
 }
 
