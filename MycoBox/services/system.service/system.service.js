@@ -128,7 +128,7 @@ const validate_env_state = () => {
                         .then(() => {
                             setTimeout(() => {
                                 recheck_env_state(resolve)
-                            }, 10000);
+                            }, 8000);
                         })
                 }
                 if (typeof env_state.internal_temp_1 === 'number' ||
@@ -151,12 +151,14 @@ const validate_env_state = () => {
 const recheck_env_state = (resolve) => {
     get('environment_state')
         .then(env_state => {
+            console.log("Validation Recheck: ************************")
+            console.log(env_state)
             if (env_state.internal_temp_1 === '') {
                 update_environment_state()
                     .then(() => {
                         setTimeout(() => {
                             recheck_env_state(resolve)
-                        }, 10000);
+                        }, 8000);
                     })
             }
             if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
