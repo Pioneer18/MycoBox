@@ -23,6 +23,7 @@ const parse_th_data = (reply) => {
 
 const read_mega_data = (reply) => {
     console.log('Method Call: read_mega_data')
+    console.log(reply)
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     console.log("Mega Data: ");
     console.log(data);
