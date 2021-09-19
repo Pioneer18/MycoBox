@@ -87,7 +87,7 @@ const run_pid_controllers = () => {
                             // pass correct stage to the pid controllers to select the correct env_config, different setpoints for each stage!
                             console.log(state)
                             console.log("Sending Command to Humidifier --------------------------------")
-                            send_command("H 120")
+                            //send_command("H 120")
                             const temp_config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
                             const humidity_config = humidity_pid_controller_config(measured, state[0].spawn_running, state[2].humidity)
                             update_temperature(temp_config)
