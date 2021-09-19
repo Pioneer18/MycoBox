@@ -113,6 +113,8 @@ const validate_env_state = () => {
     return new Promise((resolve) => {
         get('environment_state')
             .then(env_state => {
+                console.log("Environment State: *****************************************")
+                console.log(env_state);
                 if (typeof env_state.internal_temp_1 !== 'number' ||
                     typeof env_state.internal_temp_2 !== 'number' ||
                     typeof env_state.internal_temp_3 !== 'number' ||
