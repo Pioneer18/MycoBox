@@ -36,6 +36,7 @@ const read_mega_data = (reply) => {
 }
 
 const parse_pt_data = (reply) => {
+    console.log("Parsing PT Data:")
     return new Promise((resolve) => {
         const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
         set_environment_state('precise_temp_c', data[1])
