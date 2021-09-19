@@ -105,17 +105,17 @@ const update_environment_state = () => {
         read_co2()
             .then(() => {
                 mega_temp_humidity()
-                    .then(()=> {
+                    .then(() => {
                         read_precise_temp()
                             .then(resolve(true))
                             .catch(err => console.log(`Error Caught: initialize_environment: ${err}`))
                     })
             })
-            // .then(read_scale())
-            // .then(read_infrared())
-            // .then(set_timestamp())
-            // .then(resolve(true))
-            // .catch(err => console.log(`Error Caught: initialize_environment: ${err}`))
+        // .then(read_scale())
+        // .then(read_infrared())
+        // .then(set_timestamp())
+        // .then(resolve(true))
+        // .catch(err => console.log(`Error Caught: initialize_environment: ${err}`))
     })
 }
 
