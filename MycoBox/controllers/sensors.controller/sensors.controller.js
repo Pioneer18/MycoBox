@@ -108,7 +108,9 @@ const update_environment_state = () => {
             .then(read_scale())
             .then(read_infrared())
             .then(set_timestamp())
-            .then(resolve(true))
+            .then(setTimeout(() => {
+                resolve(true)
+            }, 8000))
             .catch(err => console.log(`Error Caught: initialize_environment: ${err}`))
     })
 }

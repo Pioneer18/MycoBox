@@ -111,43 +111,40 @@ const validate_env_state = () => {
     // get the latet environment state
     return new Promise((resolve) => {
         update_environment_state()
-            .then(
-                read_environment_state()
-                    .then(env_state => {
-                        console.log("Environment State: *****************************************")
-                        console.log(env_state);
-                        if (typeof env_state.internal_temp_1 !== 'number' ||
-                            typeof env_state.internal_temp_2 !== 'number' ||
-                            typeof env_state.internal_temp_3 !== 'number' ||
-                            typeof env_state.precise_temp_c !== 'number' ||
-                            typeof env_state.internal_humidity_1 !== 'number' ||
-                            typeof env_state.internal_humidity_2 !== 'number' ||
-                            typeof env_state.internal_humidity_3 !== 'number'
-                        ) {
-                            console.log('Validate Env Recall: Blank Env State')
-                            // update_environment_state()
-                            //     .then(() => {
-                            //         setTimeout(() => {
-                            //             recheck_env_state(resolve)
-                            //         }, 8000);
-                            //     })
-                            recheck_env_state(resolve)
-                        }
-                        if (typeof env_state.internal_temp_1 === 'number' ||
-                            typeof env_state.internal_temp_2 === 'number' ||
-                            typeof env_state.internal_temp_3 === 'number' ||
-                            typeof env_state.precise_temp_c === 'number' ||
-                            typeof env_state.internal_humidity_1 === 'number' ||
-                            typeof env_state.internal_humidity_2 === 'number' ||
-                            typeof env_state.internal_humidity_3 === 'number') {
-                            return resolve({
-                                validation: true,
-                                env_state: env_state
-                            })
-                        }
+            .then(() => read_environment_state())
+            .then(env_state => {
+                console.log("Environment State: *****************************************")
+                console.log(env_state);
+                if (typeof env_state.internal_temp_1 !== 'number' ||
+                    typeof env_state.internal_temp_2 !== 'number' ||
+                    typeof env_state.internal_temp_3 !== 'number' ||
+                    typeof env_state.precise_temp_c !== 'number' ||
+                    typeof env_state.internal_humidity_1 !== 'number' ||
+                    typeof env_state.internal_humidity_2 !== 'number' ||
+                    typeof env_state.internal_humidity_3 !== 'number'
+                ) {
+                    console.log('Validate Env Recall: Blank Env State')
+                    // update_environment_state()
+                    //     .then(() => {
+                    //         setTimeout(() => {
+                    //             recheck_env_state(resolve)
+                    //         }, 8000);
+                    //     })
+                    recheck_env_state(resolve)
+                }
+                if (typeof env_state.internal_temp_1 === 'number' ||
+                    typeof env_state.internal_temp_2 === 'number' ||
+                    typeof env_state.internal_temp_3 === 'number' ||
+                    typeof env_state.precise_temp_c === 'number' ||
+                    typeof env_state.internal_humidity_1 === 'number' ||
+                    typeof env_state.internal_humidity_2 === 'number' ||
+                    typeof env_state.internal_humidity_3 === 'number') {
+                    return resolve({
+                        validation: true,
+                        env_state: env_state
                     })
-            )
-
+                }
+            })
 
     })
 }
@@ -159,16 +156,10 @@ const recheck_env_state = (resolve) => {
             console.log(env_state)
             if (env_state.internal_temp_1 === '') {
                 update_environment_state()
-                    .then(() => read_environment_state())
-                    .then(env_state => {
-                        if (env_state.internal_temp_1 !== '') {
-                            return resolve({
-                                validation: true,
-                                env_state: env_state
-                            })
-                        } else {
+                    .then(() => {
+                        setTimeout(() => {
                             recheck_env_state(resolve)
-                        }
+                        }, 12000);
                     })
             }
             if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
