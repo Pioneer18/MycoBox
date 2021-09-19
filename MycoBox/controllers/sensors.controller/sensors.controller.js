@@ -4,7 +4,6 @@
 const { PythonShell } = require('python-shell');
 const { get, set_environment_state } = require('../../globals/globals')
 const {
-    parse_th_data,
     parse_pt_data,
     parse_co2_data,
     read_mega_data
@@ -19,17 +18,6 @@ let options = {
  * DHT22 Temperature & humidity readings - internal & external
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
-const read_temp_humidity = () => {
-    return new Promise((resolve, reject) => {
-        console.log('Reading the Temp & Humidity')
-        PythonShell.run('temp.humidity.py', options, function (err, reply) {
-            if (err) reject(err)
-            parse_th_data(reply) // validate and load into env_state
-                .then(resolve())
-        })
-    })
-}
-
 const mega_temp_humidity = () => {
     let mega = {
         mode: 'text',
@@ -113,7 +101,6 @@ const update_environment_state = () => {
     return new Promise((resolve) => {
         console.log("METHOD CALL: update_environment_state")
         read_co2()
-            .then(read_temp_humidity())
             .then(mega_temp_humidity())
             .then(read_precise_temp())
             .then(read_scale())
@@ -164,7 +151,6 @@ const clean_environment_state = (env_state) => {
 }
 
 module.exports = {
-    read_temp_humidity,
     read_precise_temp,
     read_co2,
     read_scale,

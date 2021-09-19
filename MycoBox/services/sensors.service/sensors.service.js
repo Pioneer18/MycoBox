@@ -22,13 +22,16 @@ const parse_th_data = (reply) => {
 }
 
 const read_mega_data = (reply) => {
-    console.log("Method Call: parse the Mega 2560 data")
-    // const data = JSON.stringify(reply[0])
+    console.log('Method Call: read_mega_data')
+    const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     return new Promise((resolve) => {
-        console.log(reply);
+        for (let i = 1; i < 16; i += 2) {
+            validate_th_data(data[i])
+                .then(set_dht22_values(i, data[i]))
+                .catch()
+        }
         resolve()
-        // .catch(err => console.log("Error Reading Arduino Mega Sensor Data"))
-    })
+    });
 }
 
 const parse_pt_data = (reply) => {
