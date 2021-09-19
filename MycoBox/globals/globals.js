@@ -226,6 +226,8 @@ const set_environment_config_validation = (config) => {
  */
 const set_environment_state = ((element, value) => {
     return new Promise((resolve) => {
+        console.log('Setting Environment State:')
+        console.log(value);
         set_environment_state_validation(element, value)
             .then(() => globals.environment_state[element] = value)
             .then(resolve())
