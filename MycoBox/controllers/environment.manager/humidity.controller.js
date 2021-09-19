@@ -95,12 +95,6 @@ const send_command = (command) => {
         console.log(reply)
     })
 }
-// s5r2_off();
-// s3r1_off();
-// s5r2_on(); // fan on
-// s3r1_on(); // mister on
-send_command('H 110'); // command
-
 module.exports = {
     humidity_pid_controller_config,
     update_humidity,
