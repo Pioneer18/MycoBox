@@ -26,8 +26,8 @@ const environment_manager = () => {
             // #3. calculate measured and generated a pid_config WHEN valid env_state returned
             if (validation) {
                 console.log('Environment Manager Has Validated Session')
-                update_environment_state()
-                    .then(run_pid_controllers()
+                //update_environment_state()
+                    run_pid_controllers()
                         .then(data => {
                             // if there is any data returned do whatever with it here
                             // otherwise recall environment_manager, because the session must still be active
@@ -39,7 +39,7 @@ const environment_manager = () => {
                                 console.log('**************************** Waited 2 Seconds ****************************')
                                 return environment_manager();
                             }, 3000);
-                        }))
+                        })
 
             }
             if (!validation) {
@@ -75,28 +75,30 @@ Promise.all([promise1, promise2, promise3]).then((values) => {
 const run_pid_controllers = () => {
     console.log('Running PID Controllers now ------------------------------------------------------------------------')
     return new Promise((resolve) => {
-        validate_env_state()
-            .then(validation => {
-                if (validation.validation) {
-                    const measured = calculate_measured(validation.env_state);
-                    // =========================================================================================================
-                    // todo: check for session stage (sr, pi, fr) 
-                    // generate config for each controller: add the other controller functions for this
-                    get_state()
-                        .then(state => {
-                            // pass correct stage to the pid controllers to select the correct env_config, different setpoints for each stage!
-                            console.log(state)
-                            const temp_config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
-                            const humidity_config = humidity_pid_controller_config(measured, state[0].spawn_running, state[2].humidity)
-                            update_temperature(temp_config)
-                            update_humidity(humidity_config)
-                            // update_ventilation - co2 reading (temp and humidity are considered)
-                            // update_circulation configuration selected state, not a pid
-                            return
-                        })
-                        .then(results => resolve(results))
-                }
-            })
+        update_environment_state()
+            .then(()=> validate_env_state()
+                .then(validation => {
+                    if (validation.validation) {
+                        const measured = calculate_measured(validation.env_state);
+                        // =========================================================================================================
+                        // todo: check for session stage (sr, pi, fr) 
+                        // generate config for each controller: add the other controller functions for this
+                        get_state()
+                            .then(state => {
+                                // pass correct stage to the pid controllers to select the correct env_config, different setpoints for each stage!
+                                console.log(state)
+                                const temp_config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
+                                const humidity_config = humidity_pid_controller_config(measured, state[0].spawn_running, state[2].humidity)
+                                update_temperature(temp_config)
+                                update_humidity(humidity_config)
+                                // update_ventilation - co2 reading (temp and humidity are considered)
+                                // update_circulation configuration selected state, not a pid
+                                return
+                            })
+                            .then(results => resolve(results))
+                    }
+                }))
+        
     })
 }
 
