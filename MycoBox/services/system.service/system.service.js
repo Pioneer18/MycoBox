@@ -152,28 +152,26 @@ const validate_env_state = () => {
 }
 
 const recheck_env_state = (resolve) => {
-    update_environment_state()
-        .then(() => {
-            read_environment_state()
-                .then(env_state => {
-                    console.log("Validation Recheck: ************************")
-                    console.log(env_state)
-                    if (env_state.internal_temp_1 === '') {
-                        update_environment_state()
-                            .then(() => {
-                                setTimeout(() => {
-                                    recheck_env_state(resolve)
-                                }, 12000);
-                            })
-                    }
-                    if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
-                        return resolve({
-                            validation: true,
-                            env_state: env_state
-                        })
-                    }
+    read_environment_state()
+        .then(env_state => {
+            console.log("Validation Recheck: ************************")
+            console.log(env_state)
+            if (env_state.internal_temp_1 === '') {
+                update_environment_state()
+                    .then(() => {
+                        setTimeout(() => {
+                            recheck_env_state(resolve)
+                        }, 12000);
+                    })
+            }
+            if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
+                return resolve({
+                    validation: true,
+                    env_state: env_state
                 })
+            }
         })
+
 }
 
 /**
