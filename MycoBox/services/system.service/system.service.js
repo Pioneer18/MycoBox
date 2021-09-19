@@ -130,7 +130,7 @@ const validate_env_state = () => {
                     //             recheck_env_state(resolve)
                     //         }, 8000);
                     //     })
-                    recheck_env_state(resolve)
+                    await recheck_env_state(resolve)
                 }
                 if (typeof env_state.internal_temp_1 === 'number' ||
                     typeof env_state.internal_temp_2 === 'number' ||
@@ -149,8 +149,8 @@ const validate_env_state = () => {
     })
 }
 
-const recheck_env_state = (resolve) => {
-    read_environment_state()
+const recheck_env_state = async (resolve) => {
+    try{read_environment_state()
         .then(env_state => {
             console.log("Validation Recheck: ************************")
             console.log(env_state)
@@ -168,7 +168,9 @@ const recheck_env_state = (resolve) => {
                     env_state: env_state
                 })
             }
-        })
+        })} catch (err) {
+            console.log('Error: blehhhhhhhhhhhhh')
+        }
 
 }
 
