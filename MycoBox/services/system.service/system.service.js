@@ -98,7 +98,7 @@ const run_pid_controllers = () => {
                 }
             })
 
-})
+    })
 }
 
 /**
@@ -125,12 +125,13 @@ const validate_env_state = () => {
                             typeof env_state.internal_humidity_3 !== 'number'
                         ) {
                             console.log('Validate Env Recall: Blank Env State')
-                            update_environment_state()
-                                .then(() => {
-                                    setTimeout(() => {
-                                        recheck_env_state(resolve)
-                                    }, 8000);
-                                })
+                            // update_environment_state()
+                            //     .then(() => {
+                            //         setTimeout(() => {
+                            //             recheck_env_state(resolve)
+                            //         }, 8000);
+                            //     })
+                            recheck_env_state(resolve)
                         }
                         if (typeof env_state.internal_temp_1 === 'number' ||
                             typeof env_state.internal_temp_2 === 'number' ||
@@ -151,24 +152,25 @@ const validate_env_state = () => {
 }
 
 const recheck_env_state = (resolve) => {
-    get('environment_state')
-        .then(env_state => {
-            console.log("Validation Recheck: ************************")
-            console.log(env_state)
-            if (env_state.internal_temp_1 === '') {
-                update_environment_state()
-                    .then(() => {
-                        setTimeout(() => {
-                            recheck_env_state(resolve)
-                        }, 8000);
-                    })
-            }
-            if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
-                return resolve({
-                    validation: true,
-                    env_state: env_state
+    update_environment_state()
+        .then(() => {
+            read_environment_state()
+                .then(env_state => {
+                    console.log("Validation Recheck: ************************")
+                    console.log(env_state)
+                    if (env_state.internal_temp_1 === '') {
+                        update_environment_state()
+                            .then(() => {
+                                    recheck_env_state(resolve)
+                            })
+                    }
+                    if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
+                        return resolve({
+                            validation: true,
+                            env_state: env_state
+                        })
+                    }
                 })
-            }
         })
 }
 
