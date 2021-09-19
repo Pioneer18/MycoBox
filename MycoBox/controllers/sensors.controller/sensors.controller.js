@@ -103,19 +103,13 @@ const update_environment_state = () => {
     return new Promise((resolve) => {
         console.log("METHOD CALL: update_environment_state")
         read_co2()
-            .then(() => {
-                mega_temp_humidity()
-                    .then(() => {
-                        read_precise_temp()
-                            .then(resolve(true))
-                            .catch(err => console.log(`Error Caught: initialize_environment: ${err}`))
-                    })
-            })
-        // .then(read_scale())
-        // .then(read_infrared())
-        // .then(set_timestamp())
-        // .then(resolve(true))
-        // .catch(err => console.log(`Error Caught: initialize_environment: ${err}`))
+            .then(mega_temp_humidity())
+            .then(read_precise_temp())
+            .then(read_scale())
+            .then(read_infrared())
+            .then(set_timestamp())
+            .then(resolve(true))
+            .catch(err => console.log(`Error Caught: initialize_environment: ${err}`))
     })
 }
 
@@ -150,7 +144,7 @@ const clean_environment_state = (env_state) => {
     console.log('env_state before vvvvvvvvvvvvvvvvvvvvvvvvvv')
     console.log(env_state)
     for (x in env_state) {
-        if (typeof env_state[x] === 'number') {
+        if (typeof env_state[x] === 'number'){
             env_state[x] = Math.round((env_state[x] + Number.EPSILON) * 100) / 100;
             console.log(env_state[x]);
         }
