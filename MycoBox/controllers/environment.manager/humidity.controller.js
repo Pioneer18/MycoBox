@@ -83,6 +83,7 @@ const humidity_actuator_controller = () => {
     get('actuators_state')
     .then(state => {
         send_command("H 125").then(()=> {
+            console.log("Humidity Actuator Controller: Sending Command Now")
             setTimeout(() => {
                 return
             }, 4000);
