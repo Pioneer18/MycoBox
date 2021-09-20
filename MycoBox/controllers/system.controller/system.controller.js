@@ -44,7 +44,7 @@ function newSession(config) {
                     .then(()=>{
                         setTimeout(() => {
                             set_session_state('active_session', true)
-                                .then(environment_manager())
+                            environment_manager()
                                 .then(resolve())
                                 .catch(err => console.log(`Error Caught: new_session: ${err}`))
                         }, 13000);
