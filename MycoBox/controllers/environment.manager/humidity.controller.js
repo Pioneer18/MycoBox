@@ -73,9 +73,8 @@ const update_humidity = (config) => {
     set_pid_state('humidity', humidityController.report())
     // humidity_actuator_controller(value)
     send_command("H 120").then(setTimeout(() => {
-        return
+        return value
     }, 4000))
-    return value
 }
 // process the update value into an appropriate Dimmer Value (convert 1 - 450 to a percentage)
 const normalize_update = () => {
