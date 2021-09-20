@@ -138,8 +138,8 @@ const read_environment_state = () => {
                     internal_humidity_3: env_state.internal_humidity_3,
                     internal_humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2)) + (parseFloat(env_state.internal_humidity_3))) / 3,
                     external_humidity: env_state.external_humidity,
-                    co2: "200", // env_state.co2,
-                    weight: "0" // env_state.weight
+                    co2: env_state.co2,
+                    weight: env_state.weight
                 })
             })
     })

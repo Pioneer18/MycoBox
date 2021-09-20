@@ -114,13 +114,13 @@ const validate_env_state = () => {
             .then(env_state => {
                 console.log("Environment State: *****************************************")
                 console.log(env_state);
-                if (validate(env_state.internal_temp_1) !== true ||
-                    validate(env_state.internal_temp_2) !== true ||
-                    validate(env_state.internal_temp_3) !== true ||
-                    validate(env_state.precise_temp_c) !== true ||
-                    validate(env_state.internal_humidity_1) !== true ||
-                    validate(env_state.internal_humidity_2) !== true ||
-                    validate(env_state.internal_humidity_3) !== true
+                if (env_state.internal_temp_1 == '' ||
+                    env_state.internal_temp_2 == '' ||
+                    env_state.internal_temp_3 == '' ||
+                    env_state.precise_temp_c == '' ||
+                    env_state.internal_humidity_1 == '' ||
+                    env_state.internal_humidity_2 == '' ||
+                    env_state.internal_humidity_3 == ''
                 ) {
                     console.log('Validate Env Recall: Blank Env State')
                     update_environment_state()
