@@ -126,7 +126,7 @@ const validate_env_state = () => {
                     update_environment_state()
                         .then(setTimeout(() => {
                             validate_env_state()
-                        }, 20000))
+                        }, 8000))
                 }
                 else {
                     return resolve({

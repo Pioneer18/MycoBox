@@ -40,11 +40,15 @@ function newSession(config) {
         const session_state = get('session_state');
         if (!session_state.active_session) {
             set_environment_config(config)
-                .then(update_environment_state())
-                .then(set_session_state('active_session', true))
-                .then(environment_manager())
-                .then(resolve())
-                .catch(err => console.log(`Error Caught: new_session: ${err}`))
+                .then(update_environment_state()
+                    .then(()=>{
+                        setTimeout(() => {
+                            set_session_state('active_session', true)
+                                .then(environment_manager())
+                                .then(resolve())
+                                .catch(err => console.log(`Error Caught: new_session: ${err}`))
+                        }, 13000);
+                    }))
             
         } else {
             throw new Error('There is already an active session')
