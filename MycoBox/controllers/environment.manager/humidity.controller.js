@@ -72,7 +72,9 @@ const update_humidity = (config) => {
     console.log(value);
     set_pid_state('humidity', humidityController.report())
     // humidity_actuator_controller(value)
-    send_command("H 120")
+    send_command("H 120").then(setTimeout(() => {
+        return
+    }, 4000))
     return value
 }
 // process the update value into an appropriate Dimmer Value (convert 1 - 450 to a percentage)
@@ -92,10 +94,12 @@ const send_command = (command) => {
         scriptPath: 'MycoBox/python',
         args: [command]
     };
-    return new Promise((resolve)=>{
+    return new Promise((resolve) => {
         PythonShell.run('raspi.to.mega.py', options, function (err, reply) {
             if (err) throw err;
-            console.log(reply)
+            if (!reply) {
+                console.log("Humidifier Command Never Received Response")
+            }
             resolve()
         })
     })
