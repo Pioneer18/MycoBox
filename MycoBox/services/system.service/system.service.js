@@ -140,6 +140,8 @@ const validate_env_state = () => {
 }
 
 const validate = (data) => {
+    console.log("Validate: " + data)
+    console.log(typeof data)
     if (typeof data !== typeof 'string' || typeof data !== 'number') return false
     if (data === '') return false
     if (data == null || data == undefined) return false
