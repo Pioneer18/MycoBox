@@ -45,10 +45,10 @@ function newSession(config) {
                         setTimeout(() => {
                             set_session_state('active_session', true)
                             environment_manager()
-                                .then(resolve())
-                                .catch(err => console.log(`Error Caught: new_session: ${err}`))
                         }, 13000);
                     }))
+                    .then(resolve())
+                    .catch(err => console.log(`Error Caught: new_session: ${err}`))
             
         } else {
             throw new Error('There is already an active session')
