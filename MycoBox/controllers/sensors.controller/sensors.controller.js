@@ -117,6 +117,7 @@ const update_environment_state = () => {
                 }
                 else {
                     console.log("Bad reply from mega! Now wait 5 seconds before trying again")
+                    console.log(reply)
                     setTimeout(() => {
                         update_environment_state()
                     }, 5000);
