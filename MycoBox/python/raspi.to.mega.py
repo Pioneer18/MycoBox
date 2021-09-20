@@ -12,9 +12,9 @@ finished = False
 while finished == False:
     command = sys.argv[1] + '\n'
     ser.write(command.encode())
-    # if ser.in_waiting > 0:
-    time.sleep(1)
-    line = ser.readline().decode('utf-8')
-    print(line)
-    finished = True
+    if ser.in_waiting > 0:
+        line = ser.readline().decode('utf-8')
+        print(line)
+        finished = True
+    time.sleep(2)
 
