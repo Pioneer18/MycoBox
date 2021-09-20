@@ -55,15 +55,6 @@ const get_state = () => {
     return Promise.all([get('environment_config'), get('environment_state'), get('pid_state'), get('session_state')]).then(values => values);
 }
 
-const promise1 = Promise.resolve(3);
-const promise2 = 42;
-const promise3 = new Promise((resolve, reject) => {
-    setTimeout(resolve, 100, 'foo');
-});
-
-Promise.all([promise1, promise2, promise3]).then((values) => {
-    console.log(values);
-});
 
 /**
  * Validate the current environment state, the calculate the measured and call each controller with its
@@ -166,6 +157,8 @@ const process_session_state = async (measured) => {
 
 const calculate_measured = (env_state) => {
     console.log("METHOD CALL: calculate_measured")
+    console.log(env_state)
+    console.log(`Measured Temperature: -------- ${((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2)) + (parseFloat(env_state.internal_temp_3)) + (parseFloat(env_state.precise_temp_c))) / 4} ---------`)
     return {
         temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2)) + (parseFloat(env_state.internal_temp_3)) + (parseFloat(env_state.precise_temp_c))) / 4,
         humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2)) + (parseFloat(env_state.internal_humidity_3))) / 3,
