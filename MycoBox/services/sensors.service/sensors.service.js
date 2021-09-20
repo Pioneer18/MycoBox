@@ -5,25 +5,10 @@ const { set_environment_state } = require('../../globals/globals');
 
 /**
  * Parse incoming dht22 sensor data
- * @param {Array} reply h1,h2,h3,h4,temp1,temp2,
+ * @param {Array} reply h1,h2,h3,h4,temp1,temp2,temp3,temp4
  * @returns 
  */
-const parse_th_data = (reply) => {
-    console.log('Method Call: parse_th_data')
-    const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-    return new Promise((resolve) => {
-        for (let i = 1; i < 16; i += 2) {
-            validate_th_data(data[i])
-                .then(set_dht22_values(i, data[i]))
-                .catch()
-        }
-        resolve()
-    });
-}
-
 const read_mega_data = (reply) => {
-    console.log('Temperature & Humidity Data:')
-    console.log(reply)
     if (!reply) throw new Error('No reply from Mega')
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     return new Promise((resolve) => {

@@ -32,9 +32,9 @@ const mega_temp_humidity = () => {
             if (err) reject(err)
             console.log('Should be reading mega data...')
             if (!reply) {
-                setTimeout(() => {
-                    mega_temp_humidity()
-                }, 13000);
+                // setTimeout(() => {
+                //     mega_temp_humidity()
+                // }, 13000);
             }
             read_mega_data(reply)
                 .then(resolve())
