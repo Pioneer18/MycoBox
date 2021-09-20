@@ -106,6 +106,8 @@ const update_environment_state = () => {
         console.log("METHOD CALL: update_environment_state")
         mega_temp_humidity()
             .then(reply => {
+                console.log("Here is the Reply:")
+                console.log(reply)
                 if (reply) {
                     read_co2()
                         .then(read_precise_temp())
