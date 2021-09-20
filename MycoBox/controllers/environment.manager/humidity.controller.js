@@ -92,11 +92,12 @@ const send_command = (command) => {
         args: [command]
     };
     return new Promise((resolve) => {
-        PythonShell.run('raspi.to.mega.py', options, function (err, reply) {
+        PythonShell.run('dimmer.command.py', options, function (err, reply) {
             if (err) throw err;
             if (!reply) {
                 console.log("Humidifier Command Never Received Response")
             }
+            console.log("reply")
             resolve()
         })
     })
