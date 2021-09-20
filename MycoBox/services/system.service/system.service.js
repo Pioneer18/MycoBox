@@ -28,12 +28,12 @@ const environment_manager = () => {
                 console.log('Environment Manager Has Validated Session')
                 //update_environment_state()
                 run_pid_controllers()
-                    .then(data => {
+                    .then(() => {
                         // if there is any data returned do whatever with it here
                         // otherwise recall environment_manager, because the session must still be active
-                        console.log('#############################################################################')
-                        console.log('Update Value Returned | ' + data + ' | Recalling ENV MANAGER')
-                        console.log('#############################################################################')
+                        console.log('#######################')
+                        console.log('Recalling ENV MANAGER')
+                        console.log('#######################')
 
                         setTimeout(() => {
                             return environment_manager();
@@ -91,9 +91,9 @@ const run_pid_controllers = () => {
                             update_humidity(humidity_config)
                             // update_ventilation - co2 reading (temp and humidity are considered)
                             // update_circulation configuration selected state, not a pid
-                            return
+                            return 
                         })
-                        .then(results => resolve(results))
+                        .then(() => resolve())
                 }
             })
 
