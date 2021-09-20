@@ -32,7 +32,7 @@ class HumidityPidController {
         // init the set point
         this.setPoint = config.incoming_report.setPoint;
         this.measured = config.incoming_report.measured;
-        console.log('This: TempPidController Properties')
+        console.log('This: Humidity PID Controller Properties')
         console.log(this)
     }
 
