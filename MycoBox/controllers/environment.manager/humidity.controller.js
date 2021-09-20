@@ -92,9 +92,12 @@ const send_command = (command) => {
         scriptPath: 'MycoBox/python',
         args: [command]
     };
-    PythonShell.run('raspi.to.mega.py', options, function (err, reply) {
-        if (err) throw err;
-        console.log(reply)
+    return new Promise((resolve)=>{
+        PythonShell.run('raspi.to.mega.py', options, function (err, reply) {
+            if (err) throw err;
+            console.log(reply)
+            resolve()
+        })
     })
 }
 module.exports = {
