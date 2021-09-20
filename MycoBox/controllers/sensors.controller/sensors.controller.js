@@ -32,7 +32,7 @@ const mega_temp_humidity = () => {
             if (err) reject(err)
             console.log('Should be reading mega data...')
             read_mega_data(reply)
-                .then(resolve())
+                .then(resolve(reply))
         })
     })
 }
@@ -105,13 +105,21 @@ const update_environment_state = () => {
     return new Promise((resolve) => {
         console.log("METHOD CALL: update_environment_state")
         mega_temp_humidity()
-            .then(read_co2())
-            .then(read_precise_temp())
-            .then(read_scale())
-            .then(read_infrared())
-            .then(set_timestamp())
-            .then(resolve(true))
-            .catch(err => console.log(`Error Caught: initialize_environment: ${err}`))
+            .then(reply => {
+                if (reply) {
+                    read_co2()
+                        .then(read_precise_temp())
+                        .then(read_scale())
+                        .then(read_infrared())
+                        .then(set_timestamp())
+                        .then(resolve())
+                }
+                else {
+                    setTimeout(() => {
+                        update_environment_state()
+                    }, 8000);
+                }
+            })
     })
 }
 
@@ -146,7 +154,7 @@ const clean_environment_state = (env_state) => {
     console.log('env_state before vvvvvvvvvvvvvvvvvvvvvvvvvv')
     console.log(env_state)
     for (x in env_state) {
-        if (typeof env_state[x] === 'number'){
+        if (typeof env_state[x] === 'number') {
             env_state[x] = Math.round((env_state[x] + Number.EPSILON) * 100) / 100;
             console.log(env_state[x]);
         }
