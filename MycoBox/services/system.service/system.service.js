@@ -82,7 +82,7 @@ const run_pid_controllers = () => {
                             update_humidity(humidity_config)
                             // update_ventilation - co2 reading (temp and humidity are considered)
                             // update_circulation configuration selected state, not a pid
-                            return 
+                            return
                         })
                         .then(() => resolve())
                 }
@@ -100,31 +100,36 @@ const validate_env_state = () => {
     console.log('METHOD CALL: validate_env_state')
     // get the latet environment state
     return new Promise((resolve) => {
-    read_environment_state()
-            .then(env_state => {
-                console.log("Environment State")
-                console.log(env_state);
-                if (env_state.internal_temp_1 == '' ||
-                    env_state.internal_temp_2 == '' ||
-                    env_state.internal_temp_3 == '' ||
-                    env_state.precise_temp_c == '' ||
-                    env_state.internal_humidity_1 == '' ||
-                    env_state.internal_humidity_2 == '' ||
-                    env_state.internal_humidity_3 == ''
-                ) {
-                    console.log('Validate Env Recall: Blank Env State')
-                    update_environment_state()
-                        .then(setTimeout(() => {
-                            validate_env_state()
-                        }, 8000))
-                }
-                else {
-                    return resolve({
-                        validation: true,
-                        env_state: env_state
+        update_environment_state.then(() => {
+            setTimeout(() => {
+                read_environment_state()
+                    .then(env_state => {
+                        console.log("Environment State")
+                        console.log(env_state);
+                        if (env_state.internal_temp_1 == '' ||
+                            env_state.internal_temp_2 == '' ||
+                            env_state.internal_temp_3 == '' ||
+                            env_state.precise_temp_c == '' ||
+                            env_state.internal_humidity_1 == '' ||
+                            env_state.internal_humidity_2 == '' ||
+                            env_state.internal_humidity_3 == ''
+                        ) {
+                            console.log('Validate Env Recall: Blank Env State')
+                            update_environment_state()
+                                .then(setTimeout(() => {
+                                    validate_env_state()
+                                }, 8000))
+                        }
+                        else {
+                            return resolve({
+                                validation: true,
+                                env_state: env_state
+                            })
+                        }
                     })
-                }
-            })
+
+            }, 5000);
+        })
 
     })
 }
