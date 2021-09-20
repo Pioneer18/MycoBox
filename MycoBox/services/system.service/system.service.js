@@ -159,7 +159,7 @@ const map_measured = (env_state) => {
     console.log("METHOD CALL: map_measured")
     console.log(env_state)
     return {
-        temperature: env_state.precise_temp_c,
+        temperature: env_state.internal_temp_c,
         humidity: env_state.internal_humidity,
         co2: 500 // Debug the co2 meter so this isn't hardcoded
     }
