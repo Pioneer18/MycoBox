@@ -87,8 +87,6 @@ const run_pid_controllers = () => {
                             console.log(state)
                             const temp_config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
                             const humidity_config = humidity_pid_controller_config(measured, state[0].spawn_running, state[2].humidity)
-                            console.log("-------------- Humidity Configuration --------------")
-                            console.log(humidity_config)
                             update_temperature(temp_config)
                             update_humidity(humidity_config)
                             // update_ventilation - co2 reading (temp and humidity are considered)

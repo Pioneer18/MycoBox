@@ -38,6 +38,7 @@ const humidity_pid_controller_config = (measured, env_config, pid_state) => {
             measured: measured.humidity
         }
     }
+    console.log(config)
     return config
 }
 /**
