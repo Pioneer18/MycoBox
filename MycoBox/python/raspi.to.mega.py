@@ -9,14 +9,12 @@ import sys
 ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 ser.flush()
 finished = False
+command = sys.argv[1] + '\n'
+ser.write(command.encode())
 while finished == False:
-    command = sys.argv[1] + '\n'
-    ser.write(command.encode())
-    line = ser.readline().decode('utf-8')
-    if line != None: 
+    if ser.in_waiting > 0:
+        line = ser.readline().decode('utf-8')
         print(line)
         finished = True
-    if line == None or line == "":
-        print("tee-hee no values for you")
     time.sleep(1)
 
