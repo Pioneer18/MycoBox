@@ -24,7 +24,7 @@
  */
 const { get, set_environment_config, set_session_state } = require('../../globals/globals');
 const { environment_manager } = require("../../services/system.service/system.service")
-const { update_environment_state } = require("../sensors.controller/sensors.controller")
+const { update_environment_state, read_environment_state } = require("../sensors.controller/sensors.controller")
 
 /**
  * New Session: A promise to run the Environment Manager after the initial setup
@@ -36,20 +36,84 @@ const { update_environment_state } = require("../sensors.controller/sensors.cont
 */
 
 function newSession(config) {
-    return new Promise ( (resolve)=> {
+    return new Promise((resolve) => {
         const session_state = get('session_state');
         if (!session_state.active_session) {
             set_environment_config(config)
-                .then(update_environment_state())
+                .then(update_environment_state()
+                    .then(read_environment_state())
+                    .then(env_state => validate_env_state(env_state))
+                )
                 .then(set_session_state('active_session', true))
                 .then(environment_manager())
                 .then(resolve())
                 .catch(err => console.log(`Error Caught: new_session: ${err}`))
-            
+
         } else {
             throw new Error('There is already an active session')
         }
     });
+}
+
+const validate_env_state = (env_state) => {
+    console.log("###################### System Controller: Validating Environment State ######################")
+    // get the latet environment state
+    return new Promise((resolve) => {
+        console.log("Environment State: *****************************************")
+        console.log(env_state);
+        if (typeof env_state.internal_temp_1 !== 'number' ||
+            typeof env_state.internal_temp_2 !== 'number' ||
+            typeof env_state.internal_temp_3 !== 'number' ||
+            typeof env_state.precise_temp_c !== 'number' ||
+            typeof env_state.internal_humidity_1 !== 'number' ||
+            typeof env_state.internal_humidity_2 !== 'number' ||
+            typeof env_state.internal_humidity_3 !== 'number'
+        ) {
+            console.log('Validate Env Recall: Blank Env State')
+            // update_environment_state()
+            //     .then(() => {
+            //         setTimeout(() => {
+            //             recheck_env_state(resolve)
+            //         }, 8000);
+            //     })
+            recheck_env_state(resolve)
+        }
+        if (typeof env_state.internal_temp_1 === 'number' ||
+            typeof env_state.internal_temp_2 === 'number' ||
+            typeof env_state.internal_temp_3 === 'number' ||
+            typeof env_state.precise_temp_c === 'number' ||
+            typeof env_state.internal_humidity_1 === 'number' ||
+            typeof env_state.internal_humidity_2 === 'number' ||
+            typeof env_state.internal_humidity_3 === 'number') {
+            return resolve({
+                validation: true,
+                env_state: env_state
+            })
+        }
+    })
+}
+
+const recheck_env_state = (resolve) => {
+    read_environment_state()
+        .then(env_state => {
+            console.log("Validation Recheck: ************************")
+            console.log(env_state)
+            if (env_state.internal_temp_1 === '') {
+                update_environment_state()
+                    .then(() => {
+                        setTimeout(() => {
+                            recheck_env_state(resolve)
+                        }, 8000);
+                    })
+            }
+            if (env_state.internal_temp_1 !== '' && env_state.external_humidity !== '') {
+                return resolve({
+                    validation: true,
+                    env_state: env_state
+                })
+            }
+        })
+
 }
 
 // const endSession = () => {
@@ -63,6 +127,7 @@ function newSession(config) {
 // const subtractHoursFromSession = () => {
 //     return { TODO: 'build this handler' }
 // },
+
 
 
 module.exports = {
