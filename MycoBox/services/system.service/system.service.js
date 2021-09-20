@@ -68,7 +68,7 @@ const run_pid_controllers = () => {
         validate_env_state()
             .then(validation => {
                 if (validation.validation) {
-                    const measured = calculate_measured(validation.env_state);
+                    const measured = map_measured(validation.env_state);
                     // =========================================================================================================
                     // todo: check for session stage (sr, pi, fr) 
                     // generate config for each controller: add the other controller functions for this
@@ -155,13 +155,12 @@ const process_session_state = async (measured) => {
 
 }
 
-const calculate_measured = (env_state) => {
-    console.log("METHOD CALL: calculate_measured")
+const map_measured = (env_state) => {
+    console.log("METHOD CALL: map_measured")
     console.log(env_state)
-    console.log(`Measured Temperature: -------- ${((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2)) + (parseFloat(env_state.internal_temp_3)) + (parseFloat(env_state.precise_temp_c))) / 4} ---------`)
     return {
-        temperature: ((parseFloat(env_state.internal_temp_1)) + (parseFloat(env_state.internal_temp_2)) + (parseFloat(env_state.internal_temp_3)) + (parseFloat(env_state.precise_temp_c))) / 4,
-        humidity: ((parseFloat(env_state.internal_humidity_1)) + (parseFloat(env_state.internal_humidity_2)) + (parseFloat(env_state.internal_humidity_3))) / 3,
+        temperature: env_state.precise_temp_c,
+        humidity: env_state.internal_humidity,
         co2: 500 // Debug the co2 meter so this isn't hardcoded
     }
 }
