@@ -12,9 +12,11 @@ finished = False
 while finished == False:
     command = sys.argv[1] + '\n'
     ser.write(command.encode())
-    if ser.in_waiting > 0:
-        line = ser.readline().decode('utf-8')
+    line = ser.readline().decode('utf-8')
+    if line != None: 
         print(line)
         finished = True
+    if line == None or line == "":
+        print("tee-hee no values for you")
     time.sleep(1)
 
