@@ -114,13 +114,13 @@ const validate_env_state = () => {
             .then(env_state => {
                 console.log("Environment State: *****************************************")
                 console.log(env_state);
-                if (typeof env_state.internal_temp_1 !== 'number' ||
-                    typeof env_state.internal_temp_2 !== 'number' ||
-                    typeof env_state.internal_temp_3 !== 'number' ||
-                    typeof env_state.precise_temp_c !== 'number' ||
-                    typeof env_state.internal_humidity_1 !== 'number' ||
-                    typeof env_state.internal_humidity_2 !== 'number' ||
-                    typeof env_state.internal_humidity_3 !== 'number'
+                if (validate(env_state.internal_temp_1) !== true ||
+                    validate(env_state.internal_temp_2) !== true ||
+                    validate(env_state.internal_temp_3) !== true ||
+                    validate(env_state.precise_temp_c) !== true ||
+                    validate(env_state.internal_humidity_1) !== true ||
+                    validate(env_state.internal_humidity_2) !== true ||
+                    validate(env_state.internal_humidity_3) !== true
                 ) {
                     console.log('Validate Env Recall: Blank Env State')
                     update_environment_state()
@@ -128,13 +128,7 @@ const validate_env_state = () => {
                             validate_env_state()
                         }, 8000))
                 }
-                if (typeof env_state.internal_temp_1 === 'number' ||
-                    typeof env_state.internal_temp_2 === 'number' ||
-                    typeof env_state.internal_temp_3 === 'number' ||
-                    typeof env_state.precise_temp_c === 'number' ||
-                    typeof env_state.internal_humidity_1 === 'number' ||
-                    typeof env_state.internal_humidity_2 === 'number' ||
-                    typeof env_state.internal_humidity_3 === 'number') {
+                else {
                     return resolve({
                         validation: true,
                         env_state: env_state
@@ -145,7 +139,12 @@ const validate_env_state = () => {
     })
 }
 
-
+const validate = (data) => {
+    if (typeof data !== typeof 'string') throw new Error(`received temp/humidity value that is not a string, check the sensors! ${data}`)
+    if (data === '') throw new Error(`received an empty value for temp/humidity, check the sensors! ${data}`)
+    if (data == null || data == undefined) throw new Error(`uh oh, got a null or undefined sensor value, check the sensors! ${data}`)
+    return true
+}
 
 /**
  * validate that the session is still active
