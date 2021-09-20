@@ -65,8 +65,6 @@ const validate_th_data = (data) => {
  * Set dht22 values to environment model
  */
 const set_dht22_values = (i, data) => {
-    console.log("Temp Humidity Data")
-    console.log(data)
     return new Promise((resolve) => {
         switch (i) {
             case 1:
