@@ -25,6 +25,7 @@ const mega_temp_humidity = () => {
         scriptPath: 'MycoBox/python',
         args: ["D 5"] // Read All Sensors
     };
+    console.log("Mega: Args")
     return new Promise((resolve, reject) => {
         console.log("Mega Reading DHT22 Sensors")
         PythonShell.run('raspi.to.mega.py', mega, function (err, reply) {
