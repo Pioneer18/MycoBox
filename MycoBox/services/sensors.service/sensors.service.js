@@ -5,7 +5,7 @@ const { set_environment_state } = require('../../globals/globals');
 
 /**
  * Parse incoming dht22 sensor data
- * @param {Array} reply h1,h2,h3,h4,temp1,temp2,temp3,temp4
+ * @param {Array} reply h1,h2,h3,h4,temp1,temp2,
  * @returns 
  */
 const read_mega_data = (reply) => {
@@ -101,7 +101,6 @@ const set_dht22_values = (i, data) => {
 }
 
 module.exports = {
-    parse_th_data,
     parse_pt_data,
     parse_co2_data,
     read_mega_data
