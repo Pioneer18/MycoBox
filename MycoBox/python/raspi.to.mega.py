@@ -16,5 +16,5 @@ while finished == False:
         line = ser.readline().decode('utf-8')
         print(line)
         finished = True
-    time.sleep(2)
+    time.sleep(1)
 
