@@ -32,7 +32,7 @@ const mega_temp_humidity = () => {
             if (err) reject(err)
             console.log('Should be reading mega data...')
             read_mega_data(reply)
-                .then(resolve(reply))
+                .then(resolve())
         })
     })
 }
@@ -102,26 +102,26 @@ const set_timestamp = () => {
  * Set Environment State
  */
 const update_environment_state = () => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         console.log("METHOD CALL: update_environment_state")
-        mega_temp_humidity()
-            .then(reply => {
-                console.log("Here is the Reply:")
-                console.log(reply)
+        read_co2()
+            .then(read_precise_temp())
+            .then(read_scale())
+            .then(read_infrared())
+            .then(set_timestamp())
+            .then(mega_temp_humidity().then(reply => {
                 if (reply) {
-                    read_co2()
-                        .then(read_precise_temp())
-                        .then(read_scale())
-                        .then(read_infrared())
-                        .then(set_timestamp())
-                        .then(resolve())
+                    console.log("Here is the Reply from the mega");
+                    console.log(reply)
+                    resolve()
                 }
                 else {
+                    console.log("Bad reply from mega! Now wait 5 seconds before trying again")
                     setTimeout(() => {
                         update_environment_state()
-                    }, 8000);
+                    }, 5000);
                 }
-            })
+            }))
     })
 }
 
