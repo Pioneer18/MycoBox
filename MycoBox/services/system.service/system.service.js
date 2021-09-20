@@ -140,9 +140,9 @@ const validate_env_state = () => {
 }
 
 const validate = (data) => {
-    if (typeof data !== typeof 'string') throw new Error(`received temp/humidity value that is not a string, check the sensors! ${data}`)
-    if (data === '') throw new Error(`received an empty value for temp/humidity, check the sensors! ${data}`)
-    if (data == null || data == undefined) throw new Error(`uh oh, got a null or undefined sensor value, check the sensors! ${data}`)
+    if (typeof data !== typeof 'string') return false
+    if (data === '') return false
+    if (data == null || data == undefined) return false
     return true
 }
 
