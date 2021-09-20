@@ -24,6 +24,7 @@ const parse_th_data = (reply) => {
 const read_mega_data = (reply) => {
     console.log('Temperature & Humidity Data:')
     console.log(reply)
+    if (!reply) throw new Error('No reply from Mega')
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     return new Promise((resolve) => {
         for (let i = 1; i < 16; i += 2) {

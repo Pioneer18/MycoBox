@@ -31,6 +31,11 @@ const mega_temp_humidity = () => {
         PythonShell.run('raspi.to.mega.py', mega, function (err, reply) {
             if (err) reject(err)
             console.log('Should be reading mega data...')
+            if (!reply) {
+                setTimeout(() => {
+                    mega_temp_humidity()
+                }, 3000);
+            }
             read_mega_data(reply)
                 .then(resolve())
         })
