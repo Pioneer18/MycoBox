@@ -32,7 +32,7 @@ const mega_temp_humidity = () => {
             if (err) reject(err)
             console.log('Should be reading mega data...')
             read_mega_data(reply)
-                .then(data => resolve(data))
+                .then(resolve())
         })
     })
 }
@@ -109,20 +109,7 @@ const update_environment_state = () => {
             .then(read_scale())
             .then(read_infrared())
             .then(set_timestamp())
-            .then(mega_temp_humidity().then(reply => {
-                if (reply) {
-                    console.log("Here is the Reply from the mega");
-                    console.log(reply)
-                    resolve()
-                }
-                else {
-                    console.log("Bad reply from mega! Now wait 5 seconds before trying again")
-                    console.log(reply)
-                    setTimeout(() => {
-                        update_environment_state()
-                    }, 5000);
-                }
-            }))
+            .then(mega_temp_humidity().then(resolve))
     })
 }
 

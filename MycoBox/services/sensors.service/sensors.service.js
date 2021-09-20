@@ -32,7 +32,7 @@ const read_mega_data = (reply) => {
                 .then(resolve())
                 .catch()
         }
-        resolve(data)
+        resolve()
     });
 }
 
