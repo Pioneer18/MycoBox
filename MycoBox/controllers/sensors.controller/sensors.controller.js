@@ -34,7 +34,7 @@ const mega_temp_humidity = () => {
             if (!reply) {
                 setTimeout(() => {
                     mega_temp_humidity()
-                }, 3000);
+                }, 5000);
             }
             read_mega_data(reply)
                 .then(resolve())
