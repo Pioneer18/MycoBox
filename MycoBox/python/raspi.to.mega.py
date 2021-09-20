@@ -10,11 +10,11 @@ ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 ser.flush()
 finished = False
 command = sys.argv[1] + '\n'
-ser.write(command.encode())
 while finished == False:
+    ser.write(command.encode())
     if ser.in_waiting > 0:
         line = ser.readline().decode('utf-8')
         print(line)
         finished = True
-    time.sleep(1)
+    time.sleep(2)
 
