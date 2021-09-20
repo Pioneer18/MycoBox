@@ -36,9 +36,8 @@ const environment_manager = () => {
                         console.log('#############################################################################')
 
                         setTimeout(() => {
-                            console.log('**************************** Waited 2 Seconds ****************************')
                             return environment_manager();
-                        }, 3000);
+                        }, 1000);
                     })
 
             }
@@ -88,6 +87,8 @@ const run_pid_controllers = () => {
                             console.log(state)
                             const temp_config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
                             const humidity_config = humidity_pid_controller_config(measured, state[0].spawn_running, state[2].humidity)
+                            console.log("-------------- Humidity Configuration --------------")
+                            console.log(humidity_config)
                             update_temperature(temp_config)
                             update_humidity(humidity_config)
                             // update_ventilation - co2 reading (temp and humidity are considered)
@@ -139,22 +140,12 @@ const validate_env_state = () => {
     })
 }
 
-const validate = (data) => {
-    console.log("Validate: " + data)
-    console.log(typeof data)
-    if (typeof data !== typeof 'string' || typeof data !== 'number') return false
-    if (data === '') return false
-    if (data == null || data == undefined) return false
-    return true
-}
-
 /**
  * validate that the session is still active
  * @returns true or false
  */
 const validate_active_session = () => {
     return new Promise((resolve) => {
-        console.log('Validating Active Session *********************************************')
         get('session_state')
             .then(session_state => {
                 if (session_state.active_session) resolve(true)
