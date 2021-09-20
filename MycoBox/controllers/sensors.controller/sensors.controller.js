@@ -103,8 +103,8 @@ const set_timestamp = () => {
 const update_environment_state = () => {
     return new Promise((resolve) => {
         console.log("METHOD CALL: update_environment_state")
-        read_co2()
-            .then(mega_temp_humidity())
+        mega_temp_humidity()
+            .then(read_co2())
             .then(read_precise_temp())
             .then(read_scale())
             .then(read_infrared())
