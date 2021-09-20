@@ -34,7 +34,8 @@ const mega_temp_humidity = () => {
             if (!reply) {
                 setTimeout(() => {
                     mega_temp_humidity()
-                }, 6000);
+                    console.log("waited 13 seconds for incoming mega data.....")
+                }, 13000);
             }
             read_mega_data(reply)
                 .then(resolve())
