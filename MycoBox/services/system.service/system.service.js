@@ -73,7 +73,7 @@ Promise.all([promise1, promise2, promise3]).then((values) => {
  * @returns { temp, humidity, co2 }  
  */
 const run_pid_controllers = () => {
-    console.log('Running PID Controllers now ------------------------------------------------------------------------')
+    console.log('Running PID Controllers')
     return new Promise((resolve) => {
         validate_env_state()
             .then(validation => {
@@ -107,12 +107,12 @@ const run_pid_controllers = () => {
  * @returns 
  */
 const validate_env_state = () => {
-    console.log('METHOD CALL: validate_env_state ----------------------–----------------------–----------------------–')
+    console.log('METHOD CALL: validate_env_state')
     // get the latet environment state
     return new Promise((resolve) => {
     read_environment_state()
             .then(env_state => {
-                console.log("Environment State: *****************************************")
+                console.log("Environment State")
                 console.log(env_state);
                 if (env_state.internal_temp_1 == '' ||
                     env_state.internal_temp_2 == '' ||
