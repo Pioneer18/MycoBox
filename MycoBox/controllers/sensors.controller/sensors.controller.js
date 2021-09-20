@@ -107,7 +107,7 @@ const set_timestamp = () => {
  * Set Environment State
  */
 const update_environment_state = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         console.log("METHOD CALL: update_environment_state")
         read_co2()
             .then(read_precise_temp())
