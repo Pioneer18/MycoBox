@@ -71,7 +71,7 @@ const update_humidity = (config) => {
     console.log('The Humidity Calculated Update Value')
     console.log(value);
     set_pid_state('humidity', humidityController.report())
-    //humidity_actuator_controller(value)
+    humidity_actuator_controller(value)
     return value
 }
 // process the update value into an appropriate Dimmer Value (convert 1 - 450 to a percentage)
@@ -100,7 +100,7 @@ const send_command = (command) => {
         args: [command]
     };
     return new Promise((resolve) => {
-        PythonShell.run('raspi.to.mega.py', options, function (err, reply) {
+        PythonShell.run('dimmer.command.py', options, function (err, reply) {
             if (err) throw err;
             if (!reply) {
                 console.log("Humidifier Command Never Received Response")
