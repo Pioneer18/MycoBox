@@ -115,12 +115,12 @@ const validate_env_state = () => {
                 console.log("Environment State: *****************************************")
                 console.log(env_state);
                 if (typeof parseInt(env_state.internal_temp_1) !== 'number' ||
-                    parseInt(typeof env_state.internal_temp_2) !== 'number' ||
-                    parseInt(typeof env_state.internal_temp_3) !== 'number' ||
-                    parseInt(typeof env_state.precise_temp_c) !== 'number' ||
-                    parseInt(typeof env_state.internal_humidity_1) !== 'number' ||
-                    parseInt(typeof env_state.internal_humidity_2) !== 'number' ||
-                    parseInt(typeof env_state.internal_humidity_3) !== 'number'
+                    (typeof parseInt(env_state.internal_temp_2)) !== 'number' ||
+                    (typeof parseInt(env_state.internal_temp_3)) !== 'number' ||
+                    (typeof parseInt(env_state.precise_temp_c)) !== 'number' ||
+                    (typeof parseInt(env_state.internal_humidity_1)) !== 'number' ||
+                    (typeof parseInt(env_state.internal_humidity_2)) !== 'number' ||
+                    (typeof parseInt(env_state.internal_humidity_3)) !== 'number'
                 ) {
                     console.log('Validate Env Recall: Blank Env State')
                     update_environment_state()
@@ -128,13 +128,13 @@ const validate_env_state = () => {
                             validate_env_state()
                         }, 8000))
                 }
-                if (parseInt(typeof env_state.internal_temp_1) === 'number' ||
-                    parseInt(typeof env_state.internal_temp_2) === 'number' ||
-                    parseInt(typeof env_state.internal_temp_3) === 'number' ||
-                    parseInt(typeof env_state.precise_temp_c) === 'number' ||
-                    parseInt(typeof env_state.internal_humidity_1) === 'number' ||
-                    parseInt(typeof env_state.internal_humidity_2) === 'number' ||
-                    parseInt(typeof env_state.internal_humidity_3) === 'number') {
+                if ((typeof parseInt(env_state.internal_temp_1)) === 'number' ||
+                    (typeof parseInt(env_state.internal_temp_2)) === 'number' ||
+                    (typeof parseInt(env_state.internal_temp_3)) === 'number' ||
+                    (typeof parseInt(env_state.precise_temp_c)) === 'number' ||
+                    (typeof parseInt(env_state.internal_humidity_1)) === 'number' ||
+                    (typeof parseInt(env_state.internal_humidity_2)) === 'number' ||
+                    (typeof parseInt(env_state.internal_humidity_3)) === 'number') {
                     return resolve({
                         validation: true,
                         env_state: env_state
