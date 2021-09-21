@@ -80,14 +80,11 @@ const run_pid_controllers = () => {
                             const humidity_config = humidity_pid_controller_config(measured, state[0].spawn_running, state[2].humidity)
                             update_temperature(temp_config)
                             update_humidity(humidity_config)
+                            send_command("H 150").then(setTimeout(() => {
+                                return
+                            }, 5000))
                             // update_ventilation - co2 reading (temp and humidity are considered)
                             // update_circulation configuration selected state, not a pid
-                            return
-                        })
-                        .then(()=> {
-                            setTimeout(() => {
-                                console.log("8888888888888888888888888888888888888888888888888888888888888888888888 8 Second Time Out! 88888888888888888888888888888888888888888888888888888888888888888888888888888888")
-                            }, 8000);
                         })
                         .then(() => resolve())
                 }
