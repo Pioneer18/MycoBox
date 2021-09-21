@@ -103,7 +103,7 @@ const send_command = (command) => {
         args: [command]
     };
     return new Promise((resolve) => {
-        PythonShell.run('dimmer.command.py', options, function (err, reply) {
+        PythonShell.run('raspi.to.mega.py', options, function (err, reply) {
             if (err) throw err;
             console.log("Reply From the Humidifier Command")
             console.log(reply)
