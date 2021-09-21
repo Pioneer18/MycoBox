@@ -64,15 +64,16 @@ const humidity_pid_controller_config = (measured, env_config, pid_state) => {
  */
 // Right now this will return a raw pid update value, no wrapper logic applied; e.g. normalizing to the AC phase module's fan speeds scale
 const update_humidity = (config) => {
-    // initialize the controller
-    const humidityController = new HumidityPidController(config);
-    // update the actuator
-    const value = humidityController.update();
-    console.log('The Humidity Calculated Update Value')
-    console.log(value);
-    set_pid_state('humidity', humidityController.report())
-    humidity_actuator_controller(value)
-    return value
+    return new Promise((resolve) => {// initialize the controller
+        const humidityController = new HumidityPidController(config);
+        // update the actuator
+        const value = humidityController.update();
+        console.log('The Humidity Calculated Update Value')
+        console.log(value);
+        set_pid_state('humidity', humidityController.report())
+        humidity_actuator_controller(value)
+            .then(resolve(value))
+    })
 }
 // process the update value into an appropriate Dimmer Value (convert 1 - 450 to a percentage)
 const normalize_update = () => {
@@ -80,7 +81,10 @@ const normalize_update = () => {
 }
 // Use the relay to turn the Humidifier on or Off when appropriate (pid indicates this? nah...controller logic )
 const humidity_actuator_controller = (value) => {
-    console.log("Hello Humidity Actuator Controller Here")
+    return new Promise((resolve) => {
+        console.log("Hello Humidity Actuator Controller Here")
+        resolve()
+    })
 }
 // Send the Command with the Dimmer value; e.g. "H 300"
 const send_command = (command) => {
