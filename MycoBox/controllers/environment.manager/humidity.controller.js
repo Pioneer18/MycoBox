@@ -86,6 +86,7 @@ const humidity_actuator_controller = () => {
     return new Promise((resolve) => {
         send_command("H 125")
             .then(() => {
+                s5r2_on()
                 setTimeout(() => {
                     resolve();
                 }, 4000);
@@ -106,7 +107,6 @@ const send_command = (command) => {
             if (err) throw err;
             console.log("Reply From the Humidifier Command")
             console.log(reply)
-            s5r2_on()
             // set the state to active or off 
             // if (!placeholder) {
             //     console.log("Switching the Fan on Now!")
