@@ -73,7 +73,7 @@ const update_humidity = (config) => {
         console.log('The Humidity Calculated Update Value')
         console.log(value);
         set_pid_state('humidity', humidityController.report())
-        humidity_actuator_controller(value)
+        //humidity_actuator_controller(value)
         resolve(value)
     })
 }
