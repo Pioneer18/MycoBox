@@ -13,6 +13,8 @@ const { set_pid_state, get, set_actuator_state } = require('../../globals/global
 const { HumidityPidController } = require("../../services/environment.manager/humidity.pid.service")
 const { s3r1_on, s3r1_off, s5r2_on, s5r2_off } = require('../../cli_control_panel/relay');
 
+let placeholder = false;
+
 /**
  * Create HumidityPidController config
  */
@@ -104,6 +106,12 @@ const send_command = (command) => {
             if (err) throw err;
             console.log("Reply From the Humidifier Command")
             console.log(reply)
+            // set the state to active or off 
+            if (!placeholder) {
+                console.log("Switching the Fan on Now!")
+                s5r2_on();
+                placeholder = true;
+            }
             resolve()
         })
     })
