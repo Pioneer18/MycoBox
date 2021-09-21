@@ -9,5 +9,6 @@ ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 ser.flush()
 command = sys.argv[1] + '\n'
 ser.write(command.encode())
+time.sleep(3)
 print("Command Sent!")
 

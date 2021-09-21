@@ -101,7 +101,7 @@ const send_command = (command) => {
             if (!reply) {
                 console.log("Humidifier Command Never Received Response")
             }
-            console.log("reply")
+            console.log(reply)
             resolve()
         })
     })

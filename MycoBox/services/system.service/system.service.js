@@ -80,6 +80,7 @@ const run_pid_controllers = () => {
                             const humidity_config = humidity_pid_controller_config(measured, state[0].spawn_running, state[2].humidity)
                             update_temperature(temp_config)
                                 .then(update_humidity(humidity_config).then(value => {
+                                    send_command("H 125")
                                     console.log("=======================================")
                                     console.log("Returned Humidity Value: " + value)
                                     console.log("=======================================")
