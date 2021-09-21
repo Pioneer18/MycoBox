@@ -117,9 +117,7 @@ const validate_env_state = () => {
                             ) {
                                 console.log('Validate Env Recall: Blank Env State')
                                 update_environment_state()
-                                    .then(setTimeout(() => {
-                                        validate_env_state()
-                                    }, 8000))
+                                validate_env_state()
                             }
                             else {
                                 return resolve({
