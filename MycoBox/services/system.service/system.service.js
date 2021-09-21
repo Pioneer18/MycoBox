@@ -82,7 +82,7 @@ const run_pid_controllers = () => {
                             update_temperature(temp_config)
                                 .then(
                                     update_humidity(humidity_config)
-                                        .then(send_command("H 250")
+                                        .then(send_command("H 150")
                                             .then(() => {
                                                 s5r2_on()
                                                 console.log("=======================================")
