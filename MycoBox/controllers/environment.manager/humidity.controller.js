@@ -106,12 +106,13 @@ const send_command = (command) => {
             if (err) throw err;
             console.log("Reply From the Humidifier Command")
             console.log(reply)
+            s5r2_on()
             // set the state to active or off 
-            if (!placeholder) {
-                console.log("Switching the Fan on Now!")
-                s5r2_on();
-                placeholder = true;
-            }
+            // if (!placeholder) {
+            //     console.log("Switching the Fan on Now!")
+            //     s5r2_on();
+            //     placeholder = true;
+            // }
             resolve()
         })
     })
