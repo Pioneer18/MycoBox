@@ -71,7 +71,7 @@ const update_humidity = (config) => {
     console.log('The Humidity Calculated Update Value')
     console.log(value);
     set_pid_state('humidity', humidityController.report())
-    //humidity_actuator_controller(value)
+    humidity_actuator_controller(value)
     return value
 }
 // process the update value into an appropriate Dimmer Value (convert 1 - 450 to a percentage)
@@ -80,14 +80,13 @@ const normalize_update = () => {
 }
 // Use the relay to turn the Humidifier on or Off when appropriate (pid indicates this? nah...controller logic )
 const humidity_actuator_controller = () => {
-    get('actuators_state')
-    .then(state => {
-        send_command("H 125").then(()=> {
-            console.log("Humidity Actuator Controller: Sending Command Now")
-            setTimeout(() => {
-                return
-            }, 4000);
-        })
+    return new Promise((resolve)=> {
+        send_command("H 125")
+            .then(()=> {
+                setTimeout(() => {
+                    resolve();
+                }, 4000);
+            })
     })
 }
 // Send the Command with the Dimmer value; e.g. "H 300"

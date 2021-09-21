@@ -84,7 +84,6 @@ const run_pid_controllers = () => {
                             // update_circulation configuration selected state, not a pid
                             return
                         })
-                        .then(send_command("H 150"))
                         .then(() => resolve())
                 }
             })
