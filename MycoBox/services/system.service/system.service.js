@@ -7,7 +7,7 @@ const { temp_pid_controller_config, update_temperature } = require("../../contro
 const { humidity_pid_controller_config, update_humidity, send_command } = require("../../controllers/environment.manager/humidity.controller");
 const { get } = require("../../globals/globals")
 const { update_environment_state, read_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
-const { s5r2_on } = require("../../cli_control_panel/relay");
+const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
 
 
 /**
@@ -82,9 +82,10 @@ const run_pid_controllers = () => {
                             update_temperature(temp_config)
                                 .then(
                                     update_humidity(humidity_config)
-                                        .then(send_command("H 150")
+                                        .then(send_command("H 310")
                                             .then(() => {
                                                 s5r2_on()
+                                                s3r1_on()
                                                 console.log("=======================================")
                                                 console.log("Returned Humidity Value: ")
                                                 console.log("=======================================")
