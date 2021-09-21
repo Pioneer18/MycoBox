@@ -81,12 +81,11 @@ const run_pid_controllers = () => {
                             update_temperature(temp_config)
                             update_humidity(humidity_config)
                             send_command("H 150").then(setTimeout(() => {
-                                return
+                                resolve()
                             }, 5000))
                             // update_ventilation - co2 reading (temp and humidity are considered)
                             // update_circulation configuration selected state, not a pid
                         })
-                        .then(() => resolve())
                 }
             })
 
