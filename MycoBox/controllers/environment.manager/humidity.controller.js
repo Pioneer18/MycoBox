@@ -13,8 +13,6 @@ const { set_pid_state, get, set_actuator_state } = require('../../globals/global
 const { HumidityPidController } = require("../../services/environment.manager/humidity.pid.service")
 const { s3r1_on, s3r1_off, s5r2_on, s5r2_off } = require('../../cli_control_panel/relay');
 
-let placeholder = false;
-
 /**
  * Create HumidityPidController config
  */
@@ -66,32 +64,23 @@ const humidity_pid_controller_config = (measured, env_config, pid_state) => {
  */
 // Right now this will return a raw pid update value, no wrapper logic applied; e.g. normalizing to the AC phase module's fan speeds scale
 const update_humidity = (config) => {
-    return new Promise((resolve) => {  // initialize the controller
-        const humidityController = new HumidityPidController(config);
-        // update the actuator
-        const value = humidityController.update();
-        console.log('The Humidity Calculated Update Value')
-        console.log(value);
-        set_pid_state('humidity', humidityController.report())
-        //humidity_actuator_controller(value)
-        resolve(value)
-    })
+    // initialize the controller
+    const humidityController = new HumidityPidController(config);
+    // update the actuator
+    const value = humidityController.update();
+    console.log('The Humidity Calculated Update Value')
+    console.log(value);
+    set_pid_state('humidity', humidityController.report())
+    humidity_actuator_controller(value)
+    return value
 }
 // process the update value into an appropriate Dimmer Value (convert 1 - 450 to a percentage)
 const normalize_update = () => {
 
 }
 // Use the relay to turn the Humidifier on or Off when appropriate (pid indicates this? nah...controller logic )
-const humidity_actuator_controller = () => {
-    return new Promise((resolve) => {
-        send_command("H 125")
-            .then(() => {
-                s5r2_on()
-                setTimeout(() => {
-                    resolve();
-                }, 4000);
-            })
-    })
+const humidity_actuator_controller = (value) => {
+    console.log("Hello Humidity Actuator Controller Here")
 }
 // Send the Command with the Dimmer value; e.g. "H 300"
 const send_command = (command) => {
@@ -103,16 +92,12 @@ const send_command = (command) => {
         args: [command]
     };
     return new Promise((resolve) => {
-        PythonShell.run('raspi.to.mega.py', options, function (err, reply) {
+        PythonShell.run('dimmer.command.py', options, function (err, reply) {
             if (err) throw err;
-            console.log("Reply From the Humidifier Command")
-            console.log(reply)
-            // set the state to active or off 
-            // if (!placeholder) {
-            //     console.log("Switching the Fan on Now!")
-            //     s5r2_on();
-            //     placeholder = true;
-            // }
+            if (!reply) {
+                console.log("Humidifier Command Never Received Response")
+            }
+            console.log("reply")
             resolve()
         })
     })
