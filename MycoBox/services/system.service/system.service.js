@@ -83,6 +83,7 @@ const run_pid_controllers = () => {
                             // update_ventilation - co2 reading (temp and humidity are considered)
                             // update_circulation configuration selected state, not a pid
                         })
+                        .then(resolve())
                 }
             })
 
