@@ -84,6 +84,11 @@ const run_pid_controllers = () => {
                             // update_circulation configuration selected state, not a pid
                             return
                         })
+                        .then(()=> {
+                            setTimeout(() => {
+                                console.log("8 Second Time Out!")
+                            }, 8000);
+                        })
                         .then(() => resolve())
                 }
             })
