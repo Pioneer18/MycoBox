@@ -82,7 +82,7 @@ const run_pid_controllers = () => {
                             update_temperature(temp_config)
                                 .then(
                                     update_humidity(humidity_config)
-                                        // .then(send_command("H 125")
+                                        .then(send_command("H 300")
                                             .then(() => {
                                                 s5r2_on()
                                                 console.log("=======================================")
@@ -90,7 +90,7 @@ const run_pid_controllers = () => {
                                                 console.log("=======================================")
                                                 resolve()
                                             })
-                                        // )
+                                        )
 
                                 )
                             // update_ventilation - co2 reading (temp and humidity are considered)
