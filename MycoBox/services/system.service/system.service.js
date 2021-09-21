@@ -80,17 +80,20 @@ const run_pid_controllers = () => {
                             const temp_config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
                             const humidity_config = humidity_pid_controller_config(measured, state[0].spawn_running, state[2].humidity)
                             update_temperature(temp_config)
-                                .then(update_humidity(humidity_config).then(value => {
-                                    //send_command("H 125")
-                                    s5r2_on()
-                                    console.log("=======================================")
-                                    console.log("Returned Humidity Value: " + value)
-                                    console.log("=======================================")
-                                }))
+                                .then(
+                                    update_humidity(humidity_config)
+                                        .then(value => {
+                                            //send_command("H 125")
+                                            s5r2_on()
+                                            console.log("=======================================")
+                                            console.log("Returned Humidity Value: " + value)
+                                            console.log("=======================================")
+                                            resolve()
+                                        })
+                                )
                             // update_ventilation - co2 reading (temp and humidity are considered)
                             // update_circulation configuration selected state, not a pid
                         })
-                        .then(resolve())
                 }
             })
 
