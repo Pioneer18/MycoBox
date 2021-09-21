@@ -102,10 +102,8 @@ const send_command = (command) => {
     return new Promise((resolve) => {
         PythonShell.run('dimmer.command.py', options, function (err, reply) {
             if (err) throw err;
-            if (!reply) {
-                console.log("Humidifier Command Never Received Response")
-            }
-            console.log("reply")
+            console.log("Reply From the Humidifier Command")
+            console.log(reply)
             resolve()
         })
     })
