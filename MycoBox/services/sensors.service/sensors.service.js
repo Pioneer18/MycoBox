@@ -9,6 +9,7 @@ const { set_environment_state } = require('../../globals/globals');
  * @returns 
  */
 const read_mega_data = (reply) => {
+    console.log(reply)
     if (!reply) throw new Error('No reply from Mega')
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     return new Promise((resolve) => {
