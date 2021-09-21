@@ -33,15 +33,16 @@ const { s2r1_off, s2r1_on, s1r1_on, s4r1_on, s6r2_on, s4r1_off, s6r2_off } = req
  * } config the previous (or initial) report & the incoming
  */
 const update_temperature = (config) => {
-    // initialize the controller
-    const tempController = new TempPidController(config);
-    // update the actuator
-    const value = tempController.update();
-    console.log('The Temperature Calculated Update Value')
-    console.log(value);
-    set_pid_state('temperature', tempController.report())
-    temp_actuator_controller(value)
-    return value
+    return new Promise((resolve) => { // initialize the controller
+        const tempController = new TempPidController(config);
+        // update the actuator
+        const value = tempController.update();
+        console.log('The Temperature Calculated Update Value')
+        console.log(value);
+        set_pid_state('temperature', tempController.report())
+        temp_actuator_controller(value)
+        resolve(value)
+    })
 }
 
 /**
@@ -170,11 +171,11 @@ const temp_actuator_controller = (update) => {
                     case 3: // Heater switches to idle
                         set_actuator_state('heater', 'active', false).then(set_actuator_state('heater', 'idle', 1))
                         break;
-                
+
                     case 4: // Heater stays on
                         set_actuator_state('heater', 'active', true)
                         break;
-                
+
                     default:
                         break;
                 }
@@ -191,12 +192,12 @@ const temp_actuator_controller = (update) => {
                     // greater than 0.6, switch on
                     case 4:
                         console.log('Heater Switching Active')
-                        set_actuator_state('heater', 'stopped', false).then(set_actuator_state('heater', 'active', true).then(()=> {
+                        set_actuator_state('heater', 'stopped', false).then(set_actuator_state('heater', 'active', true).then(() => {
                             s4r1_on()
-                            s6r2_on() 
+                            s6r2_on()
                         }))
                         break;
-                
+
                     default:
                         break;
                 }
@@ -209,7 +210,7 @@ const temp_actuator_controller = (update) => {
                         console.log('Heater switching back to active')
                         set_actuator_state('heater', 'idle', 0).then(set_actuator_state('heater', 'active', true))
                         break;
-                
+
                     case 3: // increment up or switch to stopped and turn off the heater
                         if (state.heater.idle > 2) {
                             console.log('Heater Switching OFF from Idle')
@@ -223,7 +224,7 @@ const temp_actuator_controller = (update) => {
                             set_actuator_state('heater', 'idle', increment)
                         }
                         break;
-                
+
                     default:
                         break;
                 }
