@@ -41,7 +41,7 @@ const update_temperature = (config) => {
         console.log(value);
         set_pid_state('temperature', tempController.report())
         temp_actuator_controller(value)
-        resolve(value)
+            .then(value => resolve(value))
     })
 }
 
@@ -100,7 +100,8 @@ const override = (command) => {
  */
 const temp_actuator_controller = (update) => {
     // #2. Check the actuator state
-    return new Promise((resolve)=>{get('actuators_state')
+    return new Promise((resolve) => {
+        get('actuators_state')
         // The switch on threshold (st) should be a variable
         .then(state => {
             if (state.ac.active) {
@@ -230,7 +231,8 @@ const temp_actuator_controller = (update) => {
                 }
             }
             resolve()
-        })})
+        })
+    })
 }
 
 /**
