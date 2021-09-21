@@ -7,7 +7,7 @@ import serial
 import time
 import sys
 ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
-ser.flush()
+# ser.flush()
 finished = False
 command = sys.argv[1] + '\n'
 while finished == False:
