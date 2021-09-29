@@ -36,3 +36,41 @@
  * - move on to the next test and begin the pre-test stage, then start the test when that's done
  * - when all tests are completed end the session and give the report to the user
  */
+const inquirer = require('inquirer');
+const chalk = require('chalk');
+const log = console.log;
+const {} = require('../cli_control_panel/relay');
+
+/**
+ * Configure Test(s)
+ */
+
+
+/**
+ * Start Tester
+ * Steps:
+ * - Set the overrides_config (no env_config because we're overriding and sending specific actuator outputs)
+ * - Update the environment state: make sure the sensors are working
+ * - Start the Session: set the state as 'active_session'
+ * - start the environment_manager // TODO: add step to em to check for overrides
+ * - em will apply overrieds and report the sensor data
+ * NOTE:
+ * - the em needs to run in TEST MODE:
+ *      - em uses override_config
+ *      - session ends after given number of em cycles
+ *      - report readings to a test log folder/ file per test
+ *      
+ */
+
+/**
+ * Post Test
+ * steps:
+ * - print test report to user
+ *      - number of tests
+ *      - list each test with duration, start point, end point, and file location
+ *      - prompt to run another suite of tests or quit
+ */
+
+/**
+ * Cancel Current Session
+ */
