@@ -47,7 +47,7 @@ const {} = require('../cli_control_panel/relay');
 
 
 /**
- * Start Tester
+ * Run Tester
  * Steps:
  * - Set the overrides_config (no env_config because we're overriding and sending specific actuator outputs)
  * - Update the environment state: make sure the sensors are working

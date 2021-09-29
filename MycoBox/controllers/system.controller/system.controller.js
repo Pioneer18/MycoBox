@@ -10,13 +10,6 @@
  *   - read the current environment config
  *   - uses sensor controller to read the current environment (update environment model)
  *   - pass environment state down to PID controllers, and any configuration update from the control panel
- *   - if environment does not match config, 
- *     * set Environment Status (ES): 'Updating' (instead of 'Set')
- *     * set the environment with setEnvironment Method, till completed keep ES as 'Updating' // till true is returned
- *     * once the environment is set update the ES to true
- *   - if environment matches the config,
- *     * set timer for 15 seconds and check and repeat
- * 
  * During a session, the manageEnvironment function receives an "updated environment configuration" whenever a user requests to change something in the environment.
  * This implies that Frontend control panel requests to change the environment all update the environment configuration, and then the manageEnvironement function will
  * handle the update; by calling on the appropriate controllers for updating the environment.
