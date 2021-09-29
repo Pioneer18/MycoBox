@@ -35,7 +35,15 @@ class HumidityPidController {
         console.log('This: Humidity PID Controller Properties')
         console.log(this)
     }
-
+    /**
+     * Steps:
+     * 1. calculate dt
+     * 2. calculate error
+     * 3. calculate integral of error
+     * 4. if min/max integral reached, call appropriate response
+     * 5. else return pid calculation
+     * @returns computed PID output, and triggers ventilation/circulation controllers when needed
+     */
     update() {
         // #1. find the cycle-time (dt) and update lastTime
         const { dt, currentTime } = this.calculate_dt(this.lastTime)
@@ -92,15 +100,23 @@ class HumidityPidController {
 
     // Trigger Ventilation to reduce, or circulation to stop
     integral_maxed_response() {
-        
+        // trigger ventilation to reduce (something like 25%)
+        // return max pid value (e.g. H 1)
     }
 
     // Enter Idle, then Exhaust or Stopped Mode
     overshoot_response() {
         // enter idle mode
             // look for humidity reducing within 3 cycles
-            // if not exhaust
-            // if it does start reducing enter stopped mode
+                // if not trigger ventilation exhaust to turn on then restart search for reducing in 5 cycles
+                    // if no reuction in 5 cycles, turn on intake as well
+                // if it does start reducing enter stopped mode
+                    // check for humidity going below and return a gentle response correlating to integral of error etc (the PID calculation actually)
+    }
+
+    // normalize the CO to the AC edge dimmer scale of 1 - 410, with 1 being fastest (highest) output
+    normalize() {
+
     }
 
     // Note: integral_maxed_response and overshoot_response override the PID calulation and return either max speed or off, plus trigger ventilation controller response
