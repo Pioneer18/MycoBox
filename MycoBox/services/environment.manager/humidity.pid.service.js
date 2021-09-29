@@ -49,8 +49,8 @@ class HumidityPidController {
         // #4. calculate It => It + (ki * error * dt)
         this.integralOfError += (this.ki * err * dt)
         // #5. limit the It
-        if (this.integralOfError > this.integralLimit.max) this.integralOfError = this.integralLimit.max;
-        if (this.integralOfError < this.integralLimit.min) this.integralOfError = this.integralLimit.min;
+        if (this.integralOfError > this.integralLimit.max) this.integralOfError = this.integralLimit.max; // and trigger ventilation to reduce if on, or circulation to shut off
+        if (this.integralOfError < this.integralLimit.min) this.integralOfError = this.integralLimit.min; // enter idle, then exhaust if not reducing, or enter stopped
         // #6. calculate D => kd * (err - lastErr) / dt
         dt === 0 ? D = 0 : D = this.kd * (err - this.lastError) / dt;
         console.log('PID Calculation Report:');
