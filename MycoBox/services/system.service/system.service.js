@@ -84,6 +84,7 @@ const run_pid_controllers = () => {
                                 .then(() => send_command("H 1")) // should be nested? and the reurned update PID value, not hardcoded
                                 .then(() => send_command("E 1"))
                                 .then(() => send_command("I 1"))
+                                .then(() => send_command("L 300"))
                                 .then(() => {
                                     s5r2_on()
                                     s3r1_on()
