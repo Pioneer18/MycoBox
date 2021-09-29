@@ -80,22 +80,18 @@ const run_pid_controllers = () => {
                             const temp_config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
                             const humidity_config = humidity_pid_controller_config(measured, state[0].spawn_running, state[2].humidity)
                             update_temperature(temp_config)
-                                .then(
-                                    update_humidity(humidity_config)
-                                        .then(() => send_command("H 1")) // should be nested? and the reurned update PID value, not hardcoded
-                                        .then(() => send_command("E 1"))
-                                        .then(()=> send_command("I 1"))
-                                        .then(() => {
-                                            s5r2_on()
-                                            s3r1_on()
-                                            console.log("=======================================")
-                                            console.log("Returned Humidity Value: ")
-                                            console.log("=======================================")
-                                            resolve()
-                                        })
-                                        
-
-                                )
+                                .then(update_humidity(humidity_config))
+                                .then(() => send_command("H 1")) // should be nested? and the reurned update PID value, not hardcoded
+                                .then(() => send_command("E 1"))
+                                .then(() => send_command("I 1"))
+                                .then(() => {
+                                    s5r2_on()
+                                    s3r1_on()
+                                    console.log("=======================================")
+                                    console.log("Returned Humidity Value: ")
+                                    console.log("=======================================")
+                                    resolve()
+                                })
                             // update_ventilation - co2 reading (temp and humidity are considered)
                             // update_circulation configuration selected state, not a pid
                         })
