@@ -89,6 +89,21 @@ class HumidityPidController {
         }
         return { dt, currentTime };
     }
+
+    // Trigger Ventilation to reduce, or circulation to stop
+    integral_maxed_response() {
+        
+    }
+
+    // Enter Idle, then Exhaust or Stopped Mode
+    overshoot_response() {
+        // enter idle mode
+            // look for humidity reducing within 3 cycles
+            // if not exhaust
+            // if it does start reducing enter stopped mode
+    }
+
+    // Note: integral_maxed_response and overshoot_response override the PID calulation and return either max speed or off, plus trigger ventilation controller response
 }
 
 module.exports = { HumidityPidController }
