@@ -94,67 +94,175 @@ const questions = [
  * 1. for each selected environment variable generate a prompt for the min and max starting value
  * 2. map the answers to the configuration
  */
-inquirer.prompt(questions)
-    .then((answers) => {
-        configuration.title = answers.title;
-        let questions = [];
-        log(chalk.white('\nDebug 1'));
-        log(chalk.white('\nanswers 1'));
-        log(chalk.white(JSON.stringify(answers, null, '  ')));
-        // Ask for the Maximum starting value of each selected variable
-        answers.env_variables.forEach(variable => {
-            if (variable === 'Temperature') {
-                questions.push({
-                    type: 'input',
-                    message: 'Please enter the maximum temperautre in Celsisus acceptable for starting the test',
-                    name: 'tempMinimum',
-                    validate(value) {
-                        if (value = '' || value === undefined || (parseInt(value) >= 0 && parseInt(value) <= 35)) return true
-                        return 'Please choose a value larger than 0 and less than 35 degrees C'
-                    }
-                })
-            }
-            if (variable === 'Humidity') {
-                questions.push({
-                    type: 'input',
-                    message: 'Please enter the maximum Relative Humidity acceptable for starting the test',
-                    name: 'rhMinimum',
-                    validate(value) {
-                        if (value = '' || value === undefined || (parseInt(value) >= 10 && parseInt(value) <= 100)) return true
-                        return 'Please choose a value larger than 0 and less than 35 degrees C'
-                    }
-                })
-            }
-            if (variable === 'CO2') {
-                questions.push({
-                    type: 'input',
-                    message: 'Please enter the maximum CO2 ppm acceptable for starting the test',
-                    name: 'co2Minimum',
-                    validate(value) {
-                        if (value = '' || value === undefined || (parseInt(value) >= 200 && parseInt(value) <= 20000)) return true
-                        return 'Please choose a value larger than 199 and less than 20001 degrees C'
-                    }
-                })
-            }
+const prompt_configuration = new Promise((resolve) => {
+    inquirer.prompt(questions)
+        .then(answers => {
+            configuration.title = answers.title;
+            let questions = [];
+            log(chalk.white('\nDebug 1'));
+            log(chalk.white('\nanswers 1'));
+            log(chalk.white(JSON.stringify(answers, null, '  ')));
+            // Ask for the Maximum starting value of each selected variable
+            answers.env_variables.forEach(variable => {
+                if (variable === 'Temperature') {
+                    questions.push({
+                        type: 'input',
+                        message: 'Please enter the maximum temperautre in Celsisus acceptable for starting the test',
+                        name: 'tempMinimum',
+                        validate(value) {
+                            if (value = '' || value === undefined || (parseInt(value) >= 0 && parseInt(value) <= 35)) return true
+                            return 'Please choose a value larger than 0 and less than 35 degrees C'
+                        }
+                    })
+                }
+                if (variable === 'Humidity') {
+                    questions.push({
+                        type: 'input',
+                        message: 'Please enter the maximum Relative Humidity acceptable for starting the test',
+                        name: 'rhMinimum',
+                        validate(value) {
+                            if (value = '' || value === undefined || (parseInt(value) >= 10 && parseInt(value) <= 100)) return true
+                            return 'Please choose a value larger than 0 and less than 35 degrees C'
+                        }
+                    })
+                }
+                if (variable === 'CO2') {
+                    questions.push({
+                        type: 'input',
+                        message: 'Please enter the maximum CO2 ppm acceptable for starting the test',
+                        name: 'co2Minimum',
+                        validate(value) {
+                            if (value = '' || value === undefined || (parseInt(value) >= 200 && parseInt(value) <= 20000)) return true
+                            return 'Please choose a value larger than 199 and less than 20001 degrees C'
+                        }
+                    })
+                }
+            })
+            return questions
         })
-        return questions
-    })
-    .then((questions) => {
-        /**
-         * Second Prompter
-         * 1. ask the follow up qualifying questions
-         * 2. map the answers to the configuration
-         */
-        inquirer.prompt(questions).then((answers) => {
-            configuration = {...configuration,...answers }
-            log(chalk.white('Debug 2'));
-            log(chalk.white("--------------------------------"))
-            log(chalk.white("answers"))
-            log(chalk.white(JSON.stringify(answers, null, '  ')))
-            log(chalk.white("configuration"))
-            log(chalk.yellow(JSON.stringify(configuration, null, '  ')))
+        .then(questions => {
+            /**
+             * Second Prompter
+             * 1. ask the follow up qualifying questions
+             * 2. map the answers to the configuration
+             */
+            inquirer.prompt(questions).then(answers => {
+                configuration = { ...configuration, ...answers }
+                log(chalk.white('Debug 2'));
+                log(chalk.white("--------------------------------"))
+                log(chalk.white("answers"))
+                log(chalk.white(JSON.stringify(answers, null, '  ')))
+                log(chalk.white("configuration"))
+                log(chalk.yellow(JSON.stringify(configuration, null, '  ')))
+            })
+                .then(() => {
+                    const questions = [
+                        {
+                            type: 'checkbox',
+                            message: 'Please select which actuators to run during the test',
+                            name: 'actuators',
+                            choices: [
+                                { name: 'humidifier' },
+                                { name: 'intake' },
+                                { name: 'exhaust' },
+                                { name: 'circulation' },
+                                { name: 'aircon' },
+                                { name: 'heater' },
+                                { name: 'light' },
+                            ]
+                        }
+                    ]
+                    inquirer.prompt(questions)
+                        .then(answers => {
+                            let questions = []
+                            log(chalk.white("\nDebug 3"));
+                            log(chalk.white("--------------------------------"))
+                            log(chalk.white("answers"))
+                            log(chalk.white(JSON.stringify(answers, null, '  ')))
+                            // for each actuator ask the output value will be
+                            answers.actuators.forEach(actuator => {
+                                if (actuator === 'humidifier') {
+                                    questions.push({
+                                        type: 'input',
+                                        name: 'humidifierOutput',
+                                        message: 'Please enter the output value for the humidifier; an integer between 1 - 320',
+                                        validate(value) {
+                                            if (value && (parseInt(value) >= 1 && parseInt(value) <= 320)) return true
+                                            return "Please enter a value between 1 and 320"
+                                        }
+                                    })
+                                }
+                                if (actuator === 'intake') {
+                                    questions.push({
+                                        type: 'input',
+                                        name: 'intakeOutput',
+                                        message: 'Please enter the output value for the intake fan; an integer between 1 - 350',
+                                        validate(value) {
+                                            if (value && (parseInt(value) >= 1 && parseInt(value) <= 350)) return true
+                                            return "Please enter a value between 1 and 350"
+                                        }
+                                    })
+                                }
+                                if (actuator === 'exhaust') {
+                                    questions.push({
+                                        type: 'input',
+                                        name: 'exhaustOutput',
+                                        message: 'Please enter the output value for the exhaust fan; an integer between 1 - 350',
+                                        validate(value) {
+                                            if (value && (parseInt(value) >= 1 && parseInt(value) <= 350)) return true
+                                            return "Please enter a value between 1 and 350"
+                                        }
+                                    })
+                                }
+                                if (actuator === 'light') {
+                                    questions.push({
+                                        type: 'input',
+                                        name: 'lightOutput',
+                                        message: 'Please enter the output value for the light; an integer between 1 - 410',
+                                        validate(value) {
+                                            if (value && (parseInt(value) >= 1 && parseInt(value) <= 410)) return true
+                                            return "Please enter a value between 1 and 410"
+                                        }
+                                    })
+                                }
+                            })
+
+                            return questions
+                        })
+                        .then(questions => {
+                            inquirer.prompt(questions)
+                                .then(answers => {
+                                    configuration = { ...configuration, ...answers }
+                                    log(chalk.white("\nDebug 4"))
+                                    log(chalk.yellow(JSON.stringify(configuration, null, '  ')))
+
+                                    const questions = [
+                                        {
+                                            type: 'input',
+                                            name: 'cycles',
+                                            message: 'Please enter the number of Environment Manager Cycles for this test',
+                                            validate(value) {
+                                                if (value && parseInt(value) > 0 && parseInt(value) < 51) return true
+                                                return "Please enter a value greater than 0 and less than 51"
+                                            }
+                                        }
+                                    ]
+                                    inquirer.prompt(questions)
+                                        .then(answers => {
+                                            /**
+                                             * Add another Test or Start the Session
+                                             */
+                                            configuration = { ...configuration, ...answers }
+                                            resolve(configuration);
+                                        })
+                                })
+                        })
+
+                })
         })
-    })
+})
+
+prompt_configuration.then(answers => console.log(answers))
 
 
 
