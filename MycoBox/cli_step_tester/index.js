@@ -59,44 +59,48 @@ log(chalk.yellow("The Step Tester Wizard will prompt you to configure one or mul
     + "#6. Would you like to add another test to the session?\n"
 ))
 
-// Test Session Configuration
-let configuration = {};
-
-/**
- * First Questions
- * 1. Title
- * 2. Which Environment Variables are being tested
- */
-const questions = [
-    {
-        type: 'input',
-        name: 'title',
-        message: 'Please enter a title for this test',
-        validate(value) {
-            if (typeof value === 'string' && value.length > 5) return true
-            return 'Please enter a longer title'
-        }
-    },
-    {
-        type: 'checkbox',
-        message: 'Select which environment variables are being tested',
-        name: 'env_variables',
-        choices: [
-            { name: 'Temperature' },
-            { name: 'Humidity' },
-            { name: 'CO2' }
-        ]
-    }
-];
+const tests = [];
 
 /**
  * First Prompter
  * 1. for each selected environment variable generate a prompt for the min and max starting value
  * 2. map the answers to the configuration
  */
-const prompt_configuration = new Promise((resolve) => {
+const prompt_configuration = () => {
+
+    // Test Configuration
+    let configuration = {};
+
+    /**
+     * First Questions
+     * 1. Title
+     * 2. Which Environment Variables are being tested
+     */
+    const questions = [
+        {
+            type: 'input',
+            name: 'title',
+            message: 'Please enter a title for this test',
+            validate(value) {
+                if (typeof value === 'string' && value.length > 5) return true
+                return 'Please enter a longer title'
+            }
+        },
+        {
+            type: 'checkbox',
+            message: 'Select which environment variables are being tested',
+            name: 'env_variables',
+            choices: [
+                { name: 'Temperature' },
+                { name: 'Humidity' },
+                { name: 'CO2' }
+            ]
+        }
+    ];
+
     inquirer.prompt(questions)
         .then(answers => {
+            // add a new object to configuration for this test
             configuration.title = answers.title;
             let questions = [];
             log(chalk.white('\nDebug 1'));
@@ -245,25 +249,52 @@ const prompt_configuration = new Promise((resolve) => {
                                                 if (value && parseInt(value) > 0 && parseInt(value) < 51) return true
                                                 return "Please enter a value greater than 0 and less than 51"
                                             }
-                                        }
+                                        },
+                                        {
+                                            type: 'confirm',
+                                            name: 'anotherTest',
+                                            message: 'Do you want to add another test to the session? Click ENTER to answer YES, type NO to decline',
+                                            default: true,
+                                        },
                                     ]
                                     inquirer.prompt(questions)
                                         .then(answers => {
                                             /**
                                              * Add another Test or Start the Session
+                                             * - Ask if user will enter another test
+                                                - if yes: recall promptcreate and push current test to global tests array
+                                                - if no: push test and go to run session step
                                              */
                                             configuration = { ...configuration, ...answers }
-                                            resolve(configuration);
+                                            tests.push(configuration);
+                                            if (answers.anotherTest === true) {
+                                                return prompt_configuration()
+                                            }
+                                            log(chalk.bold.blueBright(JSON.stringify(tests, null, '  ')))
+                                            return configuration
                                         })
                                 })
                         })
 
                 })
         })
-})
+}
 
-prompt_configuration.then(answers => console.log(answers))
+prompt_configuration()
 
+
+/**
+ * function ask() {
+  inquirer.prompt(questions).then((answers) => {
+    output.push(answers.tvShow);
+    if (answers.askAgain) {
+      ask();
+    } else {
+      console.log('Your favorite TV Shows:', output.join(', '));
+    }
+  });
+}
+ */
 
 
 /**
