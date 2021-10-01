@@ -40,6 +40,7 @@ const inquirer = require('inquirer');
 const chalk = require('chalk');
 const log = console.log;
 const { } = require('../cli_control_panel/relay');
+const { get } = require('../globals/globals');
 
 // Intro Description
 log(chalk.black.bgYellow('Environment Manager Step Tester'))
@@ -62,11 +63,9 @@ log(chalk.yellow("The Step Tester Wizard will prompt you to configure one or mul
 const tests = [];
 
 /**
- * First Prompter
- * 1. for each selected environment variable generate a prompt for the min and max starting value
- * 2. map the answers to the configuration
+ * Prompt User to create tests amd push them into the tests array
  */
-const prompt_configuration = () => {
+const prompt_test_configs = () => {
 
     // Test Configuration
     let configuration = {};
@@ -103,16 +102,13 @@ const prompt_configuration = () => {
             // add a new object to configuration for this test
             configuration.title = answers.title;
             let questions = [];
-            log(chalk.white('\nDebug 1'));
-            log(chalk.white('\nanswers 1'));
-            log(chalk.white(JSON.stringify(answers, null, '  ')));
             // Ask for the Maximum starting value of each selected variable
             answers.env_variables.forEach(variable => {
                 if (variable === 'Temperature') {
                     questions.push({
                         type: 'input',
                         message: 'Please enter the maximum temperautre in Celsisus acceptable for starting the test',
-                        name: 'tempMinimum',
+                        name: 'tempMaximum',
                         validate(value) {
                             if (value = '' || value === undefined || (parseInt(value) >= 0 && parseInt(value) <= 35)) return true
                             return 'Please choose a value larger than 0 and less than 35 degrees C'
@@ -123,7 +119,7 @@ const prompt_configuration = () => {
                     questions.push({
                         type: 'input',
                         message: 'Please enter the maximum Relative Humidity acceptable for starting the test',
-                        name: 'rhMinimum',
+                        name: 'rhMaximum',
                         validate(value) {
                             if (value = '' || value === undefined || (parseInt(value) >= 10 && parseInt(value) <= 100)) return true
                             return 'Please choose a value larger than 0 and less than 35 degrees C'
@@ -134,7 +130,7 @@ const prompt_configuration = () => {
                     questions.push({
                         type: 'input',
                         message: 'Please enter the maximum CO2 ppm acceptable for starting the test',
-                        name: 'co2Minimum',
+                        name: 'co2Maximum',
                         validate(value) {
                             if (value = '' || value === undefined || (parseInt(value) >= 200 && parseInt(value) <= 20000)) return true
                             return 'Please choose a value larger than 199 and less than 20001 degrees C'
@@ -152,12 +148,6 @@ const prompt_configuration = () => {
              */
             inquirer.prompt(questions).then(answers => {
                 configuration = { ...configuration, ...answers }
-                log(chalk.white('Debug 2'));
-                log(chalk.white("--------------------------------"))
-                log(chalk.white("answers"))
-                log(chalk.white(JSON.stringify(answers, null, '  ')))
-                log(chalk.white("configuration"))
-                log(chalk.yellow(JSON.stringify(configuration, null, '  ')))
             })
                 .then(() => {
                     const questions = [
@@ -179,10 +169,6 @@ const prompt_configuration = () => {
                     inquirer.prompt(questions)
                         .then(answers => {
                             let questions = []
-                            log(chalk.white("\nDebug 3"));
-                            log(chalk.white("--------------------------------"))
-                            log(chalk.white("answers"))
-                            log(chalk.white(JSON.stringify(answers, null, '  ')))
                             // for each actuator ask the output value will be
                             answers.actuators.forEach(actuator => {
                                 if (actuator === 'humidifier') {
@@ -237,8 +223,6 @@ const prompt_configuration = () => {
                             inquirer.prompt(questions)
                                 .then(answers => {
                                     configuration = { ...configuration, ...answers }
-                                    log(chalk.white("\nDebug 4"))
-                                    log(chalk.yellow(JSON.stringify(configuration, null, '  ')))
 
                                     const questions = [
                                         {
@@ -268,10 +252,10 @@ const prompt_configuration = () => {
                                             configuration = { ...configuration, ...answers }
                                             tests.push(configuration);
                                             if (answers.anotherTest === true) {
-                                                return prompt_configuration()
+                                                return prompt_test_configs()
                                             }
-                                            log(chalk.bold.blueBright(JSON.stringify(tests, null, '  ')))
-                                            return configuration
+
+                                            return run_tests()
                                         })
                                 })
                         })
@@ -280,21 +264,7 @@ const prompt_configuration = () => {
         })
 }
 
-prompt_configuration()
-
-
-/**
- * function ask() {
-  inquirer.prompt(questions).then((answers) => {
-    output.push(answers.tvShow);
-    if (answers.askAgain) {
-      ask();
-    } else {
-      console.log('Your favorite TV Shows:', output.join(', '));
-    }
-  });
-}
- */
+prompt_test_configs()
 
 
 /**
@@ -313,8 +283,39 @@ prompt_configuration()
  *      
  */
 const run_tests = () => {
+    log(chalk.bold.cyan(JSON.stringify(tests, null, '  ')))
+    log(chalk.cyan('Running each test in the tests array'))
+
+    /**
+     * Next Steps:
+     * $ make a test_session_config & test_state global
+     * 1) newSession set up for taking overrides
+     * 2) instead of running sending PID updates, send an override command to each acutator used in the test
+     * 3) on each cycle write the tracked envrionment variables into log files
+     *      - count, variable_1, variable_2, variable_3, kp1, kp2, kp3, rc1, rc2, rc3
+     *      - final: totals
+     * 4) on each cycle increment cycle_count in the test_state; set test_status to false to end current test and go to next
+     */
+
 
 }
+
+/**
+ * NewTestSession
+ */
+const newTestSession = (config) => {
+    return new Promise((resolve) => {
+        const session_state = get('session_state');
+        if(!session_state.active_session) {
+            // Start the test session
+            session_state('active_test_session', true);
+            // set the overrides (actuators)
+            
+        }
+    })
+}
+
+const set_overrides = () => {}
 
 /**
  * Post Test
