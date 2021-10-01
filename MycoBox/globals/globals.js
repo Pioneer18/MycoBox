@@ -8,6 +8,7 @@ let globals = {
         session_id: '',
         user_id: '',
         active_session: false,
+        active_test_session: false,// might not be needed
         canceled: false,
         spawn_running: false,
         primordia_init: false,
@@ -362,11 +363,81 @@ const validate_set_actuator_state = (element, status, value) => {
     }
 }
 
+/**
+ * Set Overrides
+ */
+const set_overrides_state = (element, value) => {
+    console.log("Method Call: set_overrides_state")
+    set_overrides_state_validation(element, value);
+    globals.overrides[element] = value;
+}
+
+const set_overrides_state_validation = (element, value) => {
+    try {
+        if (element && element !== undefined && element !== ''
+            && value && value !== undefined && value !== '') {
+            if (element === 'flag') {
+                if (typeof element === 'boolean') return true
+                throw new Error('Invalid value for flag')
+            }
+            if (element === 'circulation_bottom') {
+                if (typeof element === 'boolean') return true
+                throw new Error('Invalid value for circulation_bottom')
+            }
+            if (element === 'circulation_top') {
+                if (typeof element === 'boolean') return true
+                throw new Error('Invalid value for circulation_top')
+            }
+            if (element === 'ac') {
+                if (typeof element === 'boolean') return true
+                throw new Error('Invalid value for ac')
+            }
+            if (element === 'heater') {
+                if (typeof element === 'boolean') return true
+                throw new Error('Invalid value for heater')
+            }
+            if (element === 'mister') {
+                if (typeof element === 'boolean') return true
+                throw new Error('Invalid value for mister')
+            }
+            if (element === 'intake') {
+                if (parseInt(value) > 0 && parseInt(value) <= 350) return true
+                throw new Error('Invalid value for intake')
+            }
+            if (element === 'exhaust') {
+                if (parseInt(value) > 0 && parseInt(value) <= 350) return true
+                throw new Error('Invalid value for exhaust')
+            }
+            if (element === 'humidifier') {
+                if (parseInt(value) > 0 && parseInt(value) <= 320) return true
+                throw new Error('Invalid value for humidifier')
+            }
+            if (element === 'light') {
+                if (parseInt(value) > 0 && parseInt(value) <= 410) return true
+                throw new Error('Invalid value for light')
+            }
+            // if (element === 'speakers') {
+            //    if (parseInt(value) > 0) return true 
+            // }
+            else {
+                throw new Error('element did not match anything')
+            }
+        }
+        else {
+            throw new Error('something wrong with element or value')
+        }
+    } catch (err) {
+        throw new Error(`Invalid Overrides: ${err}`);
+    }
+
+}
+
 module.exports = {
     get,
     set_environment_config,
     set_environment_state,
     set_session_state,
     set_pid_state,
-    set_actuator_state
+    set_actuator_state,
+    set_overrides_state
 }
