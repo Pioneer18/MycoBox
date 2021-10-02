@@ -16,13 +16,6 @@ let options = {
     scriptPath: 'MycoBox/python',
 };
 
-get('session_state')
-    .then(state => {
-        console.log("----------------------- SCRIPT UPDATER -------------------------")
-        console.log(state.active_test_session)
-        if(state.active_test_session) options.scriptPath = '../python'
-    })
-
 /**
  * DHT22 Temperature & humidity readings - internal & external
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
@@ -115,6 +108,12 @@ const set_timestamp = () => {
  * Set Environment State
  */
 const update_environment_state = () => {
+    get('session_state')
+    .then(state => {
+        console.log("----------------------- SCRIPT UPDATER -------------------------")
+        console.log(state.active_test_session)
+        if(state.active_test_session) options.scriptPath = '../python'
+    })
     return new Promise((resolve) => {
         console.log("METHOD CALL: update_environment_state")
         read_co2()
