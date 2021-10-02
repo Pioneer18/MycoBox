@@ -343,7 +343,8 @@ const set_overrides = (test_config) => {
     console.log('Test Config');
     console.log(test_config);
     try {
-        test_config.overrides.forEach(actuator => {
+        for(const actuator in test_config.overrides)  {
+            console.log(`Actuator: ${actuator}`);
             if (actuator === '') console.log('Blank Overried Received')
             if (actuator === 'circulation_top') set_overrides_state(actuator, test_config.overrides[actuator])
             if (actuator === 'circulation_bottom') set_overrides_state(actuator, test_config.overrides[actuator])
