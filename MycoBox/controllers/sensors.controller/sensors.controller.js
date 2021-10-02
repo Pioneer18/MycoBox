@@ -116,9 +116,9 @@ const update_environment_state = () => {
                 console.log("----------------------- SCRIPT UPDATER -------------------------")
                 console.log(state.active_test_session)
                 if (state.active_test_session) {
-                    console.log("************************** udpating the script now **************************")
+                    console.log("************************** updating the script now **************************")
                     console.log(options.scriptPath)
-                    options.scriptPath = '../python';
+                    options['scriptPath'] = '../python';
                 }
             })
             .then(read_co2()
