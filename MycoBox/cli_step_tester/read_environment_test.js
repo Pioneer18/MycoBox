@@ -5,6 +5,7 @@ const { PythonShell } = require('python-shell');
  * @param {Array} reply [h1,h2,h3,t1,t2,t3]
  */
  const mega_temp_humidity = () => {
+     console.log(__dirname)
     let mega = {
         mode: 'text',
         pythonOptions: ['-u'], // get print results in real-time
@@ -17,11 +18,6 @@ const { PythonShell } = require('python-shell');
         PythonShell.run('raspi.to.mega.py', mega, function (err, reply) {
             if (err) reject(err)
             console.log('Should be reading mega data...')
-            if (!reply) {
-                // setTimeout(() => {
-                //     mega_temp_humidity()
-                // }, 13000);
-            }
             console.log(reply);
             resolve();
         })
