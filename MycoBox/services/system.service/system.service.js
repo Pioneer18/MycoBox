@@ -80,9 +80,11 @@ const run_pid_controllers = () => {
                             const temp_config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
                             const humidity_config = humidity_pid_controller_config(measured, state[0].spawn_running, state[2].humidity)
                             // const ventilation_config = ventilation_pid_controller_config(measure, state[0].spawn_running, state[2].ventilation)
+                            // const circulation_config = circulation_controller_config(measured, state[0].spawn_running, state[2].ventilation)
                             update_temperature(temp_config)
                                 .then(update_humidity(humidity_config))
                                 //.then(update_ventilation(ventilation_config))
+                                //.then(update_circulation(circulation_config))
 
                                 // OVERRIDES
                                 .then(() => send_command("H 1")) // should be nested? and the reurned update PID value, not hardcoded
@@ -97,8 +99,6 @@ const run_pid_controllers = () => {
                                     console.log("=======================================")
                                     resolve()
                                 })
-                            // update_ventilation - co2 reading (temp and humidity are considered)
-                            // update_circulation configuration selected state, not a pid
                         })
                 }
             })
