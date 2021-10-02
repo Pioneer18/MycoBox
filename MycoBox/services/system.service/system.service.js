@@ -18,11 +18,12 @@ const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
  * ---------------------------------------------
  * Test Mode:
  * i. increment globals.session_state.cycles_count
+ * ii. set active_test_session false if cycles_count reached cycles_limit
  */
-const environment_manager = () => {
+const environment_manager = (mode) => {
     console.log('METHOD CALL: environment_manager')
     // #1. Validate the session is still active and THEN
-    validate_active_session()
+    validate_active_session(mode)
         .then((validation) => {
             console.log('Validation Results: ' + validation)
             // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
@@ -33,11 +34,13 @@ const environment_manager = () => {
                 //update_environment_state()
                 run_pid_controllers()
                     .then(() => {
-                        // if there is any data returned do whatever with it here
-                        // otherwise recall environment_manager, because the session must still be active
                         console.log('#######################')
                         console.log('Recalling ENV MANAGER')
                         console.log('#######################')
+                        // grab env and log test data right here?
+                        // check if cycles_count === cycles_limit
+                            // increment if it doesn't
+                            // end test session if it does
 
                         setTimeout(() => {
                             return environment_manager();
@@ -156,11 +159,12 @@ const validate_env_state = () => {
  * also allow test sessions
  * @returns true or false
  */
-const validate_active_session = () => {
+const validate_active_session = (mode) => {
     return new Promise((resolve) => {
         get('session_state')
             .then(session_state => {
-                if (session_state.active_session || session_state.active_test_session) resolve(true)
+                if (session_state.active_session && mode === 'LIVE' ) resolve(true)
+                if (session_state.active_test_session && mode === 'TEST' ) resolve(true)
                 else {
                     resolve(false)
                 }
