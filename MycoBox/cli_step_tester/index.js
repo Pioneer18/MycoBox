@@ -40,7 +40,7 @@ const inquirer = require('inquirer');
 const chalk = require('chalk');
 const log = console.log;
 const { } = require('../cli_control_panel/relay');
-const { get, set_overrides_state } = require('../globals/globals');
+const { get, set_overrides_state, set_session_state } = require('../globals/globals');
 
 // Intro Description
 log(chalk.black.bgYellow('Environment Manager Step Tester'))
@@ -323,7 +323,7 @@ const newTestSession = (config) => {
         const session_state = get('session_state');
         if (!session_state.active_test_session) {
             // Start the test session
-            session_state('active_test_session', true);
+            set_session_state('active_test_session', true);
             // map the test configuration
             const test_config = map_test_config(config);
             // set the overrides (actuators)
@@ -332,7 +332,7 @@ const newTestSession = (config) => {
             console.log(JSON.stringify(test_config, null, '  '));
             // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
             // call environment manager: in test mode env counts it's loops and ends session on final loop
-            session_state('active_test_session', false);
+            set_session_state('active_test_session', false);
             resolve('All Done')
         }
     })
