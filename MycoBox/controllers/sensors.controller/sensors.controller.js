@@ -48,7 +48,8 @@ const mega_temp_humidity = () => {
  */
 const read_precise_temp = () => {
     return new Promise((resolve, reject) => {
-        console.log("Reading the Precise Temp")
+        console.log("Reading the Precise Temp--------------------------------------")
+        console.log(options.scriptPath);
         PythonShell.run('temp.precise.py', options, function (err, reply) {
             if (err) reject(err)
             parse_pt_data(reply)
@@ -114,7 +115,11 @@ const update_environment_state = () => {
             .then(state => {
                 console.log("----------------------- SCRIPT UPDATER -------------------------")
                 console.log(state.active_test_session)
-                if (state.active_test_session) options.scriptPath = '../python'
+                if (state.active_test_session) {
+                    console.log("************************** udpating the script now **************************")
+                    console.log(options.scriptPath)
+                    options.scriptPath = '../python';
+                }
             })
             .then(read_co2()
                 .then(read_precise_temp())
