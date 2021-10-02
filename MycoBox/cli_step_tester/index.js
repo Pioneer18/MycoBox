@@ -315,7 +315,10 @@ const set_overrides = (test_config) => {
     console.log(test_config);
     try {
         for (const actuator in test_config.overrides) {
+            console.log(`Actuator: ${actuator}`);
+            console.log(`Value: ${test_config.overrides[actuator]}`)
             if (test_config.overrides[actuator] === '') {
+                console.log('Blank Overried Received')
                 continue
             }
             if (actuator === 'circulation_top') set_overrides_state(actuator, test_config.overrides[actuator])
@@ -327,8 +330,6 @@ const set_overrides = (test_config) => {
             if (actuator === 'exhaustOutput') set_overrides_state(actuator, test_config.overrides[actuator])
             if (actuator === 'lightOutput') set_overrides_state(actuator, test_config.overrides[actuator])
             else {
-                console.log(actuator)
-                console.log(test_config.overrides[actuator])
                 console.log("An Invalid Override was provided");
             }
         }
