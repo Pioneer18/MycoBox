@@ -331,6 +331,8 @@ const set_overrides = (test_config) => {
             if (actuator === 'lightOutput') set_overrides_state(actuator, test_config.overrides[actuator])
             else {
                 console.log("An Invalid Override was provided");
+                console.log("The Invalid Actuator: " + actuator)
+                console.log(typeof actuator)
             }
         }
     } catch (err) {
