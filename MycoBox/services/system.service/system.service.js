@@ -15,6 +15,9 @@ const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
  * i. coordinates through three session stages
  * ii. maintain PID states
  * iii. call each EM PID
+ * ---------------------------------------------
+ * Test Mode:
+ * i. increment globals.session_state.cycles_count
  */
 const environment_manager = () => {
     console.log('METHOD CALL: environment_manager')

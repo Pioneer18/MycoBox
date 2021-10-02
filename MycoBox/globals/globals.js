@@ -12,7 +12,9 @@ let globals = {
         canceled: false,
         spawn_running: false,
         primordia_init: false,
-        fruiting: false
+        fruiting: false,
+        cycles_limit: 0,
+        cycles_count: 0
     },
     environment_config: {
         spawn_running: {

@@ -275,7 +275,7 @@ const run_tests = () => {
     /**
      * Next Steps:
      * $ make a test_session_config & test_state global
-     * 1) newSession set up for taking overrides
+     * 1) crate TestMode for EM
      * 2) instead of running sending PID updates, send an override command to each acutator used in the test
      * 3) on each cycle write the tracked envrionment variables into log files
      *      - count, variable_1, variable_2, variable_3, kp1, kp2, kp3, rc1, rc2, rc3
@@ -305,7 +305,6 @@ const newTestSession = (config) => {
             // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
             // call environment manager: in test mode env counts it's loops and ends session on final loop
             set_session_state('active_test_session', false);
-            get('overrides').then(overrides => console.log(overrides));
             resolve('All Done')
         }
     })
