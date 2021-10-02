@@ -372,6 +372,8 @@ const set_overrides_state = (element, value) => {
 }
 
 const set_overrides_state_validation = (element, value) => {
+    console.log("Set Overrides State");
+    console.log(typeof value)
     try {
         if (element && element !== undefined && element !== ''
             && value && value !== undefined && value !== '') {
