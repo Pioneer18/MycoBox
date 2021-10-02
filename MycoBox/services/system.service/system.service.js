@@ -49,13 +49,16 @@ const environment_manager = (mode) => {
                                         set_session_state('cycles_count', 0);
                                         set_session_state('cycles_limit', 0);
                                     }
-                                    else { state.cycles_count++ }
+                                    else {
+                                        console.log("Cycles Count: " + state.cycles_count);
+                                        state.cycles_count++
+                                    }
                                 })
                                 .then(() => {
                                     // log test data to correct test file
                                     console.log("Logging Test Data")
                                 })
-                                .then(()=>environment_manager('TEST'));
+                                .then(() => environment_manager('TEST'));
                         }
 
                         setTimeout(() => {
@@ -65,7 +68,7 @@ const environment_manager = (mode) => {
 
             }
             if (!validation) {
-                return('Session has ended')
+                return ('Session has ended')
             }
         })
 }

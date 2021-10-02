@@ -20,4 +20,12 @@ const send_command = (command, mode) => {
     })
 }
 
+/**
+ * Shutdown: Turn of all relays and end current sesssion
+ */
+
+/**
+ *  Send Overrides: Send all override commands and flip corresponding relays
+ */
+
 module.exports = { send_command }
