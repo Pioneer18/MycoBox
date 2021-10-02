@@ -283,7 +283,8 @@ const run_tests = () => {
      * 4) on each cycle increment cycle_count in the test_state; set test_status to false to end current test and go to next
      */
     tests.forEach(test => {
-        newTestSession(test);
+        newTestSession(test)
+            .then(data => console.log(data))
     })
 
 }
@@ -304,6 +305,7 @@ const newTestSession = (config) => {
             // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
             // call environment manager: in test mode env counts it's loops and ends session on final loop
             set_session_state('active_test_session', false);
+            get('overrides').then(overrides => console.log(overrides));
             resolve('All Done')
         }
     })
