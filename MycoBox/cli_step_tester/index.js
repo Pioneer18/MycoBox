@@ -323,7 +323,7 @@ const newTestSession = (config) => {
 // set the globals.overrides for the current test
 const set_overrides = (test_config) => {
     console.log('Test Config');
-    console.log(test_config);
+    console.log(JSON.stringify(test_config, null, '  '));
     return new Promise((resolve) => {
         try {
             for (const actuator in test_config.overrides) {
