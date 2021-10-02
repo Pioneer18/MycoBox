@@ -9,7 +9,7 @@ const { PythonShell } = require('python-shell');
     let mega = {
         mode: 'text',
         pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: 'MycoBox/python',
+        scriptPath: '../python',
         args: ["D 5"] // Read All Sensors
     };
     console.log("Mega: Args")
