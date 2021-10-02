@@ -22,8 +22,8 @@ const { PythonShell } = require('python-shell');
                 //     mega_temp_humidity()
                 // }, 13000);
             }
-            read_mega_data(reply)
-                .then(resolve())
+            console.log(reply);
+            resolve();
         })
     })
 }
