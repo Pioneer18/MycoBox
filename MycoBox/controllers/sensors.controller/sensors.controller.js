@@ -48,8 +48,7 @@ const mega_temp_humidity = () => {
  */
 const read_precise_temp = () => {
     return new Promise((resolve, reject) => {
-        console.log("Reading the Precise Temp--------------------------------------")
-        console.log(options.scriptPath);
+        console.log("Reading the Precise Temp")
         PythonShell.run('temp.precise.py', options, function (err, reply) {
             if (err) reject(err)
             parse_pt_data(reply)
@@ -108,25 +107,19 @@ const set_timestamp = () => {
 /**
  * Set Environment State
  */
-const update_environment_state = () => {
+const update_environment_state = (mode) => {
     return new Promise((resolve) => {
         console.log("METHOD CALL: update_environment_state")
-        get('session_state')
-            .then(state => {
-                console.log("----------------------- SCRIPT UPDATER -------------------------")
-                console.log(state.active_test_session)
-                if (state.active_test_session) {
-                    console.log("************************** updating the script now **************************")
-                    console.log(options.scriptPath)
-                    options['scriptPath'] = '../python';
-                }
-            })
-            .then(read_co2()
-                .then(read_precise_temp())
-                .then(read_scale())
-                .then(read_infrared())
-                .then(set_timestamp())
-                .then(mega_temp_humidity().then(resolve)))
+        if (mode === 'TEST') {
+            options['scriptPath'] = '../python';
+            console.log(options);
+        }
+        read_co2()
+            .then(read_precise_temp())
+            .then(read_scale())
+            .then(read_infrared())
+            .then(set_timestamp())
+            .then(mega_temp_humidity().then(resolve))
     })
 }
 

@@ -31,7 +31,7 @@ const environment_manager = (mode) => {
             if (validation) {
                 console.log('Environment Manager Has Validated Session')
                 //update_environment_state()
-                run_pid_controllers()
+                run_pid_controllers(mode)
                     .then(() => {
                         console.log('#######################')
                         console.log('Recalling ENV MANAGER')
@@ -84,10 +84,10 @@ const get_state = () => {
  * @param {*} env_state 
  * @returns { temp, humidity, co2 }  
  */
-const run_pid_controllers = () => {
+const run_pid_controllers = (mode) => {
     console.log('Running PID Controllers')
     return new Promise((resolve) => {
-        validate_env_state()
+        validate_env_state(mode)
             .then(validation => {
                 if (validation.validation) {
                     const measured = map_measured(validation.env_state);
@@ -132,11 +132,11 @@ const run_pid_controllers = () => {
  * @param {*} env_state 
  * @returns 
  */
-const validate_env_state = () => {
+const validate_env_state = (mode) => {
     console.log('METHOD CALL: validate_env_state')
     // get the latet environment state
     return new Promise((resolve) => {
-        update_environment_state()
+        update_environment_state(mode)
             .then(() => {
                 setTimeout(() => {
                     read_environment_state()
@@ -152,7 +152,7 @@ const validate_env_state = () => {
                                 env_state.internal_humidity_3 == ''
                             ) {
                                 console.log('Validate Env Recall: Blank Env State')
-                                update_environment_state()
+                                update_environment_state(mode)
                                 validate_env_state()
                             }
                             else {

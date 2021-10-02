@@ -33,7 +33,7 @@ function newSession(config) {
         const session_state = get('session_state');
         if (!session_state.active_session) {
             set_environment_config(config)
-                .then(update_environment_state()
+                .then(update_environment_state('LIVE')
                     .then(() => {
                         set_session_state('active_session', true)
                             .then(() => environment_manager('LIVE'))
