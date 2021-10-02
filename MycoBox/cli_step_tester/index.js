@@ -357,7 +357,7 @@ const set_overrides = (test_config) => {
             else {
                 console.log("An Invalid Override was provided");
             }
-        })
+        }
     } catch (err) {
         throw new Error("Failed to Set Overrides!")
     }
