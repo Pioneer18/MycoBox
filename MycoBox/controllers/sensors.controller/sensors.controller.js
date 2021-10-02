@@ -12,7 +12,7 @@ const {
 let options = {
     mode: 'text',
     pythonOptions: ['-u'], // get print results in real-time
-    scriptPath: 'MycoBox/python',
+    scriptPath: '../python',
 };
 
 /**
@@ -23,7 +23,7 @@ const mega_temp_humidity = () => {
     let mega = {
         mode: 'text',
         pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: 'MycoBox/python',
+        scriptPath: '../python',
         args: ["D 5"] // Read All Sensors
     };
     console.log("Mega: Args")
