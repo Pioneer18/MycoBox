@@ -9,11 +9,17 @@ const {
     read_mega_data
 } = require('../../services/sensors.service/sensors.service');
 
+
 let options = {
     mode: 'text',
     pythonOptions: ['-u'], // get print results in real-time
-    scriptPath: '../python',
+    scriptPath: 'MycoBox/python',
 };
+
+get('session_state')
+    .then(state => {
+        if(state.active_test_session) options.scriptPath = '../python'
+    })
 
 /**
  * DHT22 Temperature & humidity readings - internal & external
@@ -23,12 +29,11 @@ const mega_temp_humidity = () => {
     let mega = {
         mode: 'text',
         pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: '../python',
+        scriptPath: 'MycoBox/python',
         args: ["D 5"] // Read All Sensors
     };
     console.log("Mega: Args")
     return new Promise((resolve, reject) => {
-        console.log(__dirname)
         PythonShell.run('raspi.to.mega.py', mega, function (err, reply) {
             if (err) reject(err)
             console.log('Should be reading mega data...')
