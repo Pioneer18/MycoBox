@@ -390,7 +390,7 @@ const set_overrides_state_validation = (element, value) => {
                 if (typeof element === 'boolean') return true
                 throw new Error('Invalid value for circulation_top')
             }
-            if (element === 'ac') {
+            if (element === 'aircon') {
                 if (typeof element === 'boolean') return true
                 throw new Error('Invalid value for ac')
             }
@@ -402,19 +402,19 @@ const set_overrides_state_validation = (element, value) => {
                 if (typeof element === 'boolean') return true
                 throw new Error('Invalid value for mister')
             }
-            if (element === 'intake') {
+            if (element === 'intakeOutput') {
                 if (parseInt(value) > 0 && parseInt(value) <= 350) return true
                 throw new Error('Invalid value for intake')
             }
-            if (element === 'exhaust') {
+            if (element === 'exhaustOutput') {
                 if (parseInt(value) > 0 && parseInt(value) <= 350) return true
                 throw new Error('Invalid value for exhaust')
             }
-            if (element === 'humidifier') {
+            if (element === 'humidifierOutput') {
                 if (parseInt(value) > 0 && parseInt(value) <= 320) return true
                 throw new Error('Invalid value for humidifier')
             }
-            if (element === 'light') {
+            if (element === 'lightOutput') {
                 if (parseInt(value) > 0 && parseInt(value) <= 410) return true
                 throw new Error('Invalid value for light')
             }
