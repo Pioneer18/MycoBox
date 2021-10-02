@@ -302,6 +302,8 @@ const newTestSession = (config) => {
             console.log("this is right before setting the overrides")
             set_overrides(test_config);
             console.log('This is right after setting the overrides')
+            console.log("Now Setting the Cycles Limit")
+            set_session_state('cycles_limit', test_config.cycles);
             // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
             // call environment manager: in test mode env counts it's loops and ends session on final loop
             environment_manager('TEST')

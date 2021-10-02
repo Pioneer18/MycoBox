@@ -43,10 +43,14 @@ const environment_manager = (mode) => {
                         if (mode === 'TEST') {
                             get('session_state')
                                 .then(state => {
-                                    if (state.cycles_limit <= state.cycles_count) set_session_state('active_test_session', false);
-                                    else { state.cycles_count++}
+                                    if (state.cycles_limit <= state.cycles_count) {
+                                        set_session_state('active_test_session', false);
+                                        set_session_state('cycles_count', 0);
+                                        set_session_state('cycles_limit', 0);
+                                    }
+                                    else { state.cycles_count++ }
                                 })
-                                .then(()=> {
+                                .then(() => {
                                     // log test data to correct test file
                                     console.log("Logging Test Data")
                                 })
