@@ -303,13 +303,12 @@ const newTestSession = (config) => {
             set_overrides(test_config);
             console.log('This is right after setting the overrides')
             console.log("Now Setting the Cycles Limit")
-            set_session_state('cycles_limit', parseInt(test_config.cycles));
             // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
-            // call environment manager: in test mode env counts it's loops and ends session on final loop
-            environment_manager('TEST')
-            set_session_state('active_test_session', false);
-            console.log("This happens Right after Setting Session State")
-            resolve('All Done')
+            set_session_state('cycles_limit', parseInt(test_config.cycles))
+                // call environment manager: in test mode env counts it's loops and ends session on final loop
+                .then(()=> environment_manager('TEST'))
+                .the(resolve('All Done'))
+                .catch(err => console.log(`Error Caught: New Test Session: ${err}`))
         }
     })
 }
