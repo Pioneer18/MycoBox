@@ -29,7 +29,6 @@ const mega_temp_humidity = () => {
     console.log("Mega: Args")
     return new Promise((resolve, reject) => {
         console.log(__dirname)
-        console.log(__filename)
         PythonShell.run('raspi.to.mega.py', mega, function (err, reply) {
             if (err) reject(err)
             console.log('Should be reading mega data...')
