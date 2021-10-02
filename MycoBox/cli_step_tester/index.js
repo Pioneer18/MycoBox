@@ -346,7 +346,7 @@ const set_overrides = (test_config) => {
         for (const actuator in test_config.overrides) {
             console.log(`Actuator: ${actuator}`);
             console.log(`Value: ${test_config.overrides[actuator]}`)
-            if (!test_config.overrides[actuator]) {
+            if (test_config.overrides[actuator] == '') {
                 console.log('Blank Overried Received')
                 continue
             }
