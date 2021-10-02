@@ -16,7 +16,7 @@ const { } = require('../cli_control_panel/relay');
 const { get, set_overrides_state, set_session_state, set_environment_config } = require('../globals/globals');
 const { environment_manager } = require('../services/system.service/system.service');
 const { update_environment_state } = require('../controllers/sensors.controller/sensors.controller');
-const { default_configs } = require('../../FrontEnd/public/javascript/resources/default_configs');
+const { test_config } = require('./resources');
 
 // Intro Description
 log(chalk.black.bgYellow('Environment Manager Step Tester'))
@@ -300,7 +300,7 @@ const newTestSession = (config) => {
         const session_state = get('session_state');
         if (!session_state.active_test_session) {
             // set the test env_config: anything...just to prevent an error
-            set_environment_config(default_configs.test_config)
+            set_environment_config(test_config)
                 .then(update_environment_state
                     .then(() => {
                         set_session_state('active_test_session', true);
