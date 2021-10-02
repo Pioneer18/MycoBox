@@ -45,12 +45,14 @@ const environment_manager = (mode) => {
                             get('session_state')
                                 .then(state => {
                                     if (state.cycles_limit <= state.cycles_count) {
+                                        console.log('TIME TO END THE SESSION!!!')
                                         set_session_state('active_test_session', false);
                                         set_session_state('cycles_count', 0);
                                         set_session_state('cycles_limit', 0);
                                     }
                                     else {
-                                        console.log("Cycles Count: " + state.cycles_count);
+                                        console.log("Cycles Count: " + state.cycles_count +
+                                        "\nCycles Limit: " + state.cycles_limit);
                                         state.cycles_count++
                                     }
                                 })
