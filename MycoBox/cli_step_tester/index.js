@@ -321,20 +321,44 @@ const set_overrides = (test_config) => {
                 console.log('Blank Overried Received')
                 continue
             }
-            if (actuator.localeCompare('circulation_top') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator.localeCompare('circulation_bottom') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator.localeCompare('aircon') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator.localeCompare('heater') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator.localeCompare('humidifierOutput') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator.localeCompare('intakeOutput') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator.localeCompare('exhaustOutput') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator.localeCompare('lightOutput') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator.localeCompare('circulation_top') === 0) {
+                set_overrides_state(actuator, test_config.overrides[actuator])
+                continue
+            }
+            if (actuator.localeCompare('circulation_bottom') === 0) {
+                set_overrides_state(actuator, test_config.overrides[actuator])
+                continue
+            }
+            if (actuator.localeCompare('aircon') === 0) {
+                set_overrides_state(actuator, test_config.overrides[actuator])
+                continue
+            }
+            if (actuator.localeCompare('heater') === 0) {
+                set_overrides_state(actuator, test_config.overrides[actuator])
+                continue
+            }
+            if (actuator.localeCompare('humidifierOutput') === 0) {
+                set_overrides_state(actuator, test_config.overrides[actuator])
+                continue
+            }
+            if (actuator.localeCompare('intakeOutput') === 0) {
+                set_overrides_state(actuator, test_config.overrides[actuator])
+                continue
+            }
+            if (actuator.localeCompare('exhaustOutput') === 0) {
+                set_overrides_state(actuator, test_config.overrides[actuator])
+                continue
+            }
+            if (actuator.localeCompare('lightOutput') === 0) {
+                set_overrides_state(actuator, test_config.overrides[actuator])
+                continue
+            }
             console.log("An Invalid Override was provided");
             console.log("The Invalid Actuator: " + actuator)
             console.log(actuator === 'circulation_top')
             console.log(actuator.localeCompare('circulation_top'))
             console.log(typeof actuator)
-            
+
         }
     } catch (err) {
         throw new Error("Failed to Set Overrides!")
