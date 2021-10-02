@@ -98,10 +98,8 @@ let globals = {
             stopped: true,
             idle: 0,
         },
-        mb_light_1: false, // 8
-        mb_light_2: false, // 9
-        ib_light: false, // 10 incubator light
-        speakers: false // 11
+        light: false,
+        speakers: false
     },
     pid_state: {
         temperature: {
@@ -245,8 +243,6 @@ const set_environment_state = ((element, value) => {
  */
 const set_environment_state_validation = (element, value) => {
     return new Promise((resolve) => {
-        // console.log(`Validating the Environment State to be set`)
-        // console.log(element, value)
         if (element === 'timestamp' && typeof value === 'number') resolve()
         if (element === 'internal_temp_1' && typeof value === 'string') resolve()
         if (element === 'internal_temp_2' && typeof value === 'string') resolve()
@@ -283,7 +279,6 @@ const set_session_state = (element, value) => {
  * @returns 
  */
 const set_session_state_validation = (element, value) => {
-    console.log('Validating Set Session State Value')
     if (element === 'session_title' && typeof value === 'string') return
     if (element === 'session_id' && typeof value === 'string') return
     if (element === 'user_id' && typeof value === 'string') return
@@ -302,9 +297,6 @@ const set_session_state_validation = (element, value) => {
  * @param { integralOfError, lastError, lastTime } state the state of the PID
  */
 const set_pid_state = (controller, state) => {
-    // console.log('Setting the PID State for: ' + controller);
-    // console.log('State to be Set')
-    // console.log(state)
     set_pid_state_validation(controller, state);
     globals.pid_state[controller].integralOfError = state.integralOfError;
     globals.pid_state[controller].lastError = state.lastError;
@@ -336,7 +328,7 @@ const set_actuator_state = (element, status, value) => {
     return new Promise((resolve) => {
         console.log('Setting Actuator State')
         validate_set_actuator_state(element, status, value)
-        if (element === 'mb_light_1' || element === 'mb_light_2' || element === 'ib_light' || element === 'speakers') {
+        if (element === 'light' || element === 'speakers') {
             globals.actuators_state[element][value]
             return resolve()
         }
@@ -347,20 +339,27 @@ const set_actuator_state = (element, status, value) => {
 
 const validate_set_actuator_state = (element, status, value) => {
     if (!element || (typeof element !== 'string')) throw new Error('Missing or Invalid Element for setting actuator state');
-    // if (!value || !((typeof value === 'boolean') || (typeof value === 'number'))) throw new Error('Missing or Invalid Value for setting actuator state');
-    // if (!value) throw new Error('Missing or Invalid value for setting actuator state')
     console.log('Validate Set Actuator State: Value Here')
     console.log(element, value)
     console.log(typeof value)
-    if (element === 'mb_light_1' || element === 'mb_light_2' || element === 'ib_light' || element === 'speakers') {
+    if (element === 'light' || element === 'speakers') {
         return
     }
-    if (!status || (typeof status !== 'string')) throw new Error('Missing or Invalid status given for setting actuator state');
-    if ((typeof value === 'number') || (typeof value === 'boolean')) {
-        return
-    } else {
-        console.log('The Value is not a Boolean or a Number!')
-        throw new Error('The Value is not a Boolean or a Number')
+    if (element === 'circulation_bottom' ||
+        element === 'circulation_top' ||
+        element === 'intake' ||
+        element === 'exhaust' ||
+        element === 'ac' ||
+        element === 'heater' ||
+        element === 'humidifier') {
+
+        if (!status || (typeof status !== 'string')) throw new Error('Missing or Invalid status given for setting actuator state');
+        if ((typeof value === 'number') || (typeof value === 'boolean')) {
+            return
+        } else {
+            console.log('The Value is not a Boolean or a Number!')
+            throw new Error('The Value is not a Boolean or a Number')
+        }
     }
 }
 
@@ -368,8 +367,6 @@ const validate_set_actuator_state = (element, status, value) => {
  * Set Overrides
  */
 const set_overrides_state = (element, value) => {
-    console.log("Method Call: set_overrides_state")
-    console.log(`element: ${element}  value: ${value}`)
     set_overrides_state_validation(element, value);
     globals.overrides[element] = value;
 }
