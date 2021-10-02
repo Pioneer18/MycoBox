@@ -1,30 +1,3 @@
-/* This is the Main script that prompts the user for the following:
-*   - how many tests
-    - restartCriteria:
-        - humidity, temperature, co2
-        note: must define restart threshold for at lest one process variable
-*   - fill out each test please:
-        Test #1
-            - actuators:
-                - H value
-                - I value
-                - E value
-                - L value
-                - C On/Off
-            - number of read cycles:
-        .
-        .
-        .
-        Test #n
-           - actuators:
-                - H value
-                - I value
-                - E value
-                - L value
-                - C On/Off
-            - number of read cycles:            
-*/
-
 /**
  * Once the user has entered the test configuration, start the test session
  * - run an actual session
