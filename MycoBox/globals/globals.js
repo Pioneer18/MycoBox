@@ -369,6 +369,7 @@ const validate_set_actuator_state = (element, status, value) => {
  */
 const set_overrides_state = (element, value) => {
     console.log("Method Call: set_overrides_state")
+    console.log(`element: ${element}  value: ${value}`)
     set_overrides_state_validation(element, value);
     globals.overrides[element] = value;
 }
