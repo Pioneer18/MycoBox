@@ -54,11 +54,12 @@ const environment_manager = (mode) => {
                                     // log test data to correct test file
                                     console.log("Logging Test Data")
                                 })
+                                .then(()=>environment_manager('TEST'));
                         }
 
                         setTimeout(() => {
-                            return environment_manager();
-                        }, 100);
+                            return environment_manager('LIVE');
+                        }, 1000);
                     })
 
             }
