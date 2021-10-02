@@ -8,6 +8,7 @@ const {
     parse_co2_data,
     read_mega_data
 } = require('../../services/sensors.service/sensors.service');
+
 let options = {
     mode: 'text',
     pythonOptions: ['-u'], // get print results in real-time
@@ -27,7 +28,8 @@ const mega_temp_humidity = () => {
     };
     console.log("Mega: Args")
     return new Promise((resolve, reject) => {
-        console.log("Mega Reading DHT22 Sensors")
+        console.log(__dirname)
+        console.log(__filename)
         PythonShell.run('raspi.to.mega.py', mega, function (err, reply) {
             if (err) reject(err)
             console.log('Should be reading mega data...')
