@@ -18,6 +18,7 @@ let options = {
 
 get('session_state')
     .then(state => {
+        console.log("----------------------- SCRIPT UPDATER -------------------------")
         console.log(state.active_test_session)
         if(state.active_test_session) options.scriptPath = '../python'
     })
