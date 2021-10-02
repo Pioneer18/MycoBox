@@ -40,7 +40,7 @@ const inquirer = require('inquirer');
 const chalk = require('chalk');
 const log = console.log;
 const { } = require('../cli_control_panel/relay');
-const { get } = require('../globals/globals');
+const { get, set_overrides_state } = require('../globals/globals');
 
 // Intro Description
 log(chalk.black.bgYellow('Environment Manager Step Tester'))
@@ -159,7 +159,8 @@ const prompt_test_configs = () => {
                                 { name: 'humidifier' },
                                 { name: 'intake' },
                                 { name: 'exhaust' },
-                                { name: 'circulation' },
+                                { name: 'circulation top' },
+                                { name: 'circulation bottom' },
                                 { name: 'aircon' },
                                 { name: 'heater' },
                                 { name: 'light' },
@@ -214,6 +215,18 @@ const prompt_test_configs = () => {
                                             return "Please enter a value between 1 and 410"
                                         }
                                     })
+                                }
+                                if (actuator === 'circulation top') {
+                                    configuration.circulation_top = true;
+                                }
+                                if (actuator === 'circulation bottom') {
+                                    configuration.circulation_bottom = true;
+                                }
+                                if (actuator === 'aircon') {
+                                    configuration.aircon = true;
+                                }
+                                if (actuator === 'heater') {
+                                    configuration.heater = true;
                                 }
                             })
 
@@ -296,7 +309,9 @@ const run_tests = () => {
      *      - final: totals
      * 4) on each cycle increment cycle_count in the test_state; set test_status to false to end current test and go to next
      */
-
+    tests.forEach(test => {
+        newTestSession(test);
+    })
 
 }
 
@@ -306,16 +321,72 @@ const run_tests = () => {
 const newTestSession = (config) => {
     return new Promise((resolve) => {
         const session_state = get('session_state');
-        if(!session_state.active_session) {
+        if (!session_state.active_test_session) {
             // Start the test session
             session_state('active_test_session', true);
+            // map the test configuration
+            const test_config = map_test_config(config);
             // set the overrides (actuators)
-            
+            set_overrides(test_config);
+            console.log("Mapped Test Config")
+            console.log(JSON.stringify(test_config, null, '  '));
+            // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
+            // call environment manager: in test mode env counts it's loops and ends session on final loop
+            session_state('active_test_session', false);
         }
     })
 }
 
-const set_overrides = () => {}
+// set the globals.overrides for the current test
+const set_overrides = (test_config) => {
+    try {
+        test_config.overrides.forEach(actuator => {
+            if (actuator === '') continue
+            if (actuator === 'circulation_top') set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator === 'circulation_bottom') set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator === 'aircon') set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator === 'heater') set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator === 'humidifierOutput') set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator === 'intakeOutput') set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator === 'exhaustOutput') set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator === 'lightOutput') set_overrides_state(actuator, test_config.overrides[actuator])
+            else {
+                console.log("An Invalid Override was provided");
+            }
+        })
+    } catch (err) {
+        throw new Error("Failed to Set Overrides!")
+    }
+}
+
+/**
+ * maps the raw form array into a test_configuration
+ * @param {*} configuration 
+ * 
+ */
+const map_test_config = (configuration) => {
+    // map the test configuration object
+    const test_config = {
+        title: configuration.title,
+        start_criteria: {
+            tempMaximum: configuration.tempMaximum ? configuration.tempMaximum : '',
+            rhMaximum: configuration.rhMaximum ? configuration.rhMaximum : '',
+            co2Maximum: configuration.co2Maximum ? configuration.co2Maximum : ''
+        },
+        overrides: {
+            circulation_top: configuration.circulation_top ? configuration.circulation_top : '',
+            circulation_bottom: configuration.circulation_bottom ? configuration.circulation_bottom : '',
+            aircon: configuration.aircon ? configuration.aircon : '',
+            heater: configuration.heater ? configuration.heater : '',
+            humidifierOutput: configuration.humidifierOutput ? configuration.humidifierOutput : '',
+            intakeOutput: configuration.intakeOutput ? configuration.intakeOutput : '',
+            exhaustOutput: configuration.exhaustOutput ? configuration.exhaustOutput : '',
+            lightOutput: configuration.lightOutput ? configuration.lightOutput : ''
+        },
+        cycles: configuration.cycles,
+    }
+    return test_config
+}
 
 /**
  * Post Test
