@@ -333,6 +333,7 @@ const newTestSession = (config) => {
             // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
             // call environment manager: in test mode env counts it's loops and ends session on final loop
             session_state('active_test_session', false);
+            resolve('All Done')
         }
     })
 }
@@ -341,7 +342,7 @@ const newTestSession = (config) => {
 const set_overrides = (test_config) => {
     try {
         test_config.overrides.forEach(actuator => {
-            if (actuator === '') continue
+            if (actuator === '') console.log('Blank Overried Received')
             if (actuator === 'circulation_top') set_overrides_state(actuator, test_config.overrides[actuator])
             if (actuator === 'circulation_bottom') set_overrides_state(actuator, test_config.overrides[actuator])
             if (actuator === 'aircon') set_overrides_state(actuator, test_config.overrides[actuator])
