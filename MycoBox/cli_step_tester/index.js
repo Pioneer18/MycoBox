@@ -13,8 +13,10 @@ const inquirer = require('inquirer');
 const chalk = require('chalk');
 const log = console.log;
 const { } = require('../cli_control_panel/relay');
-const { get, set_overrides_state, set_session_state } = require('../globals/globals');
+const { get, set_overrides_state, set_session_state, set_environment_config } = require('../globals/globals');
 const { environment_manager } = require('../services/system.service/system.service');
+const { update_environment_state } = require('../controllers/sensors.controller/sensors.controller');
+const { default_configs } = require('../../FrontEnd/public/javascript/resources/default_configs');
 
 // Intro Description
 log(chalk.black.bgYellow('Environment Manager Step Tester'))
@@ -297,15 +299,20 @@ const newTestSession = (config) => {
     return new Promise((resolve) => {
         const session_state = get('session_state');
         if (!session_state.active_test_session) {
-            set_session_state('active_test_session', true);
-            const test_config = map_test_config(config);
-            set_overrides(test_config);
-            // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
-            set_session_state('cycles_limit', parseInt(test_config.cycles))
-                // call environment manager: in test mode env counts it's loops and ends session on final loop
-                .then(()=> environment_manager('TEST'))
-                .then(resolve('All Done'))
-                .catch(err => console.log(`Error Caught: New Test Session: ${err}`))
+            // set the test env_config: anything...just to prevent an error
+            set_environment_config(default_configs.test_config)
+                .then(update_environment_state
+                    .then(() => {
+                        set_session_state('active_test_session', true);
+                        const test_config = map_test_config(config);
+                        set_overrides(test_config);
+                        // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
+                        set_session_state('cycles_limit', parseInt(test_config.cycles))
+                            // call environment manager: in test mode env counts it's loops and ends session on final loop
+                            .then(() => environment_manager('TEST'))
+                            .then(resolve('All Done'))
+                            .catch(err => console.log(`Error Caught: New Test Session: ${err}`))
+                    }))
         }
     })
 }
