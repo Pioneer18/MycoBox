@@ -109,10 +109,10 @@ const run_pid_controllers = (mode) => {
                                 //.then(update_circulation(circulation_config))
 
                                 // OVERRIDES: I'm replacing this with a service!
-                                .then(() => send_command("H 1")) // should be nested? and the reurned update PID value, not hardcoded
-                                .then(() => send_command("E 1"))
-                                .then(() => send_command("I 1"))
-                                .then(() => send_command("L 1"))
+                                .then(() => send_command("H 1", mode)) // should be nested? and the reurned update PID value, not hardcoded
+                                .then(() => send_command("E 1", mode))
+                                .then(() => send_command("I 1", mode))
+                                .then(() => send_command("L 1", mode))
                                 .then(() => {
                                     s5r2_on()
                                     s3r1_on()
