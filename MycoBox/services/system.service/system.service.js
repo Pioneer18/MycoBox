@@ -86,7 +86,7 @@ const run_pid_controllers = () => {
                                 //.then(update_ventilation(ventilation_config))
                                 //.then(update_circulation(circulation_config))
 
-                                // OVERRIDES
+                                // OVERRIDES: I'm replacing this with a service!
                                 .then(() => send_command("H 1")) // should be nested? and the reurned update PID value, not hardcoded
                                 .then(() => send_command("E 1"))
                                 .then(() => send_command("I 1"))
