@@ -301,8 +301,6 @@ const newTestSession = (config) => {
             const test_config = map_test_config(config);
             // set the overrides (actuators)
             set_overrides(test_config);
-            console.log("Mapped Test Config")
-            console.log(JSON.stringify(test_config, null, '  '));
             // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
             // call environment manager: in test mode env counts it's loops and ends session on final loop
             set_session_state('active_test_session', false);
