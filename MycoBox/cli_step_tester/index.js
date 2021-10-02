@@ -327,6 +327,8 @@ const set_overrides = (test_config) => {
             if (actuator === 'exhaustOutput') set_overrides_state(actuator, test_config.overrides[actuator])
             if (actuator === 'lightOutput') set_overrides_state(actuator, test_config.overrides[actuator])
             else {
+                console.log(actuator)
+                console.log(test_config.overrides[actuator])
                 console.log("An Invalid Override was provided");
             }
         }
