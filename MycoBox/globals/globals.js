@@ -288,6 +288,7 @@ const set_session_state_validation = (element, value) => {
     if (element === 'session_id' && typeof value === 'string') return
     if (element === 'user_id' && typeof value === 'string') return
     if (element === 'active_session' && typeof value === 'boolean') return
+    if (element === 'active_test_session' && typeof value === 'boolean') return
     if (element === 'canceled' && typeof value === 'boolean') return
     if (element === 'spawn_running' && typeof value === 'boolean') return
     if (element === 'primordia_init' && typeof value === 'boolean') return
