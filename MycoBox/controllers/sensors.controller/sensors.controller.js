@@ -16,6 +16,11 @@ let options = {
     scriptPath: 'MycoBox/python',
 };
 
+get('session_state')
+    .then(state => {
+        console.log(state.active_test_session)
+        if(state.active_test_session) options.scriptPath = '../python'
+    })
 
 /**
  * DHT22 Temperature & humidity readings - internal & external
@@ -111,17 +116,12 @@ const set_timestamp = () => {
 const update_environment_state = () => {
     return new Promise((resolve) => {
         console.log("METHOD CALL: update_environment_state")
-        get('session_state')
-            .then(state => {
-                console.log(state);
-                if (state.active_test_session) options.scriptPath = '../python';
-            })
-            .then(read_co2()
-                .then(read_precise_temp())
-                .then(read_scale())
-                .then(read_infrared())
-                .then(set_timestamp())
-                .then(mega_temp_humidity().then(resolve)))
+        read_co2()
+            .then(read_precise_temp())
+            .then(read_scale())
+            .then(read_infrared())
+            .then(set_timestamp())
+            .then(mega_temp_humidity().then(resolve))
     })
 }
 

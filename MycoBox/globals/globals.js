@@ -272,6 +272,7 @@ const set_session_state = (element, value) => {
         console.log('METHOD CALL: set_session_state');
         set_session_state_validation(element, value);
         globals.session_state[element] = value
+        console.log(globals.session_state[element])
         resolve()
     })
 
