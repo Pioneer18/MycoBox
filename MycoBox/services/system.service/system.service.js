@@ -5,7 +5,7 @@
  */
 const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
 const { humidity_pid_controller_config, update_humidity, send_command } = require("../../controllers/environment.manager/humidity.controller");
-const { get } = require("../../globals/globals")
+const { get, set_session_state } = require("../../globals/globals")
 const { update_environment_state, read_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
 const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
 
@@ -25,7 +25,6 @@ const environment_manager = (mode) => {
     // #1. Validate the session is still active and THEN
     validate_active_session(mode)
         .then((validation) => {
-            console.log('Validation Results: ' + validation)
             // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
 
             // #3. calculate measured and generated a pid_config WHEN valid env_state returned
@@ -39,12 +38,23 @@ const environment_manager = (mode) => {
                         console.log('#######################')
                         // grab env and log test data right here?
                         // check if cycles_count === cycles_limit
-                            // increment if it doesn't
-                            // end test session if it does
+                        // increment if it doesn't
+                        // end test session if it does
+                        if (mode === 'TEST') {
+                            get('session_state')
+                                .then(state => {
+                                    if (state.cycles_limit <= state.cycles_count) set_session_state('active_test_session', false);
+                                    else { state.cycles_count++}
+                                })
+                                .then(()=> {
+                                    // log test data to correct test file
+                                    console.log("Logging Test Data")
+                                })
+                        }
 
                         setTimeout(() => {
                             return environment_manager();
-                        }, 1000);
+                        }, 100);
                     })
 
             }
@@ -163,8 +173,8 @@ const validate_active_session = (mode) => {
     return new Promise((resolve) => {
         get('session_state')
             .then(session_state => {
-                if (session_state.active_session && mode === 'LIVE' ) resolve(true)
-                if (session_state.active_test_session && mode === 'TEST' ) resolve(true)
+                if (session_state.active_session && mode === 'LIVE') resolve(true)
+                if (session_state.active_test_session && mode === 'TEST') resolve(true)
                 else {
                     resolve(false)
                 }
