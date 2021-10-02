@@ -86,28 +86,8 @@ const humidity_actuator_controller = (value) => {
         resolve()
     })
 }
-// Send the Command with the Dimmer value; e.g. "H 300"
-const send_command = (command) => {
-    console.log("Sending Humidifier Command: ---------------------------")
-    let options = {
-        mode: 'text',
-        pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: 'MycoBox/python',
-        args: [command]
-    };
-    return new Promise((resolve) => {
-        PythonShell.run('dimmer.command.py', options, function (err, reply) {
-            if (err) throw err;
-            if (!reply) {
-                console.log("Humidifier Command Never Received Response")
-            }
-            console.log(reply)
-            resolve()
-        })
-    })
-}
+
 module.exports = {
     humidity_pid_controller_config,
     update_humidity,
-    send_command
 }

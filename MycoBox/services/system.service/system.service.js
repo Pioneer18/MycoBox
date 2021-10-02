@@ -4,10 +4,11 @@
  * Description: provides extra functionality to the system controller
  */
 const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
-const { humidity_pid_controller_config, update_humidity, send_command } = require("../../controllers/environment.manager/humidity.controller");
+const { humidity_pid_controller_config, update_humidity } = require("../../controllers/environment.manager/humidity.controller");
 const { get, set_session_state } = require("../../globals/globals")
 const { update_environment_state, read_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
 const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
+const { send_command } = require("../../utilities");
 
 
 /**
