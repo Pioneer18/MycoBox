@@ -378,27 +378,27 @@ const set_overrides_state_validation = (element, value) => {
         if (element && element !== undefined && element !== ''
             && value && value !== undefined && value !== '') {
             if (element === 'flag') {
-                if (typeof element === 'boolean') return true
+                if (typeof value === 'boolean') return true
                 throw new Error('Invalid value for flag')
             }
             if (element === 'circulation_bottom') {
-                if (typeof element === 'boolean') return true
+                if (typeof value === 'boolean') return true
                 throw new Error('Invalid value for circulation_bottom')
             }
             if (element === 'circulation_top') {
-                if (typeof element === 'boolean') return true
+                if (typeof value === 'boolean') return true
                 throw new Error('Invalid value for circulation_top')
             }
             if (element === 'aircon') {
-                if (typeof element === 'boolean') return true
+                if (typeof value === 'boolean') return true
                 throw new Error('Invalid value for ac')
             }
             if (element === 'heater') {
-                if (typeof element === 'boolean') return true
+                if (typeof value === 'boolean') return true
                 throw new Error('Invalid value for heater')
             }
             if (element === 'mister') {
-                if (typeof element === 'boolean') return true
+                if (typeof value === 'boolean') return true
                 throw new Error('Invalid value for mister')
             }
             if (element === 'intakeOutput') {
