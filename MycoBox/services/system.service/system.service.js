@@ -63,7 +63,7 @@ const environment_manager = (mode) => {
 
             }
             if (!validation) {
-                resolve('Session has ended')
+                return('Session has ended')
             }
         })
 }
