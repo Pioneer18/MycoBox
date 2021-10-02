@@ -321,14 +321,14 @@ const set_overrides = (test_config) => {
                 console.log('Blank Overried Received')
                 continue
             }
-            if (actuator === 'circulation_top') set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator === 'circulation_bottom') set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator === 'aircon') set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator === 'heater') set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator === 'humidifierOutput') set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator === 'intakeOutput') set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator === 'exhaustOutput') set_overrides_state(actuator, test_config.overrides[actuator])
-            if (actuator === 'lightOutput') set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator.localeCompare('circulation_top') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator.localeCompare('circulation_bottom') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator.localeCompare('aircon') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator.localeCompare('heater') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator.localeCompare('humidifierOutput') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator.localeCompare('intakeOutput') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator.localeCompare('exhaustOutput') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
+            if (actuator.localeCompare('lightOutput') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
             else {
                 console.log("An Invalid Override was provided");
                 console.log("The Invalid Actuator: " + actuator)
