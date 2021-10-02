@@ -340,6 +340,8 @@ const newTestSession = (config) => {
 
 // set the globals.overrides for the current test
 const set_overrides = (test_config) => {
+    console.log('Test Config');
+    console.log(test_config);
     try {
         test_config.overrides.forEach(actuator => {
             if (actuator === '') console.log('Blank Overried Received')
