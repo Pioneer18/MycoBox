@@ -293,6 +293,8 @@ const set_session_state_validation = (element, value) => {
     if (element === 'spawn_running' && typeof value === 'boolean') return
     if (element === 'primordia_init' && typeof value === 'boolean') return
     if (element === 'fruiting' && typeof value === 'boolean') return
+    if (element === 'cycles_limit' && typeof value === 'number') return
+    if (element === 'cycles_count' && typeof value === 'number') return
     throw new Error('Invalid session_state element or value given')
 }
 
