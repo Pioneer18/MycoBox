@@ -299,11 +299,14 @@ const newTestSession = (config) => {
         if (!session_state.active_test_session) {
             set_session_state('active_test_session', true);
             const test_config = map_test_config(config);
+            console.log("this is right before setting the overrides")
             set_overrides(test_config);
+            console.log('This is right after setting the overrides')
             // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
             // call environment manager: in test mode env counts it's loops and ends session on final loop
             // environment_manager('TEST')
             set_session_state('active_test_session', false);
+            console.log("This happens Right after Setting Session State")
             resolve('All Done')
         }
     })
