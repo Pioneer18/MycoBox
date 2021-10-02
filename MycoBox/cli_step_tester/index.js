@@ -14,6 +14,7 @@ const chalk = require('chalk');
 const log = console.log;
 const { } = require('../cli_control_panel/relay');
 const { get, set_overrides_state, set_session_state } = require('../globals/globals');
+const { environment_manager } = require('../services/system.service/system.service');
 
 // Intro Description
 log(chalk.black.bgYellow('Environment Manager Step Tester'))
@@ -301,6 +302,7 @@ const newTestSession = (config) => {
             set_overrides(test_config);
             // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
             // call environment manager: in test mode env counts it's loops and ends session on final loop
+            // environment_manager('TEST')
             set_session_state('active_test_session', false);
             resolve('All Done')
         }
@@ -311,54 +313,57 @@ const newTestSession = (config) => {
 const set_overrides = (test_config) => {
     console.log('Test Config');
     console.log(test_config);
-    try {
-        for (const actuator in test_config.overrides) {
-            if (test_config.overrides[actuator] === '') {
-                console.log('Blank Overried Received')
-                continue
-            }
-            if (actuator.localeCompare('circulation_top') === 0) {
-                set_overrides_state(actuator, test_config.overrides[actuator])
-                continue
-            }
-            if (actuator.localeCompare('circulation_bottom') === 0) {
-                set_overrides_state(actuator, test_config.overrides[actuator])
-                continue
-            }
-            if (actuator.localeCompare('aircon') === 0) {
-                set_overrides_state(actuator, test_config.overrides[actuator])
-                continue
-            }
-            if (actuator.localeCompare('heater') === 0) {
-                set_overrides_state(actuator, test_config.overrides[actuator])
-                continue
-            }
-            if (actuator.localeCompare('humidifierOutput') === 0) {
-                set_overrides_state(actuator, test_config.overrides[actuator])
-                continue
-            }
-            if (actuator.localeCompare('intakeOutput') === 0) {
-                set_overrides_state(actuator, test_config.overrides[actuator])
-                continue
-            }
-            if (actuator.localeCompare('exhaustOutput') === 0) {
-                set_overrides_state(actuator, test_config.overrides[actuator])
-                continue
-            }
-            if (actuator.localeCompare('lightOutput') === 0) {
-                set_overrides_state(actuator, test_config.overrides[actuator])
-                continue
-            }
-            console.log("An Invalid Override was provided");
-            console.log("The Invalid Actuator: " + actuator)
-            console.log(actuator === 'circulation_top')
-            console.log(actuator.localeCompare('circulation_top'))
-            console.log(typeof actuator)
+    return new Promise((resolve) => {
+        try {
+            for (const actuator in test_config.overrides) {
+                if (test_config.overrides[actuator] === '') {
+                    console.log('Blank Overried Received')
+                    continue
+                }
+                if (actuator.localeCompare('circulation_top') === 0) {
+                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    continue
+                }
+                if (actuator.localeCompare('circulation_bottom') === 0) {
+                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    continue
+                }
+                if (actuator.localeCompare('aircon') === 0) {
+                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    continue
+                }
+                if (actuator.localeCompare('heater') === 0) {
+                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    continue
+                }
+                if (actuator.localeCompare('humidifierOutput') === 0) {
+                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    continue
+                }
+                if (actuator.localeCompare('intakeOutput') === 0) {
+                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    continue
+                }
+                if (actuator.localeCompare('exhaustOutput') === 0) {
+                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    continue
+                }
+                if (actuator.localeCompare('lightOutput') === 0) {
+                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    continue
+                }
+                console.log("An Invalid Override was provided");
+                console.log("The Invalid Actuator: " + actuator)
+                console.log(actuator === 'circulation_top')
+                console.log(actuator.localeCompare('circulation_top'))
+                console.log(typeof actuator)
 
+            }
+            resolve()
+        } catch (err) {
+            throw new Error("Failed to Set Overrides!")
         }
-    } catch (err) {
-        throw new Error("Failed to Set Overrides!")
-    }
+    })
 }
 
 /**
@@ -368,26 +373,29 @@ const set_overrides = (test_config) => {
  */
 const map_test_config = (configuration) => {
     // map the test configuration object
-    const test_config = {
-        title: configuration.title,
-        start_criteria: {
-            tempMaximum: configuration.tempMaximum ? configuration.tempMaximum : '',
-            rhMaximum: configuration.rhMaximum ? configuration.rhMaximum : '',
-            co2Maximum: configuration.co2Maximum ? configuration.co2Maximum : ''
-        },
-        overrides: {
-            circulation_top: configuration.circulation_top ? configuration.circulation_top : '',
-            circulation_bottom: configuration.circulation_bottom ? configuration.circulation_bottom : '',
-            aircon: configuration.aircon ? configuration.aircon : '',
-            heater: configuration.heater ? configuration.heater : '',
-            humidifierOutput: configuration.humidifierOutput ? configuration.humidifierOutput : '',
-            intakeOutput: configuration.intakeOutput ? configuration.intakeOutput : '',
-            exhaustOutput: configuration.exhaustOutput ? configuration.exhaustOutput : '',
-            lightOutput: configuration.lightOutput ? configuration.lightOutput : ''
-        },
-        cycles: configuration.cycles,
-    }
-    return test_config
+    return new Promise((resolve) => {
+        const test_config = {
+            title: configuration.title,
+            start_criteria: {
+                tempMaximum: configuration.tempMaximum ? configuration.tempMaximum : '',
+                rhMaximum: configuration.rhMaximum ? configuration.rhMaximum : '',
+                co2Maximum: configuration.co2Maximum ? configuration.co2Maximum : ''
+            },
+            overrides: {
+                circulation_top: configuration.circulation_top ? configuration.circulation_top : '',
+                circulation_bottom: configuration.circulation_bottom ? configuration.circulation_bottom : '',
+                aircon: configuration.aircon ? configuration.aircon : '',
+                heater: configuration.heater ? configuration.heater : '',
+                humidifierOutput: configuration.humidifierOutput ? configuration.humidifierOutput : '',
+                intakeOutput: configuration.intakeOutput ? configuration.intakeOutput : '',
+                exhaustOutput: configuration.exhaustOutput ? configuration.exhaustOutput : '',
+                lightOutput: configuration.lightOutput ? configuration.lightOutput : ''
+            },
+            cycles: configuration.cycles,
+        }
+        resolve(test_config)
+    })
+
 }
 
 /**

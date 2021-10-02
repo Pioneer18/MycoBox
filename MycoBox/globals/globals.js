@@ -268,10 +268,13 @@ const set_environment_state_validation = (element, value) => {
  * @param {*} value the value to set for the element
  */
 const set_session_state = (element, value) => {
-    console.log('METHOD CALL: set_session_state');
-    set_session_state_validation(element, value);
-    globals.session_state[element] = value
-    return
+    return new Promise((resolve) => {
+        console.log('METHOD CALL: set_session_state');
+        set_session_state_validation(element, value);
+        globals.session_state[element] = value
+        resolve()
+    })
+
 }
 
 /**

@@ -36,7 +36,7 @@ function newSession(config) {
                 .then(update_environment_state()
                     .then(() => {
                         set_session_state('active_session', true)
-                        environment_manager('LIVE')
+                            .then(() => environment_manager('LIVE'))
                     }))
                 .then(resolve())
                 .catch(err => console.log(`Error Caught: new_session: ${err}`))
