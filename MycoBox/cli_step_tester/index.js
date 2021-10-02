@@ -332,6 +332,7 @@ const set_overrides = (test_config) => {
             else {
                 console.log("An Invalid Override was provided");
                 console.log("The Invalid Actuator: " + actuator)
+                console.log(actuator === 'circulation_top')
                 console.log(typeof actuator)
             }
         }
