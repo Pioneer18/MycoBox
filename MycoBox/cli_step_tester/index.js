@@ -329,13 +329,12 @@ const set_overrides = (test_config) => {
             if (actuator.localeCompare('intakeOutput') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
             if (actuator.localeCompare('exhaustOutput') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
             if (actuator.localeCompare('lightOutput') === 0) set_overrides_state(actuator, test_config.overrides[actuator])
-            else {
-                console.log("An Invalid Override was provided");
-                console.log("The Invalid Actuator: " + actuator)
-                console.log(actuator === 'circulation_top')
-                console.log(actuator.localeCompare('circulation_top'))
-                console.log(typeof actuator)
-            }
+            console.log("An Invalid Override was provided");
+            console.log("The Invalid Actuator: " + actuator)
+            console.log(actuator === 'circulation_top')
+            console.log(actuator.localeCompare('circulation_top'))
+            console.log(typeof actuator)
+            
         }
     } catch (err) {
         throw new Error("Failed to Set Overrides!")
