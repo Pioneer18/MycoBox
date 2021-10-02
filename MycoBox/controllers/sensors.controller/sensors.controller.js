@@ -12,7 +12,7 @@ const {
 let options = {
     mode: 'text',
     pythonOptions: ['-u'], // get print results in real-time
-    scriptPath: 'MycoBox/python',
+    scriptPath: '../python',
 };
 
 /**
