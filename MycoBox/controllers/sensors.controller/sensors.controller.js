@@ -113,7 +113,8 @@ const update_environment_state = () => {
         console.log("METHOD CALL: update_environment_state")
         get('session_state')
             .then(state => {
-                if (state.active_test_session) options.scriptPath = '../python'
+                console.log(state);
+                if (state.active_test_session) options.scriptPath = '../python';
             })
             .then(read_co2()
                 .then(read_precise_temp())
