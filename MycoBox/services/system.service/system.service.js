@@ -38,10 +38,6 @@ const environment_manager = (mode) => {
                             console.log('#######################')
                             console.log('Recalling ENV MANAGER')
                             console.log('#######################')
-                            // grab env and log test data right here?
-                            // check if cycles_count === cycles_limit
-                            // increment if it doesn't
-                            // end test session if it does
                             if (mode === 'TEST') {
                                 get('session_state')
                                     .then(state => {
@@ -65,6 +61,7 @@ const environment_manager = (mode) => {
                             }
 
                             setTimeout(() => {
+                                console.log("*************** is this Happening?????")
                                 environment_manager('LIVE');
                             }, 1000);
                         })
@@ -75,7 +72,6 @@ const environment_manager = (mode) => {
                     resolve('EM is Finished')
                 }
             })
-        resolve()
     })
 }
 
@@ -126,7 +122,7 @@ const run_pid_controllers = (mode) => {
                                     s5r2_on()
                                     s3r1_on()
                                     console.log("=======================================")
-                                    console.log("Returned Humidity Value: ")
+                                    console.log("Sent Overrides: ")
                                     console.log("=======================================")
                                     resolve()
                                 })
