@@ -287,7 +287,6 @@ const run_tests = () => {
      */
     tests.forEach(test => {
         newTestSession(test)
-            .then(data => console.log(data))
     })
 
 }
