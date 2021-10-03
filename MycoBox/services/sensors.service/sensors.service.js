@@ -17,6 +17,7 @@ const read_mega_data = (reply) => {
                 .then(set_dht22_values(i, data[i]))
                 .catch()
         }
+        console.log("READ MEGA RESOLVING NOW")
         resolve()
     });
 }
@@ -28,8 +29,9 @@ const parse_pt_data = (reply) => {
         console.log('moving through parse pt data')
         console.log(data)
         set_environment_state('precise_temp_c', data[1])
-            .then(set_environment_state('precise_temp_f', data[3]))
-            .then(resolve())
+            .then(set_environment_state('precise_temp_f', data[3])
+                .then(resolve())
+            )
             .catch()
     })
 }
