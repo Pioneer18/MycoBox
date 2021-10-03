@@ -21,7 +21,7 @@ const { send_command } = require("../../utilities");
  * i. increment globals.session_state.cycles_count
  * ii. set active_test_session false if cycles_count reached cycles_limit
  */
-const environment_manager = (mode) => {
+const environment_manager = (mode, resolver) => {
     // #1. Validate the session is still active and THEN
     return new Promise(function (resolve, reject) {
         validate_active_session(mode)
@@ -56,7 +56,7 @@ const environment_manager = (mode) => {
                                         // log test data to correct test file
                                         console.log("Logging Test Data")
                                     })
-                                    .then(() => environment_manager('TEST'));
+                                    .then(() => environment_manager('TEST', resolve));
                             }
 
                             if (mode === 'LIVE') {
@@ -71,9 +71,8 @@ const environment_manager = (mode) => {
                 if (!validation) {
                     console.log('EM Will Stop Running Now')
                     resolve('Session Completed!');
-                    console.log('Should I make a iterable version?')
-                    console.log(typeof resolve)
-                    resolve()
+                    resolver('The real resolve?')
+
                 }
             })
             .catch(err => console.log("Error With the EM"))
