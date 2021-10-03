@@ -98,6 +98,7 @@ const environment_manager = (mode) => {
     iterator.next();
     iterator.next();
     iterator.next();
+    return
 }
 
 
