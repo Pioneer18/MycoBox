@@ -69,7 +69,7 @@ const environment_manager = (mode) => {
                 }
                 if (!validation) {
                     console.log('EM Will Stop Running Now')
-
+                    return
                 }
             })
             .catch(err => console.log("Error With the EM"))
