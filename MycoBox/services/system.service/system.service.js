@@ -94,7 +94,10 @@ const environment_manager = (mode) => {
         }
     }
 
-    return iterableEM[Symbol.iterator]();
+    const iterator = iterableEM[Symbol.iterator]();
+    iterator.next();
+    iterator.next();
+    iterator.next();
 }
 
 
