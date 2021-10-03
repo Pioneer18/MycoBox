@@ -23,57 +23,80 @@ const { send_command } = require("../../utilities");
  */
 const environment_manager = (mode) => {
     // #1. Validate the session is still active and THEN
-        validate_active_session(mode)
-            .then(validation => {
-                // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
+    const iterableEM = {
+        [Symbol.iterator]() {
+            let cycles = 0;
+            const cycles_limit = 1;
+            return {
+                next() {
+                    cycles++;
+                    if (cycles <= cycles_limit) {
+                        validate_active_session(mode)
+                            .then(validation => {
+                                // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
 
-                // #3. calculate measured and generated a pid_config WHEN valid env_state returned
-                if (validation) {
-                    console.log('Environment Manager Has Validated Session')
-                    //update_environment_state()
-                    run_pid_controllers(mode)
-                        .then(() => {
-                            console.log('#######################')
-                            console.log('Recalling ENV MANAGER')
-                            console.log('#######################')
-                            if (mode === 'TEST') {
-                                get('session_state')
-                                    .then(state => {
-                                        if (state.cycles_limit <= state.cycles_count) {
-                                            console.log('TIME TO END THE SESSION!!!')
-                                            set_session_state('active_test_session', false);
-                                            set_session_state('cycles_count', 0);
-                                            set_session_state('cycles_limit', 0);
-                                        }
-                                        else {
-                                            console.log("Cycles Count: " + state.cycles_count +
-                                                "\nCycles Limit: " + state.cycles_limit);
-                                            state.cycles_count++
-                                        }
-                                    })
-                                    .then(() => {
-                                        // log test data to correct test file
-                                        console.log("Logging Test Data")
-                                    })
-                                    .then(() => environment_manager('TEST'));
-                            }
+                                // #3. calculate measured and generated a pid_config WHEN valid env_state returned
+                                if (validation) {
+                                    console.log('Environment Manager Has Validated Session')
+                                    //update_environment_state()
+                                    run_pid_controllers(mode)
+                                        .then(() => {
+                                            console.log('#######################')
+                                            console.log('Recalling ENV MANAGER')
+                                            console.log('#######################')
+                                            if (mode === 'TEST') {
+                                                get('session_state')
+                                                    .then(state => {
+                                                        if (state.cycles_limit <= state.cycles_count) {
+                                                            console.log('TIME TO END THE SESSION!!!')
+                                                            set_session_state('active_test_session', false);
+                                                            set_session_state('cycles_count', 0);
+                                                            set_session_state('cycles_limit', 0);
+                                                        }
+                                                        else {
+                                                            console.log("Cycles Count: " + state.cycles_count +
+                                                                "\nCycles Limit: " + state.cycles_limit);
+                                                            state.cycles_count++
+                                                        }
+                                                    })
+                                                    .then(() => {
+                                                        // log test data to correct test file
+                                                        console.log("Logging Test Data")
+                                                    })
+                                                    .then(() => {
+                                                        // environment_manager('TEST')
+                                                        return { value: '', done: false }
+                                                    });
+                                            }
 
-                            if (mode === 'LIVE') {
-                                setTimeout(() => {
-                                    console.log("*************** is this Happening?????")
-                                    environment_manager('LIVE');
-                                }, 1000);
-                            }
-                        })
+                                            if (mode === 'LIVE') {
+                                                setTimeout(() => {
+                                                    console.log("*************** is this Happening?????")
+                                                    environment_manager('LIVE');
+                                                }, 1000);
+                                            }
+                                        })
 
+                                }
+                                if (!validation) {
+                                    console.log('EM Will Stop Running Now')
+                                    // return
+                                    return { value: '', done: false }
+                                }
+                            })
+                            .catch(err => console.log("Error With the EM"))
+                    }
+                    else {
+                        return { value: 'program over', done: true }
+                    }
                 }
-                if (!validation) {
-                    console.log('EM Will Stop Running Now')
-                    return
-                }
-            })
-            .catch(err => console.log("Error With the EM"))
+            }
+        }
+    }
+
+    return iterableEM[Symbol.iterator]();
 }
+
 
 /**
  * Return the env_config, env_state, and pid_states

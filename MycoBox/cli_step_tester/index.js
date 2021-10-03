@@ -308,10 +308,10 @@ const newTestSession = (config) => {
                                     .then(() => {
                                         return environment_manager('TEST')
                                     })
-                                    .then(() => {
-                                        console.log("Made it out of the EM!!!!!!!!!!!");
-                                        console.log('Because this .then didn`t wait');
-                                    })
+                                    // .then(() => {
+                                    //     console.log("Made it out of the EM!!!!!!!!!!!");
+                                    //     console.log('Because this .then didn`t wait');
+                                    // })
                                     .catch(err => console.log(`Error Caught: New Test Session: ${err}`))
                             })
                     }))
