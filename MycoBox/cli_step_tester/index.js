@@ -304,6 +304,7 @@ const newTestSession = (config) => {
                         set_session_state('cycles_limit', parseInt(test_config.cycles))
                             // call environment manager: in test mode env counts it's loops and ends session on final loop
                             .then(() => update_environment_state('TEST')//environment_manager('TEST')
+                                .then(resolve())
                                 .catch(err => console.log(`Error Caught: New Test Session: ${err}`)))
                     }))
         }
