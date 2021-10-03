@@ -71,9 +71,9 @@ const environment_manager = (mode) => {
                 if (!validation) {
                     console.log('EM Will Stop Running Now')
                     resolve('Session Completed!');
-                    reject('blehh');
                 }
             })
+            .catch(err => console.log("Error With the EM"))
     })
 }
 
