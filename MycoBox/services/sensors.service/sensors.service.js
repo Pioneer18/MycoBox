@@ -10,15 +10,13 @@ const { set_environment_state } = require('../../globals/globals');
  */
 const read_mega_data = (reply) => {
     if (!reply) throw new Error('No reply from Mega')
-    return new Promise((resolve) => {
-        const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-        for (let i = 1; i < 16; i += 2) {
-            validate_th_data(data[i])
-                .then(set_dht22_values(i, data[i]))
-        }
-        console.log("READ MEGA RESOLVING NOW")
-        return resolve()
-    });
+    const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
+    for (let i = 1; i < 16; i += 2) {
+        validate_th_data(data[i])
+            .then(set_dht22_values(i, data[i]))
+    }
+    console.log("READ MEGA RESOLVING NOW")
+    return
 }
 
 const parse_pt_data = (reply) => {

@@ -54,21 +54,6 @@ const read_precise_temp = () => {
 }
 
 /**
- * CO2 readings from COZIR-A sensor
- * @param {Array} reply ["CO2 PPM = 536.0"]
- */
-const read_co2 = () => {
-    return new Promise((resolve, reject) => {
-        console.log('Reading the CO2')
-        PythonShell.run('co2.py', options, function (err, reply) {
-            if (err) reject(err)
-            parse_co2_data(reply)
-                .then(resolve())
-        });
-    })
-}
-
-/**
  * Weight readings from Esp8266 scale ** HTTP or Serial request
  * @param {Array} reply
  */
@@ -110,7 +95,6 @@ const update_environment_state = (mode) => {
             options['scriptPath'] = '../python';
             console.log(options);
         }
-        // read_co2()
         read_precise_temp()
             .then(read_scale())
             .then(read_infrared())
@@ -162,7 +146,6 @@ const clean_environment_state = (env_state) => {
 
 module.exports = {
     read_precise_temp,
-    read_co2,
     read_scale,
     read_infrared,
     update_environment_state,
