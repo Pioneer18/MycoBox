@@ -298,20 +298,17 @@ const newTestSession = (config) => {
             set_environment_config(test_config)
                 .then(set_session_state('active_test_session', true)
                     .then(() => {
-                        update_environment_state('TEST')
-                            .then(() => {
-                                const test_config = map_test_config(config);
-                                set_overrides(test_config);
-                                // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
-                                set_session_state('cycles_limit', parseInt(test_config.cycles))
-                                    // call environment manager: in test mode env counts it's loops and ends session on final loop
-                                    .then(() => environment_manager('TEST')
-                                        .then(data => {
-                                            console.log("Made it out of the EM!!!!!!!!!!!")
-                                            console.log(data)
-                                        })
-                                        .catch(err => console.log(`Error Caught: New Test Session: ${err}`)))
-                            })
+                        const test_config = map_test_config(config);
+                        set_overrides(test_config);
+                        // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
+                        set_session_state('cycles_limit', parseInt(test_config.cycles))
+                            // call environment manager: in test mode env counts it's loops and ends session on final loop
+                            .then(() => environment_manager('TEST')
+                                .then(data => {
+                                    console.log("Made it out of the EM!!!!!!!!!!!")
+                                    console.log(data)
+                                })
+                                .catch(err => console.log(`Error Caught: New Test Session: ${err}`)))
                     }))
         }
     })
