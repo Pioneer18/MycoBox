@@ -9,8 +9,6 @@ const { set_environment_state } = require('../../globals/globals');
  * @returns 
  */
 const read_mega_data = (reply) => {
-    console.log('---------- REPLY FROM MEGA HERE ----------')
-    console.log(reply)
     if (!reply) throw new Error('No reply from Mega')
     const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     return new Promise((resolve) => {
@@ -27,7 +25,6 @@ const read_mega_data = (reply) => {
 const parse_pt_data = (reply) => {
     console.log("Parsing PT Data:")
     return new Promise((resolve) => {
-        console.log('PYTHON FILES AREN`T BEING READ')
         const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
         console.log('moving through parse pt data')
         console.log(data)
@@ -54,8 +51,6 @@ const parse_co2_data = (reply) => {
  * @param {Array} data e.g. ['43.55', 44.25, 43.40]
  */
 const validate_th_data = (data) => {
-    // console.log("METHOD CALL: validate_th_data")
-    // console.log(data)
     return new Promise((resolve, reject) => {
         if (typeof data !== typeof 'string') reject(`received temp/humidity value that is not a string, check the sensors! ${data}`)
         if (data === '') reject(`received an empty value for temp/humidity, check the sensors! ${data}`)
