@@ -52,6 +52,7 @@ const environment_manager = (mode) => {
                                             console.log("Cycles Count: " + state.cycles_count +
                                                 "\nCycles Limit: " + state.cycles_limit);
                                             state.cycles_count++
+                                            resolve()
                                         }
                                     })
                                     .then(() => {
