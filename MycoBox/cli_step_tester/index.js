@@ -293,6 +293,7 @@ const run_tests = () => {
                     count++
                     // then call the next test
                     testGenerator.next()
+                    testGenerator.next()
                 }
             })
         }, 5000);
@@ -311,7 +312,6 @@ function* newTestSession() {
         get('session_state')
             .then(state => {
                 if (!state.active_test_session) {
-                    console.log('hello?')
                     // set the test env_config: anything...just to prevent an error
                     set_environment_config(test_config)
                         .then(set_session_state('active_test_session', true)
