@@ -282,9 +282,8 @@ const run_tests = () => {
      *      - count, variable_1, variable_2, variable_3, kp1, kp2, kp3, rc1, rc2, rc3
      *      - final: totals
      */
-    tests.forEach(test => {
-        newTestSession(test)
-    })
+    newTestSession(tests[0])
+
     // return newTestSession(tests[0])
 
 }
@@ -306,8 +305,11 @@ const newTestSession = (config) => {
                         set_session_state('cycles_limit', parseInt(test_config.cycles))
                             // call environment manager: in test mode env counts it's loops and ends session on final loop
                             .then(update_environment_state('TEST')
-                                .then(()=> {
-                                    console.log('newTesSession is Resolving!')
+                                .then(finished => {
+                                    while(!finished){
+                                        
+                                    }
+                                    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ newTesSession is Resolving! ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
                                     resolve();
                                 })
                             )//environment_manager('TEST')
@@ -321,17 +323,18 @@ const newTestSession = (config) => {
  * @param {*} config
  * @returns 
  */
-const runTest = (config) => {
-    const testSession = {
-        [Symbol.iterator]() {
-            let step = 0;
-            return {
-                next() {
-                    step++
-                    if (step === 1) {
-                        set_environment_config(test_config);
-                        return { value: 'set environment config', done: false }
-                    }
+const testSession = {
+    [Symbol.iterator]() {
+        let step = 0;
+        return {
+            next() {
+                if (step < tests.length) {
+                    newTestSession(tests[step]);
+                    step++;
+                    return { value: 'set environment config', done: false }
+                }
+                if (step >= tests.length) {
+                    return { value: 'Tests Completed', done: false }
                 }
             }
         }
