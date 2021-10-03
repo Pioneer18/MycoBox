@@ -276,42 +276,41 @@ prompt_test_configs()
 const run_tests = () => {
     log(chalk.bold.cyan(JSON.stringify(tests, null, '  ')))
     log(chalk.cyan('Running each test in the tests array'))
-
+     
+    log(chalk.red(`count: ${count} test.length: ${tests.length}`));
     if (count <= tests.length) {
         newTestSession(tests[count])
             .then(() => {
-                console.log("Is ANYTHING HAPPENING POST EM??????????????")
                 setTimeout(() => {
-                    const session_state = getter('session_state');
+                    let session_state = getter('session_state');
                     console.log(`Here's ya DUCKIN' SESSION STATE!!!!!!!!!!!`);
                     console.log(session_state);
-                    // get('session_state')
-                    //     .then(state => {
-                    //         console.log('--------------------------------- Run Tests Checking Session State ---------------------------------')
-                    //         if (state.active_test_session) live = true;
-                    //         // wait till test has completed
-                    //         while (live) {
-                    //             setTimeout(() => {
-                    //                 console.log('RUN TESTS CHECKING ENV HERE')
-                    //                 get('session_state')
-                    //                     .then(state => {
-                    //                         if (!state.active_test_session) live = false;
-                    //                     })
-                    //             }, 60000);
-                    //         }
-                    //         // increment count after test complete
-                    //         console.log('First test Has completed!')
-                    //         console.log("So, this test session is still live? " + live);
-                    //         count++
-                    //         // recall runTests
-                    //         run_tests();
-                    //     })
+                    if (session_state.active_test_session) live = true;
+                    // wait till test has completed
+                    while (live) {
+                        setTimeout(() => {
+                            console.log('****************************************** Checking If the Test is still Active ******************************************')
+                            session_state = getter('session_state');
+                            // if the test has ended
+                            if (!session_state.active_test_session) live = false;
+                        }, 60000);
+                    }
+                    // increment count after test complete
+                    console.log('First test Has completed!')
+                    console.log("So, this test session is still live? " + live);
+                    count++
+                    // recall runTests
+                    run_tests();
                     console.log('Run Tests Normally would Break the Loop Right Ducking Here')
 
                 }, 10000);
             })
         // wait for the acitve_test_session to be set
         console.log('Hello from Run Tests Outer Space!')
+    }
+    else {
+        console.log("All TESTS HAVE BEEN RAN, YA PLEB!")
+        return
     }
 }
 
@@ -333,7 +332,7 @@ const newTestSession = (config) => {
                                 set_session_state('cycles_limit', parseInt(test_config.cycles))
                                     // call environment manager: in test mode env counts it's loops and ends session on final loop
                                     .then(environment_manager('TEST'))//environment_manager('TEST')
-                                        .then(resolve('Resolve After EM has fired'))
+                                    .then(resolve('Resolve After EM has fired'))
                             }))
                 }
             })
