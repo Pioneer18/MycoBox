@@ -10,15 +10,14 @@ const { set_environment_state } = require('../../globals/globals');
  */
 const read_mega_data = (reply) => {
     if (!reply) throw new Error('No reply from Mega')
-    const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
     return new Promise((resolve) => {
+        const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
         for (let i = 1; i < 16; i += 2) {
             validate_th_data(data[i])
                 .then(set_dht22_values(i, data[i]))
                 .then(resolve())
                 .catch()
         }
-        resolve()
     });
 }
 
