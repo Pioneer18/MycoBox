@@ -282,7 +282,21 @@ const run_tests = () => {
      *      - count, variable_1, variable_2, variable_3, kp1, kp2, kp3, rc1, rc2, rc3
      *      - final: totals
      */
-    newTestSession(tests[0])
+    let count = 0;
+    const testGenerator = newTestSession();
+    testGenerator.next();
+    while(count < tests.length) {
+        setTimeout(() => {
+            get('session_state').then(state => {
+                // if the active_test_session is false; first test has ended
+                if(!state.active_test_session && count <= tests.length) {
+                    count++
+                    // then call the next test
+                    testGenerator.next()
+                }
+            })
+        }, 5000);
+    }
 
     // return newTestSession(tests[0])
 
@@ -291,30 +305,30 @@ const run_tests = () => {
 /**
  * NewTestSession
  */
-const newTestSession = (config) => {
-    return new Promise((resolve) => {
-        const session_state = get('session_state');
-        if (!session_state.active_test_session) {
-            // set the test env_config: anything...just to prevent an error
-            set_environment_config(test_config)
-                .then(set_session_state('active_test_session', true)
-                    .then(() => {
-                        const test_config = map_test_config(config);
-                        set_overrides(test_config);
-                        // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
-                        set_session_state('cycles_limit', parseInt(test_config.cycles))
-                            // call environment manager: in test mode env counts it's loops and ends session on final loop
-                            .then(update_environment_state('TEST')
-                                .then(finished => {
-                                    while(finished !== true){
-                                        console.log('......waiting')
-                                    }
-                                    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ '+finished+' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-                                    resolve();
-                                })
-                            )//environment_manager('TEST')
-                    }))
-        }
+function* newTestSession() {
+    console.log('First get the session State')
+    tests.forEach(test => {
+        get('session_state')
+            .then(state => {
+                if (!state.active_test_session) {
+                    // set the test env_config: anything...just to prevent an error
+                    set_environment_config(test_config)
+                        .then(set_session_state('active_test_session', true)
+                            .then(() => {
+                                const test_config = map_test_config(test);
+                                set_overrides(test_config);
+                                // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
+                                set_session_state('cycles_limit', parseInt(test_config.cycles))
+                                    // call environment manager: in test mode env counts it's loops and ends session on final loop
+                                    .then(update_environment_state('TEST')
+                                        .then(finished => {
+                                            console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ' + finished + ' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+                                            yield 'test one initiated' + finished
+                                        })
+                                    )//environment_manager('TEST')
+                            }))
+                }
+            })
     })
 }
 
