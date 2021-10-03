@@ -306,8 +306,8 @@ const newTestSession = (config) => {
                             // call environment manager: in test mode env counts it's loops and ends session on final loop
                             .then(update_environment_state('TEST')
                                 .then(finished => {
-                                    while(!finished){
-                                        
+                                    while(finished !== true){
+                                        console.log('......waiting')
                                     }
                                     console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ newTesSession is Resolving! ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
                                     resolve();
