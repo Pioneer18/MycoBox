@@ -279,30 +279,33 @@ const run_tests = () => {
 
     if (count <= tests.length) {
         newTestSession(tests[count])
-        // wait for the acitve_test_session to be set
-        // setTimeout(() => {
-        //     get('session_state')
-        //         .then(state => {
-        //             if (state.active_test_session) live = true;
-        //             // wait till test has completed
-        //             while (live) {
-        //                 setTimeout(() => {
-        //                     console.log('RUN TESTS CHECKING ENV HERE')
-        //                     get('session_state')
-        //                     .then(state => {
-        //                         if (!state.active_test_session) live = false;
-        //                     })
-        //                 }, 60000);
-        //             }
-        //             // increment count after test complete
-        //             console.log('First test Has completed!')
-        //             console.log("So, this test session is still live? " + live);
-        //             count++
-        //             // recall runTests
-        //             run_tests();
-        //         })
+            .then(() => {
+                setTimeout(() => {
+                    get('session_state')
+                        .then(state => {
+                            console.log('--------------------------------- Run Tests Checking Session State ---------------------------------')
+                            if (state.active_test_session) live = true;
+                            // wait till test has completed
+                            while (live) {
+                                setTimeout(() => {
+                                    console.log('RUN TESTS CHECKING ENV HERE')
+                                    get('session_state')
+                                        .then(state => {
+                                            if (!state.active_test_session) live = false;
+                                        })
+                                }, 60000);
+                            }
+                            // increment count after test complete
+                            console.log('First test Has completed!')
+                            console.log("So, this test session is still live? " + live);
+                            count++
+                            // recall runTests
+                            run_tests();
+                        })
 
-        // }, 10000);
+                }, 10000);
+            })
+        // wait for the acitve_test_session to be set
     }
 }
 
