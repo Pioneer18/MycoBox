@@ -323,7 +323,7 @@ function* newTestSession() {
                                     .then(update_environment_state('TEST')
                                         .then(finished => {
                                             console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ' + finished + ' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-                                            yield 'test one initiated' + finished
+                                            yield('test one initiated' + finished)
                                         })
                                     )//environment_manager('TEST')
                             }))
