@@ -307,7 +307,7 @@ const newTestSession = (config) => {
                                     // call environment manager: in test mode env counts it's loops and ends session on final loop
                                     .then(() => {
                                         resolve()
-                                        environment_manager('TEST')
+                                        // environment_manager('TEST')
                                     })
                                     // .then(() => {
                                     //     console.log("Made it out of the EM!!!!!!!!!!!");
