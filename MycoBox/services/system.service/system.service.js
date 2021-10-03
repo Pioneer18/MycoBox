@@ -25,7 +25,7 @@ const environment_manager = (mode) => {
     // #1. Validate the session is still active and THEN
     return new Promise(function (resolve, reject) {
         validate_active_session(mode)
-            .then((validation) => {
+            .then(validation => {
                 // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
 
                 // #3. calculate measured and generated a pid_config WHEN valid env_state returned
@@ -71,7 +71,7 @@ const environment_manager = (mode) => {
                 if (!validation) {
                     console.log('EM Will Stop Running Now')
                     resolve('Session Completed!');
-                    // reject('blehh');
+                    reject('blehh');
                 }
             })
     })
