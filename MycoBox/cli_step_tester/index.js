@@ -307,6 +307,7 @@ const run_tests = () => {
                 }, 10000);
             })
         // wait for the acitve_test_session to be set
+        console.log('Hello from Run Tests Outer Space!')
     }
 }
 
@@ -327,15 +328,12 @@ const newTestSession = (config) => {
                                 // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
                                 set_session_state('cycles_limit', parseInt(test_config.cycles))
                                     // call environment manager: in test mode env counts it's loops and ends session on final loop
-                                    .then(environment_manager('TEST')
-                                        .then(finished => {
-                                            console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ' + finished + ' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-                                            resolve();
-                                        })
-                                    )//environment_manager('TEST')
+                                    .then(environment_manager('TEST'))//environment_manager('TEST')
+                                        .then(resolve('Resolve After EM has fired'))
                             }))
                 }
             })
+
     })
 }
 
