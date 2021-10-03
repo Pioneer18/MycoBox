@@ -46,6 +46,7 @@ const environment_manager = (mode) => {
                                             set_session_state('active_test_session', false);
                                             set_session_state('cycles_count', 0);
                                             set_session_state('cycles_limit', 0);
+                                            resolve()
                                         }
                                         else {
                                             console.log("Cycles Count: " + state.cycles_count +
@@ -71,7 +72,7 @@ const environment_manager = (mode) => {
                 }
                 if (!validation) {
                     console.log('EM Will Stop Running Now')
-                    return resolve('EM is Finished 🙏🏾')
+                    resolve()
                 }
             })
     })
