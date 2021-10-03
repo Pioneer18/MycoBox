@@ -46,13 +46,11 @@ const environment_manager = (mode) => {
                                             set_session_state('active_test_session', false);
                                             set_session_state('cycles_count', 0);
                                             set_session_state('cycles_limit', 0);
-                                            resolve()
                                         }
                                         else {
                                             console.log("Cycles Count: " + state.cycles_count +
                                                 "\nCycles Limit: " + state.cycles_limit);
                                             state.cycles_count++
-                                            resolve()
                                         }
                                     })
                                     .then(() => {
