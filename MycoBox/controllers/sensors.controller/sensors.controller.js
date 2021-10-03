@@ -33,7 +33,7 @@ const mega_temp_humidity = () => {
             if (err) reject(err)
             console.log('Should be reading mega data...')
             read_mega_data(reply)
-            resolve()
+                .then(resolve())
         })
     })
 }
@@ -115,7 +115,7 @@ const update_environment_state = (mode) => {
             .then(read_infrared())
             .then(set_timestamp())
             .then(mega_temp_humidity())
-            resolve()
+        resolve()
     })
 }
 
