@@ -21,9 +21,8 @@ const { send_command } = require("../../utilities");
  * i. increment globals.session_state.cycles_count
  * ii. set active_test_session false if cycles_count reached cycles_limit
  */
-const environment_manager = (mode, resolver) => {
+const environment_manager = (mode) => {
     // #1. Validate the session is still active and THEN
-    return new Promise(function (resolve, reject) {
         validate_active_session(mode)
             .then(validation => {
                 // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
@@ -56,7 +55,7 @@ const environment_manager = (mode, resolver) => {
                                         // log test data to correct test file
                                         console.log("Logging Test Data")
                                     })
-                                    .then(() => environment_manager('TEST', resolve));
+                                    .then(() => environment_manager('TEST'));
                             }
 
                             if (mode === 'LIVE') {
@@ -70,13 +69,10 @@ const environment_manager = (mode, resolver) => {
                 }
                 if (!validation) {
                     console.log('EM Will Stop Running Now')
-                    resolve('Session Completed!');
-                    resolver('The real resolve?')
 
                 }
             })
             .catch(err => console.log("Error With the EM"))
-    })
 }
 
 /**
