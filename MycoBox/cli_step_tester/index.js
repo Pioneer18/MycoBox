@@ -283,7 +283,10 @@ const run_tests = () => {
      *      - final: totals
      */
 
-    newTestSession(tests[0]);
+    newTestSession(tests[0])
+        .then(() => {
+            return
+        })
 
 }
 
