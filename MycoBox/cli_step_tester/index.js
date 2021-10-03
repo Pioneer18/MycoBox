@@ -277,17 +277,13 @@ const run_tests = () => {
 
     /**
      * Next Steps:
-     * $ make a test_session_config & test_state global
-     * 1) crate TestMode for EM
      * 2) instead of running sending PID updates, send an override command to each acutator used in the test
      * 3) on each cycle write the tracked envrionment variables into log files
      *      - count, variable_1, variable_2, variable_3, kp1, kp2, kp3, rc1, rc2, rc3
      *      - final: totals
-     * 4) on each cycle increment cycle_count in the test_state; set test_status to false to end current test and go to next
      */
-    tests.forEach(test => {
-        newTestSession(test)
-    })
+
+        newTestSession(tests[0]);
 
 }
 
