@@ -230,8 +230,10 @@ const set_environment_state = ((element, value) => {
         console.log('Setting Environment State:')
         console.log(value);
         set_environment_state_validation(element, value)
-            .then(() => globals.environment_state[element] = value)
-            .then(resolve())
+            .then(() => {
+                globals.environment_state[element] = value
+                resolve()
+            })
             .catch(err => console.log(`Error Caught: set_enviornment_state: ${err}`));
     });
 
