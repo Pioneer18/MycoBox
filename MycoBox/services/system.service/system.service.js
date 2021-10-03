@@ -74,6 +74,7 @@ const environment_manager = (mode) => {
                 return
             }
         })
+    return
 }
 
 /**
