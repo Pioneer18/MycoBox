@@ -297,7 +297,7 @@ const newTestSession = (config) => {
             // set the test env_config: anything...just to prevent an error
             set_environment_config(test_config)
                 .then(set_session_state('active_test_session', true)
-                    .then(update_environment_state('TEST')
+                    .then(() => update_environment_state('TEST')
                         .then(() => {
                             const test_config = map_test_config(config);
                             set_overrides(test_config);
