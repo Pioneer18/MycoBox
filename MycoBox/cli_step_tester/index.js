@@ -306,7 +306,6 @@ const newTestSession = (config) => {
                             .then(() => update_environment_state()//environment_manager('TEST')
                                 .catch(err => console.log(`Error Caught: New Test Session: ${err}`)))
                     }))
-            resolve()
         }
     })
 }
