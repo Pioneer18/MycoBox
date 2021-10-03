@@ -308,25 +308,27 @@ const run_tests = () => {
  */
 const newTestSession = (config) => {
     return new Promise((resolve) => {
-        const session_state = get('session_state');
-        if (!session_state.active_test_session) {
-            // set the test env_config: anything...just to prevent an error
-            set_environment_config(test_config)
-                .then(set_session_state('active_test_session', true)
-                    .then(() => {
-                        const test_config = map_test_config(config);
-                        set_overrides(test_config);
-                        // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
-                        set_session_state('cycles_limit', parseInt(test_config.cycles))
-                            // call environment manager: in test mode env counts it's loops and ends session on final loop
-                            .then(update_environment_state('TEST')
-                                .then(finished => {
-                                    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ' + finished + ' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-                                    resolve();
-                                })
-                            )//environment_manager('TEST')
-                    }))
-        }
+        get('session_state')
+            .then(state => {
+                if (!state.active_test_session) {
+                    // set the test env_config: anything...just to prevent an error
+                    set_environment_config(test_config)
+                        .then(set_session_state('active_test_session', true)
+                            .then(() => {
+                                const test_config = map_test_config(config);
+                                set_overrides(test_config);
+                                // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
+                                set_session_state('cycles_limit', parseInt(test_config.cycles))
+                                    // call environment manager: in test mode env counts it's loops and ends session on final loop
+                                    .then(environment_manager('TEST')
+                                        .then(finished => {
+                                            console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ' + finished + ' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+                                            resolve();
+                                        })
+                                    )//environment_manager('TEST')
+                            }))
+                }
+            })
     })
 }
 
