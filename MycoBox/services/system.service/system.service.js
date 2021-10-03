@@ -24,7 +24,8 @@ const { send_command } = require("../../utilities");
 const environment_manager = (mode) => {
     console.log('METHOD CALL: environment_manager')
     // #1. Validate the session is still active and THEN
-    validate_active_session(mode)
+    return new Promise((resolve) => {
+        validate_active_session(mode)
         .then((validation) => {
             // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
 
@@ -64,17 +65,17 @@ const environment_manager = (mode) => {
                         }
 
                         setTimeout(() => {
-                            return environment_manager('LIVE');
+                            environment_manager('LIVE');
                         }, 1000);
                     })
 
             }
             if (!validation) {
                 console.log('EM Will Stop Running Now')
-                break
+                resolve();
             }
         })
-    return
+    })
 }
 
 /**
