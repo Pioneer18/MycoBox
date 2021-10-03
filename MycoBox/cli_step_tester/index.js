@@ -384,28 +384,25 @@ const set_overrides = (test_config) => {
  */
 const map_test_config = (configuration) => {
     // map the test configuration object
-    return new Promise((resolve) => {
-        const test_config = {
-            title: configuration.title,
-            start_criteria: {
-                tempMaximum: configuration.tempMaximum ? configuration.tempMaximum : '',
-                rhMaximum: configuration.rhMaximum ? configuration.rhMaximum : '',
-                co2Maximum: configuration.co2Maximum ? configuration.co2Maximum : ''
-            },
-            overrides: {
-                circulation_top: configuration.circulation_top ? configuration.circulation_top : '',
-                circulation_bottom: configuration.circulation_bottom ? configuration.circulation_bottom : '',
-                aircon: configuration.aircon ? configuration.aircon : '',
-                heater: configuration.heater ? configuration.heater : '',
-                humidifierOutput: configuration.humidifierOutput ? configuration.humidifierOutput : '',
-                intakeOutput: configuration.intakeOutput ? configuration.intakeOutput : '',
-                exhaustOutput: configuration.exhaustOutput ? configuration.exhaustOutput : '',
-                lightOutput: configuration.lightOutput ? configuration.lightOutput : ''
-            },
-            cycles: configuration.cycles,
-        }
-        resolve(test_config)
-    })
+    return {
+        title: configuration.title,
+        start_criteria: {
+            tempMaximum: configuration.tempMaximum ? configuration.tempMaximum : '',
+            rhMaximum: configuration.rhMaximum ? configuration.rhMaximum : '',
+            co2Maximum: configuration.co2Maximum ? configuration.co2Maximum : ''
+        },
+        overrides: {
+            circulation_top: configuration.circulation_top ? configuration.circulation_top : '',
+            circulation_bottom: configuration.circulation_bottom ? configuration.circulation_bottom : '',
+            aircon: configuration.aircon ? configuration.aircon : '',
+            heater: configuration.heater ? configuration.heater : '',
+            humidifierOutput: configuration.humidifierOutput ? configuration.humidifierOutput : '',
+            intakeOutput: configuration.intakeOutput ? configuration.intakeOutput : '',
+            exhaustOutput: configuration.exhaustOutput ? configuration.exhaustOutput : '',
+            lightOutput: configuration.lightOutput ? configuration.lightOutput : ''
+        },
+        cycles: configuration.cycles,
+    }
 
 }
 
