@@ -303,7 +303,6 @@ const newTestSession = (config) => {
                                 const test_config = map_test_config(config);
                                 set_overrides(test_config);
                                 // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
-                                console.log(test_config.cycles);
                                 set_session_state('cycles_limit', parseInt(test_config.cycles))
                                     // call environment manager: in test mode env counts it's loops and ends session on final loop
                                     .then(() => environment_manager('TEST')
