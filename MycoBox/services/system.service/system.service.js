@@ -52,7 +52,7 @@ const environment_manager = (mode) => {
                                     }
                                     else {
                                         console.log("Cycles Count: " + state.cycles_count +
-                                        "\nCycles Limit: " + state.cycles_limit);
+                                            "\nCycles Limit: " + state.cycles_limit);
                                         state.cycles_count++
                                     }
                                 })
@@ -71,7 +71,7 @@ const environment_manager = (mode) => {
             }
             if (!validation) {
                 console.log('EM Will Stop Running Now')
-                return
+                break
             }
         })
     return
