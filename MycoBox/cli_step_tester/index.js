@@ -280,6 +280,7 @@ const run_tests = () => {
     if (count <= tests.length) {
         newTestSession(tests[count])
             .then(() => {
+                console.log("Is ANYTHING HAPPENING POST EM??????????????")
                 setTimeout(() => {
                     get('session_state')
                         .then(state => {
