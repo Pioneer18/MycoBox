@@ -282,8 +282,10 @@ const run_tests = () => {
      *      - count, variable_1, variable_2, variable_3, kp1, kp2, kp3, rc1, rc2, rc3
      *      - final: totals
      */
-
-    return newTestSession(tests[0])
+    tests.forEach(test => {
+        newTestSession(test)
+    })
+    // return newTestSession(tests[0])
 
 }
 
