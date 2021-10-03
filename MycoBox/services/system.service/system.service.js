@@ -100,6 +100,7 @@ const run_pid_controllers = (mode) => {
         validate_env_state(mode)
             .then(validation => {
                 if (validation.validation) {
+                    console.log('Validation Has Cleared!!!')
                     const measured = map_measured(validation.env_state);
                     // =========================================================================================================
                     // todo: check for session stage (sr, pi, fr) 
@@ -166,6 +167,7 @@ const validate_env_state = (mode) => {
                                 validate_env_state()
                             }
                             else {
+                                console.log('ENV HAS BEEN Validated?????')
                                 return resolve({
                                     validation: true,
                                     env_state: env_state

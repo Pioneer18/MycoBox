@@ -100,7 +100,7 @@ const update_environment_state = (mode) => {
             .then(read_infrared())
             .then(set_timestamp())
             .then(mega_temp_humidity()
-                .then(resolve(true)))
+                .then(resolve()))
 
     })
 }
