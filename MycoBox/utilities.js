@@ -12,7 +12,7 @@ const send_command = (command, mode) => {
         PythonShell.run('dimmer.command.py', options, function (err, reply) {
             if (err) throw err;
             if (!reply) {
-                console.log("Humidifier Command Never Received Response")
+                console.log("Command Never received a response")
             }
             console.log(reply)
             resolve()
