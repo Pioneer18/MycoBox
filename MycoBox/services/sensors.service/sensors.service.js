@@ -15,10 +15,9 @@ const read_mega_data = (reply) => {
         for (let i = 1; i < 16; i += 2) {
             validate_th_data(data[i])
                 .then(set_dht22_values(i, data[i]))
-                .catch()
         }
         console.log("READ MEGA RESOLVING NOW")
-        resolve()
+        return resolve()
     });
 }
 
@@ -26,13 +25,11 @@ const parse_pt_data = (reply) => {
     console.log("Parsing PT Data:")
     return new Promise((resolve) => {
         const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-        console.log('moving through parse pt data')
         console.log(data)
         set_environment_state('precise_temp_c', data[1])
             .then(set_environment_state('precise_temp_f', data[3])
                 .then(resolve())
             )
-            .catch()
     })
 }
 
