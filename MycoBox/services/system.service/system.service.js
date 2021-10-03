@@ -22,9 +22,8 @@ const { send_command } = require("../../utilities");
  * ii. set active_test_session false if cycles_count reached cycles_limit
  */
 const environment_manager = (mode) => {
-    console.log('METHOD CALL: environment_manager')
     // #1. Validate the session is still active and THEN
-    return new Promise((resolve) => {
+    return new Promise(function (resolve, reject) {
         validate_active_session(mode)
             .then((validation) => {
                 // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
@@ -60,8 +59,8 @@ const environment_manager = (mode) => {
                                     .then(() => environment_manager('TEST'));
                             }
 
-                            if(mode === 'LIVE'){
-                                    setTimeout(() => {
+                            if (mode === 'LIVE') {
+                                setTimeout(() => {
                                     console.log("*************** is this Happening?????")
                                     environment_manager('LIVE');
                                 }, 1000);
@@ -71,7 +70,8 @@ const environment_manager = (mode) => {
                 }
                 if (!validation) {
                     console.log('EM Will Stop Running Now')
-                    resolve()
+                    resolve('Session Completed!');
+                    // reject('blehh');
                 }
             })
     })
