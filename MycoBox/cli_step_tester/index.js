@@ -303,12 +303,12 @@ const newTestSession = (config) => {
                         // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
                         set_session_state('cycles_limit', parseInt(test_config.cycles))
                             // call environment manager: in test mode env counts it's loops and ends session on final loop
-                            .then(() => environment_manager('TEST')
+                            // .then(() => environment_manager('TEST')
                                 .then(data => {
                                     console.log("Made it out of the EM!!!!!!!!!!!")
                                     console.log(data)
                                 })
-                                .catch(err => console.log(`Error Caught: New Test Session: ${err}`)))
+                                .catch(err => console.log(`Error Caught: New Test Session: ${err}`))//)
                     }))
         }
     })
