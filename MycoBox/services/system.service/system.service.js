@@ -60,10 +60,12 @@ const environment_manager = (mode) => {
                                     .then(() => environment_manager('TEST'));
                             }
 
-                            setTimeout(() => {
-                                console.log("*************** is this Happening?????")
-                                environment_manager('LIVE');
-                            }, 1000);
+                            if(mode === 'LIVE'){
+                                    setTimeout(() => {
+                                    console.log("*************** is this Happening?????")
+                                    environment_manager('LIVE');
+                                }, 1000);
+                            }
                         })
 
                 }
