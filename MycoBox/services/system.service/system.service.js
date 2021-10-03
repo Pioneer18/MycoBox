@@ -70,7 +70,8 @@ const environment_manager = (mode) => {
 
             }
             if (!validation) {
-                return ('Session has ended')
+                console.log('EM Will Stop Running Now')
+                return
             }
         })
 }
