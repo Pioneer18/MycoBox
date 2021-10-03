@@ -29,6 +29,7 @@ const environment_manager = (mode) => {
             const cycles_limit = 1;
             return {
                 next() {
+                    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
                     cycles++;
                     if (cycles <= cycles_limit) {
                         validate_active_session(mode)
@@ -96,6 +97,7 @@ const environment_manager = (mode) => {
 
     const iterator = iterableEM[Symbol.iterator]();
     iterator.next();
+    iterator.next()
     return
 }
 
