@@ -71,6 +71,7 @@ const environment_manager = (mode) => {
                 if (!validation) {
                     console.log('EM Will Stop Running Now')
                     resolve('Session Completed!');
+                    console.log('Should I make a iterable version?')
                 }
             })
             .catch(err => console.log("Error With the EM"))
