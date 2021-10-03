@@ -287,11 +287,12 @@ const run_tests = () => {
                     // wait till test has completed
                     while (live) {
                         setTimeout(() => {
+                            console.log('RUN TESTS CHECKING ENV HERE')
                             get('session_state')
                             .then(state => {
                                 if (!state.active_test_session) live = false;
                             })
-                        }, 15000);
+                        }, 60000);
                     }
                     // increment count after test complete
                     console.log('First test Has completed!')
