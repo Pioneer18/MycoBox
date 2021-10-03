@@ -165,6 +165,25 @@ const get = (section) => {
     })
 }
 
+const getter = (section) => {
+    switch (section) {
+        case 'session_state':
+            return(globals.session_state)
+        case 'environment_config':
+            return(globals.environment_config)
+        case 'environment_state':
+            return(globals.environment_state)
+        case 'actuators_state':
+            return(globals.actuators_state)
+        case 'pid_state':
+            return(globals.pid_state)
+        case 'overrides':
+            return(globals.overrides)
+        default:
+            return(null);
+    }
+}
+
 /**
  * set globals section or element
  */
@@ -443,6 +462,7 @@ const set_overrides_state_validation = (element, value) => {
 
 module.exports = {
     get,
+    getter,
     set_environment_config,
     set_environment_state,
     set_session_state,

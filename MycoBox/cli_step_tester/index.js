@@ -13,7 +13,7 @@ const inquirer = require('inquirer');
 const chalk = require('chalk');
 const log = console.log;
 const { } = require('../cli_control_panel/relay');
-const { get, set_overrides_state, set_session_state, set_environment_config } = require('../globals/globals');
+const { get, set_overrides_state, set_session_state, set_environment_config, getter } = require('../globals/globals');
 const { environment_manager } = require('../services/system.service/system.service');
 const { update_environment_state } = require('../controllers/sensors.controller/sensors.controller');
 const { test_config } = require('./resources');
@@ -282,6 +282,9 @@ const run_tests = () => {
             .then(() => {
                 console.log("Is ANYTHING HAPPENING POST EM??????????????")
                 setTimeout(() => {
+                    const session_state = getter('session_state');
+                    console.log(`Here's ya DUCKIN' SESSION STATE!!!!!!!!!!!`);
+                    console.log(session_state);
                     // get('session_state')
                     //     .then(state => {
                     //         console.log('--------------------------------- Run Tests Checking Session State ---------------------------------')
