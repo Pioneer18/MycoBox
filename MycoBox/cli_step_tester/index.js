@@ -37,6 +37,8 @@ log(chalk.yellow("The Step Tester Wizard will prompt you to configure one or mul
 ))
 
 const tests = [];
+let count = 0;
+let live = false;
 
 /**
  * Prompt User to create tests amd push them into the tests array
@@ -275,17 +277,30 @@ const run_tests = () => {
     log(chalk.bold.cyan(JSON.stringify(tests, null, '  ')))
     log(chalk.cyan('Running each test in the tests array'))
 
-    /**
-     * Next Steps:
-     * 2) instead of running sending PID updates, send an override command to each acutator used in the test
-     * 3) on each cycle write the tracked envrionment variables into log files
-     *      - count, variable_1, variable_2, variable_3, kp1, kp2, kp3, rc1, rc2, rc3
-     *      - final: totals
-     */
-    newTestSession(tests[0])
+    if (count <= tests.length) {
+        newTestSession(tests[count])
+        // wait for the acitve_test_session to be set
+        setTimeout(() => {
+            get('session_state')
+                .then(state => {
+                    if (state.active_test_session) live = true;
+                    // wait till test has completed
+                    while (live) {
+                        get('session_state')
+                            .then(state => {
+                                if (!state.active_test_session) live = false;
+                            })
+                    }
+                    // increment count after test complete
+                    console.log('First test Has completed!')
+                    console.log("So, this test session is still live? " + live);
+                    count++
+                    // recall runTests
+                    run_tests();
+                })
 
-    // return newTestSession(tests[0])
-
+        }, 10000);
+    }
 }
 
 /**
@@ -306,7 +321,7 @@ const newTestSession = (config) => {
                             // call environment manager: in test mode env counts it's loops and ends session on final loop
                             .then(update_environment_state('TEST')
                                 .then(finished => {
-                                    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ '+finished+' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+                                    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ' + finished + ' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
                                     resolve();
                                 })
                             )//environment_manager('TEST')
