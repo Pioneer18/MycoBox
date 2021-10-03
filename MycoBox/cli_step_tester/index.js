@@ -303,11 +303,33 @@ const newTestSession = (config) => {
                         // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
                         set_session_state('cycles_limit', parseInt(test_config.cycles))
                             // call environment manager: in test mode env counts it's loops and ends session on final loop
-                            .then(() => update_environment_state()//environment_manager('TEST')
+                            .then(() => update_environment_state('TEST')//environment_manager('TEST')
                                 .catch(err => console.log(`Error Caught: New Test Session: ${err}`)))
                     }))
         }
     })
+}
+
+/**
+ * New Test Session Revision
+ * @param {*} config
+ * @returns 
+ */
+const runTest = (config) => {
+    const testSession = {
+        [Symbol.iterator]() {
+            let step = 0;
+            return {
+                next() {
+                    step++
+                    if (step === 1) {
+                        set_environment_config(test_config);
+                        return { value: 'set environment config', done: false }
+                    }
+                }
+            }
+        }
+    }
 }
 
 // set the globals.overrides for the current test
