@@ -260,17 +260,6 @@ prompt_test_configs()
 
 /**
  * Run Tests
- * Steps:
- * - Set the overrides_config (no env_config because we're overriding and sending specific actuator outputs)
- * - Update the environment state: make sure the sensors are working
- * - Start the Session: set the state as 'active_session'
- * - start the environment_manager // TODO: add step to em to check for overrides
- * - em will apply overrieds and report the sensor data
- * NOTE:
- * - the em needs to run in TEST MODE:
- *      - em uses override_config
- *      - session ends after given number of em cycles
- *      - report readings to a test log folder/ file per test
  *      
  */
 const run_tests = () => {
