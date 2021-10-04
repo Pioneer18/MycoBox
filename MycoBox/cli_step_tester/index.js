@@ -15,7 +15,6 @@ const log = console.log;
 const { } = require('../cli_control_panel/relay');
 const { get, set_overrides_state, set_session_state, set_environment_config, getter } = require('../globals/globals');
 const { environment_manager } = require('../services/system.service/system.service');
-const { update_environment_state } = require('../controllers/sensors.controller/sensors.controller');
 const { test_config } = require('./resources');
 
 // Intro Description
@@ -71,7 +70,11 @@ const prompt_test_configs = () => {
                 { name: 'Temperature' },
                 { name: 'Humidity' },
                 { name: 'CO2' }
-            ]
+            ],
+            validate(choices) {
+                log(chalk.blackBright('Choices'))
+                log(chalk.blackBright(choices))
+            }
         }
     ];
 
