@@ -74,7 +74,7 @@ const prompt_test_configs = () => {
             validate(choices) {
                 log(chalk.blackBright('Choices'))
                 log(chalk.blackBright(choices))
-                return
+                return true
             }
         }
     ];
