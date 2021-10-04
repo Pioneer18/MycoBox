@@ -78,7 +78,7 @@ const prompt_test_configs = () => {
     inquirer.prompt(questions)
         .then(answers => {
             // add a new object to configuration for this test
-            configuration.title = answers.title;
+            configuration.title = answers.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
             let questions = [];
             // Ask for the Maximum starting value of each selected variable
             answers.env_variables.forEach(variable => {
