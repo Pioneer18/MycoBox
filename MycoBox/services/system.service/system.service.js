@@ -45,6 +45,7 @@ const environment_manager = (mode, resolver) => {
                                     .then(() => {
                                         // log test data to correct test file
                                         console.log("Logging Test Data")
+                                        // use the globals.test_config.dirname & .filename properties to know where to right the logs
                                     })
                                     .then(() => environment_manager('TEST', resolve));
                             }
