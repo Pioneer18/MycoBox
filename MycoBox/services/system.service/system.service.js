@@ -40,19 +40,7 @@ const environment_manager = (mode, resolver) => {
                             if (mode === 'TEST') {
                                 get('test_config')
                                     .then(state => {
-                                        console.log('===============$# Test Config #$===============')
-                                        console.log(state);
-                                        if (state.cycles_limit <= state.cycles_count) {
-                                            console.log('TIME TO END THE SESSION!!!')
-                                            set_session_state('active_test_session', false);
-                                            set_test_config('cycles_count', 0);
-                                            set_test_config('cycles_limit', 0);
-                                        }
-                                        else {
-                                            console.log("Cycles Count: " + state.cycles_count +
-                                                "\nCycles Limit: " + state.cycles_limit);
-                                            state.cycles_count++
-                                        }
+                                        process_cycle_count(state)
                                     })
                                     .then(() => {
                                         // log test data to correct test file
@@ -218,6 +206,20 @@ const map_measured = (env_state) => {
         temperature: env_state.internal_temp_c,
         humidity: env_state.internal_humidity,
         co2: 500 // Debug the co2 meter so this isn't hardcoded
+    }
+}
+
+const process_cycle_count = (state) => {
+    if (state.cycles_limit <= state.cycles_count) {
+        console.log('TIME TO END THE SESSION!!!')
+        set_session_state('active_test_session', false);
+        set_test_config('cycles_count', 0);
+        set_test_config('cycles_limit', 0);
+    }
+    else {
+        console.log("Cycles Count: " + state.cycles_count +
+            "\nCycles Limit: " + state.cycles_limit);
+        state.cycles_count++
     }
 }
 
