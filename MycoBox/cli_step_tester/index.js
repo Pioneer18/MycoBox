@@ -298,10 +298,10 @@ const run_tests = () => {
             //         console.log('Test File for ' + tests[count].title + ' has been created: ')
             //     })
             // }
-            test_logger.log({
-                level: 'info',
-                message: 'Hello, World'
-            })
+            // test_logger.log({
+            //     level: 'info',
+            //     message: 'Hello, World'
+            // })
             // ===============================================================
             newTestSession(tests[count]) 
                 .then(() => {
