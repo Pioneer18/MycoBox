@@ -15,7 +15,7 @@ const logger = createLogger({
     // transports are where the logs get sent
     transports: [
         new transports.Console(),
-        new transports.File({ filename: 'sensors.txt' })
+        new transports.File({ filename: '../../EM_LOGS/sensors.log' })
     ]
 });
 
