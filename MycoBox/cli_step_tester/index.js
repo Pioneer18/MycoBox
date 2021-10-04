@@ -276,36 +276,36 @@ const run_tests = () => {
     log(chalk.bold.cyan(JSON.stringify(tests, null, '  ')))
     log(chalk.cyan('Running each test in the tests array'))
     // create directory for test log files
-    // if (!dirCreated) {
-    //     log(chalk.redBright(__dirname));
-    //     dir = `../../../EM_TEST_LOGS/${timestamp()}`;
-    //     log(chalk.blueBright(dir))
-    //     if (!fs.existsSync(dir)) {
-    //         fs.mkdirSync(dir)
-    //         dirCreated = true;
-    //     }
-    // }
+    if (!dirCreated) {
+        log(chalk.redBright(__dirname));
+        dir = `../../../EM_TEST_LOGS/${timestamp()}`;
+        log(chalk.blueBright(dir))
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir)
+            dirCreated = true;
+        }
+    }
 
     log(chalk.red(`count: ${count} test.length: ${tests.length}`));
     if (count < tests.length) {
         if (!live) {
             //===============================================================
             // create file for test
-            fs.chmod('../../../EM_LOGS/', 0777, () => {
+            // fs.chmod('../../../EM_LOGS/', 0777, () => {
                 // log(chalk.green("Current File Mode:", fs.statSync(tests[count].title + '.txt').mode))
                 // console.log(tests[count].title)
-                // if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
-                //     fs.writeFile( `../../../EM_LOGS/${dir}/${tests[count].title}.txt`, 'file saved!!!!!!!!!!!!!!!!!!!!!!!!!!')
+                if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
+                    fs.writeFile( `../../../EM_LOGS/${dir}/${tests[count].title}.txt`, 'file saved!!!!!!!!!!!!!!!!!!!!!!!!!!')
                 // }
-                console.log('Folder Permissions should be open to everyone!')
-            })
-            fs.access('../../../EM_LOGS/', fs.constants.F_OK, (err) => {
-                if (err) {
-                    console.log("doesn't exist", path);
-                } else {
-                    console.log('can execute', path);
-                }
-            });
+            //     console.log('Folder Permissions should be open to everyone!')
+            // })
+            // fs.access('../../../EM_LOGS/', fs.constants.F_OK, (err) => {
+            //     if (err) {
+            //         console.log("doesn't exist");
+            //     } else {
+            //         console.log('can execute');
+            //     }
+            // });
             // test_logger.log({
             //     level: 'info',
             //     message: 'Hello, World'
