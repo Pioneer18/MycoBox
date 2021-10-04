@@ -29,13 +29,13 @@ const send_command = (command, mode) => {
  */
 
 /**
- * Create Date
+ * Create Timestamp
  */
 const timestamp = () => {
-    const  today = new Date();
-    const  dd = String(today.getDate()).padStart(2, '0');
-    const  MM = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    const  yyyy = today.getFullYear();
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const MM = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
     const hh = today.getHours();
     const mm = today.getMinutes();
     const ss = today.getSeconds();
@@ -43,7 +43,28 @@ const timestamp = () => {
     return MM + '.' + dd + '.' + yyyy + '_' + hh + '.' + mm + '.' + ss;
 }
 
+/**
+ * CreateDirectory
+ */
+const createDir = (dir) => {
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir)
+        return true;
+    }
+}
+
+/**
+ * CreateFile
+ */
+const createTestFile = (dir, tests, count) => {
+    if (!fs.existsSync(`./${dir}/${tests[count].title}`)) {
+        fs.writeFileSync(`./${dir}/${tests[count].title}.txt`, `${tests[count].title}: LOGS`)
+    }
+}
+
 module.exports = {
     send_command,
-    timestamp
+    timestamp,
+    createDir,
+    createTestFile
 }
