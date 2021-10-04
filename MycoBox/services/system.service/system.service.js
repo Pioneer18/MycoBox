@@ -9,6 +9,7 @@ const { get, set_session_state, set_test_config } = require("../../globals/globa
 const { update_environment_state, read_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
 const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
 const { send_command } = require("../../utilities");
+const { test_logger } = require("../../logs/logger");
 
 
 /**
@@ -44,7 +45,7 @@ const environment_manager = (mode, resolver) => {
                                     })
                                     .then(() => {
                                         // log test data to correct test file
-                                        console.log("Logging Test Data")
+                                        test_logger()
                                         // use the globals.test_config.dirname & .filename properties to know where to right the logs
                                     })
                                     .then(() => environment_manager('TEST', resolve));

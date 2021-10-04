@@ -6,7 +6,7 @@ const log = console.log;
  * Test Logger
  */
 const test_logger = () => {
-
+    test_file_path()
 }
 
 const test_file_path = () => {
@@ -22,5 +22,5 @@ const test_file_path = () => {
 }
 
 module.exports = {
-
+    test_logger,
 }
