@@ -278,7 +278,7 @@ const run_tests = () => {
     // create directory for test log files
     if (!dirCreated) {
         log(chalk.redBright(__dirname));
-        dir = `../../../EM_LOGS/${timestamp()}`;
+        dir = `../../../EM_TEST_LOGS/${timestamp()}`;
         log(chalk.blueBright(dir))
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir)
@@ -291,13 +291,13 @@ const run_tests = () => {
         if (!live) {
             //===============================================================
             // create file for test
-            fs.chmod('../../../EM_LOGS/', 0o777, () => {
-                // log(chalk.green("Current File Mode:", fs.statSync(tests[count].title + '.txt').mode))
-                console.log(tests[count].title)
-                if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
-                    fs.writeFile( `../../../EM_LOGS/${dir}/${tests[count].title}.txt`, 'file saved!!!!!!!!!!!!!!!!!!!!!!!!!!')
-                }
-            })
+            // fs.chmod('../../../EM_LOGS/', 0o777, () => {
+            //     // log(chalk.green("Current File Mode:", fs.statSync(tests[count].title + '.txt').mode))
+            //     console.log(tests[count].title)
+            //     if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
+            //         fs.writeFile( `../../../EM_LOGS/${dir}/${tests[count].title}.txt`, 'file saved!!!!!!!!!!!!!!!!!!!!!!!!!!')
+            //     }
+            // })
             // test_logger.log({
             //     level: 'info',
             //     message: 'Hello, World'
