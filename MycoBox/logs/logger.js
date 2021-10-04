@@ -1,23 +1,23 @@
-const { createLogger, format, transports } = require('winston')
+// const { createLogger, format, transports } = require('winston')
 
-// Winston Logger
-const logger = createLogger({
-    level: 'info',
-    format: format.combine(
-        format.timestamp({
-            format: 'YYYY-MM-DD HH:mm:ss'
-        }),
-        format.errors({ stack: true }),
-        format.splat(),
-        format.json()
-    ),
-    defaultMeta: { service: 'test-logger' },
-    // transports are where the logs get sent
-    transports: [
-        new transports.Console(),
-        new transports.File({ filename: '../../EM_LOGS/sensors.log' })
-    ]
-});
+// // Winston Logger
+// const logger = createLogger({
+//     level: 'info',
+//     format: format.combine(
+//         format.timestamp({
+//             format: 'YYYY-MM-DD HH:mm:ss'
+//         }),
+//         format.errors({ stack: true }),
+//         format.splat(),
+//         format.json()
+//     ),
+//     defaultMeta: { service: 'test-logger' },
+//     // transports are where the logs get sent
+//     transports: [
+//         new transports.Console(),
+//         new transports.File({ filename: '../../EM_LOGS/sensors.log' })
+//     ]
+// });
 
 // logger.info('What rolls down stairs');
 // logger.info('alone or in pairs,');
@@ -27,5 +27,5 @@ const logger = createLogger({
 // logger.error('Its log, log, log');
 
 module.exports = {
-    logger
+
 }

@@ -17,8 +17,6 @@ const { environment_manager } = require('../services/system.service/system.servi
 const { test_config } = require('./resources');
 const fs = require('fs');
 const { timestamp, createDir, createTestFile } = require('../utilities');
-const winston = require('winston');
-const { logger } = require('../logs/logger');
 // Intro Description
 log(chalk.black.bgYellow('Environment Manager Step Tester'))
 log(chalk.white("================================================================================================"))
@@ -42,7 +40,6 @@ let count = 0;
 let live = false;
 let dirCreated = false;
 let dir;
-const test_logger = winston.createLogger(logger);
 
 /**
  * Prompt User to create tests amd push them into the tests array
