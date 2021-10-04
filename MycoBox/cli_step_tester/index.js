@@ -293,7 +293,7 @@ const run_tests = () => {
             if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
                 fs.open(tests[count].title + '.txt', 'w', function(err) {
                     if (err) throw new Error('Error Creating Test File for ' + tests[count].title)
-                    console.log('Test File for ' + tests[count].title + ' has been created')
+                    console.log('Test File for ' + tests[count].title + ' has been created: ' + err)
                 })
             }
             // ===============================================================
