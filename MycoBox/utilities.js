@@ -32,10 +32,10 @@ const send_command = (command, mode) => {
  * Create Date
  */
 const timestamp = () => {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var MM = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
+    const  today = new Date();
+    const  dd = String(today.getDate()).padStart(2, '0');
+    const  MM = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const  yyyy = today.getFullYear();
     const hh = today.getHours();
     const mm = today.getMinutes();
     const ss = today.getSeconds();
