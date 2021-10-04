@@ -297,7 +297,7 @@ const run_tests = () => {
                 })
             }
             // ===============================================================
-            newTestSession(tests[count])
+            newTestSession(tests[count]) 
                 .then(() => {
                     setTimeout(() => {
                         let session_state = getter('session_state');
