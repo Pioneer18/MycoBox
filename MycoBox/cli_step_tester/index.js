@@ -447,7 +447,7 @@ const createTestSuiteDir = () => {
             dir = `../../../EM_LOGS/${timestamp()}`;
             log(chalk.blueBright(dir))
             dirCreated = createDir(dir);
-            // set_test_config('dirname', dir)
+            set_test_config('dirname', dir)
         }
     } catch (err) {
         throw new Error('Error creating Directory: ' + err);
