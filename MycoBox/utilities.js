@@ -1,4 +1,5 @@
 const { PythonShell } = require("python-shell");
+const fs = require('fs');
 
 const send_command = (command, mode) => {
     console.log("Sending Command:")
