@@ -40,6 +40,7 @@ const environment_manager = (mode, resolver) => {
                             if (mode === 'TEST') {
                                 get('test_config')
                                     .then(state => {
+                                        console.log('===============$# Test Config #$===============')
                                         if (state.cycles_limit <= state.cycles_count) {
                                             console.log('TIME TO END THE SESSION!!!')
                                             set_session_state('active_test_session', false);
