@@ -296,7 +296,7 @@ const run_tests = () => {
                 // console.log(tests[count].title)
                 if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
                     fs.writeFile( `../../../EM_LOGS/${dir}/${tests[count].title}.txt`, 'file saved!!!!!!!!!!!!!!!!!!!!!!!!!!')
-                // }
+                }
             //     console.log('Folder Permissions should be open to everyone!')
             // })
             // fs.access('../../../EM_LOGS/', fs.constants.F_OK, (err) => {
