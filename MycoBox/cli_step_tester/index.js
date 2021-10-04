@@ -291,17 +291,17 @@ const run_tests = () => {
         if (!live) {
             //===============================================================
             // create file for test
-            fs.chmod('../../../EM_LOGS/', 0o765, () => {
-                // log(chalk.green("Current File Mode:", fs.statSync(tests[count].title + '.txt').mode))
-                console.log(tests[count].title)
-                if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
-                    fs.writeFile( `../../../EM_LOGS/${dir}/${tests[count].title}.txt`, 'file saved!!!!!!!!!!!!!!!!!!!!!!!!!!')
-                }
-            })
-            // test_logger.log({
-            //     level: 'info',
-            //     message: 'Hello, World'
+            // fs.chmod('../../../EM_LOGS/', 0o765, () => {
+            //     // log(chalk.green("Current File Mode:", fs.statSync(tests[count].title + '.txt').mode))
+            //     console.log(tests[count].title)
+            //     if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
+            //         fs.writeFile( `../../../EM_LOGS/${dir}/${tests[count].title}.txt`, 'file saved!!!!!!!!!!!!!!!!!!!!!!!!!!')
+            //     }
             // })
+            logger.log({
+                level: 'info',
+                message: 'Hello, World'
+            })
             // ===============================================================
             newTestSession(tests[count])
                 .then(() => {
