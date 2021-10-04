@@ -291,26 +291,12 @@ const run_tests = () => {
         if (!live) {
             //===============================================================
             // create file for test
-            // fs.chmod('../../../EM_LOGS/', 0777, () => {
-                // log(chalk.green("Current File Mode:", fs.statSync(tests[count].title + '.txt').mode))
-                // console.log(tests[count].title)
+      
                 log(chalk.redBright(__dirname))
-                // if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
+                if (!fs.existsSync(`./${dir}/${tests[count].title}`)) {
                     fs.writeFileSync( `./${dir}/${tests[count].title}.txt`,'blehhh')
-                // }
-            //     console.log('Folder Permissions should be open to everyone!')
-            // })
-            // fs.access('../../../EM_LOGS/', fs.constants.F_OK, (err) => {
-            //     if (err) {
-            //         console.log("doesn't exist");
-            //     } else {
-            //         console.log('can execute');
-            //     }
-            // });
-            // test_logger.log({
-            //     level: 'info',
-            //     message: 'Hello, World'
-            // })
+                }
+
             // ===============================================================
             newTestSession(tests[count])
                 .then(() => {
