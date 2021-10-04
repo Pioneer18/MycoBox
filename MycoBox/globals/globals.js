@@ -475,7 +475,8 @@ const set_test_config = (element, value) => {
 }
 
 const set_test_config_validation = (element, value) => {
-    log(chalk.bgGreen.whiteBright(element + ' ' + value))
+    console.log(element);
+    console.log(value);
     if (element === 'cycles_limit' && typeof value === 'number') return
     if (element === 'cycles_count' && typeof value === 'number') return
     if (element === 'filename' && typeof value === 'string') return
