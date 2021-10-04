@@ -275,7 +275,7 @@ const run_tests = () => {
     // create directory for test log files
     if (!dirCreated) {
         log(chalk.redBright(__dirname));
-        const dir = `../logs/${timestamp()}`;
+        const dir = `../../../EM_LOGS/${timestamp()}`;
         log(chalk.blueBright(dir))
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir)
