@@ -167,6 +167,8 @@ const get = (section) => {
                 resolve(globals.pid_state)
             case 'overrides':
                 resolve(globals.overrides)
+            case 'test_config':
+                resolve(globals.test_config)
             default:
                 resolve(null);
         }
