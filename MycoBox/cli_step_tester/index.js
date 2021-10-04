@@ -276,10 +276,11 @@ prompt_test_configs()
 const run_tests = () => {
     log(chalk.bold.cyan(JSON.stringify(tests, null, '  ')))
     log(chalk.cyan('Running each test in the tests array'))
-     
+
     log(chalk.red(`count: ${count} test.length: ${tests.length}`));
     if (count <= tests.length) {
-        newTestSession(tests[count])
+        if (!live) {
+            newTestSession(tests[count])
             .then(() => {
                 setTimeout(() => {
                     let session_state = getter('session_state');
@@ -287,17 +288,16 @@ const run_tests = () => {
                     console.log(session_state);
                     if (session_state.active_test_session) live = true;
                     // wait till test has completed
-                    while (live) {
-                        setTimeout(() => {
-                            console.log('****************************************** Checking If the Test is still Active ******************************************')
-                            session_state = getter('session_state');
-                            // if the test has ended
-                            if (!session_state.active_test_session) live = false;
-                        }, 60000);
-                    }
+                    // while (live) {
+                    //     setTimeout(() => {
+                    //         console.log('****************************************** Checking If the Test is still Active ******************************************')
+                    //         session_state = getter('session_state');
+                    //         // if the test has ended
+                    //         if (!session_state.active_test_session) live = false;
+                    //     }, 60000);
+                    // }
                     // increment count after test complete
-                    console.log('First test Has completed!')
-                    console.log("So, this test session is still live? " + live);
+                    log(chalk.bold.yellow('FIRST TEST RUNNING: INCREMENT'))
                     count++
                     // recall runTests
                     run_tests();
@@ -305,6 +305,21 @@ const run_tests = () => {
 
                 }, 10000);
             })
+        }
+        if (live) {
+            setTimeout(() => {
+                console.log('Checking if the Test Has Ended Yet')
+                let session_state = getter('session_state');
+                // if test still active recall run tests
+                if (session_state.active_test_session) run_tests()
+                // if session has ended
+                if (!session_state.active_test_session) {
+                    // turn live off
+                    live = false;
+                    run_tests()
+                }
+            }, 15000);
+        }
         // wait for the acitve_test_session to be set
         console.log('Hello from Run Tests Outer Space!')
     }
