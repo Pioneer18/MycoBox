@@ -176,19 +176,19 @@ const get = (section) => {
 const getter = (section) => {
     switch (section) {
         case 'session_state':
-            return(globals.session_state)
+            return (globals.session_state)
         case 'environment_config':
-            return(globals.environment_config)
+            return (globals.environment_config)
         case 'environment_state':
-            return(globals.environment_state)
+            return (globals.environment_state)
         case 'actuators_state':
-            return(globals.actuators_state)
+            return (globals.actuators_state)
         case 'pid_state':
-            return(globals.pid_state)
+            return (globals.pid_state)
         case 'overrides':
-            return(globals.overrides)
+            return (globals.overrides)
         default:
-            return(null);
+            return (null);
     }
 }
 
@@ -469,9 +469,12 @@ const set_overrides_state_validation = (element, value) => {
 }
 
 const set_test_config = (element, value) => {
-    set_test_config_validation(element, value);
-    globals.test_config[element] = value;
-    return
+    return new Promise((resolve)=>{
+        set_test_config_validation(element, value);
+        globals.test_config[element] = value;
+        resolve()
+    })
+
 }
 
 const set_test_config_validation = (element, value) => {
