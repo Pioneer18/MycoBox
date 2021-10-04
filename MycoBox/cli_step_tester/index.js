@@ -291,7 +291,7 @@ const run_tests = () => {
         if (!live) {
             //===============================================================
             // create file for test
-            fs.chmod('../../../EM_LOGS/', 7, () => {
+            fs.chmod('../../../EM_LOGS/', 0o765, () => {
                 // log(chalk.green("Current File Mode:", fs.statSync(tests[count].title + '.txt').mode))
                 console.log(tests[count].title)
                 if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
