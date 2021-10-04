@@ -284,6 +284,9 @@ const run_tests = () => {
         if (!live) {
             // create test file
             createTestFile(dir, tests, count)
+            // set test_config filename & dirname
+            set_test_config('dirname', dir)
+            set_test_config('filename', `./${dir}/${tests[count].title}.txt`)
             // start test session
             newTestSession(tests[count])
                 .then(() => {
