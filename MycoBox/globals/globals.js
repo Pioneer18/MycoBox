@@ -13,8 +13,6 @@ let globals = {
         spawn_running: false,
         primordia_init: false,
         fruiting: false,
-        cycles_limit: 0,
-        cycles_count: 0
     },
     environment_config: {
         spawn_running: {
@@ -134,6 +132,12 @@ let globals = {
         mb_light_2: false,
         ib_light: false,
         speakers: false
+    },
+    test_config: {
+        cycles_limit: 0,
+        cycles_count: 0,
+        filename: '',
+        dirname: ''
     }
 };
 
@@ -460,6 +464,20 @@ const set_overrides_state_validation = (element, value) => {
 
 }
 
+const set_test_config = (element, value) => {
+    set_test_config_validation(element, value);
+    globals.test_config[element] = value;
+    return
+}
+
+const set_test_config_validation = (element, value) => {
+    if (element === 'cycles_limit' && typeof value === 'string') return
+    if (element === 'cycles_count' && typeof value === 'string') return
+    if (element === 'filename' && typeof value === 'string') return
+    if (element === 'dirname' && typeof value === 'string') return
+    throw new Error('Invalid session_state element or value given')
+}
+
 module.exports = {
     get,
     getter,
@@ -468,5 +486,6 @@ module.exports = {
     set_session_state,
     set_pid_state,
     set_actuator_state,
-    set_overrides_state
+    set_overrides_state,
+    set_test_config
 }
