@@ -16,6 +16,8 @@ const { } = require('../cli_control_panel/relay');
 const { get, set_overrides_state, set_session_state, set_environment_config, getter } = require('../globals/globals');
 const { environment_manager } = require('../services/system.service/system.service');
 const { test_config } = require('./resources');
+const fs = require('fs');
+const { timestamp } = require('../utilities');
 
 // Intro Description
 log(chalk.black.bgYellow('Environment Manager Step Tester'))
@@ -38,6 +40,7 @@ log(chalk.yellow("The Step Tester Wizard will prompt you to configure one or mul
 const tests = [];
 let count = 0;
 let live = false;
+let dirCreated = false;
 
 /**
  * Prompt User to create tests amd push them into the tests array
@@ -269,7 +272,15 @@ prompt_test_configs()
 const run_tests = () => {
     log(chalk.bold.cyan(JSON.stringify(tests, null, '  ')))
     log(chalk.cyan('Running each test in the tests array'))
-    // create folder for Test Suite
+    // create directory for test log files
+    if (!dirCreated) {
+        const dir = `../logs/test_logs/${timestamp()}`;
+        log(chalk.blueBright(dir))
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir)
+            dirCreated = true;
+        }
+    }
 
     log(chalk.red(`count: ${count} test.length: ${tests.length}`));
     if (count < tests.length) {
