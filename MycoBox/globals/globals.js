@@ -475,12 +475,12 @@ const set_test_config = (element, value) => {
 }
 
 const set_test_config_validation = (element, value) => {
-    log(chalk.bgGreen.whiteBright(element + ' ' + value));
-    // if (element === 'cycles_limit' && typeof value === 'number') return
-    // if (element === 'cycles_count' && typeof value === 'number') return
-    // if (element === 'filename' && typeof value === 'string') return
-    // if (element === 'dirname' && typeof value === 'string') return
-    // throw new Error('Invalid session_state element or value given')
+    log(chalk.bgGreen.whiteBright(element + ' ' + value))
+    if (element === 'cycles_limit' && typeof value === 'number') return
+    if (element === 'cycles_count' && typeof value === 'number') return
+    if (element === 'filename' && typeof value === 'string') return
+    if (element === 'dirname' && typeof value === 'string') return
+    throw new Error('Invalid session_state element or value given')
 }
 
 module.exports = {
