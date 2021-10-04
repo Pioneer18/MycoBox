@@ -43,7 +43,7 @@ let count = 0;
 let live = false;
 let dirCreated = false;
 let dir;
-const logger = winston.createLogger(logger);
+const test_logger = winston.createLogger(logger);
 
 /**
  * Prompt User to create tests amd push them into the tests array
@@ -298,7 +298,7 @@ const run_tests = () => {
             //         console.log('Test File for ' + tests[count].title + ' has been created: ')
             //     })
             // }
-            logger.log({
+            test_logger.log({
                 level: 'info',
                 message: 'Hello, World'
             })
