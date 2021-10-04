@@ -11,12 +11,9 @@ const logger = createLogger({
         format.splat(),
         format.json()
     ),
-    defaultMeta: { service: 'sensor-logger' },
+    defaultMeta: { service: 'test-logger' },
+    // transports are where the logs get sent
     transports: [
-        //
-        // - Write to all logs with level `info` and below to `quick-start-combined.log`.
-        // - Write all logs error (and below) to `quick-start-error.log`.
-        //
         new transports.Console(),
         new transports.File({ filename: 'sensors.log' })
     ]
