@@ -278,7 +278,7 @@ const run_tests = () => {
     log(chalk.cyan('Running each test in the tests array'))
 
     log(chalk.red(`count: ${count} test.length: ${tests.length}`));
-    if (count <= tests.length) {
+    if (count < tests.length) {
         if (!live) {
             newTestSession(tests[count])
             .then(() => {
