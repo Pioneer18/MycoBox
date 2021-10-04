@@ -295,7 +295,10 @@ const run_tests = () => {
                 // log(chalk.green("Current File Mode:", fs.statSync(tests[count].title + '.txt').mode))
                 // console.log(tests[count].title)
                 if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
-                    fs.writeFile( `../../../EM_LOGS/${dir}/${tests[count].title}.txt`, 'file saved!!!!!!!!!!!!!!!!!!!!!!!!!!')
+                    fs.writeFile( `../../../EM_LOGS/${dir}/${tests[count].title}.txt`,'blehhh', (err)=>{
+                        if (err) console.log('err')
+                        console.log('yah...just wrote dat file')
+                    })
                 }
             //     console.log('Folder Permissions should be open to everyone!')
             // })
