@@ -38,7 +38,7 @@ const environment_manager = (mode, resolver) => {
                             console.log('Recalling ENV MANAGER')
                             console.log('#######################')
                             if (mode === 'TEST') {
-                                get('session_state')
+                                get('test_config')
                                     .then(state => {
                                         if (state.cycles_limit <= state.cycles_count) {
                                             console.log('TIME TO END THE SESSION!!!')

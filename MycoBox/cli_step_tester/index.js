@@ -12,12 +12,11 @@
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const log = console.log;
-const { } = require('../cli_control_panel/relay');
-const { get, set_overrides_state, set_session_state, set_environment_config, getter } = require('../globals/globals');
+const { get, set_overrides_state, set_session_state, set_environment_config, getter, set_test_config } = require('../globals/globals');
 const { environment_manager } = require('../services/system.service/system.service');
 const { test_config } = require('./resources');
 const fs = require('fs');
-const { timestamp } = require('../utilities');
+const { timestamp, createDir, createTestFile } = require('../utilities');
 const winston = require('winston');
 const { logger } = require('../logs/logger');
 // Intro Description
@@ -270,54 +269,33 @@ prompt_test_configs()
 
 /**
  * Run Tests
- *      
+ * Todo:
+ * 1. put logsDirName into ENV (private folder on my pc)
+ * 2. put mode vars, LIVE & TEST, into resources file
+ * 3. put createDir and createFile methods into utilities
+ * 4. create checkDirCreated method
  */
 const run_tests = () => {
     log(chalk.bold.cyan(JSON.stringify(tests, null, '  ')))
-    log(chalk.cyan('Running each test in the tests array'))
-    // create directory for test log files
-    if (!dirCreated) {
-        log(chalk.redBright(__dirname));
-        dir = `../../../EM_LOGS/${timestamp()}`;
-        log(chalk.blueBright(dir))
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir)
-            dirCreated = true;
-        }
-    }
-
+    // create test dir
+    createTestSuiteDir()
     log(chalk.red(`count: ${count} test.length: ${tests.length}`));
     if (count < tests.length) {
         if (!live) {
-            //===============================================================
-            // create file for test
-      
-                log(chalk.redBright(__dirname))
-                if (!fs.existsSync(`./${dir}/${tests[count].title}`)) {
-                    fs.writeFileSync( `./${dir}/${tests[count].title}.txt`,'blehhh')
-                }
-
-            // ===============================================================
+            // create test file
+            createTestFile(dir, tests, count)
+            // start test session
             newTestSession(tests[count])
                 .then(() => {
                     setTimeout(() => {
                         let session_state = getter('session_state');
-                        console.log(`Here's ya DUCKIN' SESSION STATE!!!!!!!!!!!`);
-                        console.log(session_state);
+                        log(chalk.greenBright(`Current Session State`));
+                        log(chalk.greenBright(session_state));
                         if (session_state.active_test_session) live = true;
-                        // wait till test has completed
-                        // while (live) {
-                        //     setTimeout(() => {
-                        //         console.log('****************************************** Checking If the Test is still Active ******************************************')
-                        //         session_state = getter('session_state');
-                        //         // if the test has ended
-                        //         if (!session_state.active_test_session) live = false;
-                        //     }, 60000);
-                        // }
-                        // increment count after test complete
-                        log(chalk.bold.yellow('FIRST TEST RUNNING: INCREMENT'))
+                        log(chalk.bold.yellow('INCREMENT TESTS'))
                         count++
                         // recall runTests
+                        log(chalk.whiteBright('Recalling Run Tests'));
                         run_tests();
                         console.log('Run Tests Normally would Break the Loop Right Ducking Here')
 
@@ -326,7 +304,7 @@ const run_tests = () => {
         }
         if (live) {
             setTimeout(() => {
-                console.log('Checking if the Test Has Ended Yet')
+                log(chalk.grey('Checking if the Test Has Ended Yet'))
                 let session_state = getter('session_state');
                 // if test still active recall run tests
                 if (session_state.active_test_session) run_tests()
@@ -362,7 +340,7 @@ const newTestSession = (config) => {
                                 const test_config = map_test_config(config);
                                 set_overrides(test_config);
                                 // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
-                                set_session_state('cycles_limit', parseInt(test_config.cycles))
+                                set_test_config('cycles_limit', parseInt(test_config.cycles))
                                     // call environment manager: in test mode env counts it's loops and ends session on final loop
                                     .then(environment_manager('TEST'))//environment_manager('TEST')
                                     .then(resolve('Resolve After EM has fired'))
@@ -456,6 +434,22 @@ const map_test_config = (configuration) => {
             lightOutput: configuration.lightOutput ? configuration.lightOutput : ''
         },
         cycles: configuration.cycles,
+    }
+
+}
+
+/**
+ * Create Test Suite Directory
+ */
+const createTestSuiteDir = () => {
+    try {
+        if (!dirCreated) {
+            dir = `../../../EM_LOGS/${timestamp()}`;
+            log(chalk.blueBright(dir))
+            dirCreated = createDir(dir);
+        }
+    } catch (err) {
+        throw new Error('Error creating Directory: ' + err);
     }
 
 }
