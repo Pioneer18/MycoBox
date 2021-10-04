@@ -296,7 +296,7 @@ const run_tests = () => {
                 // console.log(tests[count].title)
                 log(chalk.redBright(__dirname))
                 // if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
-                    fs.writeFileSync( `./${tests[count].title}.txt`,'blehhh')
+                    fs.writeFileSync( `./${dir}/${tests[count].title}.txt`,'blehhh')
                 // }
             //     console.log('Folder Permissions should be open to everyone!')
             // })
