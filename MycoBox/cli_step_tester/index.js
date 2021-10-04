@@ -41,6 +41,7 @@ const tests = [];
 let count = 0;
 let live = false;
 let dirCreated = false;
+let dir;
 
 /**
  * Prompt User to create tests amd push them into the tests array
@@ -275,7 +276,7 @@ const run_tests = () => {
     // create directory for test log files
     if (!dirCreated) {
         log(chalk.redBright(__dirname));
-        const dir = `../../../EM_LOGS/${timestamp()}`;
+        dir = `../../../EM_LOGS/${timestamp()}`;
         log(chalk.blueBright(dir))
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir)
@@ -288,7 +289,13 @@ const run_tests = () => {
         if (!live) {
             //===============================================================
             // create file for test
-            
+            console.log(tests[count].title)
+            if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
+                fs.appendFileSync(tests[count].title, tests[count].title + ' Logs:', (err) => {
+                    if (err) throw new Error('Error Creating Test File for ' + tests[count].title)
+                    console.log('Test File for ' + tests[count].title + ' has been created')
+                })
+            }
             // ===============================================================
             newTestSession(tests[count])
                 .then(() => {
