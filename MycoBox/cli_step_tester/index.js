@@ -292,7 +292,7 @@ const run_tests = () => {
             //===============================================================
             // create file for test
             fs.chmod('../../../EM_LOGS/', fs.constants.S_IWUSR | fs.constants.S_IRUSR, () => {
-                log(chalk.green("Current File Mode:", fs.statSync(tests[count].title + '.txt').mode))
+                // log(chalk.green("Current File Mode:", fs.statSync(tests[count].title + '.txt').mode))
                 console.log(tests[count].title)
                 if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
                     fs.writeFile( `../../../EM_LOGS/${dir}/${tests[count].title}.txt`, 'file saved!!!!!!!!!!!!!!!!!!!!!!!!!!')
