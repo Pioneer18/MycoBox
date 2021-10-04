@@ -294,9 +294,10 @@ const run_tests = () => {
             // fs.chmod('../../../EM_LOGS/', 0777, () => {
                 // log(chalk.green("Current File Mode:", fs.statSync(tests[count].title + '.txt').mode))
                 // console.log(tests[count].title)
-                if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
+                log(chalk.redBright(__dirname))
+                // if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
                     fs.writeFileSync( `../../../EM_LOGS/${dir}/${tests[count].title}.txt`,'blehhh')
-                }
+                // }
             //     console.log('Folder Permissions should be open to everyone!')
             // })
             // fs.access('../../../EM_LOGS/', fs.constants.F_OK, (err) => {
