@@ -360,7 +360,6 @@ const set_overrides = (test_config) => {
         try {
             for (const actuator in test_config.overrides) {
                 if (test_config.overrides[actuator] === '') {
-                    console.log('Blank Overried Received')
                     continue
                 }
                 if (actuator.localeCompare('circulation_top') === 0) {
