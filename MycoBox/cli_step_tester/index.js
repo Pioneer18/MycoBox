@@ -274,6 +274,7 @@ const run_tests = () => {
     log(chalk.cyan('Running each test in the tests array'))
     // create directory for test log files
     if (!dirCreated) {
+        log(chalk.redBright(__dirname));
         const dir = `../logs/test_logs/${timestamp()}`;
         log(chalk.blueBright(dir))
         if (!fs.existsSync(dir)) {
