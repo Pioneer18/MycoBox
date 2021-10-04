@@ -5,7 +5,7 @@
  */
 const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
 const { humidity_pid_controller_config, update_humidity } = require("../../controllers/environment.manager/humidity.controller");
-const { get, set_session_state } = require("../../globals/globals")
+const { get, set_session_state, set_test_config } = require("../../globals/globals")
 const { update_environment_state, read_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
 const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
 const { send_command } = require("../../utilities");
@@ -43,8 +43,8 @@ const environment_manager = (mode, resolver) => {
                                         if (state.cycles_limit <= state.cycles_count) {
                                             console.log('TIME TO END THE SESSION!!!')
                                             set_session_state('active_test_session', false);
-                                            set_session_state('cycles_count', 0);
-                                            set_session_state('cycles_limit', 0);
+                                            set_test_config('cycles_count', 0);
+                                            set_test_config('cycles_limit', 0);
                                         }
                                         else {
                                             console.log("Cycles Count: " + state.cycles_count +
