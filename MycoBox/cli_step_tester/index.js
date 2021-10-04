@@ -295,10 +295,7 @@ const run_tests = () => {
                 log(chalk.green("Current File Mode:", fs.statSync(tests[count].title + '.txt').mode))
                 console.log(tests[count].title)
                 if (!fs.existsSync(`../../../EM_LOGS/${dir}/${tests[count].title}`)) {
-                    fs.open('./'+tests[count].title + '.txt', 'w', function (err) {
-                        if (err) throw new Error('Error Creating Test File for ' + tests[count].title) + ': ' + err
-                        console.log('Test File for ' + tests[count].title + ' has been created: ')
-                    })
+                    fs.appendFile('./'+tests[count].title + '.txt', 'file saved!!!!!!!!!!!!!!!!!!!!!!!!!!')
                 }
             })
             // test_logger.log({
