@@ -282,8 +282,8 @@ const run_tests = () => {
             // create test file
             createTestFile(dir, tests, count)
             // set test_config filename & dirname
-            set_test_config('dirname', dir)
-            set_test_config('filename', `./${dir}/${tests[count].title}.txt`)
+            // set_test_config('dirname', dir)
+            // set_test_config('filename', `./${dir}/${tests[count].title}.txt`)
             // start test session
             newTestSession(tests[count])
                 .then(() => {
@@ -447,6 +447,7 @@ const createTestSuiteDir = () => {
             dir = `../../../EM_LOGS/${timestamp()}`;
             log(chalk.blueBright(dir))
             dirCreated = createDir(dir);
+            set_test_config('dirname', dir)
         }
     } catch (err) {
         throw new Error('Error creating Directory: ' + err);
