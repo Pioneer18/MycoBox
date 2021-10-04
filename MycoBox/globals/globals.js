@@ -141,7 +141,13 @@ let globals = {
         cycles_limit: 0,
         cycles_count: 0,
         filename: '',
-        dirname: ''
+        dirname: '',
+        temperature: false,
+        humidity: false,
+        co2: false,
+        tempMaximum: 0,
+        rhMaximum: 0,
+        co2Maximum: 0 
     }
 };
 
@@ -486,6 +492,12 @@ const set_test_config_validation = (element, value) => {
     if (element === 'cycles_count' && typeof value === 'number') return
     if (element === 'filename' && typeof value === 'string') return
     if (element === 'dirname' && typeof value === 'string') return
+    if (element === 'temperature' && typeof value === 'number') return
+    if (element === 'humidity' && typeof value === 'number') return
+    if (element === 'co2' && typeof value === 'number') return
+    if (element === 'tempMaximum' && typeof value === 'number') return
+    if (element === 'rhMaximum' && typeof value === 'number') return
+    if (element === 'co2Maximum' && typeof value === 'number') return
     throw new Error('Invalid session_state element or value given')
 }
 

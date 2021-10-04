@@ -6,19 +6,16 @@ const log = console.log;
  * Test Logger
  */
 const test_logger = () => {
-    test_file_path()
-}
+    // get the variables requested to be tracked for the test from the test config; temp, humidity, co2
+    // get the start criteria value(s)
+    // get the override values (if any)
+    
 
-const test_file_path = () => {
-    // get the dirname and filename from globals
-    get('test_config')
-        .then(config => {
-            log(chalk.green('Logger`s working directory'))
-            log(chalk.green(__dirname));
-            log(chalk.magenta("-------------------------------------------"))
-            log(chalk.magenta(JSON.stringify(config, null, '  ')))
-            // create the file path: ../../
-        })
+    /**
+     *  Raw Data                Kp                Actuators
+     * | Temp | Humidity | CO2 | tKp | hKp | cKp | humidifier | Intake | Exhaust | Aircon | Heater | CircTop | CircBottom | Light
+     *   25      45         435   -     -     -        ON         ON      ON         OFF      OFF      OFF         OFF       OFF
+     */
 }
 
 module.exports = {
