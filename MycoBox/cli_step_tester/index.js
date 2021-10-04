@@ -74,7 +74,7 @@ const prompt_test_configs = () => {
             validate(choices) {
                 log(chalk.blackBright('Choices'))
                 log(chalk.blackBright(choices))
-                return true
+                if (choices.length > 0) return true
             }
         }
     ];
@@ -274,30 +274,30 @@ const run_tests = () => {
     if (count < tests.length) {
         if (!live) {
             newTestSession(tests[count])
-            .then(() => {
-                setTimeout(() => {
-                    let session_state = getter('session_state');
-                    console.log(`Here's ya DUCKIN' SESSION STATE!!!!!!!!!!!`);
-                    console.log(session_state);
-                    if (session_state.active_test_session) live = true;
-                    // wait till test has completed
-                    // while (live) {
-                    //     setTimeout(() => {
-                    //         console.log('****************************************** Checking If the Test is still Active ******************************************')
-                    //         session_state = getter('session_state');
-                    //         // if the test has ended
-                    //         if (!session_state.active_test_session) live = false;
-                    //     }, 60000);
-                    // }
-                    // increment count after test complete
-                    log(chalk.bold.yellow('FIRST TEST RUNNING: INCREMENT'))
-                    count++
-                    // recall runTests
-                    run_tests();
-                    console.log('Run Tests Normally would Break the Loop Right Ducking Here')
+                .then(() => {
+                    setTimeout(() => {
+                        let session_state = getter('session_state');
+                        console.log(`Here's ya DUCKIN' SESSION STATE!!!!!!!!!!!`);
+                        console.log(session_state);
+                        if (session_state.active_test_session) live = true;
+                        // wait till test has completed
+                        // while (live) {
+                        //     setTimeout(() => {
+                        //         console.log('****************************************** Checking If the Test is still Active ******************************************')
+                        //         session_state = getter('session_state');
+                        //         // if the test has ended
+                        //         if (!session_state.active_test_session) live = false;
+                        //     }, 60000);
+                        // }
+                        // increment count after test complete
+                        log(chalk.bold.yellow('FIRST TEST RUNNING: INCREMENT'))
+                        count++
+                        // recall runTests
+                        run_tests();
+                        console.log('Run Tests Normally would Break the Loop Right Ducking Here')
 
-                }, 10000);
-            })
+                    }, 10000);
+                })
         }
         if (live) {
             setTimeout(() => {
