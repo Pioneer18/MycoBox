@@ -269,10 +269,15 @@ prompt_test_configs()
 const run_tests = () => {
     log(chalk.bold.cyan(JSON.stringify(tests, null, '  ')))
     log(chalk.cyan('Running each test in the tests array'))
+    // create folder for Test Suite
 
     log(chalk.red(`count: ${count} test.length: ${tests.length}`));
     if (count < tests.length) {
         if (!live) {
+            //===============================================================
+            // create file for test
+            
+            // ===============================================================
             newTestSession(tests[count])
                 .then(() => {
                     setTimeout(() => {
@@ -348,28 +353,6 @@ const newTestSession = (config) => {
     })
 }
 
-/**
- * New Test Session Revision
- * @param {*} config
- * @returns 
- */
-const testSession = {
-    [Symbol.iterator]() {
-        let step = 0;
-        return {
-            next() {
-                if (step < tests.length) {
-                    newTestSession(tests[step]);
-                    step++;
-                    return { value: 'set environment config', done: false }
-                }
-                if (step >= tests.length) {
-                    return { value: 'Tests Completed', done: false }
-                }
-            }
-        }
-    }
-}
 
 // set the globals.overrides for the current test
 const set_overrides = (test_config) => {

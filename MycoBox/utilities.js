@@ -43,4 +43,7 @@ const timestamp = () => {
     return MM + '.' + dd + '.' + yyyy + '_' + hh + '.' + mm + '.' + ss;
 }
 
-module.exports = { send_command }
+module.exports = {
+    send_command,
+    timestamp
+}
