@@ -28,4 +28,19 @@ const send_command = (command, mode) => {
  *  Send Overrides: Send all override commands and flip corresponding relays
  */
 
+/**
+ * Create Date
+ */
+const timestamp = () => {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var MM = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    const hh = today.getHours();
+    const mm = today.getMinutes();
+    const ss = today.getSeconds();
+
+    return MM + '.' + dd + '.' + yyyy + '_' + hh + '.' + mm + '.' + ss;
+}
+
 module.exports = { send_command }
