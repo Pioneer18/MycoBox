@@ -8,14 +8,22 @@ const log = console.log;
 const test_logger = () => {
     // get the variables requested to be tracked for the test from the test config; temp, humidity, co2
     // get the start criteria value(s)
-    // get the override values (if any)
-    
+    // get the override values (if any)    
 
     /**
-     *  Raw Data                Kp                Actuators
-     * | Temp | Humidity | CO2 | tKp | hKp | cKp | humidifier | Intake | Exhaust | Aircon | Heater | CircTop | CircBottom | Light
-     *   25      45         435   -     -     -        ON         ON      ON         OFF      OFF      OFF         OFF       OFF
+     *  Raw Data                              
+     * | Temp | Humidity | CO2 |
+     *   25      45         435
+     * ...
+     * ...
+     * ...
+     * Actuators
+     * humidifier | Intake | Exhaust | Aircon | Heater | CircTop | CircBottom | Light
+     *     ON         ON      ON         OFF      OFF      OFF         OFF       OFF
      */
+
+    // call test_calcultions on the last cycle
+
 }
 
 module.exports = {
