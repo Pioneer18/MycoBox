@@ -109,17 +109,20 @@ let globals = {
         temperature: {
             integralOfError: 0,
             lastError: 0,
-            lastTime: 0
+            lastTime: 0,
+            dt: 0
         },
         humidity: {
             integralOfError: 0,
             lastError: 0,
-            lastTime: 0
+            lastTime: 0,
+            dt: 0
         },
         ventilation: {
             integralOfError: 0,
             lastError: 0,
-            lastTime: 0
+            lastTime: 0,
+            dt: 0
         }
     },
     overrides: {

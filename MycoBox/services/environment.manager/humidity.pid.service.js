@@ -29,6 +29,7 @@ class HumidityPidController {
         this.integralOfError = config.pid_state.integralOfError;
         this.lastError = config.pid_state.lastError;
         this.lastTime = config.pid_state.lastTime;
+        this.dt = config.pid_state.dt;
         // init the set point
         this.setPoint = config.incoming_report.setPoint;
         this.measured = config.incoming_report.measured;
@@ -46,7 +47,7 @@ class HumidityPidController {
      */
     update() {
         // #1. find the cycle-time (dt) and update lastTime
-        const { dt, currentTime } = this.calculate_dt(this.lastTime)
+        const { currentTime } = this.calculate_dt(this.lastTime)
         let D;
         this.lastTime = currentTime;
         // #2. calculate the error: setpoint - measured
@@ -55,19 +56,19 @@ class HumidityPidController {
         // #3. calculate P => kp * err
         const P = this.kp * err;
         // #4. calculate It => It + (ki * error * dt)
-        this.integralOfError += (this.ki * err * dt)
+        this.integralOfError += (this.ki * err * this.dt)
         // #5. limit the It
         if (this.integralOfError > this.integralLimit.max) this.integralOfError = this.integralLimit.max; // and trigger ventilation to reduce if on, or circulation to shut off
         if (this.integralOfError < this.integralLimit.min) this.integralOfError = this.integralLimit.min; // enter idle, then exhaust if not reducing, or enter stopped
         // #6. calculate D => kd * (err - lastErr) / dt
-        dt === 0 ? D = 0 : D = this.kd * (err - this.lastError) / dt;
+        this.dt === 0 ? D = 0 : D = this.kd * (err - this.lastError) / this.dt;
         console.log('PID Calculation Report:');
         console.log(`P: ${P}`);
         console.log(`Error: ${err}`);
         console.log(`It: ${this.integralOfError}`);
         console.log(`D: ${D}`);
         console.log(`Error: ${err}`);
-        console.log(`DT: ${dt}`);
+        console.log(`DT: ${this.dt}`);
         return P + this.integralOfError + D
     }
 
@@ -76,7 +77,7 @@ class HumidityPidController {
         return {
             integralOfError: this.integralOfError,
             lastError: this.lastError,
-            lastTime: this.lastTime
+            lastTime: this.lastTime,
         }
     }
 
@@ -89,13 +90,12 @@ class HumidityPidController {
       // calculate_dt
       calculate_dt(lastTime) {
         const currentTime = Date.now();
-        let dt;
         if (lastTime === 0) {
-            dt = 0;
+            this.dt = 0;
         } else {
-            dt = (currentTime - lastTime) / 1000;
+            this.dt = (currentTime - lastTime) / 1000;
         }
-        return { dt, currentTime };
+        return { currentTime };
     }
 
     // Trigger Ventilation to reduce, or circulation to stop
