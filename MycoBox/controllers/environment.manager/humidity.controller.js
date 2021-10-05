@@ -32,6 +32,7 @@ const humidity_pid_controller_config = (measured, env_config, pid_state) => {
             integralOfError: pid_state.integralOfError,
             lastError: pid_state.lastError,
             lastTime: pid_state.lastTime,
+            dt: pid_state.dt
         },
         incoming_report: {
             setPoint: env_config.humidity,
