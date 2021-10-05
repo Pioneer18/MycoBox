@@ -28,6 +28,7 @@ class TempPidController {
         this.integralOfError = config.pid_state.integralOfError;
         this.lastError = config.pid_state.lastError;
         this.lastTime = config.pid_state.lastTime;
+        this.dt = config.pid_state.dt;
         // init the set point
         this.setPoint = config.incoming_report.setPoint;
         this.measured = config.incoming_report.measured;
@@ -37,7 +38,7 @@ class TempPidController {
 
     update() {
         // #1. find the cycle-time (dt) and update lastTime
-        const { dt, currentTime } = this.calculate_dt(this.lastTime)
+        const { currentTime } = this.calculate_dt(this.lastTime)
         let D;
         this.lastTime = currentTime;
         // #2. calculate the error: setpoint - measured
@@ -46,16 +47,16 @@ class TempPidController {
         // #3. calculate P => kp * err
         const P = this.kp * err;
         // #4. calculate It (cumulative error) => It + (ki * error * dt)
-        this.integralOfError += (this.ki * err * dt)
+        this.integralOfError += (this.ki * err * this.dt)
         // #5. limit the It
         if (this.integralOfError > this.integralLimit.max) this.integralOfError = this.integralLimit.max;
         if (this.integralOfError < this.integralLimit.min) this.integralOfError = this.integralLimit.min;
         // #6. calculate D (rate of error) => kd * (err - lastErr) / dt
-        dt === 0 ? D = 0 : D = this.kd * (err - this.lastError) / dt;
+        this.dt === 0 ? D = 0 : D = this.kd * (err - this.lastError) / this.dt;
         console.log('PID Calculation Report:');
         console.log(`P: ${P}`);
         console.log(`Error: ${err}`);
-        console.log('DT: ' + dt);
+        console.log('DT: ' + this.dt);
         return P
     }
 
@@ -76,13 +77,12 @@ class TempPidController {
     // calculate_dt
     calculate_dt(lastTime) {
         const currentTime = Date.now();
-        let dt;
         if (lastTime === 0) {
-            dt = 0;
+            this.dt = 0;
         } else {
-            dt = (currentTime - lastTime) / 1000;
+            this.dt = (currentTime - lastTime) / 1000;
         }
-        return { dt, currentTime };
+        return { currentTime };
     }
     // clamp_check
     clamp_check() {

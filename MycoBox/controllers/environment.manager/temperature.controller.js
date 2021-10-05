@@ -24,7 +24,8 @@ const { s2r1_off, s2r1_on, s1r1_on, s4r1_on, s6r2_on, s4r1_off, s6r2_off } = req
  *  previousReport: {
  *    integralOfError,
  *    lastError,
- *    lastTime
+ *    lastTime,
+ *    dt
  *  }
  *  incomingReport: {
  *    setPoint,
@@ -61,6 +62,7 @@ const temp_pid_controller_config = (measured, env_config, pid_state) => {
             integralOfError: pid_state.integralOfError,
             lastError: pid_state.lastError,
             lastTime: pid_state.lastTime,
+            dt: pid_state.dt
         },
         incoming_report: {
             setPoint: env_config.temperature,
