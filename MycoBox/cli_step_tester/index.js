@@ -1,13 +1,5 @@
 /**
- * Once the user has entered the test configuration, start the test session
- * - run an actual session
- * - pass in a configuration with overrides for the actuators for each test
- * - note: setup the newSession to apply overrides to the environment manager controllers' output
- * - keep a count of the number of readings completed
- * - end the session when the required number of readings are completed for the current test
- * - note: the main test runner should pass an updated session_config to end the session
- * - move on to the next test and begin the pre-test stage, then start the test when that's done
- * - when all tests are completed end the session and give the report to the user
+ * PID Controller Calibrator
  */
 const inquirer = require('inquirer');
 const chalk = require('chalk');
@@ -35,11 +27,11 @@ log(chalk.yellow("The Step Tester Wizard will prompt you to configure one or mul
     + "#6. Would you like to add another test to the session?\n"
 ))
 
-const tests = [];
-let count = 0;
-let live = false;
-let dirCreated = false;
-let dir;
+const tests = []; // the array of tests to be ran
+let count = 0; // the current test being tested
+let live = false; // indicates if there is an active test
+let dirCreated = false; // indicates the tests directory has been created
+let dir; // the directory all of the test logs will be written to
 
 /**
  * Prompt User to create tests amd push them into the tests array
@@ -68,19 +60,21 @@ const prompt_test_configs = () => {
      * 13. set up another test?
      */
     const questions = [
+        // #1.
         {
             type: 'input',
             name: 'title',
-            message: 'Please enter a title for this test',
+            message: 'Enter a title (filename) for this test',
             validate(value) {
                 if (typeof value === 'string' && value.length > 5) return true
                 return 'Please enter a longer title'
             }
         },
+        // #2. Measured Process Variable
         {
             type: 'checkbox',
             message: 'Select the measured process variable',
-            name: 'env_variables',
+            name: 'process_var',
             choices: [
                 { name: 'Temperature' },
                 { name: 'Humidity' },
@@ -89,23 +83,23 @@ const prompt_test_configs = () => {
             validate(choices) {
                 log(chalk.blackBright('Choices'))
                 log(chalk.blackBright(choices))
-                if (choices.length > 0) return true
+                if (choices.length === 1) return true
             }
         }
     ];
-
+ 
     inquirer.prompt(questions)
         .then(answers => {
-            // add a new object to configuration for this test
+            // make the title filename firendly
             configuration.title = answers.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
             let questions = [];
-            // Ask for the Maximum starting value of each selected variable
-            answers.env_variables.forEach(variable => {
+            // #3. DLO for the selected PV
+            answers.process_var.forEach(variable => {
                 if (variable === 'Temperature') {
                     questions.push({
                         type: 'input',
-                        message: 'Please enter the design level of operation for the temperature in degrees Celsius',
-                        name: 'tempMaximum',
+                        message: 'Enter the design level of operation for the temperature in degrees Celsius',
+                        name: 'tempDLO',
                         validate(value) {
                             if (value = '' || value === undefined || (parseInt(value) >= 0 && parseInt(value) <= 35)) return true
                             return 'Please choose a value larger than 0 and less than 35 degrees C'
@@ -115,8 +109,8 @@ const prompt_test_configs = () => {
                 if (variable === 'Humidity') {
                     questions.push({
                         type: 'input',
-                        message: 'Please enter the design level of operation for the Relative Humidity as a RH percentage',
-                        name: 'rhMaximum',
+                        message: 'Enter the design level of operation for the Relative Humidity as a percentage',
+                        name: 'rhDLO',
                         validate(value) {
                             if (value = '' || value === undefined || (parseInt(value) >= 10 && parseInt(value) <= 100)) return true
                             return 'Please choose a value larger than 0 and less than 35 degrees C'
@@ -126,11 +120,11 @@ const prompt_test_configs = () => {
                 if (variable === 'CO2') {
                     questions.push({
                         type: 'input',
-                        message: 'Please enter the design level of operation for the CO2 in ppm',
-                        name: 'co2Maximum',
+                        message: 'Enter the design level of operation for the CO2 in ppm',
+                        name: 'co2DLO',
                         validate(value) {
                             if (value = '' || value === undefined || (parseInt(value) >= 200 && parseInt(value) <= 20000)) return true
-                            return 'Please choose a value larger than 199 and less than 20001 degrees C'
+                            return 'Please choose a value larger than 199 and less than 20001 ppm'
                         }
                     })
                 }
@@ -139,19 +133,36 @@ const prompt_test_configs = () => {
         })
         .then(questions => {
             /**
-             * Second Prompter
-             * 1. ask the follow up qualifying questions
-             * 2. map the answers to the configuration
+             * Max allowed starting PV (look at the previous answer, select make temp,hum,co2 accordingly)
              */
             inquirer.prompt(questions).then(answers => {
                 configuration = { ...configuration, ...answers }
+                return answers
             })
+                .then( answers => {
+                    log(chalk.green(answers));
+                    const questions = [
+                        // #4. Maxed allowed starting point (start criteria)
+                        {
+                            type: "input",
+                            message: "Select a starting PV for the test that is at least 2 units (C,%,ppm) below the DLO",
+                            name: "PVi", // initial PV
+                            validate(value) {
+                                // if (value && (parseInt(value) < configuration))
+                            }
+                        }
+                    ]
+                })
+
+
+                // put this at the 10'th level deep
                 .then(() => {
                     const questions = [
+                        // #10. Disturbance Actuators
                         {
                             type: 'checkbox',
-                            message: 'Please select which actuators to run during the test',
-                            name: 'actuators',
+                            message: 'Select the disturbances that will be active during the test',
+                            name: 'disturbances',
                             choices: [
                                 { name: 'humidifier' },
                                 { name: 'intake' },
@@ -167,8 +178,8 @@ const prompt_test_configs = () => {
                     inquirer.prompt(questions)
                         .then(answers => {
                             let questions = []
-                            // for each actuator ask the output value will be
-                            answers.actuators.forEach(actuator => {
+                            // #11. disturbance CO values
+                            answers.disturbances.forEach(actuator => {
                                 if (actuator === 'humidifier') {
                                     questions.push({
                                         type: 'input',
@@ -235,6 +246,7 @@ const prompt_test_configs = () => {
                                     configuration = { ...configuration, ...answers }
 
                                     const questions = [
+                                        // #12. Number of Cycles 
                                         {
                                             type: 'input',
                                             name: 'cycles',
@@ -244,11 +256,12 @@ const prompt_test_configs = () => {
                                                 return "Please enter a value greater than 0 and less than 51"
                                             }
                                         },
+                                        // #13. Create another test?
                                         {
                                             type: 'confirm',
                                             name: 'anotherTest',
-                                            message: 'Do you want to add another test to the session? Click ENTER to answer YES, type NO to decline',
-                                            default: true,
+                                            message: 'Do you want to add another test to the session? Click ENTER to answer NO, type `y` to answer YES',
+                                            default: false,
                                         },
                                     ]
                                     inquirer.prompt(questions)
@@ -261,7 +274,7 @@ const prompt_test_configs = () => {
                                              */
                                             configuration = { ...configuration, ...answers }
                                             tests.push(configuration);
-                                            if (answers.anotherTest === true) {
+                                            if (answers.anotherTest.toLowerCase() === 'y' || answers.anotherTest.toLowerCase() === 'yes') {
                                                 return prompt_test_configs()
                                             }
 
@@ -431,9 +444,9 @@ const map_test_config = (configuration) => {
     return {
         title: configuration.title,
         start_criteria: {
-            tempMaximum: configuration.tempMaximum ? configuration.tempMaximum : '',
-            rhMaximum: configuration.rhMaximum ? configuration.rhMaximum : '',
-            co2Maximum: configuration.co2Maximum ? configuration.co2Maximum : ''
+            tempDLO: configuration.tempDLO ? configuration.tempDLO : '',
+            rhDLO: configuration.rhDLO ? configuration.rhDLO : '',
+            co2DLO: configuration.co2DLO ? configuration.co2DLO : ''
         },
         overrides: {
             circulation_top: configuration.circulation_top ? configuration.circulation_top : '',
