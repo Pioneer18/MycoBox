@@ -55,7 +55,15 @@ const createDir = (dir) => {
 }
 
 /**
- * CreateFile
+ * CreateFile with the initial test data
+ * #1. DLO -> SP // adjust the prompt to ask for the DLO
+ * #2. COi -> the initial could be something greater than 0, but likely 0
+ * #3. COs -> the stepped computed output
+ * #4. percent change in computed output
+ * #5. the cycles count
+ * #6. disturbances: circulation, ac, intake, exhaust (any actuator not related to selected PV for the test)
+ * #7. print the top row for the logs:
+ *     temp | humidity | co2 | dt | t | CO
  */
 const createTestFile = (dir, tests, count) => {
     if (!fs.existsSync(`./${dir}/${tests[count].title}`)) {
@@ -85,6 +93,19 @@ const createTestFile = (dir, tests, count) => {
     const test_calculations = () => {
 
     }
+
+    /**
+     * From Step/Bump Test to FOPDT to Tuned Controller
+     * ------------------------------------------------
+     * 
+     * 
+     * 
+     * 
+     * 
+     * step 4: The three FOPDT model parameters are used in correlations to compute controller tuning values
+     * - Internal Model Control Tuning:
+     * 
+     */
 
 module.exports = {
     send_command,
