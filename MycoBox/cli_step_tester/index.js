@@ -50,9 +50,22 @@ const prompt_test_configs = () => {
     let configuration = {};
 
     /**
-     * First Questions
+     * Questions
      * 1. Title
-     * 2. Which Environment Variables are being tested
+     * 2. Which Environment Variable is the Measured Process Variable for this test?
+     *  - you only get one...yeah like humidity for the humidifier PID, temp for the Temperature PID
+     *  - the file records all three env variables, but indicates which is the PV for the test
+     * 3. DLO for the selected PV
+     * 4. Max allowed starting point for the test: at least 2 units lower (C,RH%,ppm) than the DLO is the default
+     * 5. shut off if steady state detected: option to end test early if steady state detected
+     * 6. continue: option to continue test past cycle limit if steady state not reached
+     * 7. select CO actuator
+     * 8. select initial start point for the CO; default as off, if not test-prep funciton will bring environment to the ss relative to a given CO
+     * 9. select step value for the CO
+     * 10. disturbance actuators? select which one
+     * 11. select value for each disturbance actuator
+     * 12. how many cycles?
+     * 13. set up another test?
      */
     const questions = [
         {
@@ -66,7 +79,7 @@ const prompt_test_configs = () => {
         },
         {
             type: 'checkbox',
-            message: 'Select which environment variables are being tested',
+            message: 'Select the measured process variable',
             name: 'env_variables',
             choices: [
                 { name: 'Temperature' },
@@ -91,7 +104,7 @@ const prompt_test_configs = () => {
                 if (variable === 'Temperature') {
                     questions.push({
                         type: 'input',
-                        message: 'Please enter the maximum temperautre in Celsisus acceptable for starting the test',
+                        message: 'Please enter the design level of operation for the temperature in degrees Celsius',
                         name: 'tempMaximum',
                         validate(value) {
                             if (value = '' || value === undefined || (parseInt(value) >= 0 && parseInt(value) <= 35)) return true
@@ -102,7 +115,7 @@ const prompt_test_configs = () => {
                 if (variable === 'Humidity') {
                     questions.push({
                         type: 'input',
-                        message: 'Please enter the maximum Relative Humidity acceptable for starting the test',
+                        message: 'Please enter the design level of operation for the Relative Humidity as a RH percentage',
                         name: 'rhMaximum',
                         validate(value) {
                             if (value = '' || value === undefined || (parseInt(value) >= 10 && parseInt(value) <= 100)) return true
@@ -113,7 +126,7 @@ const prompt_test_configs = () => {
                 if (variable === 'CO2') {
                     questions.push({
                         type: 'input',
-                        message: 'Please enter the maximum CO2 ppm acceptable for starting the test',
+                        message: 'Please enter the design level of operation for the CO2 in ppm',
                         name: 'co2Maximum',
                         validate(value) {
                             if (value = '' || value === undefined || (parseInt(value) >= 200 && parseInt(value) <= 20000)) return true
@@ -279,7 +292,7 @@ const run_tests = () => {
     log(chalk.red(`count: ${count} test.length: ${tests.length}`));
     if (count < tests.length) {
         if (!live) {
-            // create test file
+            // create test file: with the initial data
             createTestFile(dir, tests, count)
             // set test_config filename & dirname
             set_test_config('dirname', dir)
