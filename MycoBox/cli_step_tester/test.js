@@ -1,10 +1,74 @@
 /**
  * Goal: One inquirer.prompt() and one dyncamic questions array
  * Notes: validate(value, answers); you can grab the previous answers
+ * 1. Title?
+ * 2. Which Environment Variable is the Measured Process Variable for this test?
+ *  - you only get one...yeah like humidity for the humidifier PID, temp for the Temperature PID
+ *  - the file records all three env variables, but indicates which is the PV for the test
+ * 3. Starting from below or above the DLO?
+ * 4. What is the DLO?
+ * 5. CO step %?
+ * 6. Will any of these disturbances be running? (don't show CO actuator)
+ * 7. CO of the selected disturbances?
+ * 8. how many cycles?
+ * 9. set up another test?
  */
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const log = console.log;
+
+// Question Flow Control Functions
+
+const tempPV = (pv) => {
+  if (pv === 'Temperature') return true
+}
+
+const humidityPV = (pv) => {
+  if (pv === 'Humidity') return true
+}
+
+const co2PV = (pv) => {
+  if (pv === 'CO2') return true
+}
+
+const dloReference = (reference) => {
+  if (reference === 'below') return true
+  if (reference === 'above') return false
+}
+
+const disturbances = (pv) => {
+  if (pv === 'Temperature') {
+    // hide AC & Heater
+    return [
+      { name: 'humidifier' },
+      { name: 'intake' },
+      { name: 'exhaust' },
+      { name: 'circulation top' },
+      { name: 'circulation bottom' },
+    ]
+  }
+  if (pv === 'Humidity') {
+    // hide humidifer
+    return [
+      { name: 'intake' },
+      { name: 'exhaust' },
+      { name: 'circulation top' },
+      { name: 'circulation bottom' },
+      { name: 'aircon' },
+      { name: 'heater' },
+    ]
+  }
+  if (pv === 'CO2') {
+    // hide intake & exhaust
+    return [
+      { name: 'humidifier' },
+      { name: 'circulation top' },
+      { name: 'circulation bottom' },
+      { name: 'aircon' },
+      { name: 'heater' },
+    ]
+  }
+}
 
 const questions = [
   // #1. Title
@@ -23,55 +87,194 @@ const questions = [
     name: 'process_var',
     message: 'Select a process variable (PV) to be tested',
     choices: [
-      { name: 'Temperature' },
-      { name: 'Humidity' },
-      { name: 'CO2' }
+      'Temperature',
+      'Humidity',
+      'CO2'
     ],
   },
-  // #3. DLO for the Process Variable
+  // #3. Above to Below OR Below to Above: Test Prep
+  {
+    type: 'list',
+    name: 'start_reference',
+    message: 'Will the PV begin below the DLO and move above it, or from above the DLO and move below it?',
+    choices: [
+      'above',
+      'below'
+    ]
+  },
+  // #4. DLO for the Process Variable: Test Prep
   {
     type: 'input',
     name: 'dlo',
     message: 'Enter a design level of operation PV for this test',
-    validate(value) {
-      // TODO: Add range limits for temp, hum, co2
-      if (parseInt(value) > 0 || parseInt(value) < 0) return true
+    validate(value, answers) {
+      if (parseInt(value) > 0 || parseInt(value) < 0) {
+        if (answers['process_var'] === 'Temperature') { // determine lowest and highest C range for this
+          if (parseInt(value) >= 0 && parseInt(value) <= 35) return true
+          return 'Enter a value within 0 to 35 degrees Celsius'
+        }
+        if (answers['process_var'] === 'Humidity') {
+          if (parseInt(value) >= 35 && parseInt(value) <= 99) return true // maybe hard to reach 100%?
+          return 'Enter a value within 35 to 99% relative humidity'
+        }
+        if (answers['process_var'] === 'CO2') {
+          if (parseInt(value) > 150 && parseInt(value) < 18000) return true // idk about these ranges 😅
+          return 'Enter a value within 150 to 18,000 ppm'
+        }
+      }
       return 'Enter a number'
     }
   },
-  // #4. Starting point
+  // #5. CO step %: How much to raise / drop CO % (or switch actuators ON/OFF)
+  // raise ----------
   {
     type: 'input',
-    name: 'starting_point',
-    message: 'Select a starting point PV that is at least 2 units above/below the DLO',
-    validate(value, answers) {
-      if ((parseInt(value) > 0 || parseInt(value) < 0)
-        && Math.abs(parseInt(answers['dlo']) - parseInt(value)) > 2) return true
-      return "Choose a starting point that is more than +/-2 units from the DLO"
+    name: 'humidifier_step',
+    message: 'What percentage would you like to raise the Humidifier Output',
+    when(answers) {
+      return (dloReference(answers['start_reference']) && humidityPV(answers['process_var']))
     }
+
   },
-  // #5. Switch OFF if new Steady State reached
   {
-    type: 'confirm',
-    name: 'steady_switch_off',
-    message: 'Enter `y` if you`d like for the Test to end before the cycle limit when a new Steady State is detected',
-    default: false
+    type: 'list',
+    name: 'heater_step',
+    message: 'Would you like switch the Heater ON to raise the temperature?',
+    choices: [
+      'yes',
+      'no'
+    ],
+    when(answers) {
+      return (dloReference(answers['start_reference']) && tempPV(answers['process_var']))
+    }
+
   },
-  // #6. Computed Output for the Actuator
+  // drop ----------
   {
     type: 'input',
-    name: 'co',
-    message: 'Please select an output percentage from 0 to 100 percent for the actuator',
-    validate(value, answers) {
-      // must be between 0 and 100
-      // TODO: correlate each actuators range to a percentage
-      if (parseInt(value) >= 0 && parseInt(value) <= 100) return true
-      return 'Select an output percentage from 0 to 100'
+    name: 'humidifier_step',
+    message: 'Select what percentage to drop the humidifier CO',
+    when(answers) {
+      return (!dloReference(answers['start_reference']) && humidityPV(answers['process_var']))
     }
-  }
+  },
+  {
+    type: 'list',
+    name: 'aircon_step',
+    message: 'Switch airconditioner ON to lower the temperature? ',
+    choices: [
+      'yes',
+      'no',
+    ],
+    when(answers) {
+      return (!dloReference(answers['start_reference']) && tempPV(answers['process_var']))
+    }
+  },
+  {
+    type: 'list',
+    name: 'ventilation_step',
+    message: 'Select a mode of ventilation output for the test',
+    choices: [
+      'both',
+      'intake',
+      'exhaust'
+    ],
+    when(answers) {
+      return (!dloReference(answers['start_reference']) && co2PV(answers['process_var']))
+    }
+
+  },
+  {
+    type: 'input',
+    name: 'intake-exhaust_step',
+    message: 'Select what percentage to raise the intake & exhaust CO',
+    when(answers) {
+      if (answers['ventilation_step'] && answers['ventilation_step'] === 'both') return true
+    },
+    validate(value) {
+      if ((parseInt(value) > 0 || parseInt(value) <= 100)) return true
+    }
+  },
+  {
+    type: 'input',
+    name: 'intake_step', // implies exhaust off
+    message: 'Select what percentage to raise the intake CO',
+    when(answers) {
+      if (answers['ventilation_step'] && answers['ventilation_step'] === 'intake') return true
+    },
+    validate(value) {
+      if ((parseInt(value) > 0 || parseInt(value) <= 100)) return true
+    }
+  },
+  {
+    type: 'input',
+    name: 'exhaust_step', // implies intake off
+    message: 'Select what percentage to raise the exhaust CO',
+    when(answers) {
+      if (answers['ventilation_step'] && answers['ventilation_step'] === 'exhaust') return true
+    },
+    validate(value) {
+      if ((parseInt(value) > 0 || parseInt(value) <= 100)) return true
+    }
+  },
 ]
+
 
 inquirer.prompt(questions)
   .then(answers => {
     log(chalk.blue(JSON.stringify(answers, null, '  ')));
+
+    const nested_questions = [
+      // #6. [OPTIONAL] Select Disturbances
+      {
+        type: 'checkbox',
+        name: 'disturbances',
+        message: '[OPTIONAL] Select disturbances for the test',
+        choices: disturbances(answers['process_var'])
+      },
+      // #7. Select Disturbances' values
+      {
+        type: 'input',
+        name: 'humidifier',
+        message: 'Select a CO percentage for the humidifier',
+        when(answers) {
+          if (answers[disturbances] && answers[disturbances].includes('humidifier')) return true
+        }
+      },
+      {
+        type: 'input',
+        name: 'intake',
+        message: 'Select a CO percentage for the intake',
+        when(answers) {
+          if (answers[disturbances] && answers[disturbances].includes('intake')) return true
+        }
+      },
+      {
+        type: 'input',
+        name: 'exhaust',
+        message: 'Select a CO percentage for the exhaust',
+        when(answers) {
+          if (answers[disturbances] && answers[disturbances].includes('exhaust')) return true
+        }
+      },
+      // #8. cycles / dlo crossed by (+/-) / Steady State
+      {
+        type: 'list',
+        name: 'test_terminator',
+        message: 'Select a test termination criteria',
+        choices: [
+          'cycles',
+          'dlo difference',
+          'steady state'
+        ]
+      },
+      // #9. Another test?
+      
+    ];
+
+    inquirer.prompt(nested_questions)
+      .then(answers => {
+        log(chalk.green(JSON.stringify(answers, null, '  ')));
+      })
+
   })

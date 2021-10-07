@@ -43,24 +43,20 @@ const prompt_test_configs = () => {
 
     /**
      * Questions
-     * 1. Title
+     * 1. Title?
      * 2. Which Environment Variable is the Measured Process Variable for this test?
      *  - you only get one...yeah like humidity for the humidifier PID, temp for the Temperature PID
      *  - the file records all three env variables, but indicates which is the PV for the test
-     * 3. DLO for the selected PV
-     * 4. Max allowed starting point for the test: at least 2 units lower (C,RH%,ppm) than the DLO is the default
-     * 5. shut off if steady state detected: option to end test early if steady state detected
-     * 6. continue: option to continue test past cycle limit if steady state not reached
-     * 7. select CO actuator
-     * 8. select initial start point for the CO; default as off, if not test-prep funciton will bring environment to the ss relative to a given CO
-     * 9. select step value for the CO
-     * 10. disturbance actuators? select which one
-     * 11. select value for each disturbance actuator
-     * 12. how many cycles?
-     * 13. set up another test?
+     * 3. Starting from below or above the DLO?
+     * 4. What is the DLO?
+     * 5. CO step %?
+     * 6. Will any of these disturbances be running? (don't show CO actuator)
+     * 7. CO of the selected disturbances?
+     * 8. how many cycles?
+     * 9. set up another test?
      */
     const questions = [
-        // #1.
+        // #1. Title
         {
             type: 'input',
             name: 'title',
@@ -70,7 +66,7 @@ const prompt_test_configs = () => {
                 return 'Please enter a longer title'
             }
         },
-        // #2. Measured Process Variable
+        // #2. Measured Process Variable (TODO:This should likely be a list)
         {
             type: 'checkbox',
             message: 'Select the measured process variable',
@@ -87,7 +83,7 @@ const prompt_test_configs = () => {
             }
         }
     ];
- 
+
     inquirer.prompt(questions)
         .then(answers => {
             // make the title filename firendly
@@ -132,20 +128,20 @@ const prompt_test_configs = () => {
             return questions
         })
         .then(questions => {
-            /**
-             * Max allowed starting PV (look at the previous answer, select make temp,hum,co2 accordingly)
-             */
             inquirer.prompt(questions).then(answers => {
                 configuration = { ...configuration, ...answers }
                 return answers
             })
-                .then( answers => {
-                    log(chalk.green(answers));
+                .then(answers => {
+                    log(chalk.green(JSON.stringify(answers, null, '  ')));
+                    /**
+                     * Max allowed starting PV (look at the previous answer, select make temp,hum,co2 accordingly)
+                     */
                     const questions = [
                         // #4. Maxed allowed starting point (start criteria)
                         {
                             type: "input",
-                            message: "Select a starting PV for the test that is at least 2 units (C,%,ppm) below the DLO",
+                            message: "Select a starting PV for the test that is at least 2 units above or below the DLO",
                             name: "PVi", // initial PV
                             validate(value) {
                                 // if (value && (parseInt(value) < configuration))
