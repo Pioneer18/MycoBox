@@ -49,6 +49,25 @@ const questions = [
         && Math.abs(parseInt(answers['dlo']) - parseInt(value)) > 2) return true
       return "Choose a starting point that is more than +/-2 units from the DLO"
     }
+  },
+  // #5. Switch OFF if new Steady State reached
+  {
+    type: 'confirm',
+    name: 'steady_switch_off',
+    message: 'Enter `y` if you`d like for the Test to end before the cycle limit when a new Steady State is detected',
+    default: false
+  },
+  // #6. Computed Output for the Actuator
+  {
+    type: 'input',
+    name: 'co',
+    message: 'Please select an output percentage from 0 to 100 percent for the actuator',
+    validate(value, answers) {
+      // must be between 0 and 100
+      // TODO: correlate each actuators range to a percentage
+      if (parseInt(value) >= 0 && parseInt(value) <= 100) return true
+      return 'Select an output percentage from 0 to 100'
+    }
   }
 ]
 
