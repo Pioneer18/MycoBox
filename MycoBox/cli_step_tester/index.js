@@ -256,10 +256,10 @@ const prompter = () => {
     ]
 
     const prompt_again = (answers) => {
-        if (answers.anotherTest.toLowerCase() === 'y' || answers.anotherTest.toLowerCase() === 'yes') {
-            return prompt_test_configs()
+        log(chalk.blue(answers['another_test']))
+        if (answers['another_test'] == true) {
+            return prompter()
         }
-
         return run_tests()
     }
 
