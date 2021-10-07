@@ -36,7 +36,7 @@ let dir; // the directory all of the test logs will be written to
 /**
  * Prompt User to create tests amd push them into the tests array
  */
-const prompt_test_configs = () => {
+const prompter = () => {
 
     // Test Configuration
     let configuration = {};
@@ -55,6 +55,57 @@ const prompt_test_configs = () => {
      * 8. how many cycles?
      * 9. set up another test?
      */
+    const tempPV = (pv) => {
+        if (pv === 'Temperature') return true
+    }
+
+    const humidityPV = (pv) => {
+        if (pv === 'Humidity') return true
+    }
+
+    const co2PV = (pv) => {
+        if (pv === 'CO2') return true
+    }
+
+    const dloReference = (reference) => {
+        if (reference === 'below') return true
+        if (reference === 'above') return false
+    }
+
+    const disturbances = (pv) => {
+        if (pv === 'Temperature') {
+            // hide AC & Heater
+            return [
+                { name: 'humidifier' },
+                { name: 'intake' },
+                { name: 'exhaust' },
+                { name: 'circulation top' },
+                { name: 'circulation bottom' },
+            ]
+        }
+        if (pv === 'Humidity') {
+            // hide humidifer
+            return [
+                { name: 'intake' },
+                { name: 'exhaust' },
+                { name: 'circulation top' },
+                { name: 'circulation bottom' },
+                { name: 'aircon' },
+                { name: 'heater' },
+            ]
+        }
+        if (pv === 'CO2') {
+            // hide intake & exhaust
+            return [
+                { name: 'humidifier' },
+                { name: 'circulation top' },
+                { name: 'circulation bottom' },
+                { name: 'aircon' },
+                { name: 'heater' },
+            ]
+        }
+    }
+
     const questions = [
         // #1. Title
         {
@@ -66,224 +117,227 @@ const prompt_test_configs = () => {
                 return 'Please enter a longer title'
             }
         },
-        // #2. Measured Process Variable (TODO:This should likely be a list)
+        // #2. Process Variable
         {
-            type: 'checkbox',
-            message: 'Select the measured process variable',
+            type: 'list',
             name: 'process_var',
+            message: 'Select a process variable (PV) to be tested',
             choices: [
-                { name: 'Temperature' },
-                { name: 'Humidity' },
-                { name: 'CO2' }
+                'Temperature',
+                'Humidity',
+                'CO2'
             ],
-            validate(choices) {
-                log(chalk.blackBright('Choices'))
-                log(chalk.blackBright(choices))
-                if (choices.length === 1) return true
+        },
+        // #3. Above to Below OR Below to Above: Test Prep
+        {
+            type: 'list',
+            name: 'start_reference',
+            message: 'Will the PV begin below the DLO and move above it, or from above the DLO and move below it?',
+            choices: [
+                'above',
+                'below'
+            ]
+        },
+        // #4. DLO for the Process Variable: Test Prep
+        {
+            type: 'input',
+            name: 'dlo',
+            message: 'Enter a design level of operation PV for this test',
+            validate(value, answers) {
+                if (parseInt(value) > 0 || parseInt(value) < 0) {
+                    if (answers['process_var'] === 'Temperature') { // determine lowest and highest C range for this
+                        if (parseInt(value) >= 0 && parseInt(value) <= 35) return true
+                        return 'Enter a value within 0 to 35 degrees Celsius'
+                    }
+                    if (answers['process_var'] === 'Humidity') {
+                        if (parseInt(value) >= 35 && parseInt(value) <= 99) return true // maybe hard to reach 100%?
+                        return 'Enter a value within 35 to 99% relative humidity'
+                    }
+                    if (answers['process_var'] === 'CO2') {
+                        if (parseInt(value) > 150 && parseInt(value) < 18000) return true // idk about these ranges 😅
+                        return 'Enter a value within 150 to 18,000 ppm'
+                    }
+                }
+                return 'Enter a number'
             }
+        },
+        // #5. CO step %: How much to raise / drop CO % (or switch actuators ON/OFF)
+        // raise ----------
+        {
+            type: 'input',
+            name: 'humidifier_step',
+            message: 'What percentage would you like to raise the Humidifier Output',
+            when(answers) {
+                return (dloReference(answers['start_reference']) && humidityPV(answers['process_var']))
+            }
+
+        },
+        {
+            type: 'list',
+            name: 'heater_step',
+            message: 'Would you like switch the Heater ON to raise the temperature?',
+            choices: [
+                'yes',
+                'no'
+            ],
+            when(answers) {
+                return (dloReference(answers['start_reference']) && tempPV(answers['process_var']))
+            }
+
+        },
+        // drop ----------
+        {
+            type: 'input',
+            name: 'humidifier_step',
+            message: 'Select what percentage to drop the humidifier CO',
+            when(answers) {
+                return (!dloReference(answers['start_reference']) && humidityPV(answers['process_var']))
+            }
+        },
+        {
+            type: 'list',
+            name: 'aircon_step',
+            message: 'Switch airconditioner ON to lower the temperature? ',
+            choices: [
+                'yes',
+                'no',
+            ],
+            when(answers) {
+                return (!dloReference(answers['start_reference']) && tempPV(answers['process_var']))
+            }
+        },
+        {
+            type: 'list',
+            name: 'ventilation_step',
+            message: 'Select a mode of ventilation output for the test',
+            choices: [
+                'both',
+                'intake',
+                'exhaust'
+            ],
+            when(answers) {
+                return (!dloReference(answers['start_reference']) && co2PV(answers['process_var']))
+            }
+
+        },
+        {
+            type: 'input',
+            name: 'intake-exhaust_step',
+            message: 'Select what percentage to raise the intake & exhaust CO',
+            when(answers) {
+                if (answers['ventilation_step'] && answers['ventilation_step'] === 'both') return true
+            },
+            validate(value) {
+                if ((parseInt(value) > 0 || parseInt(value) <= 100)) return true
+            }
+        },
+        {
+            type: 'input',
+            name: 'intake_step', // implies exhaust off
+            message: 'Select what percentage to raise the intake CO',
+            when(answers) {
+                if (answers['ventilation_step'] && answers['ventilation_step'] === 'intake') return true
+            },
+            validate(value) {
+                if ((parseInt(value) > 0 || parseInt(value) <= 100)) return true
+            }
+        },
+        {
+            type: 'input',
+            name: 'exhaust_step', // implies intake off
+            message: 'Select what percentage to raise the exhaust CO',
+            when(answers) {
+                if (answers['ventilation_step'] && answers['ventilation_step'] === 'exhaust') return true
+            },
+            validate(value) {
+                if ((parseInt(value) > 0 || parseInt(value) <= 100)) return true
+            }
+        },
+    ]
+
+    const prompt_again = (answers) => {
+        if (answers.anotherTest.toLowerCase() === 'y' || answers.anotherTest.toLowerCase() === 'yes') {
+            return prompt_test_configs()
         }
-    ];
+
+        return run_tests()
+    }
+
+    const submit_test = (answers) => {
+        configuration = { ...configuration, ...answers }
+        tests.push(configuration);
+    }
 
     inquirer.prompt(questions)
         .then(answers => {
-            // make the title filename firendly
-            configuration.title = answers.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-            let questions = [];
-            // #3. DLO for the selected PV
-            answers.process_var.forEach(variable => {
-                if (variable === 'Temperature') {
-                    questions.push({
-                        type: 'input',
-                        message: 'Enter the design level of operation for the temperature in degrees Celsius',
-                        name: 'tempDLO',
-                        validate(value) {
-                            if (value = '' || value === undefined || (parseInt(value) >= 0 && parseInt(value) <= 35)) return true
-                            return 'Please choose a value larger than 0 and less than 35 degrees C'
-                        }
-                    })
+            log(chalk.blue(JSON.stringify(answers, null, '  ')));
+            // add answers to configuration
+            configuration = {...answers}
+            const nested_questions = [
+                // #6. [OPTIONAL] Select Disturbances
+                {
+                    type: 'checkbox',
+                    name: 'disturbances',
+                    message: '[OPTIONAL] Select disturbances for the test',
+                    choices: disturbances(answers['process_var'])
+                },
+                // #7. Select Disturbances' values
+                {
+                    type: 'input',
+                    name: 'humidifier',
+                    message: 'Select a CO percentage for the humidifier',
+                    when(answers) {
+                        if (answers[disturbances] && answers[disturbances].includes('humidifier')) return true
+                    }
+                },
+                {
+                    type: 'input',
+                    name: 'intake',
+                    message: 'Select a CO percentage for the intake',
+                    when(answers) {
+                        if (answers[disturbances] && answers[disturbances].includes('intake')) return true
+                    }
+                },
+                {
+                    type: 'input',
+                    name: 'exhaust',
+                    message: 'Select a CO percentage for the exhaust',
+                    when(answers) {
+                        if (answers[disturbances] && answers[disturbances].includes('exhaust')) return true
+                    }
+                },
+                // #8. cycles / dlo crossed by (+/-) / Steady State
+                {
+                    type: 'list',
+                    name: 'test_terminator',
+                    message: 'Select a test termination criteria',
+                    choices: [
+                        'cycles',
+                        'dlo difference',
+                        'steady state'
+                    ]
+                },
+                // #9. Another test?
+                {
+                    type: 'confirm',
+                    name: 'another_test',
+                    message: 'Do you want to add another test to the session? Click ENTER to answer NO, type `y` to answer YES',
+                    default: false,
                 }
-                if (variable === 'Humidity') {
-                    questions.push({
-                        type: 'input',
-                        message: 'Enter the design level of operation for the Relative Humidity as a percentage',
-                        name: 'rhDLO',
-                        validate(value) {
-                            if (value = '' || value === undefined || (parseInt(value) >= 10 && parseInt(value) <= 100)) return true
-                            return 'Please choose a value larger than 0 and less than 35 degrees C'
-                        }
-                    })
-                }
-                if (variable === 'CO2') {
-                    questions.push({
-                        type: 'input',
-                        message: 'Enter the design level of operation for the CO2 in ppm',
-                        name: 'co2DLO',
-                        validate(value) {
-                            if (value = '' || value === undefined || (parseInt(value) >= 200 && parseInt(value) <= 20000)) return true
-                            return 'Please choose a value larger than 199 and less than 20001 ppm'
-                        }
-                    })
-                }
-            })
-            return questions
-        })
-        .then(questions => {
-            inquirer.prompt(questions).then(answers => {
-                configuration = { ...configuration, ...answers }
-                return answers
-            })
+            ];
+
+            inquirer.prompt(nested_questions)
                 .then(answers => {
                     log(chalk.green(JSON.stringify(answers, null, '  ')));
-                    /**
-                     * Max allowed starting PV (look at the previous answer, select make temp,hum,co2 accordingly)
-                     */
-                    const questions = [
-                        // #4. Maxed allowed starting point (start criteria)
-                        {
-                            type: "input",
-                            message: "Select a starting PV for the test that is at least 2 units above or below the DLO",
-                            name: "PVi", // initial PV
-                            validate(value) {
-                                // if (value && (parseInt(value) < configuration))
-                            }
-                        }
-                    ]
+                    // add answers to configuration
+                    submit_test(answers)
+                    prompt_again(answers)
                 })
 
-
-                // put this at the 10'th level deep
-                .then(() => {
-                    const questions = [
-                        // #10. Disturbance Actuators
-                        {
-                            type: 'checkbox',
-                            message: 'Select the disturbances that will be active during the test',
-                            name: 'disturbances',
-                            choices: [
-                                { name: 'humidifier' },
-                                { name: 'intake' },
-                                { name: 'exhaust' },
-                                { name: 'circulation top' },
-                                { name: 'circulation bottom' },
-                                { name: 'aircon' },
-                                { name: 'heater' },
-                                { name: 'light' },
-                            ]
-                        }
-                    ]
-                    inquirer.prompt(questions)
-                        .then(answers => {
-                            let questions = []
-                            // #11. disturbance CO values
-                            answers.disturbances.forEach(actuator => {
-                                if (actuator === 'humidifier') {
-                                    questions.push({
-                                        type: 'input',
-                                        name: 'humidifierOutput',
-                                        message: 'Please enter the output value for the humidifier; an integer between 1 - 320',
-                                        validate(value) {
-                                            if (value && (parseInt(value) >= 1 && parseInt(value) <= 320)) return true
-                                            return "Please enter a value between 1 and 320"
-                                        }
-                                    })
-                                }
-                                if (actuator === 'intake') {
-                                    questions.push({
-                                        type: 'input',
-                                        name: 'intakeOutput',
-                                        message: 'Please enter the output value for the intake fan; an integer between 1 - 350',
-                                        validate(value) {
-                                            if (value && (parseInt(value) >= 1 && parseInt(value) <= 350)) return true
-                                            return "Please enter a value between 1 and 350"
-                                        }
-                                    })
-                                }
-                                if (actuator === 'exhaust') {
-                                    questions.push({
-                                        type: 'input',
-                                        name: 'exhaustOutput',
-                                        message: 'Please enter the output value for the exhaust fan; an integer between 1 - 350',
-                                        validate(value) {
-                                            if (value && (parseInt(value) >= 1 && parseInt(value) <= 350)) return true
-                                            return "Please enter a value between 1 and 350"
-                                        }
-                                    })
-                                }
-                                if (actuator === 'light') {
-                                    questions.push({
-                                        type: 'input',
-                                        name: 'lightOutput',
-                                        message: 'Please enter the output value for the light; an integer between 1 - 410',
-                                        validate(value) {
-                                            if (value && (parseInt(value) >= 1 && parseInt(value) <= 410)) return true
-                                            return "Please enter a value between 1 and 410"
-                                        }
-                                    })
-                                }
-                                if (actuator === 'circulation top') {
-                                    configuration.circulation_top = true;
-                                }
-                                if (actuator === 'circulation bottom') {
-                                    configuration.circulation_bottom = true;
-                                }
-                                if (actuator === 'aircon') {
-                                    configuration.aircon = true;
-                                }
-                                if (actuator === 'heater') {
-                                    configuration.heater = true;
-                                }
-                            })
-
-                            return questions
-                        })
-                        .then(questions => {
-                            inquirer.prompt(questions)
-                                .then(answers => {
-                                    configuration = { ...configuration, ...answers }
-
-                                    const questions = [
-                                        // #12. Number of Cycles 
-                                        {
-                                            type: 'input',
-                                            name: 'cycles',
-                                            message: 'Please enter the number of Environment Manager Cycles for this test',
-                                            validate(value) {
-                                                if (value && parseInt(value) > 0 && parseInt(value) < 51) return true
-                                                return "Please enter a value greater than 0 and less than 51"
-                                            }
-                                        },
-                                        // #13. Create another test?
-                                        {
-                                            type: 'confirm',
-                                            name: 'anotherTest',
-                                            message: 'Do you want to add another test to the session? Click ENTER to answer NO, type `y` to answer YES',
-                                            default: false,
-                                        },
-                                    ]
-                                    inquirer.prompt(questions)
-                                        .then(answers => {
-                                            /**
-                                             * Add another Test or Start the Session
-                                             * - Ask if user will enter another test
-                                                - if yes: recall promptcreate and push current test to global tests array
-                                                - if no: push test and go to run session step
-                                             */
-                                            configuration = { ...configuration, ...answers }
-                                            tests.push(configuration);
-                                            if (answers.anotherTest.toLowerCase() === 'y' || answers.anotherTest.toLowerCase() === 'yes') {
-                                                return prompt_test_configs()
-                                            }
-
-                                            return run_tests()
-                                        })
-                                })
-                        })
-
-                })
         })
 }
 
-prompt_test_configs()
+prompter()
 
 
 /**
@@ -355,12 +409,13 @@ const newTestSession = (config) => {
         get('session_state')
             .then(state => {
                 if (!state.active_test_session) {
-                    // set the test env_config: anything...just to prevent an error
+                    // set the test env_config: anything...just to prevent an error (so there's a state value for PIDs that aren't even used yet still called)
                     set_environment_config(test_config)
-                        .then(set_session_state('active_test_session', true)
+                        .then(set_session_state('active_test_session', true) // Test Runner knows this test is getting started
                             .then(() => {
-                                const test_config = map_test_config(config);
+                                const test_config = map_test_config(config); // TODO: update for new test_config
                                 set_overrides(test_config);
+                                //TODO: CYCLES / DLO REFERENCE / STEADY STATE
                                 // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
                                 set_test_config('cycles_limit', parseInt(test_config.cycles))
                                     // call environment manager: in test mode env counts it's loops and ends session on final loop
@@ -372,7 +427,6 @@ const newTestSession = (config) => {
 
     })
 }
-
 
 // set the globals.overrides for the current test
 const set_overrides = (test_config) => {

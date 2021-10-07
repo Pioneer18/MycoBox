@@ -17,10 +17,15 @@ const { test_logger } = require("../../logs/logger");
  * i. coordinates through three session stages
  * ii. maintain PID states
  * iii. call each EM PID
+ * iv. log data to db (SSD, Online)
  * ---------------------------------------------
  * Test Mode:
+ * @ choice: reference difference from dlo || reach steady state => to stop
  * i. increment globals.session_state.cycles_count
  * ii. set active_test_session false if cycles_count reached cycles_limit
+ * iii. apply overrides and not PID controller ouputs
+ * iv. log data to test file on each cycle
+ * v. return tuning parameters from completed test data
  */
 const environment_manager = (mode, resolver) => {
     // #1. Validate the session is still active and THEN
@@ -40,20 +45,21 @@ const environment_manager = (mode, resolver) => {
                             console.log('#######################')
                             if (mode === 'TEST') {
                                 get('test_config')
+                                    // determine continue or end test
                                     .then(state => {
                                         process_cycle_count(state)
+                                        // check PV - DLO abs difference
+                                        // check if steady state detected
                                     })
-                                    .then(() => {
-                                        // log test data to correct test file
-                                        test_logger()
-                                        // use the globals.test_config.dirname & .filename properties to know where to right the logs
-                                    })
+                                    .then(() => test_logger())
                                     .then(() => environment_manager('TEST', resolve));
                             }
 
                             if (mode === 'LIVE') {
+                                // log data to db (ssd / online)
+                                // check stage
+                                // Call next EM cycle
                                 setTimeout(() => {
-                                    console.log("*************** is this Happening?????")
                                     environment_manager('LIVE');
                                 }, 1000);
                             }
