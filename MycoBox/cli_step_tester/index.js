@@ -52,7 +52,8 @@ const prompter = () => {
      * 5. CO step %?
      * 6. Will any of these disturbances be running? (don't show CO actuator)
      * 7. CO of the selected disturbances?
-     * 8. how many cycles?
+     * 8. Cycles / DLO Difference / Steady state? 
+     * 9. how many cycles / what difference / ok
      * 9. set up another test?
      */
     const tempPV = (pv) => {
@@ -287,7 +288,7 @@ const prompter = () => {
                     name: 'humidifier',
                     message: 'Select a CO percentage for the humidifier',
                     when(answers) {
-                        if (answers[disturbances] && answers[disturbances].includes('humidifier')) return true
+                        if (answers['disturbances'].length > 0 && answers['disturbances'].includes('humidifier')) return true
                     }
                 },
                 {
@@ -295,7 +296,7 @@ const prompter = () => {
                     name: 'intake',
                     message: 'Select a CO percentage for the intake',
                     when(answers) {
-                        if (answers[disturbances] && answers[disturbances].includes('intake')) return true
+                        if (answers['disturbances'].length > 0 && answers['disturbances'].includes('intake')) return true
                     }
                 },
                 {
@@ -303,7 +304,7 @@ const prompter = () => {
                     name: 'exhaust',
                     message: 'Select a CO percentage for the exhaust',
                     when(answers) {
-                        if (answers[disturbances] && answers[disturbances].includes('exhaust')) return true
+                        if (answers['disturbances'].length > 0 && answers['disturbances'].includes('exhaust')) return true
                     }
                 },
                 // #8. cycles / dlo crossed by (+/-) / Steady State
