@@ -359,7 +359,7 @@ prompter()
 
 
 /**
- * Run Tests
+ * Run Tests (ok)
  * Todo:
  * 1. put logsDirName into ENV (private folder on my pc)
  * 2. put mode vars, LIVE & TEST, into resources file
@@ -411,16 +411,16 @@ const run_tests = () => {
             }, 15000);
         }
         // wait for the acitve_test_session to be set
-        console.log('Hello from Run Tests Outer Space!')
+        log(chalk.magentaBright('Hello from Run Tests Outer Space!'))
     }
     else {
-        console.log("All TESTS HAVE BEEN RAN, YA PLEB!")
+        log(chalk.magentaBright("All TESTS HAVE BEEN RAN, YA PLEB!"))
         return
     }
 }
 
 /**
- * NewTestSession
+ * NewTestSession (ok)
  */
 const newTestSession = (config) => {
     return new Promise((resolve) => {
@@ -436,7 +436,7 @@ const newTestSession = (config) => {
                                 set_overrides(test_config);
                                 //TODO: CYCLES / dlo_reference / steady_state
                                 // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
-                                set_test_config('cycles_limit', parseInt(test_config.cycles))
+                                set_test_config('cycles_limit', parseInt(test_config.cycles_limit))
                                     // call environment manager: in test mode env counts it's loops and ends session on final loop
                                     .then(environment_manager('TEST'))//environment_manager('TEST')
                                     .then(resolve('Resolve After EM has fired'))
@@ -447,7 +447,7 @@ const newTestSession = (config) => {
     })
 }
 
-// set the globals.overrides for the current test
+// set the globals.overrides for the current test (ok)
 const set_overrides = (test_config) => {
     console.log('Test Config');
     console.log(test_config);
@@ -504,7 +504,7 @@ const set_overrides = (test_config) => {
 }
 
 /**
- * maps the raw form array into a test_configuration
+ * maps the raw form array into a test_configuration (ok)
  * @param {*} configuration 
  * 
  */
@@ -551,7 +551,7 @@ const map_test_config = (configuration) => {
 }
 
 /**
- * Create Test Suite Directory
+ * Create Test Suite Directory (ok)
  */
 const createTestSuiteDir = () => {
     try {
