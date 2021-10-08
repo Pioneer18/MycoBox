@@ -534,10 +534,10 @@ const map_test_config = (configuration) => {
         // What TO RUN --------------------
         co: findCO(),
         disturbances: {
-            circulation_top: configuration.circulation_top ? configuration.circulation_top : '',
-            circulation_bottom: configuration.circulation_bottom ? configuration.circulation_bottom : '',
-            aircon: configuration.aircon ? configuration.aircon : '',
-            heater: configuration.heater ? configuration.heater : '',
+            circulation_top: configuration.disturbances.includes('circulation_top') ? true : '',
+            circulation_bottom: configuration.disturbances.includes('circulation_bottom') ? true : '',
+            aircon: configuration.disturbances.includes('aircon') ? true : '',
+            heater: configuration.disturbances.includes('heater') ? true : '',
             humidifierOutput: configuration.humidifier ? configuration.humidifier : '',
             intakeOutput: configuration.intake ? configuration.intake : '',
             exhaustOutput: configuration.exhaust ? configuration.exhaust : '',
