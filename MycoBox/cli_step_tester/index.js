@@ -511,14 +511,14 @@ const set_overrides = (test_config) => {
 const map_test_config = (configuration) => {
     // log(chalk.red(JSON.stringify(configuration, null, '  ')))
 
-    // return the correct actuator that is being stepped
+    // return the correct actuator and it's value
     const findCO = () => {
-        if (configuration.aircon_step) return configuration.aircon_step
-        if (configuration.heater_step) return configuration.heater_step
-        if (configuration.humidifier_step) return configuration.humidifier_step
+        if (configuration.aircon_step) return { name: 'aircon_step', value: configuration.aircon_step }
+        if (configuration.heater_step) return { name: 'heater_step', value: configuration.heater_step }
+        if (configuration.humidifier_step) return { name: 'humidifier_step', value: configuration.humidifier_step }
         if (configuration.ventilation_step) {
-            if (configuration.ventilation_step === 'both') return 'intake-exhaust_step' 
-            return configuration.ventilation_step
+            if (configuration.ventilation_step === 'both') return { name: 'intake-exhaust_step', value: configuration.ventilation_step }
+            return { name: 'ventilation_step', value: configuration.ventilation_step }
         }
 
     }
