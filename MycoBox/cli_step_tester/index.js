@@ -432,6 +432,7 @@ const newTestSession = (config) => {
                         .then(set_session_state('active_test_session', true) // Test Runner knows this test is getting started
                             .then(() => {
                                 const test_config = map_test_config(config); // TODO: update for new test_config
+                                log(chalk.redBright(JSON.stringify(test_config, null, '  ')))
                                 set_overrides(test_config);
                                 //TODO: CYCLES / dlo_reference / steady_state
                                 // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
@@ -508,7 +509,7 @@ const set_overrides = (test_config) => {
  * 
  */
 const map_test_config = (configuration) => {
-    log(chalk.red(JSON.stringify(configuration, null, '  ')))
+    // log(chalk.red(JSON.stringify(configuration, null, '  ')))
 
     // return the correct actuator that is being stepped
     const findCO = () => {
