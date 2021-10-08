@@ -257,7 +257,6 @@ const prompter = () => {
     ]
 
     const prompt_again = (answers) => {
-        log(chalk.blue(answers['another_test']))
         if (answers['another_test'] == true) {
             return prompter()
         }
@@ -271,8 +270,6 @@ const prompter = () => {
 
     inquirer.prompt(questions)
         .then(answers => {
-            log(chalk.blue(JSON.stringify(answers, null, '  ')));
-            // add answers to configuration
             configuration = { ...answers }
             const nested_questions = [
                 // #6. [OPTIONAL] Select Disturbances
@@ -346,8 +343,6 @@ const prompter = () => {
 
             inquirer.prompt(nested_questions)
                 .then(answers => {
-                    log(chalk.green(JSON.stringify(answers, null, '  ')));
-                    // add answers to configuration
                     submit_test(answers)
                     prompt_again(answers)
                 })
