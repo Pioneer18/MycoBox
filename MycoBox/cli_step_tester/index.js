@@ -538,10 +538,9 @@ const map_test_config = (configuration) => {
             circulation_bottom: configuration.circulation_bottom ? configuration.circulation_bottom : '',
             aircon: configuration.aircon ? configuration.aircon : '',
             heater: configuration.heater ? configuration.heater : '',
-            humidifierOutput: configuration.humidifierOutput ? configuration.humidifierOutput : '',
-            intakeOutput: configuration.intakeOutput ? configuration.intakeOutput : '',
-            exhaustOutput: configuration.exhaustOutput ? configuration.exhaustOutput : '',
-            lightOutput: configuration.lightOutput ? configuration.lightOutput : ''
+            humidifierOutput: configuration.humidifier ? configuration.humidifier : '',
+            intakeOutput: configuration.intake ? configuration.intake : '',
+            exhaustOutput: configuration.exhaust ? configuration.exhaust : '',
         },
         // HOW & WHEN TO END --------------------
         terminator: configuration.terminator,
