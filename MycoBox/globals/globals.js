@@ -507,13 +507,13 @@ const set_test_config_validation = (element, value) => {
     if (element === 'intake-exhaust_step' && typeof value === 'number') return
     if (element === 'humidifier_step' && typeof value === 'number') return
     // disturbances
-    if (element === '' && typeof value === '') return
-    if (element === '' && typeof value === '') return
-    if (element === '' && typeof value === '') return
-    if (element === '' && typeof value === '') return
-    if (element === '' && typeof value === '') return
-    if (element === '' && typeof value === '') return
-    if (element === '' && typeof value === '') return
+    if (element === 'circulation_top' && typeof value === 'boolean') return
+    if (element === 'circulation_bottom' && typeof value === 'boolean') return
+    if (element === 'aircon' && typeof value === 'boolean') return
+    if (element === 'heater' && typeof value === 'boolean') return
+    if (element === 'humidifierOutput' && typeof value === 'number') return
+    if (element === 'intakeOutput' && typeof value === 'number') return
+    if (element === 'exhaustOutput' && typeof value === 'number') return
     // terminators
     if (element === 'cycles_limit' && typeof value === 'number') return
     if (element === 'cycles_count' && typeof value === 'number') return
