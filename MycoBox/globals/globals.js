@@ -208,13 +208,13 @@ const getter = (section) => {
  */
 const set_environment_config = (config) => {
     return new Promise((resolve) => {
-        console.log('METHOD CALL: Set_environment_config')
+        log('METHOD CALL: Set_environment_config')
         set_environment_config_validation(config)
             .then(globals.environment_config = config) // validate the config matches what is expected !!!
             .then(resolve())
-            .catch(err => console.log('Error Caught: set_environment_config: ' + err))
+            .catch(err => log('Error Caught: set_environment_config: ' + err))
 
-        console.log('Invalid Environment Config Given: ' + err)
+        log('Invalid Environment Config Given: ' + err)
     })
 
 }
@@ -225,7 +225,7 @@ const set_environment_config = (config) => {
  */
 const set_environment_config_validation = (config) => {
     return new Promise((resolve) => {
-        console.log('METHOD CALL: set_environment_config_validation')
+        log('METHOD CALL: set_environment_config_validation')
         if (!config.spawn_running) throw new Error('Missing Spawn Running');
         if (!config.spawn_running.temperature) throw new Error('Missing Spawn Running: temperature')
         if (!config.spawn_running.humidity) throw new Error('Missing Spawn Running: humidity')
@@ -265,14 +265,14 @@ const set_environment_config_validation = (config) => {
  */
 const set_environment_state = ((element, value) => {
     return new Promise((resolve) => {
-        console.log('Setting Environment State:')
-        console.log(value);
+        log('Setting Environment State:')
+        log(value);
         set_environment_state_validation(element, value)
             .then(() => {
                 globals.environment_state[element] = value
                 resolve()
             })
-            .catch(err => console.log(`Error Caught: set_enviornment_state: ${err}`));
+            .catch(err => log(`Error Caught: set_enviornment_state: ${err}`));
     });
 
 })
@@ -309,10 +309,10 @@ const set_environment_state_validation = (element, value) => {
  */
 const set_session_state = (element, value) => {
     return new Promise((resolve) => {
-        console.log('METHOD CALL: set_session_state');
+        log('METHOD CALL: set_session_state');
         set_session_state_validation(element, value);
         globals.session_state[element] = value
-        console.log(globals.session_state[element])
+        log(globals.session_state[element])
         resolve()
     })
 
@@ -355,7 +355,7 @@ const set_pid_state = (controller, state) => {
 
 const set_pid_state_validation = (controller, state) => {
     try {
-        console.log('Validating the PID State')
+        log('Validating the PID State')
         if (!controller || !state) throw new Error('Either the controller or state has not been provided');
         if (typeof controller !== 'string') throw new Error('Invalid controller given, not a string');
         if (typeof state.integralOfError !== 'number') throw new Error('Invalid integralOfError provided')
@@ -374,7 +374,7 @@ const set_pid_state_validation = (controller, state) => {
  */
 const set_actuator_state = (element, status, value) => {
     return new Promise((resolve) => {
-        console.log('Setting Actuator State')
+        log('Setting Actuator State')
         validate_set_actuator_state(element, status, value)
         if (element === 'light' || element === 'speakers') {
             globals.actuators_state[element][value]
@@ -387,9 +387,9 @@ const set_actuator_state = (element, status, value) => {
 
 const validate_set_actuator_state = (element, status, value) => {
     if (!element || (typeof element !== 'string')) throw new Error('Missing or Invalid Element for setting actuator state');
-    console.log('Validate Set Actuator State: Value Here')
-    console.log(element, value)
-    console.log(typeof value)
+    log('Validate Set Actuator State: Value Here')
+    log(element, value)
+    log(typeof value)
     if (element === 'light' || element === 'speakers') {
         return
     }
@@ -405,7 +405,7 @@ const validate_set_actuator_state = (element, status, value) => {
         if ((typeof value === 'number') || (typeof value === 'boolean')) {
             return
         } else {
-            console.log('The Value is not a Boolean or a Number!')
+            log('The Value is not a Boolean or a Number!')
             throw new Error('The Value is not a Boolean or a Number')
         }
     }
@@ -489,18 +489,34 @@ const set_test_config = (element, value) => {
 }
 
 const set_test_config_validation = (element, value) => {
-    console.log(element);
-    console.log(value);
-    if (element === 'cycles_limit' && typeof value === 'number') return
-    if (element === 'cycles_count' && typeof value === 'number') return
+    log(chalk.yellow('Setting Test Config'))
+    log(chalk.yellow(element));
+    log(chalk.yellow(value));
+    // logging
     if (element === 'filename' && typeof value === 'string') return
     if (element === 'dirname' && typeof value === 'string') return
-    if (element === 'temperature' && typeof value === 'number') return
-    if (element === 'humidity' && typeof value === 'number') return
-    if (element === 'co2' && typeof value === 'number') return
-    if (element === 'tempMaximum' && typeof value === 'number') return
-    if (element === 'rhMaximum' && typeof value === 'number') return
-    if (element === 'co2Maximum' && typeof value === 'number') return
+    // op_level
+    if (element === 'process_var' && typeof value === 'string') return
+    if (element === 'start_reference' && typeof value === 'string') return
+    if (element === 'dlo' && typeof value === 'number') return
+    // co
+    if (element === 'aircon_step' && typeof value === 'boolean') return
+    if (element === 'heater_step' && typeof value === 'boolean') return
+    if (element === 'intake_step' && typeof value === 'number') return
+    if (element === 'exhaust_step' && typeof value === 'number') return
+    if (element === 'intake-exhaust_step' && typeof value === 'number') return
+    if (element === 'humidifier_step' && typeof value === 'number') return
+    // disturbances
+    if (element === '' && typeof value === '') return
+    if (element === '' && typeof value === '') return
+    if (element === '' && typeof value === '') return
+    if (element === '' && typeof value === '') return
+    if (element === '' && typeof value === '') return
+    if (element === '' && typeof value === '') return
+    if (element === '' && typeof value === '') return
+    // terminators
+    if (element === 'cycles_limit' && typeof value === 'number') return
+    if (element === 'cycles_count' && typeof value === 'number') return
     throw new Error('Invalid session_state element or value given')
 }
 
