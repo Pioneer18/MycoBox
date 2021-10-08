@@ -310,7 +310,7 @@ const prompter = () => {
                 // #8. select a terminator
                 {
                     type: 'list',
-                    name: 'test_terminator',
+                    name: 'terminator',
                     message: 'Select a test termination criteria',
                     choices: [
                         'cycles',
@@ -324,7 +324,7 @@ const prompter = () => {
                     name: 'cycles_limit',
                     message: 'Select a number of cycles for this test',
                     when(answers) {
-                        if (answers['test_terminator'] === 'cycles') return true
+                        if (answers['terminator'] === 'cycles') return true
                     }
                 },
                 {
@@ -332,7 +332,7 @@ const prompter = () => {
                     name: 'dlo_reference',
                     message: 'How many units past the DLO must the PV travel before the test terminates?',
                     when(answers) {
-                        if (answers['test_terminator'] === 'dlo_reference') return true
+                        if (answers['terminator'] === 'dlo_reference') return true
                     }
                 },
                 // #9. Another test?
@@ -508,7 +508,9 @@ const set_overrides = (test_config) => {
  * 
  */
 const map_test_config = (configuration) => {
-    // has the things that I need changed? Yeah pretty sure, so figure that out!
+    log(chalk.red(JSON.stringify(configuration, null, '  ')))
+
+    // return the correct actuator that is being stepped
     const findCO = () => {
         if (configuration.aircon_step) return configuration.aircon_step
         if (configuration.heater_step) return configuration.heater_step
@@ -520,22 +522,16 @@ const map_test_config = (configuration) => {
 
     }
 
-    log(chalk.red(JSON.stringify(configuration, null, '  ')))
     return {
-        title: configuration.title,
         // HOW TO Start --------------------
-        // [#1] title: used by test (logger)
         title: configuration.title,
-        // [#2, #3, #4] operation_level: process_var, start_reference, dlo, (test_preper, logger, calculations)
         op_level: {
             process_var: configuration.process_var,
             start_reference: configuration.start_reference,
             dlo: configuration.dlo
         },
         // What TO RUN --------------------
-        // [#5]
         co: findCO(),
-        // [#6]
         disturbances: {
             circulation_top: configuration.circulation_top ? configuration.circulation_top : '',
             circulation_bottom: configuration.circulation_bottom ? configuration.circulation_bottom : '',
@@ -545,11 +541,11 @@ const map_test_config = (configuration) => {
             intakeOutput: configuration.intakeOutput ? configuration.intakeOutput : '',
             exhaustOutput: configuration.exhaustOutput ? configuration.exhaustOutput : '',
             lightOutput: configuration.lightOutput ? configuration.lightOutput : ''
-        }
+        },
         // HOW & WHEN TO END --------------------
-        // [#7, #8] settings: { (when and how to end)
-        //   - terminator: 
-        //   - terminator_value:   
+        terminator: configuration.terminator,
+        cycles_limit: configuration.cycles_limit ? configuration.cycles_limit : '',
+        dlo_reference: configuration.dlo_reference ? configuration.dlo_reference : ''
     }
 
 }
