@@ -509,6 +509,7 @@ const set_overrides = (test_config) => {
  */
 const map_test_config = (configuration) => {
     // map the test configuration object
+    log(chalk.red(JSON.stringify(configuration, null, '  ')))
     return {
         title: configuration.title,
         start_criteria: {
