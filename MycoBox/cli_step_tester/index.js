@@ -52,7 +52,7 @@ const prompter = () => {
      * 5. CO step %?
      * 6. Will any of these disturbances be running? (don't show CO actuator)
      * 7. CO of the selected disturbances?
-     * 8. Cycles / DLO Difference / Steady state? 
+     * 8. Cycles / dlo_reference / steady_state? 
      * 9. how many cycles / what difference / ok
      * 9. set up another test?
      */
@@ -80,8 +80,8 @@ const prompter = () => {
                 { name: 'humidifier' },
                 { name: 'intake' },
                 { name: 'exhaust' },
-                { name: 'circulation top' },
-                { name: 'circulation bottom' },
+                { name: 'circulation_top' },
+                { name: 'circulation_bottom' },
             ]
         }
         if (pv === 'Humidity') {
@@ -89,8 +89,8 @@ const prompter = () => {
             return [
                 { name: 'intake' },
                 { name: 'exhaust' },
-                { name: 'circulation top' },
-                { name: 'circulation bottom' },
+                { name: 'circulation_top' },
+                { name: 'circulation_bottom' },
                 { name: 'aircon' },
                 { name: 'heater' },
             ]
@@ -99,8 +99,8 @@ const prompter = () => {
             // hide intake & exhaust
             return [
                 { name: 'humidifier' },
-                { name: 'circulation top' },
-                { name: 'circulation bottom' },
+                { name: 'circulation_top' },
+                { name: 'circulation_bottom' },
                 { name: 'aircon' },
                 { name: 'heater' },
             ]
@@ -314,8 +314,8 @@ const prompter = () => {
                     message: 'Select a test termination criteria',
                     choices: [
                         'cycles',
-                        'dlo difference',
-                        'steady state'
+                        'dlo_reference',
+                        'steady_state'
                     ]
                 },
                 // #9. quantify the terminator
@@ -329,10 +329,10 @@ const prompter = () => {
                 },
                 {
                     type: 'input',
-                    name: 'dlo_difference',
+                    name: 'dlo_reference',
                     message: 'How many units past the DLO must the PV travel before the test terminates?',
                     when(answers) {
-                        if (answers['test_terminator'] === 'dlo difference') return true
+                        if (answers['test_terminator'] === 'dlo_reference') return true
                     }
                 },
                 // #9. Another test?
@@ -433,7 +433,7 @@ const newTestSession = (config) => {
                             .then(() => {
                                 const test_config = map_test_config(config); // TODO: update for new test_config
                                 set_overrides(test_config);
-                                //TODO: CYCLES / DLO REFERENCE / STEADY STATE
+                                //TODO: CYCLES / dlo_reference / steady_state
                                 // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
                                 set_test_config('cycles_limit', parseInt(test_config.cycles))
                                     // call environment manager: in test mode env counts it's loops and ends session on final loop
@@ -509,38 +509,48 @@ const set_overrides = (test_config) => {
  */
 const map_test_config = (configuration) => {
     // has the things that I need changed? Yeah pretty sure, so figure that out!
+    const findCO = () => {
+        if (configuration.aircon_step) return configuration.aircon_step
+        if (configuration.heater_step) return configuration.heater_step
+        if (configuration.humidifier_step) return configuration.humidifier_step
+        if (configuration.ventilation_step) {
+            if (configuration.ventilation_step === 'both') return 'intake-exhaust_step' 
+            return configuration.ventilation_step
+        }
+
+    }
+
     log(chalk.red(JSON.stringify(configuration, null, '  ')))
-    // return {
-    //     title: configuration.title,
-    //     start_criteria: {
-    //         tempDLO: configuration.tempDLO ? configuration.tempDLO : '',
-    //         rhDLO: configuration.rhDLO ? configuration.rhDLO : '',
-    //         co2DLO: configuration.co2DLO ? configuration.co2DLO : ''
-    //     },
-    //     overrides: {
-    //         circulation_top: configuration.circulation_top ? configuration.circulation_top : '',
-    //         circulation_bottom: configuration.circulation_bottom ? configuration.circulation_bottom : '',
-    //         aircon: configuration.aircon ? configuration.aircon : '',
-    //         heater: configuration.heater ? configuration.heater : '',
-    //         humidifierOutput: configuration.humidifierOutput ? configuration.humidifierOutput : '',
-    //         intakeOutput: configuration.intakeOutput ? configuration.intakeOutput : '',
-    //         exhaustOutput: configuration.exhaustOutput ? configuration.exhaustOutput : '',
-    //         lightOutput: configuration.lightOutput ? configuration.lightOutput : ''
-    //     },
-    //     cycles: configuration.cycles,
-    // }
-       return {
-           title: configuration.title,
-           // HOW TO Start --------------------
-           // [#1] title: used by test (logger)
-           // [#2, #3, #4] operation_level: process_var, start_reference, dlo, (test_preper, logger, calculations)
-           // What TO RUN --------------------
-           // [#5, #6] overrides: break down the CO, doesn't matter PV or Disturbance, what's gotta turn on? (what to run during the test)
-           // HOW & WHEN TO END --------------------
-           // [#7, #8] settings: { (when and how to end)
-           //   - terminator: 
-           //   - terminator_value:   
-       }
+    return {
+        title: configuration.title,
+        // HOW TO Start --------------------
+        // [#1] title: used by test (logger)
+        title: configuration.title,
+        // [#2, #3, #4] operation_level: process_var, start_reference, dlo, (test_preper, logger, calculations)
+        op_level: {
+            process_var: configuration.process_var,
+            start_reference: configuration.start_reference,
+            dlo: configuration.dlo
+        },
+        // What TO RUN --------------------
+        // [#5]
+        co: findCO(),
+        // [#6]
+        disturbances: {
+            circulation_top: configuration.circulation_top ? configuration.circulation_top : '',
+            circulation_bottom: configuration.circulation_bottom ? configuration.circulation_bottom : '',
+            aircon: configuration.aircon ? configuration.aircon : '',
+            heater: configuration.heater ? configuration.heater : '',
+            humidifierOutput: configuration.humidifierOutput ? configuration.humidifierOutput : '',
+            intakeOutput: configuration.intakeOutput ? configuration.intakeOutput : '',
+            exhaustOutput: configuration.exhaustOutput ? configuration.exhaustOutput : '',
+            lightOutput: configuration.lightOutput ? configuration.lightOutput : ''
+        }
+        // HOW & WHEN TO END --------------------
+        // [#7, #8] settings: { (when and how to end)
+        //   - terminator: 
+        //   - terminator_value:   
+    }
 
 }
 
