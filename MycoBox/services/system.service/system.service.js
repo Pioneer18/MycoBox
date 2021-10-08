@@ -10,6 +10,8 @@ const { update_environment_state, read_environment_state } = require("../../cont
 const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
 const { send_command } = require("../../utilities");
 const { test_logger } = require("../../logs/logger");
+const { log } = require("winston");
+const chalk = require("chalk");
 
 
 /**
@@ -32,12 +34,11 @@ const environment_manager = (mode, resolver) => {
     return new Promise(function (resolve, reject) {
         validate_active_session(mode)
             .then(validation => {
-                // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
+                // #2. Process the current session_state, and don't do anything until its done
 
-                // #3. calculate measured and generated a pid_config WHEN valid env_state returned
+                // #3. calculate measured and generate pid_configs when valid env_state returned
                 if (validation) {
                     console.log('Environment Manager Has Validated Session')
-                    //update_environment_state()
                     run_pid_controllers(mode)
                         .then(() => {
                             console.log('#######################')
@@ -47,6 +48,8 @@ const environment_manager = (mode, resolver) => {
                                 get('test_config')
                                     // determine continue or end test
                                     .then(state => {
+                                        log(chalk.greenBright(state))
+                                        // select terminator based on test config
                                         process_cycle_count(state)
                                         // check PV - DLO abs difference
                                         // check if steady state detected
