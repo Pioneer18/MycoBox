@@ -499,7 +499,8 @@ const set_overrides = (test_config) => {
 }
 
 /**
- * maps the raw form array into a test_configuration (ok)
+ * maps the raw form array into a test_configuration
+ * convert arrange test results into a test_config and convert number values to numbers
  * @param {*} configuration 
  * 
  */
@@ -508,12 +509,15 @@ const map_test_config = (configuration) => {
 
     // return the correct actuator and it's value
     const findCO = () => {
-        if (configuration.aircon_step) return { name: 'aircon_step', value: configuration.aircon_step }
-        if (configuration.heater_step) return { name: 'heater_step', value: configuration.heater_step }
-        if (configuration.humidifier_step) return { name: 'humidifier_step', value: configuration.humidifier_step }
+        if (configuration.aircon_step && configuration.aircon_step === 'yes') return { name: 'aircon_step', value: true }
+        if (configuration.aircon_step && configuration.aircon_step === 'no') return { name: 'aircon_step', value: false }
+        if (configuration.heater_step && configuration.heater_step === 'yes') return { name: 'heater_step', value: true }
+        if (configuration.heater_step && configuration.heater_step === 'no') return { name: 'heater_step', value: false }
+        if (configuration.humidifier_step) return { name: 'humidifier_step', value: parseInt(configuration.humidifier_step) }
         if (configuration.ventilation_step) {
             if (configuration.ventilation_step === 'both') return { name: 'intake-exhaust_step', value: configuration.ventilation_step }
-            return { name: 'ventilation_step', value: configuration.ventilation_step }
+            if (configuration.ventilation_step === 'intake') return { name: 'intake_step', value: configuration.intake_step }
+            if (configuration.ventilation_step === 'intake') return { name: 'exhaust_step', value: configuration.exhaust_step }
         }
 
     }
@@ -524,7 +528,7 @@ const map_test_config = (configuration) => {
         op_level: {
             process_var: configuration.process_var,
             start_reference: configuration.start_reference,
-            dlo: configuration.dlo
+            dlo: parseInt(configuration.dlo)
         },
         // What TO RUN --------------------
         co: findCO(),
