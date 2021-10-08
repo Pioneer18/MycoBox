@@ -508,27 +508,39 @@ const set_overrides = (test_config) => {
  * 
  */
 const map_test_config = (configuration) => {
-    // map the test configuration object
+    // has the things that I need changed? Yeah pretty sure, so figure that out!
     log(chalk.red(JSON.stringify(configuration, null, '  ')))
-    return {
-        title: configuration.title,
-        start_criteria: {
-            tempDLO: configuration.tempDLO ? configuration.tempDLO : '',
-            rhDLO: configuration.rhDLO ? configuration.rhDLO : '',
-            co2DLO: configuration.co2DLO ? configuration.co2DLO : ''
-        },
-        overrides: {
-            circulation_top: configuration.circulation_top ? configuration.circulation_top : '',
-            circulation_bottom: configuration.circulation_bottom ? configuration.circulation_bottom : '',
-            aircon: configuration.aircon ? configuration.aircon : '',
-            heater: configuration.heater ? configuration.heater : '',
-            humidifierOutput: configuration.humidifierOutput ? configuration.humidifierOutput : '',
-            intakeOutput: configuration.intakeOutput ? configuration.intakeOutput : '',
-            exhaustOutput: configuration.exhaustOutput ? configuration.exhaustOutput : '',
-            lightOutput: configuration.lightOutput ? configuration.lightOutput : ''
-        },
-        cycles: configuration.cycles,
-    }
+    // return {
+    //     title: configuration.title,
+    //     start_criteria: {
+    //         tempDLO: configuration.tempDLO ? configuration.tempDLO : '',
+    //         rhDLO: configuration.rhDLO ? configuration.rhDLO : '',
+    //         co2DLO: configuration.co2DLO ? configuration.co2DLO : ''
+    //     },
+    //     overrides: {
+    //         circulation_top: configuration.circulation_top ? configuration.circulation_top : '',
+    //         circulation_bottom: configuration.circulation_bottom ? configuration.circulation_bottom : '',
+    //         aircon: configuration.aircon ? configuration.aircon : '',
+    //         heater: configuration.heater ? configuration.heater : '',
+    //         humidifierOutput: configuration.humidifierOutput ? configuration.humidifierOutput : '',
+    //         intakeOutput: configuration.intakeOutput ? configuration.intakeOutput : '',
+    //         exhaustOutput: configuration.exhaustOutput ? configuration.exhaustOutput : '',
+    //         lightOutput: configuration.lightOutput ? configuration.lightOutput : ''
+    //     },
+    //     cycles: configuration.cycles,
+    // }
+       return {
+           title: configuration.title,
+           // HOW TO Start --------------------
+           // [#1] title: used by test (logger)
+           // [#2, #3, #4] operation_level: process_var, start_reference, dlo, (test_preper, logger, calculations)
+           // What TO RUN --------------------
+           // [#5, #6] overrides: break down the CO, doesn't matter PV or Disturbance, what's gotta turn on? (what to run during the test)
+           // HOW & WHEN TO END --------------------
+           // [#7, #8] settings: { (when and how to end)
+           //   - terminator: 
+           //   - terminator_value:   
+       }
 
 }
 
