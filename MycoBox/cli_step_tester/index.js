@@ -273,7 +273,7 @@ const prompter = () => {
         .then(answers => {
             log(chalk.blue(JSON.stringify(answers, null, '  ')));
             // add answers to configuration
-            configuration = {...answers}
+            configuration = { ...answers }
             const nested_questions = [
                 // #6. [OPTIONAL] Select Disturbances
                 {
@@ -307,7 +307,7 @@ const prompter = () => {
                         if (answers['disturbances'].length > 0 && answers['disturbances'].includes('exhaust')) return true
                     }
                 },
-                // #8. cycles / dlo crossed by (+/-) / Steady State
+                // #8. select a terminator
                 {
                     type: 'list',
                     name: 'test_terminator',
@@ -317,6 +317,23 @@ const prompter = () => {
                         'dlo difference',
                         'steady state'
                     ]
+                },
+                // #9. quantify the terminator
+                {
+                    type: 'input',
+                    name: 'cycles_limit',
+                    message: 'Select a number of cycles for this test',
+                    when(answers) {
+                        if (answers['test_terminator'] === 'cycles') return true
+                    }
+                },
+                {
+                    type: 'input',
+                    name: 'dlo_difference',
+                    message: 'How many units past the DLO must the PV travel before the test terminates?',
+                    when(answers) {
+                        if (answers['test_terminator'] === 'dlo difference') return true
+                    }
                 },
                 // #9. Another test?
                 {
