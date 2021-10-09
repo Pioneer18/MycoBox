@@ -572,7 +572,7 @@ const set_global_test_config = (test_config) => {
     set_test_config('start_reference', test_config.op_level.start_reference);
     set_test_config('dlo', test_config.op_level.dlo);
     // terminators
-    set_test_config('terminator', test_config.op_level.terminator);
+    set_test_config('terminator', test_config.terminator);
     test_config.op_level.terminator === 'cycles' ? set_test_config('cycles_limit', test_config.op_level.cycles_limit) : trash = '';
     test_config.op_level.terminator === 'dlo_reference' ? set_test_config('dlo_refernce', test_config.op_level.dlo_refernce) : trash = '';
     test_config.op_level.terminator === 'steady_state' ? set_test_config('steady_state', true) : trash = '';
