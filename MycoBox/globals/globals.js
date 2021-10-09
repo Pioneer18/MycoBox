@@ -141,24 +141,17 @@ let globals = {
         // logging
         filename: '',
         dirname: '',
-        op_level: {
-            process_var: '',
-            start_reference: '',
-            dlo: ''
-        },
-        co: {
-            actuator: '', // name
-            output: 0, // value
-        },
-        disturbances: { // not the values
-            circulation_top: false,
-            circulation_bottom: false,
-            aircon: false,
-            heater: false,
-            humidifierOutput: '',
-            intakeOutput: '',
-            exhaustOutput: '',
-        },
+        // overrides (computed output / disturbances)
+        co_actuator: '',
+        co_output: 0,
+        // not the values
+        circulation_top: false,
+        circulation_bottom: false,
+        aircon: false,
+        heater: false,
+        humidifierOutput: '',
+        intakeOutput: '',
+        exhaustOutput: '',
         // op_level
         Temperature: false,
         Humidity: false,
