@@ -521,9 +521,9 @@ const set_test_config_validation = (element, value) => {
     if (element === 'intake' && typeof value === 'number') return
     if (element === 'exhaust' && typeof value === 'number') return
     // op_level
-    if (element === 'Temperature' && typeof value === 'Temperature') return
-    if (element === 'Humidity' && typeof value === 'Humidity') return
-    if (element === 'CO2' && typeof value === 'CO2') return
+    if (element === 'Temperature' && typeof value === 'boolean') return
+    if (element === 'Humidity' && typeof value === 'boolean') return
+    if (element === 'CO2' && typeof value === 'boolean') return
     if (element === 'start_reference' && typeof value === 'string') return
     if (element === 'dlo' && typeof value === 'number') return
     // terminators
