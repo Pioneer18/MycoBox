@@ -511,7 +511,7 @@ const set_test_config_validation = (element, value) => {
     if (element === 'dirname' && typeof value === 'string') return
     // co
     if (element === 'co_actuator' && typeof value === 'string') return
-    if (element === 'co_output' && typeof value === 'number') return
+    if (element === 'co_output' && typeof value === 'number' || typeof value === 'boolean') return
     // disturbances
     if (element === 'circulation_top' && typeof value === 'boolean') return
     if (element === 'circulation_bottom' && typeof value === 'boolean') return
