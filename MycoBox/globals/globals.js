@@ -3,7 +3,7 @@
  */
 
 const chalk = require("chalk");
-const { log } = require("winston");
+const log = console.log;
 
 // Session State
 let globals = {
