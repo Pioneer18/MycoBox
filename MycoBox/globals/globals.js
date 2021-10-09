@@ -127,30 +127,47 @@ let globals = {
     },
     overrides: {
         flag: false, // must be true for overrrides to be honored
-        circulation_bottom: false,
         circulation_top: false,
+        circulation_bottom: false,
         intake: false,
         exhaust: false,
-        ac: false,
+        aircon: false,
         heater: false,
-        mister: false,
         humidifier: false,
-        mb_light_1: false,
-        mb_light_2: false,
-        ib_light: false,
+        light: false,
         speakers: false
     },
     test_config: {
-        cycles_limit: 0,
-        cycles_count: 0,
+        // logging
         filename: '',
         dirname: '',
-        temperature: false,
-        humidity: false,
-        co2: false,
-        tempMaximum: 0,
-        rhMaximum: 0,
-        co2Maximum: 0 
+        op_level: {
+            process_var: '',
+            start_reference: '',
+            dlo: ''
+        },
+        co: {
+            actuator: '', // name
+            output: 0, // value
+        },
+        disturbances: { // not the values
+            circulation_top: false,
+            circulation_bottom: false,
+            aircon: false,
+            heater: false,
+            humidifierOutput: '',
+            intakeOutput: '',
+            exhaustOutput: '',
+        },
+        // op_level
+        Temperature: false,
+        Humidity: false,
+        CO2: false,
+        start_reference: '',
+        dlo: 0,
+        // terminators
+        cycles_limit: 0,
+        cycles_count: 0,
     }
 };
 
@@ -480,7 +497,7 @@ const set_overrides_state_validation = (element, value) => {
 }
 
 const set_test_config = (element, value) => {
-    return new Promise((resolve)=>{
+    return new Promise((resolve) => {
         set_test_config_validation(element, value);
         globals.test_config[element] = value;
         resolve()
@@ -489,7 +506,6 @@ const set_test_config = (element, value) => {
 }
 
 const set_test_config_validation = (element, value) => {
-    log(chalk.yellow('Setting Test Config'))
     log(chalk.yellow(element));
     log(chalk.yellow(value));
     // logging

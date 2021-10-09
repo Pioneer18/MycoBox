@@ -429,9 +429,8 @@ const newTestSession = (config) => {
                                 const test_config = map_test_config(config); // TODO: update for new test_config
                                 log(chalk.redBright(JSON.stringify(test_config, null, '  ')))
                                 set_overrides(test_config);
-                                //TODO: CYCLES / dlo_reference / steady_state
-                                // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
                                 set_test_config('cycles_limit', parseInt(test_config.cycles_limit))
+                                // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
                                     // call environment manager: in test mode env counts it's loops and ends session on final loop
                                     .then(environment_manager('TEST'))//environment_manager('TEST')
                                     .then(resolve('Resolve After EM has fired'))
@@ -547,6 +546,14 @@ const map_test_config = (configuration) => {
         dlo_reference: configuration.dlo_reference ? configuration.dlo_reference : ''
     }
 
+}
+
+/**
+ * Set Global Test Config
+ */
+const set_global_test_config = (test_config) => {
+    // just call set_test_config on each element in the map
+    
 }
 
 /**
