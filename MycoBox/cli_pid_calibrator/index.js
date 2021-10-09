@@ -447,41 +447,37 @@ const set_overrides = (test_config) => {
     console.log('Test Config');
     console.log(test_config);
     return new Promise((resolve) => {
+        // there is no test_config.disturbances!
+        // test_config.co = {name: '', value: 0}
+        // test_config.disturbances
         try {
-            for (const actuator in test_config.overrides) {
-                if (test_config.overrides[actuator] === '') {
-                    continue
-                }
+            for (const actuator in test_config.disturbances) {
                 if (actuator.localeCompare('circulation_top') === 0) {
-                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    set_overrides_state(actuator, test_config.disturbances[actuator])
                     continue
                 }
                 if (actuator.localeCompare('circulation_bottom') === 0) {
-                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    set_overrides_state(actuator, test_config.disturbances[actuator])
                     continue
                 }
                 if (actuator.localeCompare('aircon') === 0) {
-                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    set_overrides_state(actuator, test_config.disturbances[actuator])
                     continue
                 }
                 if (actuator.localeCompare('heater') === 0) {
-                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    set_overrides_state(actuator, test_config.disturbances[actuator])
                     continue
                 }
                 if (actuator.localeCompare('humidifier') === 0) {
-                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    set_overrides_state(actuator, test_config.disturbances[actuator])
                     continue
                 }
                 if (actuator.localeCompare('intake') === 0) {
-                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    set_overrides_state(actuator, test_config.disturbances[actuator])
                     continue
                 }
                 if (actuator.localeCompare('exhaust') === 0) {
-                    set_overrides_state(actuator, test_config.overrides[actuator])
-                    continue
-                }
-                if (actuator.localeCompare('light') === 0) {
-                    set_overrides_state(actuator, test_config.overrides[actuator])
+                    set_overrides_state(actuator, test_config.disturbances[actuator])
                     continue
                 }
                 console.log("An Invalid Override was provided");
