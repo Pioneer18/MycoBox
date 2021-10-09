@@ -125,8 +125,9 @@ let globals = {
             dt: 0
         }
     },
+    // mapped for Testing or switched by control panel on dashboard
     overrides: {
-        flag: false, // must be true for overrrides to be honored
+        flag: false,
         circulation_top: false,
         circulation_bottom: false,
         intake: false,
@@ -141,10 +142,10 @@ let globals = {
         // logging
         filename: '',
         dirname: '',
-        // overrides (computed output / disturbances)
+        // co actuator (logging)
         co_actuator: '',
         co_output: 0,
-        // not the values
+        // disturbances (logging)
         circulation_top: false,
         circulation_bottom: false,
         aircon: false,
@@ -152,15 +153,18 @@ let globals = {
         humidifierOutput: '',
         intakeOutput: '',
         exhaustOutput: '',
-        // op_level
+        // op_level [test_prep, logging]
         Temperature: false,
         Humidity: false,
         CO2: false,
         start_reference: '',
         dlo: 0,
-        // terminators
+        // terminators [logging, end test]
+        terminator: '',
         cycles_limit: 0,
         cycles_count: 0,
+        dlo_refernce: '',
+        steady_state: false,
     }
 };
 
