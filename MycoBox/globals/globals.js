@@ -503,6 +503,7 @@ const set_test_config = (element, value) => {
 }
 
 const set_test_config_validation = (element, value) => {
+    log(chalk.yellow('Set Test Config Validation'))
     log(chalk.yellow(element));
     log(chalk.yellow(value));
     // logging
