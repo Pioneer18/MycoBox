@@ -150,9 +150,9 @@ let globals = {
         circulation_bottom: false,
         aircon: false,
         heater: false,
-        humidifierOutput: '',
-        intakeOutput: '',
-        exhaustOutput: '',
+        humidifier: 0,
+        intake: 0,
+        exhaust: 0,
         // op_level [test_prep, logging]
         Temperature: false,
         Humidity: false,
@@ -461,19 +461,19 @@ const set_overrides_state_validation = (element, value) => {
                 if (typeof value === 'boolean') return true
                 throw new Error('Invalid value for mister')
             }
-            if (element === 'intakeOutput') {
+            if (element === 'intake') {
                 if (parseInt(value) > 0 && parseInt(value) <= 350) return true
                 throw new Error('Invalid value for intake')
             }
-            if (element === 'exhaustOutput') {
+            if (element === 'exhaust') {
                 if (parseInt(value) > 0 && parseInt(value) <= 350) return true
                 throw new Error('Invalid value for exhaust')
             }
-            if (element === 'humidifierOutput') {
+            if (element === 'humidifier') {
                 if (parseInt(value) > 0 && parseInt(value) <= 320) return true
                 throw new Error('Invalid value for humidifier')
             }
-            if (element === 'lightOutput') {
+            if (element === 'light') {
                 if (parseInt(value) > 0 && parseInt(value) <= 410) return true
                 throw new Error('Invalid value for light')
             }
@@ -524,9 +524,9 @@ const set_test_config_validation = (element, value) => {
     if (element === 'circulation_bottom' && typeof value === 'boolean') return
     if (element === 'aircon' && typeof value === 'boolean') return
     if (element === 'heater' && typeof value === 'boolean') return
-    if (element === 'humidifierOutput' && typeof value === 'number') return
-    if (element === 'intakeOutput' && typeof value === 'number') return
-    if (element === 'exhaustOutput' && typeof value === 'number') return
+    if (element === 'humidifier' && typeof value === 'number') return
+    if (element === 'intake' && typeof value === 'number') return
+    if (element === 'exhaust' && typeof value === 'number') return
     // terminators
     if (element === 'cycles_limit' && typeof value === 'number') return
     if (element === 'cycles_count' && typeof value === 'number') return

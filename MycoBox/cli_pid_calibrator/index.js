@@ -430,7 +430,7 @@ const newTestSession = (config) => {
                                 log(chalk.redBright(JSON.stringify(test_config, null, '  ')))
                                 set_overrides(test_config);
                                 set_test_config('cycles_limit', parseInt(test_config.cycles_limit))
-                                // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
+                                    // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
                                     // call environment manager: in test mode env counts it's loops and ends session on final loop
                                     .then(environment_manager('TEST'))//environment_manager('TEST')
                                     .then(resolve('Resolve After EM has fired'))
@@ -467,19 +467,19 @@ const set_overrides = (test_config) => {
                     set_overrides_state(actuator, test_config.overrides[actuator])
                     continue
                 }
-                if (actuator.localeCompare('humidifierOutput') === 0) {
+                if (actuator.localeCompare('humidifier') === 0) {
                     set_overrides_state(actuator, test_config.overrides[actuator])
                     continue
                 }
-                if (actuator.localeCompare('intakeOutput') === 0) {
+                if (actuator.localeCompare('intake') === 0) {
                     set_overrides_state(actuator, test_config.overrides[actuator])
                     continue
                 }
-                if (actuator.localeCompare('exhaustOutput') === 0) {
+                if (actuator.localeCompare('exhaust') === 0) {
                     set_overrides_state(actuator, test_config.overrides[actuator])
                     continue
                 }
-                if (actuator.localeCompare('lightOutput') === 0) {
+                if (actuator.localeCompare('light') === 0) {
                     set_overrides_state(actuator, test_config.overrides[actuator])
                     continue
                 }
@@ -506,7 +506,6 @@ const set_overrides = (test_config) => {
 const map_test_config = (configuration) => {
     // log(chalk.red(JSON.stringify(configuration, null, '  ')))
 
-    // return the correct actuator and it's value
     const findCO = () => {
         if (configuration.aircon_step && configuration.aircon_step === 'yes') return { name: 'aircon_step', value: true }
         if (configuration.aircon_step && configuration.aircon_step === 'no') return { name: 'aircon_step', value: false }
@@ -536,9 +535,9 @@ const map_test_config = (configuration) => {
             circulation_bottom: configuration.disturbances.includes('circulation_bottom') ? true : '',
             aircon: configuration.disturbances.includes('aircon') ? true : '',
             heater: configuration.disturbances.includes('heater') ? true : '',
-            humidifierOutput: configuration.humidifier ? configuration.humidifier : '',
-            intakeOutput: configuration.intake ? configuration.intake : '',
-            exhaustOutput: configuration.exhaust ? configuration.exhaust : '',
+            humidifier: configuration.humidifier ? configuration.humidifier : '',
+            intake: configuration.intake ? configuration.intake : '',
+            exhaust: configuration.exhaust ? configuration.exhaust : '',
         },
         // HOW & WHEN TO END --------------------
         terminator: configuration.terminator,
@@ -550,10 +549,34 @@ const map_test_config = (configuration) => {
 
 /**
  * Set Global Test Config
+ * conditionally set the test_config (condition that the property is really there)
  */
 const set_global_test_config = (test_config) => {
-    // just call set_test_config on each element in the map
-    
+    // set co
+    let trash;
+    set_test_config('co_actuator', test_config.co.name);
+    set_test_config('co_output', test_config.co.value);
+    // set disturbances
+    if (test_config.disturbances.length > 0) {
+        test_config.disturbances.circulation_top !== '' ? set_test_config('circulation_top', test_config.disturbances.circulation_top) : trash = '';
+        test_config.disturbances.circulation_bottom !== '' ? set_test_config('circulation_bottom', test_config.disturbances.circulation_bottom) : trash = '';
+        test_config.disturbances.aircon !== '' ? set_test_config('aircon', test_config.disturbances.aircon) : trash = '';
+        test_config.disturbances.heater !== '' ? set_test_config('heater', test_config.disturbances.heater) : trash = '';
+        test_config.disturbances.humidifier !== '' ? set_test_config('humidifier', test_config.disturbances.humidifier) : trash = '';
+        test_config.disturbances.intake !== '' ? set_test_config('intake', test_config.disturbances.intake) : trash = '';
+        test_config.disturbances.exhaust !== '' ? set_test_config('exhaust', test_config.disturbances.exhaust) : trash = '';
+    }
+    // set op_level
+    test_config.op_level.process_var === 'Temperature' ? set_test_config('Temperature', true) : trash = '';
+    test_config.op_level.process_var === 'Humidity' ? set_test_config('Humidity', true) : trash = '';
+    test_config.op_level.process_var === 'CO2' ? set_test_config('CO2', true) : trash = '';
+    set_test_config('start_reference', test_config.op_level.start_reference);
+    set_test_config('dlo', test_config.op_level.dlo);
+    // terminators
+    set_test_config('terminator', test_config.op_level.terminator);
+    test_config.op_level.terminator === 'cycles' ? set_test_config('cycles_limit', test_config.op_level.cycles_limit) : trash = '';
+    test_config.op_level.terminator === 'dlo_reference' ? set_test_config('dlo_refernce', test_config.op_level.dlo_refernce) : trash = '';
+    test_config.op_level.terminator === 'steady_state' ? set_test_config('steady_state', true) : trash = '';
 }
 
 /**
