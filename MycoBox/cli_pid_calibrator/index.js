@@ -492,7 +492,7 @@ const set_overrides = (test_config) => {
 
             }
             get('overrides')
-                .then(overrides => log(chalk.green(overrides)))
+                .then(overrides => log(chalk.green(JSON.stringify(overrides, null, '  '))))
             resolve()
         } catch (err) {
             throw new Error("Failed to Set Overrides!")
@@ -580,7 +580,7 @@ const set_global_test_config = (test_config) => {
     test_config.op_level.terminator === 'cycles' ? set_test_config('cycles_limit', test_config.op_level.cycles_limit) : trash = '';
     test_config.op_level.terminator === 'dlo_reference' ? set_test_config('dlo_refernce', test_config.op_level.dlo_refernce) : trash = '';
     test_config.op_level.terminator === 'steady_state' ? set_test_config('steady_state', true) : trash = '';
-    get('test_config').then(config => log(chalk.green(config)))
+    get('test_config').then(config => log(chalk.green(JSON.stringify(config, null, '  '))))
 }
 
 /**

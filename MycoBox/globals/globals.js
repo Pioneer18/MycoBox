@@ -530,7 +530,7 @@ const set_test_config_validation = (element, value) => {
     // terminators
     if (element === 'cycles_limit' && typeof value === 'number') return
     if (element === 'cycles_count' && typeof value === 'number') return
-    throw new Error('Invalid session_state element or value given')
+    throw new Error('Invalid test_config element or value given')
 }
 
 module.exports = {
