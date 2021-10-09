@@ -426,10 +426,11 @@ const newTestSession = (config) => {
                     set_environment_config(test_config)
                         .then(set_session_state('active_test_session', true) // Test Runner knows this test is getting started
                             .then(() => {
-                                const test_config = map_test_config(config); // TODO: update for new test_config
+                                const test_config = map_test_config(config);
                                 log(chalk.redBright(JSON.stringify(test_config, null, '  ')))
-                                set_overrides(test_config);
-                                set_test_config('cycles_limit', parseInt(test_config.cycles_limit))
+                                set_global_test_config(test_config);
+                                set_overrides(test_config)
+
                                     // run test_preparation: // wait for env to reset / push the env to where it needs to be before next test
                                     // call environment manager: in test mode env counts it's loops and ends session on final loop
                                     .then(environment_manager('TEST'))//environment_manager('TEST')
@@ -490,6 +491,8 @@ const set_overrides = (test_config) => {
                 console.log(typeof actuator)
 
             }
+            get('overrides')
+                .then(overrides => log(chalk.green(overrides)))
             resolve()
         } catch (err) {
             throw new Error("Failed to Set Overrides!")
@@ -577,6 +580,7 @@ const set_global_test_config = (test_config) => {
     test_config.op_level.terminator === 'cycles' ? set_test_config('cycles_limit', test_config.op_level.cycles_limit) : trash = '';
     test_config.op_level.terminator === 'dlo_reference' ? set_test_config('dlo_refernce', test_config.op_level.dlo_refernce) : trash = '';
     test_config.op_level.terminator === 'steady_state' ? set_test_config('steady_state', true) : trash = '';
+    get('test_config').then(config => log(chalk.green(config)))
 }
 
 /**
