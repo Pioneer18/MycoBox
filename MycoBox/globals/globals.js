@@ -509,17 +509,9 @@ const set_test_config_validation = (element, value) => {
     // logging
     if (element === 'filename' && typeof value === 'string') return
     if (element === 'dirname' && typeof value === 'string') return
-    // op_level
-    if (element === 'process_var' && typeof value === 'string') return
-    if (element === 'start_reference' && typeof value === 'string') return
-    if (element === 'dlo' && typeof value === 'number') return
     // co
-    if (element === 'aircon_step' && typeof value === 'boolean') return
-    if (element === 'heater_step' && typeof value === 'boolean') return
-    if (element === 'intake_step' && typeof value === 'number') return
-    if (element === 'exhaust_step' && typeof value === 'number') return
-    if (element === 'intake-exhaust_step' && typeof value === 'number') return
-    if (element === 'humidifier_step' && typeof value === 'number') return
+    if (element === 'co_actuator' && typeof value === 'string') return
+    if (element === 'co_output' && typeof value === 'number') return
     // disturbances
     if (element === 'circulation_top' && typeof value === 'boolean') return
     if (element === 'circulation_bottom' && typeof value === 'boolean') return
@@ -528,10 +520,18 @@ const set_test_config_validation = (element, value) => {
     if (element === 'humidifier' && typeof value === 'number') return
     if (element === 'intake' && typeof value === 'number') return
     if (element === 'exhaust' && typeof value === 'number') return
+    // op_level
+    if (element === 'Temperature' && typeof value === 'Temperature') return
+    if (element === 'Humidity' && typeof value === 'Humidity') return
+    if (element === 'CO2' && typeof value === 'CO2') return
+    if (element === 'start_reference' && typeof value === 'string') return
+    if (element === 'dlo' && typeof value === 'number') return
     // terminators
+    if (element === 'terminator' && typeof value === 'string') return
     if (element === 'cycles_limit' && typeof value === 'number') return
     if (element === 'cycles_count' && typeof value === 'number') return
-    throw new Error('Invalid test_config element or value given')
+    if (element === 'dlo_reference' && typeof value === 'string') return
+    throw new Error('Invalid test_config element or value given: ' + element + ' value: ' + value);
 }
 
 module.exports = {
