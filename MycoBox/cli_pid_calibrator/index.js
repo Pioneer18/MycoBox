@@ -447,7 +447,6 @@ const set_overrides = (test_config) => {
     console.log('Test Config');
     console.log(test_config);
     return new Promise((resolve) => {
-        // there is no test_config.disturbances!
         // test_config.co = {name: '', value: 0}
         // test_config.disturbances
         try {
