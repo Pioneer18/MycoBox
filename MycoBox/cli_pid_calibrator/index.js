@@ -448,7 +448,7 @@ const set_overrides = (test_config) => {
     console.log(test_config);
     return new Promise((resolve) => {
         // test_config.co = {name: '', value: 0}
-        // test_config.disturbances
+        log(chalk.bgRedBright(test_config.disturbances.circulation_top))
         try {
             for (const actuator in test_config.disturbances) {
                 if (actuator.localeCompare('circulation_top') === 0) {
