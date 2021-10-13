@@ -429,9 +429,9 @@ const validate_set_actuator_state = (element, status, value) => {
  * Set Overrides
  */
 const set_overrides_state = (element, value) => {
-    log(chalk.magentaBright('set_overrides_state'))
-    log(chalk.magentaBright('element: ' + ' ' + ' value: ' + value))
-    set_overrides_state_validation(element, value);
+    // log(chalk.magentaBright('set_overrides_state'))
+    // log(chalk.magentaBright('element: ' + element + ' ' + ' value: ' + value))
+    // set_overrides_state_validation(element, value);
     globals.overrides[element] = value;
 }
 
@@ -487,7 +487,7 @@ const set_overrides_state_validation = (element, value) => {
             }
         }
         else {
-            throw new Error('something wrong with element or value')
+            log(chalk.magentaBright('skipping empty override'))
         }
     } catch (err) {
         throw new Error(`Invalid Overrides: ${err}`);

@@ -451,12 +451,13 @@ const set_overrides = (test_config) => {
         log(chalk.bgRedBright(test_config.disturbances.circulation_top))
         try {
             for (const actuator in test_config.disturbances) {
+                log(chalk.bgRedBright(actuator))
                 if (actuator.localeCompare('circulation_top') === 0) {
-                    set_overrides_state(actuator, 'circulation_top'.disturbances[actuator])
+                    set_overrides_state(actuator, test_config.disturbances[actuator])
                     continue
                 }
                 if (actuator.localeCompare('circulation_bottom') === 0) {
-                    set_overrides_state(actuator, 'circulation_bottom'.disturbances[actuator])
+                    set_overrides_state(actuator, test_config.disturbances[actuator])
                     continue
                 }
                 if (actuator.localeCompare('aircon') === 0) {
@@ -468,7 +469,7 @@ const set_overrides = (test_config) => {
                     continue
                 }
                 if (actuator.localeCompare('humidifier') === 0) {
-                    set_overrides_state(actuator, 'humidifier'.disturbances[actuator])
+                    set_overrides_state(actuator, test_config.disturbances[actuator])
                     continue
                 }
                 if (actuator.localeCompare('intake') === 0) {
@@ -490,7 +491,7 @@ const set_overrides = (test_config) => {
                 .then(overrides => log(chalk.green(JSON.stringify(overrides, null, '  '))))
             resolve()
         } catch (err) {
-            throw new Error("Failed to Set Overrides!")
+            throw new Error("Failed to Set Overrides: " + err)
         }
     })
 }
