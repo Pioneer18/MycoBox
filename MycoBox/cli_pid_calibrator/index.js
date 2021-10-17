@@ -364,15 +364,15 @@ prompter()
 const run_tests = () => {
     log(chalk.bold.cyan(JSON.stringify(tests, null, '  ')))
     // create test dir
-    // createTestSuiteDir()
+    createTestSuiteDir()
     log(chalk.red(`count: ${count} test.length: ${tests.length}`));
     if (count < tests.length) {
         if (!live) {
             // create test file: with the initial data
-            // createTestFile(dir, tests, count)
+            createTestFile(dir, tests, count)
             // set test_config filename & dirname
-            // set_test_config('dirname', dir)
-            // set_test_config('filename', `./${dir}/${tests[count].title}.txt`)
+            set_test_config('dirname', dir)
+            set_test_config('filename', `./${dir}/${tests[count].title}.txt`)
             // start test session
             newTestSession(tests[count])
                 .then(() => {
