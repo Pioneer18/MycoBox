@@ -10,7 +10,7 @@ const { update_environment_state, read_environment_state } = require("../../cont
 const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
 const { send_command } = require("../../utilities");
 const { test_logger } = require("../../logs/logger");
-const { log } = require("winston");
+const log = console.log;
 const chalk = require("chalk");
 
 

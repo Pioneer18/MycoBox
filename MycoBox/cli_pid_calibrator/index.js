@@ -406,7 +406,7 @@ const run_tests = () => {
             }, 15000);
         }
         // wait for the acitve_test_session to be set
-        log(chalk.magentaBright('Hello from Run Tests Outer Space!'))
+        log(chalk.magentaBright('Hello from Run Tests Outter Space!'))
     }
     else {
         log(chalk.magentaBright("All TESTS HAVE BEEN RAN, YA PLEB!"))
