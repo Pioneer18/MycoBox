@@ -48,7 +48,7 @@ const environment_manager = (mode, resolver) => {
                                 get('test_config')
                                     // determine continue or end test
                                     .then(state => {
-                                        log(chalk.greenBright(state))
+                                        log(chalk.greenBright(JSON.stringify(state, null, '  ')))
                                         // select terminator based on test config
                                         process_cycle_count(state)
                                         // check PV - DLO abs difference
