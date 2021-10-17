@@ -198,6 +198,7 @@ const get = (section) => {
     })
 }
 
+// don't always want to use a promise
 const getter = (section) => {
     switch (section) {
         case 'session_state':
@@ -212,6 +213,8 @@ const getter = (section) => {
             return (globals.pid_state)
         case 'overrides':
             return (globals.overrides)
+        case 'test_config':
+            return (globals.test_config)
         default:
             return (null);
     }

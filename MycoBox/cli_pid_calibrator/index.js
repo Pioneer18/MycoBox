@@ -354,9 +354,8 @@ prompter()
 
 
 /**
- * Run Tests (ok)
+ * Run Tests
  * Todo:
- * 1. put logsDirName into ENV (private folder on my pc)
  * 2. put mode vars, LIVE & TEST, into resources file
  * 3. put createDir and createFile methods into utilities
  * 4. create checkDirCreated method
@@ -378,16 +377,12 @@ const run_tests = () => {
                 .then(() => {
                     setTimeout(() => {
                         let session_state = getter('session_state');
-                        log(chalk.greenBright(`Current Session State`));
-                        log(chalk.greenBright(session_state));
                         if (session_state.active_test_session) live = true;
                         log(chalk.bold.yellow('INCREMENT TESTS'))
                         count++
                         // recall runTests
                         log(chalk.whiteBright('Recalling Run Tests'));
                         run_tests();
-                        console.log('Run Tests Normally would Break the Loop Right Ducking Here')
-
                     }, 10000);
                 })
         }
@@ -409,7 +404,7 @@ const run_tests = () => {
         log(chalk.magentaBright('Hello from Run Tests Outter Space!'))
     }
     else {
-        log(chalk.magentaBright("All TESTS HAVE BEEN RAN, YA PLEB!"))
+        log(chalk.magentaBright("All TESTS HAVE BEEN RAN"))
         return
     }
 }
