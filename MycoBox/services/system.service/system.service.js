@@ -8,7 +8,7 @@ const { humidity_pid_controller_config, update_humidity } = require("../../contr
 const { get, set_session_state, set_test_config } = require("../../globals/globals")
 const { update_environment_state, read_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
 const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
-const { send_command } = require("../../utilities");
+const { send_command, send_overrides } = require("../../utilities");
 const { test_logger } = require("../../logs/logger");
 const log = console.log;
 const chalk = require("chalk");
@@ -119,18 +119,19 @@ const run_pid_controllers = (mode) => {
                                 //.then(update_circulation(circulation_config))
 
                                 // OVERRIDES: I'm replacing this with a service!
-                                .then(() => send_command("H 1", mode))
-                                .then(() => send_command("E 1", mode))
-                                .then(() => send_command("I 1", mode))
-                                .then(() => send_command("L 1", mode))
-                                .then(() => {
-                                    s5r2_on()
-                                    s3r1_on()
-                                    console.log("=======================================")
-                                    console.log("Sent Overrides: ")
-                                    console.log("=======================================")
-                                    resolve()
-                                })
+                                // .then(() => send_command("H 1", mode))
+                                // .then(() => send_command("E 1", mode))
+                                // .then(() => send_command("I 1", mode))
+                                // .then(() => send_command("L 1", mode))
+                                // .then(() => {
+                                //     s5r2_on()
+                                //     s3r1_on()
+                                //     console.log("=======================================")
+                                //     console.log("Sent Overrides: ")
+                                //     console.log("=======================================")
+                                //     resolve()
+                                // })
+                                send_overrides()
                         })
                 }
             })
