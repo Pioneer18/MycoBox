@@ -33,7 +33,7 @@ const { s2r1_off, s2r1_on, s1r1_on, s4r1_on, s6r2_on, s4r1_off, s6r2_off } = req
  *  } 
  * } config the previous (or initial) report & the incoming
  */
-const update_temperature = (config) => {
+const update_temperature = (config, mode) => {
     return new Promise((resolve) => { // initialize the controller
         const tempController = new TempPidController(config);
         // update the actuator
@@ -41,8 +41,12 @@ const update_temperature = (config) => {
         console.log('The Temperature Calculated Update Value')
         console.log(value);
         set_pid_state('temperature', tempController.report())
-        temp_actuator_controller(value)
-            .then(value => resolve(value))
+        if (mode !== 'TEST') {
+            temp_actuator_controller(value)
+                .then(value => resolve(value))
+        }
+        // override will be sent
+        resolve(value);
     })
 }
 
@@ -104,136 +108,136 @@ const temp_actuator_controller = (update) => {
     // #2. Check the actuator state
     return new Promise((resolve) => {
         get('actuators_state')
-        // The switch on threshold (st) should be a variable
-        .then(state => {
-            if (state.ac.active) {
-                // check if update is within -0.2 from 0
-                console.log("AC Active ----")
-                const idle = idle_check(update, false)
-                switch (idle) {
-                    case 1: // AC switches to idle
-                        set_actuator_state('ac', 'active', false).then(set_actuator_state('ac', 'idle', 1))
-                        break;
+            // The switch on threshold (st) should be a variable
+            .then(state => {
+                if (state.ac.active) {
+                    // check if update is within -0.2 from 0
+                    console.log("AC Active ----")
+                    const idle = idle_check(update, false)
+                    switch (idle) {
+                        case 1: // AC switches to idle
+                            set_actuator_state('ac', 'active', false).then(set_actuator_state('ac', 'idle', 1))
+                            break;
 
-                    case 2: // AC stays ON
-                        set_actuator_state('ac', 'active', true)
-                        break;
+                        case 2: // AC stays ON
+                            set_actuator_state('ac', 'active', true)
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
                 }
-            }
-            if (state.ac.stopped) {
-                // Start if more than .5 or .7 off not 1
-                console.log('AC Stopped --------')
-                const stopped = remain_stopped_check(update, false)
-                switch (stopped) {
-                    case 1: // AC stays OFF
-                        console.log('AC Remain Stopped')
+                if (state.ac.stopped) {
+                    // Start if more than .5 or .7 off not 1
+                    console.log('AC Stopped --------')
+                    const stopped = remain_stopped_check(update, false)
+                    switch (stopped) {
+                        case 1: // AC stays OFF
+                            console.log('AC Remain Stopped')
 
-                        break;
+                            break;
 
-                    case 2: // AC switches ON
-                        console.log('AC Switching Active')
-                        set_actuator_state('ac', 'stopped', false).then(set_actuator_state('ac', 'active', true).then(() => s2r1_on()))
-                        break;
+                        case 2: // AC switches ON
+                            console.log('AC Switching Active')
+                            set_actuator_state('ac', 'stopped', false).then(set_actuator_state('ac', 'active', true).then(() => s2r1_on()))
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
                 }
-            }
-            if (state.ac.idle > 0) {
-                console.log('temp_acutator_controller: Idle ---- ' + state.ac.idle)
-                const idle = idle_check(update, false)
-                switch (idle) {
-                    case 2: // switch back to active
-                        console.log('AC Switching Back to Active')
-                        set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac', 'active', true))
-                        break;
+                if (state.ac.idle > 0) {
+                    console.log('temp_acutator_controller: Idle ---- ' + state.ac.idle)
+                    const idle = idle_check(update, false)
+                    switch (idle) {
+                        case 2: // switch back to active
+                            console.log('AC Switching Back to Active')
+                            set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac', 'active', true))
+                            break;
 
-                    case 1: // increment up or switch to stopped and turn off the ac
-                        if (state.ac.idle >= 3) {
-                            console.log('AC Switching OFF From Idle ')
-                            set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac', 'stopped', true)).then(() => s2r1_off())
-                        } else {
-                            const increment = (state.ac.idle + 1)
-                            console.log('Increment: ' + increment)
-                            set_actuator_state('ac', 'idle', increment)
-                        }
-                        break;
+                        case 1: // increment up or switch to stopped and turn off the ac
+                            if (state.ac.idle >= 3) {
+                                console.log('AC Switching OFF From Idle ')
+                                set_actuator_state('ac', 'idle', 0).then(set_actuator_state('ac', 'stopped', true)).then(() => s2r1_off())
+                            } else {
+                                const increment = (state.ac.idle + 1)
+                                console.log('Increment: ' + increment)
+                                set_actuator_state('ac', 'idle', increment)
+                            }
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
                 }
-            }
-            // Heater Protocol
-            if (state.heater.active) {
-                console.log('Heater Active ---')
-                const idle = idle_check(update, true)
-                switch (idle) {
-                    case 3: // Heater switches to idle
-                        set_actuator_state('heater', 'active', false).then(set_actuator_state('heater', 'idle', 1))
-                        break;
+                // Heater Protocol
+                if (state.heater.active) {
+                    console.log('Heater Active ---')
+                    const idle = idle_check(update, true)
+                    switch (idle) {
+                        case 3: // Heater switches to idle
+                            set_actuator_state('heater', 'active', false).then(set_actuator_state('heater', 'idle', 1))
+                            break;
 
-                    case 4: // Heater stays on
-                        set_actuator_state('heater', 'active', true)
-                        break;
+                        case 4: // Heater stays on
+                            set_actuator_state('heater', 'active', true)
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
                 }
-            }
-            if (state.heater.stopped) {
-                // start if more than .5 off from the setpoint
-                console.log('Heater Stopped -------')
-                const stopped = remain_stopped_check(update, true)
-                switch (stopped) {
-                    // less than 0.6, remain stopped
-                    case 3:
-                        console.log('Heater Remain Stopped')
-                        break;
-                    // greater than 0.6, switch on
-                    case 4:
-                        console.log('Heater Switching Active')
-                        set_actuator_state('heater', 'stopped', false).then(set_actuator_state('heater', 'active', true).then(() => {
-                            s4r1_on()
-                            s6r2_on()
-                        }))
-                        break;
+                if (state.heater.stopped) {
+                    // start if more than .5 off from the setpoint
+                    console.log('Heater Stopped -------')
+                    const stopped = remain_stopped_check(update, true)
+                    switch (stopped) {
+                        // less than 0.6, remain stopped
+                        case 3:
+                            console.log('Heater Remain Stopped')
+                            break;
+                        // greater than 0.6, switch on
+                        case 4:
+                            console.log('Heater Switching Active')
+                            set_actuator_state('heater', 'stopped', false).then(set_actuator_state('heater', 'active', true).then(() => {
+                                s4r1_on()
+                                s6r2_on()
+                            }))
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
                 }
-            }
-            if (state.heater.idle > 0) {
-                console.log('Heater Idle --- ' + state.heater.idle)
-                const idle = idle_check(update, true)
-                switch (idle) {
-                    case 4: // switch back to active
-                        console.log('Heater switching back to active')
-                        set_actuator_state('heater', 'idle', 0).then(set_actuator_state('heater', 'active', true))
-                        break;
+                if (state.heater.idle > 0) {
+                    console.log('Heater Idle --- ' + state.heater.idle)
+                    const idle = idle_check(update, true)
+                    switch (idle) {
+                        case 4: // switch back to active
+                            console.log('Heater switching back to active')
+                            set_actuator_state('heater', 'idle', 0).then(set_actuator_state('heater', 'active', true))
+                            break;
 
-                    case 3: // increment up or switch to stopped and turn off the heater
-                        if (state.heater.idle > 2) {
-                            console.log('Heater Switching OFF from Idle')
-                            set_actuator_state('heater', 'idle', 0).then(set_actuator_state('heater', 'stopped', true)).then(() => {
-                                s4r1_off()
-                                s6r2_off()
-                            })
-                        } else {
-                            const increment = (state.heater.idle + 1)
-                            console.log('Increment: ' + increment)
-                            set_actuator_state('heater', 'idle', increment)
-                        }
-                        break;
+                        case 3: // increment up or switch to stopped and turn off the heater
+                            if (state.heater.idle > 2) {
+                                console.log('Heater Switching OFF from Idle')
+                                set_actuator_state('heater', 'idle', 0).then(set_actuator_state('heater', 'stopped', true)).then(() => {
+                                    s4r1_off()
+                                    s6r2_off()
+                                })
+                            } else {
+                                const increment = (state.heater.idle + 1)
+                                console.log('Increment: ' + increment)
+                                set_actuator_state('heater', 'idle', increment)
+                            }
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
                 }
-            }
-            resolve()
-        })
+                resolve()
+            })
     })
 }
 

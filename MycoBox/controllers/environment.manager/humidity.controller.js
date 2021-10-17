@@ -64,7 +64,7 @@ const humidity_pid_controller_config = (measured, env_config, pid_state) => {
  * } config 
  */
 // Right now this will return a raw pid update value, no wrapper logic applied; e.g. normalizing to the AC phase module's fan speeds scale
-const update_humidity = (config) => {
+const update_humidity = (config, mode) => {
     return new Promise((resolve) => {// initialize the controller
         const humidityController = new HumidityPidController(config);
         // update the actuator
@@ -72,8 +72,11 @@ const update_humidity = (config) => {
         console.log('The Humidity Calculated Update Value')
         console.log(value);
         set_pid_state('humidity', humidityController.report())
-        humidity_actuator_controller(value)
-            .then(resolve(value))
+        if (mode !== 'TEST') {
+            humidity_actuator_controller(value)
+                .then(resolve(value))
+        }
+        resolve(value)
     })
 }
 // process the update value into an appropriate Dimmer Value (convert 1 - 450 to a percentage)

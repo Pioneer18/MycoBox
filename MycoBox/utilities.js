@@ -1,5 +1,8 @@
 const { PythonShell } = require("python-shell");
 const fs = require('fs');
+const { getter } = require("./globals/globals");
+const chalk = require("chalk");
+const log = console.log;
 
 const send_command = (command, mode) => {
     console.log("Sending Command:")
@@ -95,6 +98,16 @@ const createTestFile = (dir, tests, count) => {
     }
 
     /**
+     * read the globals.overrides
+     * switch the appropriate realys and send the set commands
+     */
+    const send_overrides = () => {
+        const overrides = getter('overrides');
+        log(chalk.red('Send Overrides:'))
+        log(chalk.redBright(JSON.stringify(overrides, null, '  ')));
+    }
+
+    /**
      * From Step/Bump Test to FOPDT to Tuned Controller
      * ------------------------------------------------
      * 
@@ -112,5 +125,6 @@ module.exports = {
     timestamp,
     createDir,
     createTestFile,
-    test_calculations
+    test_calculations,
+    send_overrides
 }

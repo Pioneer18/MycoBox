@@ -105,22 +105,21 @@ const run_pid_controllers = (mode) => {
                     const measured = map_measured(validation.env_state);
                     // =========================================================================================================
                     // todo: check for session stage (sr, pi, fr) 
-                    // generate config for each controller: add the other controller functions for this
                     get_state()
                         .then(state => {
+                            // ** IF TEST MODE: each pid will run but not send a command; instead override commands are sent after pid's run
                             // pass correct stage to the pid controllers to select the correct env_config, different setpoints for each stage!
-                            console.log(state)
                             const temp_config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
                             const humidity_config = humidity_pid_controller_config(measured, state[0].spawn_running, state[2].humidity)
                             // const ventilation_config = ventilation_pid_controller_config(measure, state[0].spawn_running, state[2].ventilation)
                             // const circulation_config = circulation_controller_config(measured, state[0].spawn_running, state[2].ventilation)
-                            update_temperature(temp_config)
-                                .then(update_humidity(humidity_config))
+                            update_temperature(temp_config, mode)
+                                .then(update_humidity(humidity_config, mode))
                                 //.then(update_ventilation(ventilation_config))
                                 //.then(update_circulation(circulation_config))
 
                                 // OVERRIDES: I'm replacing this with a service!
-                                .then(() => send_command("H 1", mode)) // should be nested? and the reurned update PID value, not hardcoded
+                                .then(() => send_command("H 1", mode))
                                 .then(() => send_command("E 1", mode))
                                 .then(() => send_command("I 1", mode))
                                 .then(() => send_command("L 1", mode))
