@@ -104,6 +104,12 @@ const test_calculations = () => {
  * switch the appropriate realys and send the set commands
  */
 const send_overrides = (end) => {
+
+    // .then(() => send_command("H 1", mode))
+    // .then(() => send_command("E 1", mode))
+    // .then(() => send_command("I 1", mode))
+    // .then(() => send_command("L 1", mode))
+
     const overrides = getter('overrides');
     log(chalk.red('Send Overrides:'))
     log(chalk.redBright(JSON.stringify(overrides, null, '  ')));

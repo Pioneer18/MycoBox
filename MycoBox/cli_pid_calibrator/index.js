@@ -491,7 +491,8 @@ const set_overrides = (test_config) => {
  * 
  */
 const map_test_config = (configuration) => {
-    // log(chalk.red(JSON.stringify(configuration, null, '  ')))
+    log(chalk.red('Map Test Config'))
+    log(chalk.red(JSON.stringify(configuration, null, '  ')))
 
     const findCO = () => {
         if (configuration.aircon_step && configuration.aircon_step === 'yes') return { name: 'aircon_step', value: true }
