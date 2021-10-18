@@ -492,7 +492,7 @@ const set_overrides = (test_config) => {
  */
 const map_test_config = (configuration) => {
     log(chalk.red('Map Test Config'))
-    log(chalk.red(JSON.stringify(configuration, null, '  ')))
+    // log(chalk.red(JSON.stringify(configuration, null, '  ')))
 
     const findCO = () => {
         if (configuration.aircon_step && configuration.aircon_step === 'yes') return { name: 'aircon_step', value: true }
@@ -529,7 +529,7 @@ const map_test_config = (configuration) => {
         },
         // HOW & WHEN TO END --------------------
         terminator: configuration.terminator,
-        cycles_limit: configuration.cycles_limit ? configuration.cycles_limit : '',
+        cycles_limit: configuration.cycles_limit ? parseInt(configuration.cycles_limit) : '',
         dlo_reference: configuration.dlo_reference ? configuration.dlo_reference : ''
     }
 
