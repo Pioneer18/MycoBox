@@ -448,32 +448,88 @@ const set_overrides = (test_config) => {
             for (const actuator in test_config.disturbances) {
                 log(chalk.bgRedBright(actuator))
                 // circulation top
-                if (actuator.localeCompare('circulation_top') === 0) set_overrides_state(actuator, true)
-                if (actuator.localeCompare('circulation_top') !== 0) set_overrides_state('circulation_top', false)
-                log(chalk.yellow(actuator.localeCompare('circulation_top')))
+                if (actuator.localeCompare('circulation_top') === 0) {
+                    set_overrides_state(actuator, true)
+                    continue
+                }
+                if (actuator.localeCompare('circulation_top') !== 0) {
+                    set_overrides_state('circulation_top', false)
+                    continue
+                }
                 // circulation bottom
-                if (actuator.localeCompare('circulation_bottom') === 0) set_overrides_state(actuator, true)
-                if (actuator.localeCompare('circulation_bottom') !== 0) set_overrides_state('circulation_bottom', false)
+                if (actuator.localeCompare('circulation_bottom') === 0) {
+                    set_overrides_state(actuator, true)
+                    continue
+                }
+                if (actuator.localeCompare('circulation_bottom') !== 0) {
+                    set_overrides_state('circulation_bottom', false)
+                    continue
+                }
                 // aircon
-                if (actuator.localeCompare('aircon') === 0) set_overrides_state('aircon', true)
-                if (test_config.co.name === 'aircon_step') set_overrides_state('aircon_step', true)
-                if (actuator.localeCompare('aircon') !== 0 && test_config.co.name !== 'aircon_step') set_overrides_state('aircon', false)
+                if (actuator.localeCompare('aircon') === 0) {
+                    set_overrides_state('aircon', true)
+                    continue
+                }
+                if (test_config.co.name === 'aircon_step') {
+                    set_overrides_state('aircon_step', true)
+                    continue
+                }
+                if (actuator.localeCompare('aircon') !== 0 && test_config.co.name !== 'aircon_step') {
+                    set_overrides_state('aircon', false)
+                    continue
+                }
                 // heater
-                if (actuator.localeCompare('heater') === 0) set_overrides_state('heater', true)
-                if (test_config.co.name === 'heater_step') set_overrides_state('heater_step', true);
-                if (actuator.localeCompare('heater') !== 0 && test_config.co.name !== 'heater_step') set_overrides_state('heater', false)
+                if (actuator.localeCompare('heater') === 0) {
+                    set_overrides_state('heater', true)
+                    continue
+                }
+                if (test_config.co.name === 'heater_step') {
+                    set_overrides_state('heater_step', true);
+                    continue
+                }
+                if (actuator.localeCompare('heater') !== 0 && test_config.co.name !== 'heater_step') {
+                    set_overrides_state('heater', false)
+                    continue
+                }
                 // humidifier
-                if (actuator.localeCompare('humidifier') === 0) set_overrides_state(actuator, test_config.disturbances[actuator])
-                if (test_config.co.name === 'humidifier_step') set_overrides_state('humidifier_step', test_config.co.value)
-                if (actuator.localeCompare('humidifier') !== 0 && test_config.co.name !== 'humidifier_step') set_overrides_state('humidifier', 420)
+                if (actuator.localeCompare('humidifier') === 0) {
+                    set_overrides_state(actuator, test_config.disturbances[actuator])
+                    continue
+                }
+                if (test_config.co.name === 'humidifier_step') {
+                    set_overrides_state('humidifier_step', test_config.co.value)
+                    continue
+                }
+                if (actuator.localeCompare('humidifier') !== 0 && test_config.co.name !== 'humidifier_step') {
+                    set_overrides_state('humidifier', 420)
+                    continue
+                }
                 // intake
-                if (actuator.localeCompare('intake') === 0) set_overrides_state('intake', test_config.disturbances[actuator])
-                if (test_config.co.name === 'intake_step') set_overrides_state('intake_step', test_config.co.value)
-                if (actuator.localeCompare('intake') !== 0 && test_config.co.name !== 'intake_step') set_overrides_state('intake', 420)
+                if (actuator.localeCompare('intake') === 0) {
+                    set_overrides_state('intake', test_config.disturbances[actuator])
+                    continue
+                }
+                if (test_config.co.name === 'intake_step') {
+                    set_overrides_state('intake_step', test_config.co.value)
+                    continue
+                }
+                if (actuator.localeCompare('intake') !== 0 && test_config.co.name !== 'intake_step') {
+                    set_overrides_state('intake', 420)
+                    continue
+                }
                 // exhaust
-                if (actuator.localeCompare('exhaust') === 0) set_overrides_state('exhaust', test_config.disturbances[actuator])
-                if (test_config.co.name === 'exhaust_step') set_overrides_state('exhaust_step', test_config.co.value)
-                if (actuator.localeCompare('exhaust') !== 0 && test_config.co.name !== 'exhaust') set_overrides_state('exhaust', 420)
+                if (actuator.localeCompare('exhaust') === 0) {
+                    set_overrides_state('exhaust', test_config.disturbances[actuator])
+                    continue
+                }
+                if (test_config.co.name === 'exhaust_step') {
+                    set_overrides_state('exhaust_step', test_config.co.value)
+                    continue
+                }
+                if (actuator.localeCompare('exhaust') !== 0 && test_config.co.name !== 'exhaust') {
+                    set_overrides_state('exhaust', 420)
+                    continue
+                }
 
                 console.log("An Invalid Override was provided");
                 console.log("The Invalid Actuator: " + actuator)
