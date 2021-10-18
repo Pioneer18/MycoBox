@@ -465,12 +465,10 @@ const set_overrides = (test_config) => {
             if (typeof disturbances.humidifier === 'number') set_overrides_state('humidifier', disturbances.humidifier)
             if (test_config.co.name === 'humidifier_step' && typeof test_config.co.value === 'number') set_overrides_state('humidifier', test_config.co.value)
             // intake
-            if (typeof disturbances.intake === 'number') set_overrides_state('intake', disturbances.intake)
-            log(chalk.magenta(disturbances.intake))
+            if (disturbances.intake !== '') set_overrides_state('intake', disturbances.intake)
             if (test_config.co.name === 'intake_step') set_overrides_state('intake', test_config.co.value)
             // exhaust
-            if (typeof disturbances.exhaust === 'number') set_overrides_state('exhaust', disturbances.exhaust)
-            log(chalk.magenta(disturbances.exhaust))
+            if (disturbances.exhaust !== '') set_overrides_state('exhaust', disturbances.exhaust)
             if (test_config.co.name === 'exhaust_step') set_overrides_state('exhaust', test_config.co.value)
             // intake-exhaust
             if (test_config.co.name === 'intake-exhaust_step') {
