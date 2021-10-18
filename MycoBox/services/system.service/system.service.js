@@ -131,7 +131,8 @@ const run_pid_controllers = (mode) => {
                                 //     console.log("=======================================")
                                 //     resolve()
                                 // })
-                                send_overrides()
+                                .then(() => send_overrides())
+                                .then(resolve())
                         })
                 }
             })
