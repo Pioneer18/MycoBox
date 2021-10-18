@@ -475,13 +475,6 @@ const set_overrides = (test_config) => {
                 if (actuator.localeCompare('exhaust') === 0) set_overrides_state('exhaust', test_config.disturbances[actuator])
                 if (test_config.co.name === 'exhaust_step') set_overrides_state('exhaust_step', test_config.co.value)
                 // if (actuator.localeCompare('exhaust') !== 0 && test_config.co.name !== 'exhaust') set_overrides_state('exhaust', 420)
-
-                console.log("An Invalid Override was provided");
-                console.log("The Invalid Actuator: " + actuator)
-                console.log(actuator === 'circulation_top')
-                console.log(actuator.localeCompare('circulation_top'))
-                console.log(typeof actuator)
-
             }
             // follow up
             if (test_config.co.name === 'intake-exhaust_step') set_overrides_state('intake-exhaust_step', test_config.co.value)
