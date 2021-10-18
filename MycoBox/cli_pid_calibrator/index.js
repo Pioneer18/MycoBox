@@ -447,8 +447,10 @@ const set_overrides = (test_config) => {
             // disturbances
             for (const actuator in test_config.disturbances) {
                 log(chalk.bgRedBright(actuator))
+                log(chalk.magenta(actuator.localeCompare('circulation_top') === 0 ))
                 // circulation top
                 if (actuator.localeCompare('circulation_top') === 0) {
+                    log(chalk.magenta('Inside Cicrculation Top Condition'))
                     set_overrides_state(actuator, true)
                     continue
                 }
