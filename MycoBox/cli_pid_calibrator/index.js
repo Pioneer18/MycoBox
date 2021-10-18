@@ -445,6 +445,7 @@ const set_overrides = (test_config) => {
         // test_config.co = {name: '', value: 0}
         log(chalk.bgRedBright(test_config.disturbances.circulation_top))
         try {
+            set_overrides_state('flag', true)
             // disturbances
             for (const actuator in test_config.disturbances) {
                 log(chalk.bgRedBright(actuator))
