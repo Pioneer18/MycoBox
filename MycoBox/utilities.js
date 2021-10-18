@@ -2,7 +2,7 @@ const { PythonShell } = require("python-shell");
 const fs = require('fs');
 const { getter } = require("./globals/globals");
 const chalk = require("chalk");
-const { s8r2_on, s8r2_off, s2r1_on, s2r1_off, s6r2_off, s3r1_on, s3r1_off, s4r1_on, s4r1_off, s5r2_on } = require("./cli_control_panel/relay");
+const { s8r2_on, s8r2_off, s2r1_on, s2r1_off, s6r2_off, s3r1_on, s3r1_off, s4r1_on, s4r1_off, s5r2_on, s7r2_off } = require("./cli_control_panel/relay");
 const { greenBright } = require("chalk");
 const log = console.log;
 
