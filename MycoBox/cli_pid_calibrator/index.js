@@ -450,6 +450,7 @@ const set_overrides = (test_config) => {
                 // circulation top
                 if (actuator.localeCompare('circulation_top') === 0) set_overrides_state(actuator, true)
                 if (actuator.localeCompare('circulation_top') !== 0) set_overrides_state('circulation_top', false)
+                log(chalk.yellow(actuator.localeCompare('circulation_top')))
                 // circulation bottom
                 if (actuator.localeCompare('circulation_bottom') === 0) set_overrides_state(actuator, true)
                 if (actuator.localeCompare('circulation_bottom') !== 0) set_overrides_state('circulation_bottom', false)
@@ -476,8 +477,6 @@ const set_overrides = (test_config) => {
 
                 console.log("An Invalid Override was provided");
                 console.log("The Invalid Actuator: " + actuator)
-                console.log(actuator === 'circulation_top')
-                console.log(actuator.localeCompare('circulation_top'))
                 console.log(typeof actuator)
 
             }
