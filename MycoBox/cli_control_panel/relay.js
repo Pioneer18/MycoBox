@@ -8,7 +8,6 @@ const Gpio = require('onoff').Gpio;
 module.exports = {
     /* Relay Module 1 */
 
-    // Air Conditioner - 8
     s1r1_on: () => {
         console.log('Switching ON The Heater now')
         const relay = new Gpio(0, 'out');
@@ -20,7 +19,6 @@ module.exports = {
         relay.writeSync(1)
     },
 
-    // Heater - 7
     s2r1_on: () => {
         console.log('Switching ON The AC now')
         const relay = new Gpio(5, 'out')

@@ -2,7 +2,7 @@ const { PythonShell } = require("python-shell");
 const fs = require('fs');
 const { getter } = require("./globals/globals");
 const chalk = require("chalk");
-const { s8r2_on, s8r2_off } = require("./cli_control_panel/relay");
+const { s8r2_on, s8r2_off, s2r1_on, s2r1_off, s6r2_off, s3r1_on, s3r1_off, s4r1_on, s4r1_off, s5r2_on } = require("./cli_control_panel/relay");
 const { greenBright } = require("chalk");
 const log = console.log;
 
@@ -108,14 +108,47 @@ const send_overrides = () => {
     log(chalk.red('Send Overrides:'))
     log(chalk.redBright(JSON.stringify(overrides, null, '  ')));
     // loop overrides, switch boolean relays, switch edge dimmer and send commands
-    if(overrides.flag){
+    if (overrides.flag) {
+        // turn on the edge dimmer
+        s5r2_on()
         for (actuator in overrides) {
             log(chalk.greenBright(actuator) + ' -- ' + chalk(greenBright(overrides[actuator])))
+            // circulation top
             if (actuator === 'circulation_top' && overrides[actuator] === true) {
                 s8r2_on();
             }
             if (actuator === 'circulation_top' && overrides[actuator] === false) {
                 s8r2_off();
+            }
+            // circulation bottom
+            if (actuator === 'circulation_bottom' && overrides[actuator] === true) {
+                s7r2_on();
+            }
+            if (actuator === 'circulation_bottom' && overrides[actuator] === false) {
+                s7r2_off();
+            }
+            // aircon
+            if (actuator === 'aircon' && overrides[actuator] === true) {
+                s2r1_on();
+            }
+            if (actuator === 'aircon' && overrides[actuator] === false) {
+                s2r1_off();
+            }
+            // heater
+            if (actuator === 'heater' && overrides[actuator] === true) {
+                s6r2_on();
+                s3r1_on();
+            }
+            if (actuator === 'heater' && overrides[actuator] === false) {
+                s6r2_off();
+                s3r1_off();
+            }
+            // humidifier
+            if (actuator === 'humidifier' && overrides[actuator] !== false) {
+                s4r1_on();
+            }
+            if (actuator === 'humidifier' && overrides[actuator] === false) {
+                s4r1_off();
             }
         }
     }
