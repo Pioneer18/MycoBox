@@ -540,6 +540,7 @@ const map_test_config = (configuration) => {
  * conditionally set the test_config (condition that the property is really there)
  */
 const set_global_test_config = (test_config) => {
+    log(chalk.bgYellowBright(test_config))
     // set co
     let trash;
     set_test_config('co_actuator', test_config.co.name);
