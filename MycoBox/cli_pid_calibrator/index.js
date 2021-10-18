@@ -455,6 +455,7 @@ const set_overrides = (test_config) => {
                     continue
                 }
                 if (actuator.localeCompare('circulation_top') !== 0) {
+                    log(chalk.magenta('Inside Cicrculation Top False Condition'))
                     set_overrides_state('circulation_top', false)
                     continue
                 }
