@@ -439,46 +439,41 @@ const newTestSession = (config) => {
 
 // set the globals.overrides for the current test (ok)
 const set_overrides = (test_config) => {
-    console.log('Test Config');
-    console.log(test_config);
+    log('Test Config');
+    log(test_config);
     return new Promise((resolve) => {
         // test_config.co = {name: '', value: 0}
         log(chalk.bgRedBright(test_config.disturbances.circulation_top))
         try {
+            const disturbances = test_config.disturbances;
             set_overrides_state('flag', true)
             // disturbances
-            for (const actuator in test_config.disturbances) {
-                log(chalk.bgRedBright(actuator))
-                // circulation top
-                if (actuator.localeCompare('circulation_top') === 0) set_overrides_state(actuator, true)
-                // if (actuator.localeCompare('circulation_top') !== 0) set_overrides_state('circulation_top', false)
-                // circulation bottom
-                if (actuator.localeCompare('circulation_bottom') === 0) set_overrides_state(actuator, true)
-                // if (actuator.localeCompare('circulation_bottom') !== 0) set_overrides_state('circulation_bottom', false)
-                // aircon
-                if (actuator.localeCompare('aircon') === 0) set_overrides_state('aircon', true)
-                if (test_config.co.name === 'aircon_step') set_overrides_state('aircon_step', true)
-                // if (actuator.localeCompare('aircon') !== 0 && test_config.co.name !== 'aircon_step') set_overrides_state('aircon', false)
-                // heater
-                if (actuator.localeCompare('heater') === 0) set_overrides_state('heater', true)
-                if (test_config.co.name === 'heater_step') set_overrides_state('heater_step', true);
-                // if (actuator.localeCompare('heater') !== 0 && test_config.co.name !== 'heater_step') set_overrides_state('heater', false)
-                // humidifier
-                if (actuator.localeCompare('humidifier') === 0) set_overrides_state(actuator, test_config.disturbances[actuator])
-                if (test_config.co.name === 'humidifier_step') set_overrides_state('humidifier_step', test_config.co.value)
-                // if (actuator.localeCompare('humidifier') !== 0 && test_config.co.name !== 'humidifier_step') set_overrides_state('humidifier', 420)
-                // intake
-                if (actuator.localeCompare('intake') === 0) set_overrides_state('intake', test_config.disturbances[actuator])
-                if (test_config.co.name === 'intake_step') set_overrides_state('intake_step', test_config.co.value)
-                // if (actuator.localeCompare('intake') !== 0 && test_config.co.name !== 'intake_step') set_overrides_state('intake', 420)
-                // exhaust
-                if (actuator.localeCompare('exhaust') === 0) set_overrides_state('exhaust', test_config.disturbances[actuator])
-                if (test_config.co.name === 'exhaust_step') set_overrides_state('exhaust_step', test_config.co.value)
-                // if (actuator.localeCompare('exhaust') !== 0 && test_config.co.name !== 'exhaust') set_overrides_state('exhaust', 420)
-            }
-            // follow up
+
+            // circulation top
+            if (disturbances.circulation_top === true) set_overrides_state('circulation_top', true)
+            if (disturbances.circulation_top === '') set_overrides_state('circulation_top', false)
+            // circulation bottom
+            if (disturbances.circulation_bottom === true) set_overrides_state('circulation_bottom', true)
+            if (disturbances.circulation_bottom === '') set_overrides_state('circulation_bottom', false)
+            // aircon
+            if (disturbances.aircon === true) set_overrides_state('aircon', true)
+            if (test_config.co.name === 'aircon_step' && test_config.co.value === true) set_overrides_state('aircon', true)
+            if (disturbances.aircon === '' || (test_config.co.name === 'aircon_step' && test_config.co.value === false)) set_overrides_state('aircon', false)
+            // heater
+            if (disturbances.heater === true) set_overrides_state('heater', true)
+            if (test_config.co.name === 'heater_step' && test_config.co.value === true) set_overrides_state('heater', true)
+            if (disturbances.heater === '' || (test_config.co.name === 'heater_step' && test_config.co.value === false)) set_overrides_state('heater', false)
+            // humidifier
+            if (typeof disturbances.humidifier === 'number') set_overrides_state('humidifier', disturbances.humidifier)
+            if (test_config.co.name === 'humidifier_step' && typeof test_config.co.value === 'number') set_overrides_state('humidifier', test_config.co.value)
+            // intake
+            if (typeof disturbances.intake === 'number') set_overrides_state('intake', disturbances.intake)
+            if (test_config.co.name === 'intake_step') set_overrides_state('intake_step', test_config.co.value)
+            // exhaust
+            if (typeof disturbances.exhaust === 'number') set_overrides_state('exhaust', disturbances.exhaust)
+            if (test_config.co.name === 'exhaust_step') set_overrides_state('exhaust_step', test_config.co.value)
+            // intake-exhaust
             if (test_config.co.name === 'intake-exhaust_step') set_overrides_state('intake-exhaust_step', test_config.co.value)
-            if (test_config.co.name !== 'intake-exhaust_step') set_overrides_state('intake-exhaust_step', false)
             get('overrides')
                 .then(overrides => log(chalk.green(JSON.stringify(overrides, null, '  '))))
             resolve()
