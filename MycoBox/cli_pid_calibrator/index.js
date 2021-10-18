@@ -445,6 +445,7 @@ const set_overrides = (test_config) => {
         // test_config.co = {name: '', value: 0}
         log(chalk.bgRedBright(test_config.disturbances.circulation_top))
         try {
+            // disturbances
             for (const actuator in test_config.disturbances) {
                 log(chalk.bgRedBright(actuator))
                 if (actuator.localeCompare('circulation_top') === 0) {
@@ -481,6 +482,25 @@ const set_overrides = (test_config) => {
                 console.log(actuator.localeCompare('circulation_top'))
                 console.log(typeof actuator)
 
+            }
+            // co
+            if (test_config.co.name === 'aircon_step') {
+                set_overrides_state('aircon_step', true);
+            }
+            if (test_config.co.name === 'heater_step') {
+                set_overrides_state('heater_step', true);
+            }
+            if (test_config.co.name === 'humidifier_step') {
+                set_overrides_state('humidifier_step', true);
+            }
+            if (test_config.co.name === 'intake_step') {
+                set_overrides_state('intake_step', test_config.co.value);
+            }
+            if (test_config.co.name === 'exhaust_step') {
+                set_overrides_state('exhaust_step', test_config.co.value);
+            }
+            if (test_config.co.name === 'intake-exhaust_step') {
+                set_overrides_state('intake-exhaust_step', test_config.co.value);
             }
             get('overrides')
                 .then(overrides => log(chalk.green(JSON.stringify(overrides, null, '  '))))
