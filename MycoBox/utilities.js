@@ -3,6 +3,7 @@ const fs = require('fs');
 const { getter } = require("./globals/globals");
 const chalk = require("chalk");
 const { s8r2_on, s8r2_off } = require("./cli_control_panel/relay");
+const { greenBright } = require("chalk");
 const log = console.log;
 
 const send_command = (command, mode) => {
@@ -109,6 +110,7 @@ const send_overrides = () => {
     // loop overrides, switch boolean relays, switch edge dimmer and send commands
     if(overrides.flag){
         for (actuator in overrides) {
+            log(chalk.greenBright(actuator) + ' -- ' + chalk(greenBright(overrides[actuator])))
             if (actuator === 'circulation_top' && overrides[actuator] === true) {
                 s8r2_on();
             }
