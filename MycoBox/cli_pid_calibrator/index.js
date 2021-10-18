@@ -491,7 +491,7 @@ const set_overrides = (test_config) => {
                 set_overrides_state('heater_step', true);
             }
             if (test_config.co.name === 'humidifier_step') {
-                set_overrides_state('humidifier_step', true);
+                set_overrides_state('humidifier_step', test_config.co.value);
             }
             if (test_config.co.name === 'intake_step') {
                 set_overrides_state('intake_step', test_config.co.value);
