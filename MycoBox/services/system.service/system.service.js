@@ -5,7 +5,7 @@
  */
 const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
 const { humidity_pid_controller_config, update_humidity } = require("../../controllers/environment.manager/humidity.controller");
-const { get, set_session_state, set_test_config } = require("../../globals/globals")
+const { get, set_session_state, set_test_config, set_overrides_state } = require("../../globals/globals")
 const { update_environment_state, read_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
 const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
 const { send_command, send_overrides } = require("../../utilities");
@@ -226,6 +226,8 @@ const process_cycle_count = (state) => {
         set_session_state('active_test_session', false);
         set_test_config('cycles_count', 0);
         set_test_config('cycles_limit', 0);
+        set_overrides_state('flag', false)
+        send_overrides()
     }
     else {
         console.log("Cycles Count: " + state.cycles_count +

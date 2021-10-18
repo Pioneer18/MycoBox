@@ -2,7 +2,7 @@ const { PythonShell } = require("python-shell");
 const fs = require('fs');
 const { getter } = require("./globals/globals");
 const chalk = require("chalk");
-const { s8r2_on, s8r2_off, s2r1_on, s2r1_off, s6r2_off, s3r1_on, s3r1_off, s4r1_on, s4r1_off, s5r2_on, s5r2_off, s7r2_off, s7r2_on, s6r2_on } = require("./cli_control_panel/relay");
+const { s8r2_on, s8r2_off, s2r1_on, s2r1_off, s6r2_off, s3r1_on, s3r1_off, s4r1_on, s4r1_off, s5r2_on, s5r2_off, s7r2_off, s7r2_on, s6r2_on, s1r1_off } = require("./cli_control_panel/relay");
 const { greenBright } = require("chalk");
 const log = console.log;
 
@@ -103,7 +103,7 @@ const test_calculations = () => {
  * read the globals.overrides
  * switch the appropriate realys and send the set commands
  */
-const send_overrides = () => {
+const send_overrides = (end) => {
     const overrides = getter('overrides');
     log(chalk.red('Send Overrides:'))
     log(chalk.redBright(JSON.stringify(overrides, null, '  ')));
@@ -151,6 +151,16 @@ const send_overrides = () => {
                 s4r1_off();
             }
         }
+    } else {
+        // turn off the overrides
+        s1r1_off()
+        s2r1_off()
+        s3r1_off()
+        s4r1_off()
+        s8r2_off()
+        s7r2_off()
+        s6r2_off()
+        s5r2_off()
     }
 }
 
