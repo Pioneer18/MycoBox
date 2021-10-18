@@ -151,8 +151,10 @@ const send_overrides = (end) => {
                 s4r1_off();
             }
         }
-    } else {
+    }
+    if (!overrides.flag) {
         // turn off the overrides
+        log(chalk.magenta('Switching Off All Overrides'))
         s1r1_off()
         s2r1_off()
         s3r1_off()
