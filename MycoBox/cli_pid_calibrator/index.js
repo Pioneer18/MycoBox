@@ -453,6 +453,9 @@ const set_overrides = (test_config) => {
                     set_overrides_state(actuator, test_config.disturbances[actuator])
                     continue
                 }
+                if (actuator.localeCompare('circulation_top') !== 0) {
+                    set_overrides_state('circulation_top', false)
+                }
                 if (actuator.localeCompare('circulation_bottom') === 0) {
                     set_overrides_state(actuator, test_config.disturbances[actuator])
                     continue
