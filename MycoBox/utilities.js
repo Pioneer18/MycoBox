@@ -159,6 +159,7 @@ const send_overrides = (mode) => {
             // intake
             if (actuator === 'intake' && overrides[actuator] !== false) {
                 log(chalk.magenta('trying to send a command ova here: ' + mode))
+                log(__dirname)
                 send_command('I 50', mode)
             }
             // exhaust 
