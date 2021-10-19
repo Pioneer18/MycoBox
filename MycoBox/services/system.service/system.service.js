@@ -5,9 +5,10 @@
  */
 const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
 const { humidity_pid_controller_config, update_humidity } = require("../../controllers/environment.manager/humidity.controller");
-const { get, set_session_state, set_test_config, set_overrides_state } = require("../../globals/globals")
+const { get, set_session_state, set_test_config } = require("../../globals/globals")
 const { update_environment_state, read_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
-const { send_command, send_overrides } = require("../../utilities");
+const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
+const { send_command } = require("../../utilities");
 const { test_logger } = require("../../logs/logger");
 const log = console.log;
 const chalk = require("chalk");
@@ -116,8 +117,20 @@ const run_pid_controllers = (mode) => {
                                 .then(update_humidity(humidity_config, mode))
                                 //.then(update_ventilation(ventilation_config))
                                 //.then(update_circulation(circulation_config))
-                                .then(() => send_overrides('TEST')
-                                    .then(() => resolve()))
+
+                                // OVERRIDES: I'm replacing this with a service!
+                                .then(() => send_command("H 1", mode))
+                                .then(() => send_command("E 1", mode))
+                                .then(() => send_command("I 1", mode))
+                                .then(() => send_command("L 1", mode))
+                                .then(() => {
+                                    s5r2_on()
+                                    s3r1_on()
+                                    console.log("=======================================")
+                                    console.log("Sent Overrides: ")
+                                    console.log("=======================================")
+                                    resolve()
+                                })
                         })
                 }
             })
@@ -212,8 +225,6 @@ const process_cycle_count = (state) => {
         set_session_state('active_test_session', false);
         set_test_config('cycles_count', 0);
         set_test_config('cycles_limit', 0);
-        set_overrides_state('flag', false)
-        send_overrides('TEST')
     }
     else {
         console.log("Cycles Count: " + state.cycles_count +
