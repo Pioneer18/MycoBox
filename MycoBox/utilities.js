@@ -189,10 +189,10 @@ const send_overrides = () => {
 const send_all_commands = () => {
 
     return new Promise(() => {
-        send_command("H 1", mode)
-            .then(() => send_command("E 1", mode))
-            .then(() => send_command("I 1", mode))
-            .then(() => send_command("L 1", mode))
+        send_command("H 1", 'TEST')
+            .then(() => send_command("E 1", 'TEST'))
+            .then(() => send_command("I 1", 'TEST'))
+            .then(() => send_command("L 1", 'TEST'))
             .then(() => resolve())
     })
 }
