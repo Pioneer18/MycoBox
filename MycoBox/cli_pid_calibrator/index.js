@@ -540,7 +540,7 @@ const map_test_config = (configuration) => {
  * conditionally set the test_config (condition that the property is really there)
  */
 const set_global_test_config = (test_config) => {
-    log(chalk.bgYellowBright(JSON.stringify(test_config, null, '  ')))
+    log(chalk.bgYellowBright('Setting Gloabl Test Config'))
     // set co
     let trash;
     set_test_config('co_actuator', test_config.co.name);
@@ -566,7 +566,7 @@ const set_global_test_config = (test_config) => {
     test_config.terminator === 'cycles' ? set_test_config('cycles_limit', test_config.cycles_limit) : trash = '';
     test_config.terminator === 'dlo_reference' ? set_test_config('dlo_refernce', test_config.dlo_refernce) : trash = '';
     test_config.terminator === 'steady_state' ? set_test_config('steady_state', true) : trash = '';
-    get('test_config').then(config => log(chalk.green(JSON.stringify(config, null, '  '))))
+    get('test_config').then(config => log(chalk.magenta(JSON.stringify(config, null, '  '))))
 }
 
 /**
