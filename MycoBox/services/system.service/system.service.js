@@ -118,6 +118,7 @@ const run_pid_controllers = (mode) => {
                                 //.then(update_ventilation(ventilation_config))
                                 //.then(update_circulation(circulation_config))
                                 .then(() => send_overrides('TEST'))
+                                .then(send_command('I 50', mode))
                                 .then(resolve())
                         })
                 }
