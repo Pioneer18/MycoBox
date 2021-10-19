@@ -11,7 +11,7 @@ const send_command = (command, mode) => {
     let options = {
         mode: 'text',
         pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: mode === 'TEST' ? 'python' : 'MycoBox/python',
+        scriptPath: mode === 'TEST' ? './python' : 'MycoBox/python',
         args: [command]
     };
     return new Promise((resolve) => {
