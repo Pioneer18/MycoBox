@@ -117,7 +117,7 @@ const run_pid_controllers = (mode) => {
                                 .then(update_humidity(humidity_config, mode))
                                 //.then(update_ventilation(ventilation_config))
                                 //.then(update_circulation(circulation_config))
-                                .then(() => send_overrides())
+                                .then(() => send_overrides('TEST'))
                                 .then(resolve())
                         })
                 }
@@ -214,7 +214,7 @@ const process_cycle_count = (state) => {
         set_test_config('cycles_count', 0);
         set_test_config('cycles_limit', 0);
         set_overrides_state('flag', false)
-        send_overrides()
+        send_overrides('TEST')
     }
     else {
         console.log("Cycles Count: " + state.cycles_count +

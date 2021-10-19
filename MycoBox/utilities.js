@@ -103,7 +103,7 @@ const test_calculations = () => {
  * read the globals.overrides
  * switch the appropriate realys and send the set commands
  */
-const send_overrides = (end) => {
+const send_overrides = (mode) => {
 
     // .then(() => send_command("H 1", mode))
     // .then(() => send_command("E 1", mode))
@@ -156,6 +156,11 @@ const send_overrides = (end) => {
             if (actuator === 'humidifier' && overrides[actuator] === false) {
                 s4r1_off();
             }
+            // intake
+            if (actuator === 'intake' && overrides[actuator] !== false) {
+                send_command()
+            }
+            // exhaust 
         }
     }
     if (!overrides.flag) {
@@ -170,6 +175,13 @@ const send_overrides = (end) => {
         s6r2_off()
         s5r2_off()
     }
+}
+
+/**
+ * create command for arduino
+ */
+const create_command = (actuator, value) => {
+    
 }
 
 /**

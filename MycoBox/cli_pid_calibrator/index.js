@@ -501,9 +501,9 @@ const map_test_config = (configuration) => {
         if (configuration.heater_step && configuration.heater_step === 'no') return { name: 'heater_step', value: false }
         if (configuration.humidifier_step) return { name: 'humidifier_step', value: parseInt(configuration.humidifier_step) }
         if (configuration.ventilation_step) {
-            if (configuration.ventilation_step === 'both') return { name: 'intake-exhaust_step', value: configuration.ventilation_step }
-            if (configuration.ventilation_step === 'intake') return { name: 'intake_step', value: configuration.intake_step }
-            if (configuration.ventilation_step === 'intake') return { name: 'exhaust_step', value: configuration.exhaust_step }
+            if (configuration.ventilation_step === 'both') return { name: 'intake-exhaust_step', value: parseInt(configuration.ventilation_step) }
+            if (configuration.ventilation_step === 'intake') return { name: 'intake_step', value: parseInt(configuration.intake_step) }
+            if (configuration.ventilation_step === 'exhaust') return { name: 'exhaust_step', value: parseInt(configuration.exhaust_step) }
         }
 
     }
