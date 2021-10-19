@@ -5,10 +5,13 @@
  */
 const { temp_pid_controller_config, update_temperature } = require("../../controllers/environment.manager/temperature.controller");
 const { humidity_pid_controller_config, update_humidity } = require("../../controllers/environment.manager/humidity.controller");
-const { get, set_session_state } = require("../../globals/globals")
+const { get, set_session_state, set_test_config, set_overrides_state } = require("../../globals/globals")
 const { update_environment_state, read_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
 const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
-const { send_command } = require("../../utilities");
+const { send_command, send_overrides } = require("../../utilities");
+const { test_logger } = require("../../logs/logger");
+const log = console.log;
+const chalk = require("chalk");
 
 
 /**
@@ -16,52 +19,50 @@ const { send_command } = require("../../utilities");
  * i. coordinates through three session stages
  * ii. maintain PID states
  * iii. call each EM PID
+ * iv. log data to db (SSD, Online)
  * ---------------------------------------------
  * Test Mode:
+ * @ choice: reference difference from dlo || reach steady state => to stop
  * i. increment globals.session_state.cycles_count
  * ii. set active_test_session false if cycles_count reached cycles_limit
+ * iii. apply overrides and not PID controller ouputs
+ * iv. log data to test file on each cycle
+ * v. return tuning parameters from completed test data
  */
 const environment_manager = (mode, resolver) => {
     // #1. Validate the session is still active and THEN
     return new Promise(function (resolve, reject) {
         validate_active_session(mode)
             .then(validation => {
-                // #2. Process the current session_state, and don't do anything until its done; not sure why it's async
+                // #2. Process the current session_state, and don't do anything until its done
 
-                // #3. calculate measured and generated a pid_config WHEN valid env_state returned
+                // #3. calculate measured and generate pid_configs when valid env_state returned
                 if (validation) {
                     console.log('Environment Manager Has Validated Session')
-                    //update_environment_state()
                     run_pid_controllers(mode)
                         .then(() => {
                             console.log('#######################')
                             console.log('Recalling ENV MANAGER')
                             console.log('#######################')
                             if (mode === 'TEST') {
-                                get('session_state')
+                                get('test_config')
+                                    // determine continue or end test
                                     .then(state => {
-                                        if (state.cycles_limit <= state.cycles_count) {
-                                            console.log('TIME TO END THE SESSION!!!')
-                                            set_session_state('active_test_session', false);
-                                            set_session_state('cycles_count', 0);
-                                            set_session_state('cycles_limit', 0);
-                                        }
-                                        else {
-                                            console.log("Cycles Count: " + state.cycles_count +
-                                                "\nCycles Limit: " + state.cycles_limit);
-                                            state.cycles_count++
-                                        }
+                                        log(chalk.greenBright(JSON.stringify(state, null, '  ')))
+                                        // select terminator based on test config
+                                        process_cycle_count(state)
+                                        // check PV - DLO abs difference
+                                        // check if steady state detected
                                     })
-                                    .then(() => {
-                                        // log test data to correct test file
-                                        console.log("Logging Test Data")
-                                    })
+                                    .then(() => test_logger())
                                     .then(() => environment_manager('TEST', resolve));
                             }
 
                             if (mode === 'LIVE') {
+                                // log data to db (ssd / online)
+                                // check stage
+                                // Call next EM cycle
                                 setTimeout(() => {
-                                    console.log("*************** is this Happening?????")
                                     environment_manager('LIVE');
                                 }, 1000);
                             }
@@ -104,33 +105,21 @@ const run_pid_controllers = (mode) => {
                     const measured = map_measured(validation.env_state);
                     // =========================================================================================================
                     // todo: check for session stage (sr, pi, fr) 
-                    // generate config for each controller: add the other controller functions for this
                     get_state()
                         .then(state => {
+                            // ** IF TEST MODE: each pid will run but not send a command; instead override commands are sent after pid's run
                             // pass correct stage to the pid controllers to select the correct env_config, different setpoints for each stage!
-                            console.log(state)
                             const temp_config = temp_pid_controller_config(measured, state[0].spawn_running, state[2].temperature)
                             const humidity_config = humidity_pid_controller_config(measured, state[0].spawn_running, state[2].humidity)
                             // const ventilation_config = ventilation_pid_controller_config(measure, state[0].spawn_running, state[2].ventilation)
                             // const circulation_config = circulation_controller_config(measured, state[0].spawn_running, state[2].ventilation)
-                            update_temperature(temp_config)
-                                .then(update_humidity(humidity_config))
+                            update_temperature(temp_config, mode)
+                                .then(update_humidity(humidity_config, mode))
                                 //.then(update_ventilation(ventilation_config))
                                 //.then(update_circulation(circulation_config))
-
-                                // OVERRIDES: I'm replacing this with a service!
-                                .then(() => send_command("H 1", mode)) // should be nested? and the reurned update PID value, not hardcoded
-                                .then(() => send_command("E 1", mode))
-                                .then(() => send_command("I 1", mode))
-                                .then(() => send_command("L 1", mode))
-                                .then(() => {
-                                    s5r2_on()
-                                    s3r1_on()
-                                    console.log("=======================================")
-                                    console.log("Sent Overrides: ")
-                                    console.log("=======================================")
-                                    resolve()
-                                })
+                                .then(() => send_overrides('TEST'))
+                                .then(() => send_command('I 50', mode))
+                                .then(resolve())
                         })
                 }
             })
@@ -216,6 +205,22 @@ const map_measured = (env_state) => {
         temperature: env_state.internal_temp_c,
         humidity: env_state.internal_humidity,
         co2: 500 // Debug the co2 meter so this isn't hardcoded
+    }
+}
+
+const process_cycle_count = (state) => {
+    if (state.cycles_limit <= state.cycles_count) {
+        console.log('TIME TO END THE SESSION!!!')
+        set_session_state('active_test_session', false);
+        set_test_config('cycles_count', 0);
+        set_test_config('cycles_limit', 0);
+        set_overrides_state('flag', false)
+        send_overrides('TEST')
+    }
+    else {
+        console.log("Cycles Count: " + state.cycles_count +
+            "\nCycles Limit: " + state.cycles_limit);
+        state.cycles_count++
     }
 }
 
