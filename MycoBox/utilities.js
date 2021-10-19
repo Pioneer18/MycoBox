@@ -4,6 +4,7 @@ const { getter } = require("./globals/globals");
 const chalk = require("chalk");
 const { s8r2_on, s8r2_off, s2r1_on, s2r1_off, s6r2_off, s3r1_on, s3r1_off, s4r1_on, s4r1_off, s5r2_on, s5r2_off, s7r2_off, s7r2_on, s6r2_on, s1r1_off } = require("./cli_control_panel/relay");
 const { greenBright } = require("chalk");
+const { resolve } = require("path");
 const log = console.log;
 
 // cli_pid_calibrator/index.js calls this function in TEST mode
@@ -185,6 +186,17 @@ const send_overrides = () => {
     })
 }
 
+const send_all_commands = () => {
+
+    return new Promise(() => {
+        send_command("H 1", mode)
+            .then(() => send_command("E 1", mode))
+            .then(() => send_command("I 1", mode))
+            .then(() => send_command("L 1", mode))
+            .then(() => resolve())
+    })
+}
+
 /**
  * create command for arduino
  */
@@ -211,5 +223,6 @@ module.exports = {
     createDir,
     createTestFile,
     test_calculations,
-    send_overrides
+    send_overrides,
+    send_all_commands
 }
