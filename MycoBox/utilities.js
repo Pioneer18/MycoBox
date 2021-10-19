@@ -6,14 +6,16 @@ const { s8r2_on, s8r2_off, s2r1_on, s2r1_off, s6r2_off, s3r1_on, s3r1_off, s4r1_
 const { greenBright } = require("chalk");
 const log = console.log;
 
+// cli_pid_calibrator/index.js calls this function in TEST mode
 const send_command = (command, mode) => {
-    console.log("Sending Command:")
     let options = {
         mode: 'text',
         pythonOptions: ['-u'], // get print results in real-time
         scriptPath: mode === 'TEST' ? '../python' : 'MycoBox/python',
         args: [command]
     };
+    log(chalk.bgBlack.whiteBright('Sending Command'))
+    log(chalk.bgBlack.whiteBright(JSON.stringify(options, null, '  ')))
     return new Promise((resolve) => {
         PythonShell.run('dimmer.command.py', options, function (err, reply) {
             if (err) throw err;
@@ -159,7 +161,8 @@ const send_overrides = (mode) => {
             // intake
             if (actuator === 'intake' && overrides[actuator] !== false) {
                 log(chalk.bgGreen.red('blehhhhhhhhhhhhh!'))
-            }
+
+            }   
             // exhaust 
         }
     }
