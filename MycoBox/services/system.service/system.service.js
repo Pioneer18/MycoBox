@@ -116,8 +116,8 @@ const run_pid_controllers = (mode) => {
                                 .then(update_humidity(humidity_config, mode))
                                 //.then(update_ventilation(ventilation_config))
                                 //.then(update_circulation(circulation_config))
-                                .then(() => send_overrides('TEST'))
-                                .then(resolve())
+                                .then(() => send_overrides('TEST')
+                                    .then(() => resolve()))
                         })
                 }
             })
