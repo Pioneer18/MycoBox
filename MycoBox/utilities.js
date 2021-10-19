@@ -154,6 +154,7 @@ const send_overrides = () => {
                 }
                 // humidifier
                 if (actuator === 'humidifier' && overrides[actuator] !== false) {
+                    send_command('H 220', 'TEST').then(() => resolve())
                     s4r1_on();
                 }
                 if (actuator === 'humidifier' && overrides[actuator] === false) {
@@ -162,7 +163,7 @@ const send_overrides = () => {
                 // intake
                 if (actuator === 'intake' && overrides[actuator] !== false) {
                     log(chalk.bgBlack.green('Sending Intake Command'))
-                    // send_command('I 200', 'TEST')
+                    send_command('I 200', 'TEST').then(() => resolve())
                 }
                 // exhaust 
             }
