@@ -162,7 +162,7 @@ const send_overrides = () => {
                 // intake
                 if (actuator === 'intake' && overrides[actuator] !== false) {
                     log(chalk.bgBlack.green('Sending Intake Command'))
-                    // send_command('I 200', mode)
+                    send_command('I 200', mode)
                 }
                 // exhaust 
             }
