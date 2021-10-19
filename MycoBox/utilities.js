@@ -105,7 +105,7 @@ const test_calculations = () => {
  * read the globals.overrides
  * switch the appropriate realys and send the set commands
  */
-const send_overrides = (mode) => {
+const send_overrides = () => {
 
     // .then(() => send_command("H 1", mode))
     // .then(() => send_command("E 1", mode))
@@ -116,68 +116,72 @@ const send_overrides = (mode) => {
     log(chalk.red('Send Overrides:'))
     log(chalk.redBright(JSON.stringify(overrides, null, '  ')));
     // loop overrides, switch boolean relays, switch edge dimmer and send commands
-    if (overrides.flag) {
-        // turn on the edge dimmer
-        s5r2_on()
-        for (actuator in overrides) {
-            log(chalk.greenBright(actuator) + ' -- ' + chalk(greenBright(overrides[actuator])))
-            // circulation top
-            if (actuator === 'circulation_top' && overrides[actuator] === true) {
-                s8r2_on();
+    return new Promise((resolve) => {
+        if (overrides.flag) {
+            // turn on the edge dimmer
+            s5r2_on()
+            for (actuator in overrides) {
+                log(chalk.greenBright(actuator) + ' -- ' + chalk(greenBright(overrides[actuator])))
+                // circulation top
+                if (actuator === 'circulation_top' && overrides[actuator] === true) {
+                    s8r2_on();
+                }
+                if (actuator === 'circulation_top' && overrides[actuator] === false) {
+                    s8r2_off();
+                }
+                // circulation bottom
+                if (actuator === 'circulation_bottom' && overrides[actuator] === true) {
+                    s7r2_on();
+                }
+                if (actuator === 'circulation_bottom' && overrides[actuator] === false) {
+                    s7r2_off();
+                }
+                // aircon
+                if (actuator === 'aircon' && overrides[actuator] === true) {
+                    s2r1_on();
+                }
+                if (actuator === 'aircon' && overrides[actuator] === false) {
+                    s2r1_off();
+                }
+                // heater
+                if (actuator === 'heater' && overrides[actuator] === true) {
+                    s6r2_on()
+                    s3r1_on();
+                }
+                if (actuator === 'heater' && overrides[actuator] === false) {
+                    s6r2_off();
+                    s3r1_off();
+                }
+                // humidifier
+                if (actuator === 'humidifier' && overrides[actuator] !== false) {
+                    s4r1_on();
+                }
+                if (actuator === 'humidifier' && overrides[actuator] === false) {
+                    s4r1_off();
+                }
+                // intake
+                if (actuator === 'intake' && overrides[actuator] !== false) {
+                    log(chalk.bgBlack.green('Sending Intake Command'))
+                    // send_command('I 200', mode)
+                }
+                // exhaust 
             }
-            if (actuator === 'circulation_top' && overrides[actuator] === false) {
-                s8r2_off();
-            }
-            // circulation bottom
-            if (actuator === 'circulation_bottom' && overrides[actuator] === true) {
-                s7r2_on();
-            }
-            if (actuator === 'circulation_bottom' && overrides[actuator] === false) {
-                s7r2_off();
-            }
-            // aircon
-            if (actuator === 'aircon' && overrides[actuator] === true) {
-                s2r1_on();
-            }
-            if (actuator === 'aircon' && overrides[actuator] === false) {
-                s2r1_off();
-            }
-            // heater
-            if (actuator === 'heater' && overrides[actuator] === true) {
-                s6r2_on()
-                s3r1_on();
-            }
-            if (actuator === 'heater' && overrides[actuator] === false) {
-                s6r2_off();
-                s3r1_off();
-            }
-            // humidifier
-            if (actuator === 'humidifier' && overrides[actuator] !== false) {
-                s4r1_on();
-            }
-            if (actuator === 'humidifier' && overrides[actuator] === false) {
-                s4r1_off();
-            }
-            // intake
-            if (actuator === 'intake' && overrides[actuator] !== false) {
-                log(chalk.bgBlack.green('Sending Intake Command'))
-                // send_command('I 200', mode)
-            }   
-            // exhaust 
+            resolve()
         }
-    }
-    if (!overrides.flag) {
-        // turn off the overrides
-        log(chalk.magenta('Switching Off All Overrides'))
-        s1r1_off()
-        s2r1_off()
-        s3r1_off()
-        s4r1_off()
-        s8r2_off()
-        s7r2_off()
-        s6r2_off()
-        s5r2_off()
-    }
+        if (!overrides.flag) {
+            // turn off the overrides
+            log(chalk.magenta('Switching Off All Overrides'))
+            s1r1_off()
+            s2r1_off()
+            s3r1_off()
+            s4r1_off()
+            s8r2_off()
+            s7r2_off()
+            s6r2_off()
+            s5r2_off()
+            resolve()
+        }
+    })
 }
 
 /**
