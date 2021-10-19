@@ -7,7 +7,6 @@ const { temp_pid_controller_config, update_temperature } = require("../../contro
 const { humidity_pid_controller_config, update_humidity } = require("../../controllers/environment.manager/humidity.controller");
 const { get, set_session_state, set_test_config, set_overrides_state } = require("../../globals/globals")
 const { update_environment_state, read_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
-const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
 const { send_command, send_overrides } = require("../../utilities");
 const { test_logger } = require("../../logs/logger");
 const log = console.log;
@@ -118,7 +117,7 @@ const run_pid_controllers = (mode) => {
                                 //.then(update_ventilation(ventilation_config))
                                 //.then(update_circulation(circulation_config))
                                 .then(() => send_overrides('TEST'))
-                                .then(() => send_command('I 50', mode))
+                                // .then(() => send_command('I 50', mode))
                                 .then(resolve())
                         })
                 }
