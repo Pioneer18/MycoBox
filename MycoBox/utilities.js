@@ -158,7 +158,7 @@ const send_overrides = (mode) => {
             }
             // intake
             if (actuator === 'intake' && overrides[actuator] !== false) {
-                send_command()
+                send_command('I 50', mode)
             }
             // exhaust 
         }
