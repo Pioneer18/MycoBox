@@ -195,16 +195,20 @@ const send_overrides = () => {
             }
             // update the memory
             log(chalk.magentaBright('Sending Overrides Now'))
-            if (update) {
-                update = false;
-                send_command(`H ${H}`, 'TEST')
-                    .then(() => send_command(`I ${I}`, 'TEST'))
-                    .then(() => send_command(`E ${E}`, 'TEST'))
-                    .then(() => send_command(`L ${L}`, 'TEST'))
-                    .then(() => resolve())
-            }
-            Promise.resolve()
-                .then(resolve())
+            send_command(`H ${H}`, 'TEST')
+                .then(() => {
+                    log(chalk.bgBlueBright.green('Sending Command Right Now Son!'))
+                    send_command(`I ${I}`, 'TEST')
+                })
+                .then(() => {
+                    log(chalk.bgBlueBright.green('Sending Command Right Now Son!'))
+                    send_command(`E ${E}`, 'TEST')
+                })
+                .then(() => {
+                    log(chalk.bgBlueBright.green('Sending Command Right Now Son!'))
+                    send_command(`L ${L}`, 'TEST')
+                })
+                .then(() => resolve())
 
         }
     })
