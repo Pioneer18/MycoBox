@@ -8,7 +8,7 @@ const { humidity_pid_controller_config, update_humidity } = require("../../contr
 const { get, set_session_state, set_test_config } = require("../../globals/globals")
 const { update_environment_state, read_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
 const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
-const { send_command, send_all_commands } = require("../../utilities");
+const { send_command, send_all_commands, send_overrides } = require("../../utilities");
 const { test_logger } = require("../../logs/logger");
 const log = console.log;
 const chalk = require("chalk");
@@ -121,7 +121,7 @@ const run_pid_controllers = (mode) => {
                                 // OVERRIDES: I'm replacing this with a service!
                                 // send commands
                                 // switch relay
-                              send_all_commands()
+                              send_overrides()
                                 .then(() => {
                                     s5r2_on()
                                     s3r1_on()
