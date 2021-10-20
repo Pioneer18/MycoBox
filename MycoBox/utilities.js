@@ -106,7 +106,13 @@ const test_calculations = () => {
  * read the globals.overrides
  * switch the appropriate realys and send the set commands
  */
-const send_overrides = (mode) => {
+const send_overrides = () => {
+
+    // .then(() => send_command("H 1", mode))
+    // .then(() => send_command("E 1", mode))
+    // .then(() => send_command("I 1", mode))
+    // .then(() => send_command("L 1", mode))
+
     const overrides = getter('overrides');
     log(chalk.red('Send Overrides:'))
     log(chalk.redBright(JSON.stringify(overrides, null, '  ')));
@@ -156,7 +162,7 @@ const send_overrides = (mode) => {
             // intake
             if (overrides.intake !== false) {
                 log(chalk.bgBlack.green('Sending Intake Command'))
-                send_command('I 200', mode).then(() => resolve())
+                send_command('I 200', 'TEST').then(() => resolve())
             }
             // exhaust 
             resolve()
@@ -164,19 +170,15 @@ const send_overrides = (mode) => {
         if (!overrides.flag) {
             // turn off the overrides
             log(chalk.magenta('Switching Off All Overrides'))
-            send_command('H 420', mode)
-                .then(() => send_command('I 420', mode))
-                .then(() => send_command('E 420', mode))
-                .then(() => send_command('L 420', mode))
-                .then(() => s1r1_off())
-                .then(() => s2r1_off())
-                .then(() => s3r1_off())
-                .then(() => s4r1_off())
-                .then(() => s8r2_off())
-                .then(() => s7r2_off())
-                .then(() => s6r2_off())
-                .then(() => s5r2_off())
-                .then(() => resolve())
+            s1r1_off()
+            s2r1_off()
+            s3r1_off()
+            s4r1_off()
+            s8r2_off()
+            s7r2_off()
+            s6r2_off()
+            s5r2_off()
+            resolve()
         }
     })
 }
@@ -189,6 +191,16 @@ const send_all_commands = () => {
             .then(() => send_command("I 1", 'TEST'))
             .then(() => send_command("L 1", 'TEST'))
             .then(() => resolve())
+    })
+}
+
+const shut_off = () => {
+    return new Promise((resolve) => {
+        send_command('H 420', mode)
+            .then(() => send_command('I 420', mode))
+            .then(() => send_command('E 420', mode))
+            .then(() => send_command('L 420', mode))
+            .then(() => s5r2_off())
     })
 }
 
