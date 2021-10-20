@@ -154,12 +154,13 @@ const send_overrides = () => {
             if (overrides.humidifier === false) {
                 s3r1_off();
             }
-            // intake
+            // intake (this is braking it!!!!!)
             if (overrides.intake !== false) {
                 send_command('I 200', 'TEST')
+                    .then(() => resolve())
             }
             // exhaust 
-            resolve()
+
         }
     })
 }
