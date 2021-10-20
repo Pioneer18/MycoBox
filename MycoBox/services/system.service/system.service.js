@@ -73,6 +73,7 @@ const environment_manager = (mode, resolver) => {
                     console.log('EM Will Stop Running Now')
                     // turn off relay and send off commands
                     shut_off()
+                        .then(() => resolver())
                         .then(() => resolve())
                     // resolver('The real resolve?');
 

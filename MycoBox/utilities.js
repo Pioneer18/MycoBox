@@ -162,6 +162,10 @@ const send_overrides = () => {
             if (overrides.exhaust !== false) {
                 send_command(`E ${overrides.exhaust}`, 'TEST')
             }
+            // light
+            if (overrides.light !== false) {
+                send_command(`L ${overrides.light}`, 'TEST')
+            }
             resolve()
         }
     })
