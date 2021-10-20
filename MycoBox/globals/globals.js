@@ -128,15 +128,42 @@ let globals = {
     // mapped for Testing or switched by control panel on dashboard
     overrides: {
         flag: false,
-        circulation_top: false,
-        circulation_bottom: false,
-        intake: false,
-        exhaust: false,
-        aircon: false,
-        heater: false,
-        humidifier: false,
-        light: false,
-        speakers: false
+        circulation_top: {
+            value: false,
+            memory: false
+        },
+        circulation_bottom: {
+            value: false,
+            memory: false
+        },
+        intake: {
+            value: false,
+            memory: false
+        },
+        exhaust: {
+            value: false,
+            memory: false
+        },
+        aircon: {
+            value: false,
+            memory: false
+        },
+        heater: {
+            value: false,
+            memory: false
+        },
+        humidifier: {
+            value: false,
+            memory: false
+        },
+        light: {
+            value: false,
+            memory: false
+        },
+        speakers: {
+            value: false,
+            memory: false
+        }
     },
     test_config: {
         // logging
@@ -435,7 +462,7 @@ const set_overrides_state = (element, value) => {
     log(chalk.magentaBright('set_overrides_state'))
     log(chalk.magentaBright('element: ' + element + ' ' + ' value: ' + value))
     set_overrides_state_validation(element, value);
-    globals.overrides[element] = value;
+    globals.overrides[element].value = value;
 }
 
 const set_overrides_state_validation = (element, value) => {

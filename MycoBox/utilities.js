@@ -121,59 +121,60 @@ const send_overrides = () => {
             // turn on the edge dimmer
             s5r2_on()
             // circulation top
-            if (overrides.circulation_top !== false) {
+            if (overrides.circulation_top.value !== false && overrides.circulation_top.memory !== overrides.circulation_top.value) {
                 s8r2_on();
             }
-            if (overrides.circulation_top === false) {
+            if (overrides.circulation_top.value === false && overrides.circulation_top.memory !== overrides.circulation_top.value) {
                 s8r2_off();
             }
             // circulation bottom
-            if (overrides.circulation_bottom === true) {
+            if (overrides.circulation_bottom.value === true && overrides.circulation_bottom.memory !== overrides.circulation_bottom.value) {
                 s7r2_on();
             }
-            if (overrides.circulation_bottom === false) {
+            if (overrides.circulation_bottom.value === false && overrides.circulation_bottom.memory !== overrides.circulation_bottom.value) {
                 s7r2_off();
             }
             // aircon
-            if (overrides.aircon === true) {
+            if (overrides.aircon.value === true && overrides.aircon.memory !== overrides.aircon.value) {
                 s2r1_on();
             }
-            if (overrides.aircon === false) {
+            if (overrides.aircon.value === false && overrides.aircon.memory !== overrides.aircon.value) {
                 s2r1_off();
             }
             // heater
-            if (overrides.heater === true) {
+            if (overrides.heater.value === true && overrides.heater.memory !== overrides.heater.value) {
                 s6r2_on()
                 s4r1_on();
             }
-            if (overrides.heater === false) {
+            if (overrides.heater.value === false && overrides.heater.memory !== overrides.heater.value) {
                 s6r2_off();
                 s4r1_off();
             }
             // humidifier
-            if (overrides.humidifier !== false) {
+            if (overrides.humidifier.value !== false) {
                 s3r1_on()
-                H = overrides.humidifier;
+                H = overrides.humidifier.value;
 
             }
-            if (overrides.humidifier === 420) {
+            if (overrides.humidifier.value === 420) {
                 s3r1_off();
             }
 
-            if (overrides.intake !== false) {
+            if (overrides.intake.value !== false) {
                 // send_command(`I ${overrides.intake}`, 'TEST')
-                I = overrides.intake;
+                I = overrides.intake.value;
             }
             // exhaust 
-            if (overrides.exhaust !== false) {
+            if (overrides.exhaust.value !== false) {
                 // send_command(`E ${overrides.exhaust}`, 'TEST')
-                E = overrides.exhaust;
+                E = overrides.exhaust.value;
             }
             // light
-            if (overrides.light !== false) {
+            if (overrides.light.value !== false) {
                 // send_command(`L ${overrides.light}`, 'TEST')
-                L = overrides.light;
+                L = overrides.light.value;
             }
+            // update the memory
             log(chalk.magentaBright('Sending Overrides Now'))
             send_command(`H ${H}`, 'TEST')
                 .then(() => send_command(`I ${I}`, 'TEST'))
