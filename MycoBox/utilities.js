@@ -111,6 +111,10 @@ const send_overrides = () => {
     const overrides = getter('overrides');
     log(chalk.red('Send Overrides:'))
     log(chalk.redBright(JSON.stringify(overrides, null, '  ')));
+    let H = 420;
+    let I = 420;
+    let E = 420;
+    let L = 420;
     // loop overrides, switch boolean relays, switch edge dimmer and send commands
     return new Promise((resolve) => {
         if (overrides.flag) {
@@ -149,24 +153,33 @@ const send_overrides = () => {
             // humidifier
             if (overrides.humidifier !== false) {
                 s3r1_on()
-                send_command(`H ${overrides.humidifier}`, 'TEST')
+                H = overrides.humidifier;
+
             }
-            if (overrides.humidifier === false) {
+            if (overrides.humidifier === 420) {
                 s3r1_off();
             }
-            // intake (this is braking it!!!!!)
+
             if (overrides.intake !== false) {
-                send_command(`I ${overrides.intake}`, 'TEST')
+                // send_command(`I ${overrides.intake}`, 'TEST')
+                I = overrides.intake;
             }
             // exhaust 
             if (overrides.exhaust !== false) {
-                send_command(`E ${overrides.exhaust}`, 'TEST')
+                // send_command(`E ${overrides.exhaust}`, 'TEST')
+                E = overrides.exhaust;
             }
             // light
             if (overrides.light !== false) {
-                send_command(`L ${overrides.light}`, 'TEST')
+                // send_command(`L ${overrides.light}`, 'TEST')
+                L = overrides.light;
             }
-            resolve()
+            send_command(`H ${H}`, 'TEST')
+                .then(() => send_command(`I ${I}`), 'TEST')
+                .then(() => send_command(`E ${E}`), 'TEST')
+                .then(() => send_command(`L ${L}`), 'TEST')
+                .then(() => resolve())
+
         }
     })
 }
