@@ -72,10 +72,7 @@ const environment_manager = (mode, resolver) => {
                 if (!validation) {
                     console.log('EM Will Stop Running Now')
                     // turn off relay and send off commands
-                    send_command('H 420', mode)
-                        .then(() => send_command('I 420', mode))
-                        .then(() => send_command('E 420', mode))
-                        .then(() => send_command('L 420', mode))
+                    send_overrides('TEST')
                     resolve('Session Completed!');
                     resolver('The real resolve?')
 
@@ -126,7 +123,7 @@ const run_pid_controllers = (mode) => {
                             // OVERRIDES: I'm replacing this with a service!
                             // send commands
                             // switch relay
-                            send_overrides()
+                            send_overrides('TEST')
                                 .then(() => {
                                     s5r2_on()
                                     s3r1_on()
