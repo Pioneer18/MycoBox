@@ -174,11 +174,12 @@ const send_overrides = () => {
                 // send_command(`L ${overrides.light}`, 'TEST')
                 L = overrides.light;
             }
+            log(chalk.magentaBright('Sending Overrides Now'))
             send_command(`H ${H}`, 'TEST')
-                .then(send_command(`I ${I}`, 'TEST'))
-                .then(send_command(`E ${E}`, 'TEST'))
-                .then(send_command(`L ${L}`, 'TEST'))
-                .then(resolve())
+                .then(() => send_command(`I ${I}`, 'TEST'))
+                .then(() => send_command(`E ${E}`, 'TEST'))
+                .then(() => send_command(`L ${L}`, 'TEST'))
+                .then(() => resolve())
 
         }
     })
