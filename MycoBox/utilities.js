@@ -121,7 +121,6 @@ const send_overrides = () => {
         if (overrides.flag) {
             // turn on the edge dimmer
             s5r2_on()
-            log(chalk.greenBright(actuator) + ' -- ' + chalk(greenBright(overrides[actuator])))
             // circulation top
             if (overrides.circulation_top !== false) {
                 s8r2_on();
