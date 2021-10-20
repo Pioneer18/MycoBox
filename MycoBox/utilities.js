@@ -174,7 +174,7 @@ const shut_off = () => {
         send_command('E 420', 'TEST')
         send_command('L 420', 'TEST')
         s5r2_off()
-        resolve()
+        return resolve()
     })
 }
 
