@@ -71,6 +71,11 @@ const environment_manager = (mode, resolver) => {
                 }
                 if (!validation) {
                     console.log('EM Will Stop Running Now')
+                    // turn off relay and send off commands
+                    send_command('H 420', mode)
+                        .then(() => send_command('I 420', mode))
+                        .then(() => send_command('E 420', mode))
+                        .then(() => send_command('L 420', mode))
                     resolve('Session Completed!');
                     resolver('The real resolve?')
 
@@ -115,13 +120,13 @@ const run_pid_controllers = (mode) => {
                             // const circulation_config = circulation_controller_config(measured, state[0].spawn_running, state[2].ventilation)
                             update_temperature(temp_config, mode)
                                 .then(update_humidity(humidity_config, mode))
-                                //.then(update_ventilation(ventilation_config))
-                                //.then(update_circulation(circulation_config))
+                            //.then(update_ventilation(ventilation_config))
+                            //.then(update_circulation(circulation_config))
 
-                                // OVERRIDES: I'm replacing this with a service!
-                                // send commands
-                                // switch relay
-                              send_overrides()
+                            // OVERRIDES: I'm replacing this with a service!
+                            // send commands
+                            // switch relay
+                            send_overrides()
                                 .then(() => {
                                     s5r2_on()
                                     s3r1_on()
