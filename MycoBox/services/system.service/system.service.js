@@ -75,6 +75,7 @@ const environment_manager = (mode, resolver) => {
                     // shut_off()
                     resolve('Session Completed!');
                     resolver('The real resolve?');
+                    log(chalk.red('Why U No Resolve?'))
 
                 }
             })
