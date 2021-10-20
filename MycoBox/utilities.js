@@ -115,6 +115,7 @@ const send_overrides = () => {
     let I = 420;
     let E = 420;
     let L = 420;
+    let update = false;
     // loop overrides, switch boolean relays, switch edge dimmer and send commands
     return new Promise((resolve) => {
         if (overrides.flag) {
@@ -163,37 +164,45 @@ const send_overrides = () => {
                 s3r1_on()
                 H = overrides.humidifier.value;
                 overrides.humidifier.memory = overrides.humidifier.value;
+                update = true;
 
             }
             if (overrides.humidifier.value === 420 && overrides.humidifier.memory !== overrides.humidifier.value) {
                 s3r1_off();
                 overrides.humidifier.memory = overrides.humidifier.value;
+                update = true;
             }
 
             if (overrides.intake.value !== false && overrides.intake.memory !== overrides.intake.value) {
                 // send_command(`I ${overrides.intake}`, 'TEST')
                 I = overrides.intake.value;
                 overrides.intake.memory = overrides.intake.value;
+                update = true;
             }
             // exhaust 
             if (overrides.exhaust.value !== false && overrides.exhaust.memory !== overrides.exhaust.value) {
                 // send_command(`E ${overrides.exhaust}`, 'TEST')
                 E = overrides.exhaust.value;
                 overrides.exhaust.memory = overrides.exhaust.value;
+                update = true;
             }
             // light
             if (overrides.light.value !== false && overrides.light.memory !== overrides.light.value) {
                 // send_command(`L ${overrides.light}`, 'TEST')
                 L = overrides.light.value;
                 overrides.light.memory = overrides.light.value
+                update = true;
             }
             // update the memory
             log(chalk.magentaBright('Sending Overrides Now'))
-            send_command(`H ${H}`, 'TEST')
-                .then(() => send_command(`I ${I}`, 'TEST'))
-                .then(() => send_command(`E ${E}`, 'TEST'))
-                .then(() => send_command(`L ${L}`, 'TEST'))
-                .then(() => resolve())
+            if (update) {
+                update = false;
+                send_command(`H ${H}`, 'TEST')
+                    .then(() => send_command(`I ${I}`, 'TEST'))
+                    .then(() => send_command(`E ${E}`, 'TEST'))
+                    .then(() => send_command(`L ${L}`, 'TEST'))
+                    .then(() => resolve())
+            }
 
         }
     })
@@ -201,6 +210,7 @@ const send_overrides = () => {
 
 const shut_off = () => {
     return new Promise((resolve) => {
+        log(chalk.bgWhite.grey('Shut Off'))
         send_command('H 420', 'TEST')
             .then(() => send_command('I 420', 'TEST'))
             .then(() => send_command('E 420', 'TEST'))
