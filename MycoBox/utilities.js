@@ -156,7 +156,7 @@ const send_overrides = () => {
             }
             // intake (this is braking it!!!!!)
             if (overrides.intake !== false) {
-                send_command('I 200', 'TEST')
+                send_command(`I ${overrides.intake}`, 'TEST')
                     .then(() => resolve())
             }
             // exhaust 
