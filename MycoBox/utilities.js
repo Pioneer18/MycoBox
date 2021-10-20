@@ -170,11 +170,11 @@ const send_overrides = () => {
 const shut_off = () => {
     return new Promise((resolve) => {
         send_command('H 420', 'TEST')
-            .then(() => send_command('I 420', 'TEST'))
-            .then(() => send_command('E 420', 'TEST'))
-            .then(() => send_command('L 420', 'TEST'))
-            .then(() => s5r2_off())
-            .then(() => resolve())
+        send_command('I 420', 'TEST')
+        send_command('E 420', 'TEST')
+        send_command('L 420', 'TEST')
+        s5r2_off()
+        resolve()
     })
 }
 
