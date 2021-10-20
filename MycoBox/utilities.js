@@ -140,23 +140,23 @@ const send_overrides = () => {
             // heater
             if (overrides.heater === true) {
                 s6r2_on()
-                s3r1_on();
+                s4r1_on();
             }
             if (overrides.heater === false) {
                 s6r2_off();
-                s3r1_off();
+                s4r1_off();
             }
             // humidifier
             if (overrides.humidifier !== false) {
                 // send_command('H 220', 'TEST').then(() => resolve())
-                s4r1_on();
+                s3r1_on();
             }
             if (overrides.humidifier === false) {
-                s4r1_off();
+                s3r1_off();
             }
             // intake
             if (overrides.intake !== false) {
-                log(chalk.bgBlack.green('Sending Intake Command'))
+                log(chalk.bgBlack.green('Sending Intake Command ' + overrides.intake))
                 send_command('I 200', 'TEST').then(() => resolve())
             }
             // exhaust 
@@ -175,17 +175,6 @@ const send_overrides = () => {
             s5r2_off()
             resolve()
         }
-    })
-}
-
-const send_all_commands = () => {
-
-    return new Promise((resolve) => {
-        send_command("H 1", 'TEST')
-            .then(() => send_command("E 1", 'TEST'))
-            .then(() => send_command("I 1", 'TEST'))
-            .then(() => send_command("L 1", 'TEST'))
-            .then(() => resolve())
     })
 }
 
