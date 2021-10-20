@@ -148,8 +148,8 @@ const send_overrides = () => {
             }
             // humidifier
             if (overrides.humidifier !== false) {
-                // send_command('H 220', 'TEST').then(() => resolve())
-                s3r1_on();
+                s3r1_on()
+                send_command(`H ${overrides.humidifier}`, 'TEST')
             }
             if (overrides.humidifier === false) {
                 s3r1_off();
@@ -157,10 +157,12 @@ const send_overrides = () => {
             // intake (this is braking it!!!!!)
             if (overrides.intake !== false) {
                 send_command(`I ${overrides.intake}`, 'TEST')
-                    .then(() => resolve())
             }
             // exhaust 
-
+            if (overrides.exhaust !== false) {
+                send_command(`E ${overrides.exhaust}`, 'TEST')
+            }
+            resolve()
         }
     })
 }
