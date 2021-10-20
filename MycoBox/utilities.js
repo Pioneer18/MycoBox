@@ -203,7 +203,8 @@ const send_overrides = () => {
                     .then(() => send_command(`L ${L}`, 'TEST'))
                     .then(() => resolve())
             }
-            resolve()
+            Promise.resolve()
+                .then(resolve())
 
         }
     })
