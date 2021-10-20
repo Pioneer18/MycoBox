@@ -123,11 +123,11 @@ const send_overrides = () => {
             // circulation top
             if (overrides.circulation_top.value !== false && overrides.circulation_top.memory !== overrides.circulation_top.value) {
                 s8r2_on();
-                // overrides.circulation_top.memory = overrides.circulation_top.value;
+                overrides.circulation_top.memory = overrides.circulation_top.value;
             }
             if (overrides.circulation_top.value === false && overrides.circulation_top.memory !== overrides.circulation_top.value) {
                 s8r2_off();
-                // overrides.circulation_top.memory = overrides.circulation_top.value;
+                overrides.circulation_top.memory = overrides.circulation_top.value;
             }
             // circulation bottom
             if (overrides.circulation_bottom.value === true && overrides.circulation_bottom.memory !== overrides.circulation_bottom.value) {
@@ -159,30 +159,33 @@ const send_overrides = () => {
                 overrides.heater.memory = overrides.heater.value;
             }
             // humidifier
-            if (overrides.humidifier.value !== false) {
+            if (overrides.humidifier.value !== false && overrides.humidifier.memory !== overrides.humidifier.value) {
                 s3r1_on()
                 H = overrides.humidifier.value;
                 overrides.humidifier.memory = overrides.humidifier.value;
 
             }
-            if (overrides.humidifier.value === 420) {
+            if (overrides.humidifier.value === 420 && overrides.humidifier.memory !== overrides.humidifier.value) {
                 s3r1_off();
                 overrides.humidifier.memory = overrides.humidifier.value;
             }
 
-            if (overrides.intake.value !== false) {
+            if (overrides.intake.value !== false && overrides.intake.memory !== overrides.intake.value) {
                 // send_command(`I ${overrides.intake}`, 'TEST')
                 I = overrides.intake.value;
+                overrides.intake.memory = overrides.intake.value;
             }
             // exhaust 
-            if (overrides.exhaust.value !== false) {
+            if (overrides.exhaust.value !== false && overrides.exhaust.memory !== overrides.exhaust.value) {
                 // send_command(`E ${overrides.exhaust}`, 'TEST')
                 E = overrides.exhaust.value;
+                overrides.exhaust.memory = overrides.exhaust.value;
             }
             // light
-            if (overrides.light.value !== false) {
+            if (overrides.light.value !== false && overrides.light.memory !== overrides.light.value) {
                 // send_command(`L ${overrides.light}`, 'TEST')
                 L = overrides.light.value;
+                overrides.light.memory = overrides.light.value
             }
             // update the memory
             log(chalk.magentaBright('Sending Overrides Now'))
