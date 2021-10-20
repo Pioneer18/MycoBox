@@ -216,6 +216,5 @@ module.exports = {
     createTestFile,
     test_calculations,
     send_overrides,
-    send_all_commands,
     shut_off
 }
