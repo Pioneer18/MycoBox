@@ -108,11 +108,6 @@ const test_calculations = () => {
  */
 const send_overrides = () => {
 
-    // .then(() => send_command("H 1", mode))
-    // .then(() => send_command("E 1", mode))
-    // .then(() => send_command("I 1", mode))
-    // .then(() => send_command("L 1", mode))
-
     const overrides = getter('overrides');
     log(chalk.red('Send Overrides:'))
     log(chalk.redBright(JSON.stringify(overrides, null, '  ')));
@@ -201,6 +196,7 @@ const shut_off = () => {
             .then(() => send_command('E 420', mode))
             .then(() => send_command('L 420', mode))
             .then(() => s5r2_off())
+            .then(() => resolve())
     })
 }
 
@@ -231,5 +227,6 @@ module.exports = {
     createTestFile,
     test_calculations,
     send_overrides,
-    send_all_commands
+    send_all_commands,
+    shut_off
 }

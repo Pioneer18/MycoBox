@@ -8,7 +8,7 @@ const { humidity_pid_controller_config, update_humidity } = require("../../contr
 const { get, set_session_state, set_test_config } = require("../../globals/globals")
 const { update_environment_state, read_environment_state } = require("../../controllers/sensors.controller/sensors.controller");
 const { s5r2_on, s3r1_on } = require("../../cli_control_panel/relay");
-const { send_command, send_all_commands, send_overrides } = require("../../utilities");
+const { send_command, send_all_commands, send_overrides, shut_off } = require("../../utilities");
 const { test_logger } = require("../../logs/logger");
 const log = console.log;
 const chalk = require("chalk");
@@ -72,8 +72,9 @@ const environment_manager = (mode, resolver) => {
                 if (!validation) {
                     console.log('EM Will Stop Running Now')
                     // turn off relay and send off commands
+                    shut_off();
                     resolve('Session Completed!');
-                    resolver('The real resolve?')
+                    resolver('The real resolve?');
 
                 }
             })
