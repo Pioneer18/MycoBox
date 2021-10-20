@@ -462,7 +462,7 @@ const set_overrides_state = (element, value) => {
     log(chalk.magentaBright('set_overrides_state'))
     log(chalk.magentaBright('element: ' + element + ' ' + ' value: ' + value))
     set_overrides_state_validation(element, value);
-    globals.overrides[element]['value'] = value;
+    element === 'flag' ? globals.overrides.flag = value : globals.overrides[element]['value'] = value;
 }
 
 const set_overrides_state_validation = (element, value) => {
