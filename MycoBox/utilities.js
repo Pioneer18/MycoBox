@@ -191,7 +191,7 @@ const shut_off = () => {
         send_command('I 420', 'TEST')
         send_command('E 420', 'TEST')
         send_command('L 420', 'TEST')
-            .then(() => resolve())
+            .then(resolve())
     })
 }
 
