@@ -72,7 +72,7 @@ const environment_manager = (mode, resolver) => {
                 if (!validation) {
                     console.log('EM Will Stop Running Now')
                     // turn off relay and send off commands
-                    // shut_off()
+                    // shut_off() 
                     resolve('Session Completed!');
                     log(chalk.red('Why U No Resolve?'))
 
