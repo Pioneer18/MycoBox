@@ -31,7 +31,7 @@ const chalk = require("chalk");
  */
 const environment_manager = (mode, resolver) => {
     // #1. Validate the session is still active and THEN
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         validate_active_session(mode)
             .then(validation => {
                 // #2. Process the current session_state, and don't do anything until its done
@@ -73,7 +73,7 @@ const environment_manager = (mode, resolver) => {
                     console.log('EM Will Stop Running Now')
                     // turn off relay and send off commands
                     // shut_off()
-                    resolve('Session Completed!');
+                    // resolve('Session Completed!');
                     resolver('The real resolve?');
                     log(chalk.red('Why U No Resolve?'))
 
