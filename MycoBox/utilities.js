@@ -156,23 +156,9 @@ const send_overrides = () => {
             }
             // intake
             if (overrides.intake !== false) {
-                log(chalk.bgBlack.green('Sending Intake Command '))
                 send_command('I 200', 'TEST')
             }
             // exhaust 
-            resolve()
-        }
-        if (!overrides.flag) {
-            // turn off the overrides
-            log(chalk.magenta('Switching Off All Overrides'))
-            s1r1_off()
-            s2r1_off()
-            s3r1_off()
-            s4r1_off()
-            s8r2_off()
-            s7r2_off()
-            s6r2_off()
-            s5r2_off()
             resolve()
         }
     })
