@@ -123,41 +123,51 @@ const send_overrides = () => {
             // circulation top
             if (overrides.circulation_top.value !== false && overrides.circulation_top.memory !== overrides.circulation_top.value) {
                 s8r2_on();
+                overrides.circulation_top.memory = overrides.circulation_top.value;
             }
             if (overrides.circulation_top.value === false && overrides.circulation_top.memory !== overrides.circulation_top.value) {
                 s8r2_off();
+                overrides.circulation_top.memory = overrides.circulation_top.value;
             }
             // circulation bottom
             if (overrides.circulation_bottom.value === true && overrides.circulation_bottom.memory !== overrides.circulation_bottom.value) {
                 s7r2_on();
+                overrides.circulation_bottom.memory = overrides.circulation_bottom.value;
             }
             if (overrides.circulation_bottom.value === false && overrides.circulation_bottom.memory !== overrides.circulation_bottom.value) {
                 s7r2_off();
+                overrides.circulation_bottom.memory = overrides.circulation_bottom.value;
             }
             // aircon
             if (overrides.aircon.value === true && overrides.aircon.memory !== overrides.aircon.value) {
                 s2r1_on();
+                overrides.aircon.value === overrides.aircon.memory;
             }
             if (overrides.aircon.value === false && overrides.aircon.memory !== overrides.aircon.value) {
                 s2r1_off();
+                overrides.aircon.value === overrides.aircon.memory;
             }
             // heater
             if (overrides.heater.value === true && overrides.heater.memory !== overrides.heater.value) {
                 s6r2_on()
                 s4r1_on();
+                overrides.heater.memory = overrides.heater.value;
             }
             if (overrides.heater.value === false && overrides.heater.memory !== overrides.heater.value) {
                 s6r2_off();
                 s4r1_off();
+                overrides.heater.memory = overrides.heater.value;
             }
             // humidifier
             if (overrides.humidifier.value !== false) {
                 s3r1_on()
                 H = overrides.humidifier.value;
+                overrides.humidifier.memory = overrides.humidifier.value;
 
             }
             if (overrides.humidifier.value === 420) {
                 s3r1_off();
+                overrides.humidifier.memory = overrides.humidifier.value;
             }
 
             if (overrides.intake.value !== false) {
