@@ -123,7 +123,7 @@ const run_pid_controllers = (mode) => {
                             // OVERRIDES: I'm replacing this with a service!
                             // send commands
                             // switch relay
-                            send_overrides()
+                            // send_overrides()
                                 .then(() => {
                                     s5r2_on()
                                     s3r1_on()
