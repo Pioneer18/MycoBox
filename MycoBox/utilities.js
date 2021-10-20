@@ -157,7 +157,7 @@ const send_overrides = () => {
             // intake
             if (overrides.intake !== false) {
                 log(chalk.bgBlack.green('Sending Intake Command ' + overrides.intake))
-                send_command('I 200', 'TEST').then(() => resolve())
+                send_command('I 200', 'TEST')
             }
             // exhaust 
             resolve()
