@@ -123,11 +123,11 @@ const send_overrides = () => {
             // circulation top
             if (overrides.circulation_top.value !== false && overrides.circulation_top.memory !== overrides.circulation_top.value) {
                 s8r2_on();
-                overrides.circulation_top.memory = overrides.circulation_top.value;
+                // overrides.circulation_top.memory = overrides.circulation_top.value;
             }
             if (overrides.circulation_top.value === false && overrides.circulation_top.memory !== overrides.circulation_top.value) {
                 s8r2_off();
-                overrides.circulation_top.memory = overrides.circulation_top.value;
+                // overrides.circulation_top.memory = overrides.circulation_top.value;
             }
             // circulation bottom
             if (overrides.circulation_bottom.value === true && overrides.circulation_bottom.memory !== overrides.circulation_bottom.value) {
