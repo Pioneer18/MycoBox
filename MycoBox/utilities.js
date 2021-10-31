@@ -4,7 +4,6 @@ const { getter } = require("./globals/globals");
 const chalk = require("chalk");
 const { s8r2_on, s8r2_off, s2r1_on, s2r1_off, s6r2_off, s3r1_on, s3r1_off, s4r1_on, s4r1_off, s5r2_on, s5r2_off, s7r2_off, s7r2_on, s6r2_on, s1r1_off } = require("./cli_control_panel/relay");
 const { greenBright } = require("chalk");
-const { resolve } = require("path");
 const log = console.log;
 
 // cli_pid_calibrator/index.js calls this function in TEST mode
@@ -30,11 +29,7 @@ const send_command = (command, mode) => {
 }
 
 /**
- * Shutdown: Turn of all relays and end current sesssion
- */
-
-/**
- *  Send Overrides: Send all override commands and flip corresponding relays
+ * Shutdown: Turn off all relays and end current sesssion
  */
 
 /**
@@ -105,6 +100,10 @@ const test_calculations = () => {
 /**
  * read the globals.overrides
  * switch the appropriate realys and send the set commands
+ * How it works:
+ * - On first call set the override memory of each override sent
+ * - switch the corresponding relays & send commands to the arduino
+ * - On next call only switch relays or send commands for new values (compare against memory)
  */
 const send_overrides = () => {
 
@@ -195,6 +194,7 @@ const send_overrides = () => {
             }
             // update the memory
             log(chalk.magentaBright('Sending Overrides Now'))
+            // if update = true
             send_command(`H ${H}`, 'TEST')
                 .then(() => {
                     log(chalk.bgBlueBright.green('Sending Command Right Now Son!'))

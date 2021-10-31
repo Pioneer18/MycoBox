@@ -45,6 +45,7 @@ const environment_manager = (mode, resolver) => {
                             console.log('Recalling ENV MANAGER')
                             console.log('#######################')
                             if (mode === 'TEST') {
+                                // ---- maybe send overrides from here? ----
                                 get('test_config')
                                     // determine continue or end test
                                     .then(state => {

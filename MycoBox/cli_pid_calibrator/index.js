@@ -7,7 +7,6 @@ const log = console.log;
 const { get, set_overrides_state, set_session_state, set_environment_config, getter, set_test_config } = require('../globals/globals');
 const { environment_manager } = require('../services/system.service/system.service');
 const { test_config } = require('./resources');
-const fs = require('fs');
 const { timestamp, createDir, createTestFile } = require('../utilities');
 // Intro Description
 log(chalk.black.bgYellow('Environment Manager Step Tester'))
@@ -355,10 +354,6 @@ prompter()
 
 /**
  * Run Tests
- * Todo:
- * 2. put mode vars, LIVE & TEST, into resources file
- * 3. put createDir and createFile methods into utilities
- * 4. create checkDirCreated method
  */
 const run_tests = () => {
     log(chalk.bold.cyan(JSON.stringify(tests, null, '  ')))
