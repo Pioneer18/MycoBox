@@ -212,7 +212,7 @@ const shut_off = () => {
             .then(() => send_command('E 420', 'TEST'))
             .then(() => send_command('L 420', 'TEST'))
             .then(() => s5r2_off())
-            .then(resolve())
+            .then(() => resolve())
     })
 }
 
