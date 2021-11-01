@@ -8,6 +8,7 @@ const { get, set_overrides_state, set_session_state, set_environment_config, get
 const { environment_manager } = require('../services/system.service/system.service');
 const { test_config } = require('./resources');
 const { timestamp, createDir, createTestFile } = require('../utilities');
+const { greenBright } = require('chalk');
 // Intro Description
 log(chalk.black.bgYellow('Environment Manager Step Tester'))
 log(chalk.white("================================================================================================"))
@@ -457,6 +458,7 @@ const set_overrides = (test_config) => {
             if (test_config.co.name === 'heater_step' && test_config.co.value === true) set_overrides_state('heater', true)
             if (disturbances.heater === '' || (test_config.co.name === 'heater_step' && test_config.co.value === false)) set_overrides_state('heater', false)
             // humidifier
+            log(greenBright(typeof disturbances.humidifier))
             if (typeof disturbances.humidifier === 'number') set_overrides_state('humidifier', disturbances.humidifier)
             if (test_config.co.name === 'humidifier_step' && typeof test_config.co.value === 'number') set_overrides_state('humidifier', test_config.co.value)
             // intake
