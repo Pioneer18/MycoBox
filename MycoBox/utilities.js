@@ -196,20 +196,10 @@ const send_overrides = () => {
             log(chalk.magentaBright('Sending Overrides Now'))
             // if update = true
             send_command(`H ${H}`, 'TEST')
-                .then(() => {
-                    // log(chalk.bgBlueBright.green('Sending Command Right Now Son!'))
-                    send_command(`I ${I}`, 'TEST')
-                })
-                .then(() => {
-                    // log(chalk.bgBlueBright.green('Sending Command Right Now Son!'))
-                    send_command(`E ${E}`, 'TEST')
-                })
-                .then(() => {
-                    // log(chalk.bgBlueBright.green('Sending Command Right Now Son!'))
-                    send_command(`L ${L}`, 'TEST')
-                })
-                .then(() => resolve())
-
+                .then(() => send_command(`I ${I}`, 'TEST'))
+                .then(() => send_command(`E ${E}`, 'TEST'))
+                .then(() => send_command(`L ${L}`, 'TEST'))
+                .then(resolve())
         }
     })
 }
@@ -222,7 +212,7 @@ const shut_off = () => {
             .then(() => send_command('E 420', 'TEST'))
             .then(() => send_command('L 420', 'TEST'))
             .then(() => s5r2_off())
-            .then(() => resolve())
+            .then(resolve())
     })
 }
 
