@@ -166,8 +166,8 @@ const send_overrides = () => {
                 update = true;
 
             }
-            if (overrides.humidifier.value === 420 && overrides.humidifier.memory !== overrides.humidifier.value) {
-                s3r1_off();
+            if (overrides.humidifier.memory !== overrides.humidifier.value) {
+                s3r1_on();
                 overrides.humidifier.memory = overrides.humidifier.value;
                 update = true;
             }
@@ -195,11 +195,15 @@ const send_overrides = () => {
             // update the memory
             log(chalk.magentaBright('Sending Overrides Now'))
             // if update = true
-            send_command(`H ${H}`, 'TEST')
+            if(update){
+                update = false;
+                send_command(`H ${H}`, 'TEST')
                 .then(() => send_command(`I ${I}`, 'TEST'))
                 .then(() => send_command(`E ${E}`, 'TEST'))
                 .then(() => send_command(`L ${L}`, 'TEST'))
                 .then(() => resolve())
+            }
+            resolve()
         }
     })
 }
