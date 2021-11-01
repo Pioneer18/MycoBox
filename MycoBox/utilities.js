@@ -197,15 +197,15 @@ const send_overrides = () => {
             // if update = true
             send_command(`H ${H}`, 'TEST')
                 .then(() => {
-                    log(chalk.bgBlueBright.green('Sending Command Right Now Son!'))
+                    // log(chalk.bgBlueBright.green('Sending Command Right Now Son!'))
                     send_command(`I ${I}`, 'TEST')
                 })
                 .then(() => {
-                    log(chalk.bgBlueBright.green('Sending Command Right Now Son!'))
+                    // log(chalk.bgBlueBright.green('Sending Command Right Now Son!'))
                     send_command(`E ${E}`, 'TEST')
                 })
                 .then(() => {
-                    log(chalk.bgBlueBright.green('Sending Command Right Now Son!'))
+                    // log(chalk.bgBlueBright.green('Sending Command Right Now Son!'))
                     send_command(`L ${L}`, 'TEST')
                 })
                 .then(() => resolve())
