@@ -459,7 +459,7 @@ const set_overrides = (test_config) => {
             if (disturbances.heater === '' || (test_config.co.name === 'heater_step' && test_config.co.value === false)) set_overrides_state('heater', false)
             // humidifier
             log(greenBright(typeof disturbances.humidifier))
-            if (typeof disturbances.humidifier === 'number') set_overrides_state('humidifier', disturbances.humidifier)
+            if (typeof parseInt(disturbances.humidifier) === 'number') set_overrides_state('humidifier', disturbances.humidifier)
             if (test_config.co.name === 'humidifier_step' && typeof test_config.co.value === 'number') set_overrides_state('humidifier', test_config.co.value)
             // intake
             if (disturbances.intake !== '') set_overrides_state('intake', disturbances.intake)
