@@ -484,6 +484,7 @@ const set_overrides = (test_config) => {
 /**
  * maps the raw form array into a test_configuration
  * convert arrange test results into a test_config and convert number values to numbers
+ * convert actuator output percentages to 1 - 450 scale
  * @param {*} configuration 
  * 
  */
@@ -496,11 +497,11 @@ const map_test_config = (configuration) => {
         if (configuration.aircon_step && configuration.aircon_step === 'no') return { name: 'aircon_step', value: false }
         if (configuration.heater_step && configuration.heater_step === 'yes') return { name: 'heater_step', value: true }
         if (configuration.heater_step && configuration.heater_step === 'no') return { name: 'heater_step', value: false }
-        if (configuration.humidifier_step) return { name: 'humidifier_step', value: parseInt(configuration.humidifier_step) }
+        if (configuration.humidifier_step) return { name: 'humidifier_step', value: normalize(parseInt(configuration.humidifier_step)) }
         if (configuration.ventilation_step) {
-            if (configuration.ventilation_step === 'both') return { name: 'intake-exhaust_step', value: parseInt(configuration.ventilation_step) }
-            if (configuration.ventilation_step === 'intake') return { name: 'intake_step', value: parseInt(configuration.intake_step) }
-            if (configuration.ventilation_step === 'exhaust') return { name: 'exhaust_step', value: parseInt(configuration.exhaust_step) }
+            if (configuration.ventilation_step === 'both') return { name: 'intake-exhaust_step', value: normalize(parseInt(configuration.ventilation_step)) }
+            if (configuration.ventilation_step === 'intake') return { name: 'intake_step', value: normalize(parseInt(configuration.intake_step)) }
+            if (configuration.ventilation_step === 'exhaust') return { name: 'exhaust_step', value: normalize(parseInt(configuration.exhaust_step)) }
         }
 
     }
@@ -531,6 +532,16 @@ const map_test_config = (configuration) => {
     }
 
 }
+
+/**
+ * conver the percentage to the new range (1 - 450)
+ * oldRange = (OldMax - OldMin)
+ * newRange = (NewMax - NewMin)
+ * newValue = (((OldValue - OldMin) * newRange) / OldRange) + NewMin)
+ * e.g. newValue = (((65 - 0) * 450) / 100) + 1) = 
+ * @param {*} command 
+ */
+const normalize = (command) => ((((100 - command) * 450) / 100) +1)
 
 /**
  * Set Global Test Config
