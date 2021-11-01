@@ -541,7 +541,12 @@ const map_test_config = (configuration) => {
  * e.g. newValue = (((65 - 0) * 450) / 100) + 1) = 
  * @param {*} command 
  */
-const normalize = (command) => ((((100 - command) * 450) / 100) +1)
+const normalize = (command) => {
+    log(chalk.bgYellow.white('Normalizing Commands Now'))
+    log(chalk.bgYellow.white(command))
+    log(chalk.bgYellow.white((((100 - command) * 450) / 100) + 1))
+    return ((((100 - command) * 450) / 100) + 1)
+}
 
 /**
  * Set Global Test Config
