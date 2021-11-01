@@ -2,7 +2,7 @@ const { PythonShell } = require("python-shell");
 const fs = require('fs');
 const { getter } = require("./globals/globals");
 const chalk = require("chalk");
-const { s8r2_on, s8r2_off, s2r1_on, s2r1_off, s6r2_off, s3r1_on, s3r1_off, s4r1_on, s4r1_off, s5r2_on, s5r2_off, s7r2_off, s7r2_on, s6r2_on, s1r1_off } = require("./cli_control_panel/relay");
+const { s8r2_on, s8r2_off, s2r1_on, s2r1_off, s6r2_off, s3r1_on, s3r1_off, s4r1_on, s4r1_off, s5r2_on, s5r2_off, s7r2_off, s7r2_on, s6r2_on, s1r1_off, s1r2_off, s2r2_off, s3r2_off, s4r2_off } = require("./cli_control_panel/relay");
 const { greenBright } = require("chalk");
 const log = console.log;
 
@@ -218,6 +218,17 @@ const shut_off = () => {
             .then(() => send_command('E 420', 'TEST'))
             .then(() => send_command('L 420', 'TEST'))
             .then(() => s5r2_off())
+            .then(() => s1r1_off())
+            .then(() => s2r1_off())
+            .then(() => s3r1_off())
+            .then(() => s4r1_off())
+            .then(() => s1r2_off())
+            .then(() => s2r2_off())
+            .then(() => s3r2_off())
+            .then(() => s4r2_off())
+            .then(() => s6r2_off())
+            .then(() => s7r2_off())
+            .then(() => s8r2_off())
             .then(() => resolve())
     })
 }
