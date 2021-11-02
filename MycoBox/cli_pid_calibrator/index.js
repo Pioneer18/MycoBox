@@ -543,10 +543,10 @@ const map_test_config = (configuration) => {
  * @param {*} command 
  */
 const normalize = (command) => {
-    log(chalk.bgYellow.white('Normalizing Commands Now'))
-    log(chalk.bgYellow.white(command))
-    log(chalk.bgYellow.white((((100 - command) * 450) / 100) + 1))
-    return (((((100 - command) * 450) / 100) + 1).toString())
+    log(chalk.white('Normalizing Commands Now'))
+    log(chalk.white(command))
+    log(chalk.white((((100 - command) * 450) / 100) + 1))
+    return ((((100 - command) * 450) / 100) + 1)
 }
 
 /**
