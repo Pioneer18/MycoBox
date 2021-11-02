@@ -524,9 +524,9 @@ const map_test_config = (configuration) => {
             circulation_bottom: configuration.disturbances.includes('circulation_bottom') ? true : '',
             aircon: configuration.disturbances.includes('aircon') ? true : '',
             heater: configuration.disturbances.includes('heater') ? true : '',
-            humidifier: configuration.humidifier ? configuration.humidifier : '',
-            intake: configuration.intake ? configuration.intake : '',
-            exhaust: configuration.exhaust ? configuration.exhaust : '',
+            humidifier: configuration.humidifier ? normalize(configuration.humidifier) : '',
+            intake: configuration.intake ? normalize(configuration.intake) : '',
+            exhaust: configuration.exhaust ? normalize(configuration.exhaust) : '',
         },
         // HOW & WHEN TO END --------------------
         terminator: configuration.terminator,
@@ -548,7 +548,7 @@ const normalize = (command) => {
     log(chalk.bgYellow.white('Normalizing Commands Now'))
     log(chalk.bgYellow.white(command))
     log(chalk.bgYellow.white((((100 - command) * 450) / 100) + 1))
-    return ((((100 - command) * 450) / 100) + 1)
+    return (((((100 - command) * 450) / 100) + 1).toString())
 }
 
 /**
