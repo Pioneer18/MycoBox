@@ -40,7 +40,7 @@ const test_logger = () => {
 
             // Declare a buffer and write the
             // data in the buffer
-            let buffer = new Buffer.from('temp: ' + state[3].internal_temp_c + '| humidity: ' + state[3].internal_humidity + '| CO2: ' + '| "" ' + '| T-DT: ' + state[0].temperature.dt + '| H-DT: ' + state[0].humidity.dt + '| C-DT: ' + ' "" ' + '\n');
+            let buffer = new Buffer.from('temp: ' + state[2].internal_temp_c + '| humidity: ' + state[2].internal_humidity + '| CO2: ' + '| "" ' + '| T-DT: ' + state[0].temperature.dt + '| H-DT: ' + state[0].humidity.dt + '| C-DT: ' + ' "" ' + '\n');
 
             // The fs.open() method takes a "flag"
             // as the second argument. If the file
