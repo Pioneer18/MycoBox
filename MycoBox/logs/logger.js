@@ -1,7 +1,6 @@
 const { get } = require("../globals/globals")
 const chalk = require('chalk');
 const { test_calculations } = require("../utilities");
-const { tests } = require("../cli_pid_calibrator");
 const log = console.log;
 
 /**
@@ -45,7 +44,7 @@ const test_logger = () => {
 
     // call test_calcultions on the last cycle
     get('test_config')
-        .then((test_config) => test_calculations(test_config.dirname, tests, ))
+        .then((test_config) => test_calculations(test_config.dirname, test_config.tests, test_config.count))
 }
 
 module.exports = {

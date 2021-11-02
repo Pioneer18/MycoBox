@@ -169,6 +169,8 @@ let globals = {
         // logging
         filename: '',
         dirname: '',
+        tests: [],
+        count: 0,
         // co actuator (logging)
         co_actuator: '',
         co_output: 0,
@@ -542,6 +544,8 @@ const set_test_config_validation = (element, value) => {
     // logging
     if (element === 'filename' && typeof value === 'string') return
     if (element === 'dirname' && typeof value === 'string') return
+    if (element === 'tests' && value.length > 0) return
+    if (element === 'count' && typeof value === 'string') return
     // co
     if (element === 'co_actuator' && typeof value === 'string') return
     if (element === 'co_output' && typeof value === 'number' || typeof value === 'boolean') return

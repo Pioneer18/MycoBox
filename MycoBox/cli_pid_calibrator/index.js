@@ -561,6 +561,8 @@ const set_global_test_config = (test_config) => {
     if (test_config.co) {
         set_test_config('co_actuator', test_config.co.name);
         set_test_config('co_output', test_config.co.value);
+        set_test_config('tests', tests)
+        set_test_config('count', count)
     }
     // set disturbances
     if (test_config.disturbances.length > 0) {
@@ -615,7 +617,3 @@ const createTestSuiteDir = () => {
 /**
  * Cancel Current Session
  */
-module.exports = {
-    tests,
-    count
-}
