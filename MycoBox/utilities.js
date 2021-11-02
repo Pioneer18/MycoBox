@@ -114,20 +114,21 @@ const test_calculations = (dir, tests, count) => {
     // appended to the output file instead
     // of overwriting the existing data.
     fs.open(path, 'a', function (err, fd) {
-
+        log(chalk.magentaBright('fs open happening now'))
         // If the output file does not exists
         // an error is thrown else data in the
         // buffer is written to the output file
         if (err) {
             console.log('Cant open file');
         } else {
+            log(chalk.magentaBright('no error opening file'))
             fs.write(fd, buffer, 0, buffer.length,
                 null, function (err, writtenbytes) {
+                    log(chalk.magentaBright('attempting to write file now'))
                     if (err) {
                         console.log('Cant write to file');
                     } else {
-                        console.log(writtenbytes +
-                            ' characters added to file');
+                        log('File should have been written to')
                     }
                 })
         }
