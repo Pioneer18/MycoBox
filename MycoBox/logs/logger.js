@@ -90,7 +90,7 @@ const test_logger = () => {
 }
 
 const get_state = () => {
-    return Promise.all([get('state[0]'), get('test_config'), get('environment_state')]).then(values => values);
+    return Promise.all([get('pid_state'), get('test_config'), get('environment_state')]).then(values => values);
 }
 
 module.exports = {
