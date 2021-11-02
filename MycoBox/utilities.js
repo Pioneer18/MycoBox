@@ -70,7 +70,7 @@ const createDir = (dir) => {
  */
 const createTestFile = (dir, tests, count) => {
     if (!fs.existsSync(`./${dir}/${tests[count].title}`)) {
-        fs.writeFileSync(`./${dir}/${tests[count].title}.txt`, `${tests[count].title}: LOGS`)
+        fs.writeFileSync(`./${dir}/${tests[count].title}.txt`, `${tests[count].title}: LOGS\n`)
     }
 }
 
@@ -113,7 +113,7 @@ const test_calculations = (dir, tests, count) => {
 
             // Declare a buffer and write the
             // data in the buffer
-            let buffer = new Buffer.from('\ntemp dt: ' + pid_state.temperature.dt + ' humidity: ' + pid_state.humidity.dt);
+            let buffer = new Buffer.from('temp dt: ' + pid_state.temperature.dt + ' humidity: ' + pid_state.humidity.dt + '\n');
 
             // The fs.open() method takes a "flag"
             // as the second argument. If the file
