@@ -34,13 +34,13 @@ const test_logger = () => {
             // File path where data is to be written
             // Here, we assume that the file to be in
             // the same location as the .js file
-            log(chalk.bgWhite.blue(JSON.stringify(state, null, '  ')))
+            log(chalk.blue(JSON.stringify(state, null, '  ')))
             var path = `./${state[1].dirname}/${state[1].tests[state[1].count].title}.txt`;
             log(chalk.magentaBright('Path: ' + path))
 
             // Declare a buffer and write the
             // data in the buffer
-            let buffer = new Buffer.from('temp dt: ' + state[0].temperature.dt + ' humidity: ' + state[0].humidity.dt + '\n');
+            let buffer = new Buffer.from('temp: ' + state[3].internal_temp_c + '| humidity: ' + state[3].internal_humidity + '| CO2: ' + '| "" ' + '| T-DT: ' + state[0].temperature.dt + '| H-DT: ' + state[0].humidity.dt + '| C-DT: ' + ' "" ' + '\n');
 
             // The fs.open() method takes a "flag"
             // as the second argument. If the file
@@ -75,8 +75,8 @@ const test_logger = () => {
 
     /**
      *  Raw Data                              
-     * | Temp | Humidity | CO2 |
-     *   25      45         435
+     * | Temp | Humidity | CO2 | T-DT |  H-DT | C-DT
+     *    25       45      435    15     15.1   15.3
      * ...
      * ...
      * ...
