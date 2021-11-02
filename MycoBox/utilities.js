@@ -113,7 +113,7 @@ const test_calculations = (dir, tests, count) => {
 
             // Declare a buffer and write the
             // data in the buffer
-            let buffer = new Buffer.from('Raw Data' + pid);
+            let buffer = new Buffer.from('temp dt: ' + pid_state.temperature.dt + ' humidity: ' + pid_state.humidity.dt);
 
             // The fs.open() method takes a "flag"
             // as the second argument. If the file
