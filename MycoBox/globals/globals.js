@@ -545,7 +545,7 @@ const set_test_config_validation = (element, value) => {
     if (element === 'filename' && typeof value === 'string') return
     if (element === 'dirname' && typeof value === 'string') return
     if (element === 'tests' && value.length > 0) return
-    if (element === 'count' && typeof value === 'string') return
+    if (element === 'count' && typeof value === 'number') return
     // co
     if (element === 'co_actuator' && typeof value === 'string') return
     if (element === 'co_output' && typeof value === 'number' || typeof value === 'boolean') return
