@@ -65,7 +65,8 @@ class TempPidController {
         return {
             integralOfError: this.integralOfError,
             lastError: this.lastError,
-            lastTime: this.lastTime
+            lastTime: this.lastTime,
+            dt: this.dt
         }
     }
 

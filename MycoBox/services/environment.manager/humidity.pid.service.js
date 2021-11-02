@@ -78,6 +78,7 @@ class HumidityPidController {
             integralOfError: this.integralOfError,
             lastError: this.lastError,
             lastTime: this.lastTime,
+            dt: this.dt,
         }
     }
 
