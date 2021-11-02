@@ -490,9 +490,7 @@ const set_overrides = (test_config) => {
  */
 const map_test_config = (configuration) => {
     log(chalk.red('Map Test Config'))
-    log(chalk.bgWhite.red(typeof configuration.humidifier))
-    log(chalk.bgWhite.red(typeof configuration.intake))
-    log(chalk.bgWhite.red(typeof configuration.exhaust))
+    log(chalk.bgWhite.red(JSON.stringify(configuration, null, '  ')))
     // log(chalk.red(JSON.stringify(configuration, null, '  ')))
 
     const findCO = () => {
