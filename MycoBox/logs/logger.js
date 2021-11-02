@@ -2,6 +2,7 @@ const { get } = require("../globals/globals")
 const chalk = require('chalk');
 const { test_calculations } = require("../utilities");
 const log = console.log;
+const fs = require('fs')
 
 /**
  * note: use seconds as the unit for the step tests/fopdt/PID controllers
