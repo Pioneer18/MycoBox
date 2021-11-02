@@ -113,7 +113,7 @@ const send_overrides = () => {
     let H = 420;
     let I = 420;
     let E = 420;
-    let L = 150;
+    let L = 100;
     let update = false;
     // loop overrides, switch boolean relays, switch edge dimmer and send commands
     return new Promise((resolve) => {
