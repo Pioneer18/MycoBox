@@ -498,6 +498,7 @@ const set_overrides_state_validation = (element, value) => {
                 throw new Error('Invalid value for intake')
             }
             if (element === 'exhaust') {
+                log(chalk.magentaBright(typeof element))
                 if (value > 0 && value <= 350) return true
                 throw new Error('Invalid value for exhaust')
             }
