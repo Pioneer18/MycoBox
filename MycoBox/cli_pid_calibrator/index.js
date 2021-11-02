@@ -558,8 +558,10 @@ const set_global_test_config = (test_config) => {
     log(chalk.greenBright.white(JSON.stringify(test_config, null, '  ')));
     // set co
     let trash;
-    set_test_config('co_actuator', test_config.co.name);
-    set_test_config('co_output', test_config.co.value);
+    if (test_config.co) {
+        set_test_config('co_actuator', test_config.co.name);
+        set_test_config('co_output', test_config.co.value);
+    }
     // set disturbances
     if (test_config.disturbances.length > 0) {
         test_config.disturbances.circulation_top !== '' ? set_test_config('circulation_top', test_config.disturbances.circulation_top) : trash = '';
