@@ -494,23 +494,23 @@ const set_overrides_state_validation = (element, value) => {
                 throw new Error('Invalid value for mister')
             }
             if (element === 'intake') {
-                if (parseInt(value) > 0 && parseInt(value) <= 350) return true
+                if (value > 0 && value <= 350) return true
                 throw new Error('Invalid value for intake')
             }
             if (element === 'exhaust') {
-                if (parseInt(value) > 0 && parseInt(value) <= 350) return true
+                if (value > 0 && value <= 350) return true
                 throw new Error('Invalid value for exhaust')
             }
             if (element === 'humidifier') {
-                if (parseInt(value) > 0 && parseInt(value) <= 320) return true
+                if (value > 0 && value <= 320) return true
                 throw new Error('Invalid value for humidifier')
             }
             if (element === 'light') {
-                if (parseInt(value) > 0 && parseInt(value) <= 410) return true
+                if (value > 0 && (value) <= 410) return true
                 throw new Error('Invalid value for light')
             }
             // if (element === 'speakers') {
-            //    if (parseInt(value) > 0) return true 
+            //    if (value > 0) return true 
             // }
             else {
                 throw new Error('element did not match anything')
