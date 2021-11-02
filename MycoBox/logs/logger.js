@@ -34,7 +34,7 @@ const test_logger = () => {
             // File path where data is to be written
             // Here, we assume that the file to be in
             // the same location as the .js file
-            log(chalk.blue(JSON.stringify(state, null, '  ')))
+            log(chalk.blueBright(JSON.stringify(state, null, '  ')))
             var path = `./${state[1].dirname}/${state[1].tests[state[1].count].title}.txt`;
             log(chalk.magentaBright('Path: ' + path))
 
@@ -77,15 +77,28 @@ const test_logger = () => {
 
 
     /**
-     *  Raw Data                              
-     * | Temp | Humidity | CO2 | T-DT |  H-DT | C-DT
+     * TEST CONFIG
+     * process variable:
+     * design level of operation:
+     * disturbances: [element: value, ... ]
+     * termination method: 
+     * termindation details:
+     * ----------------------------------------------------------------------------------------
+     * INITIAL ENV STATE
+     * - internal temp
+     * - internal humidity
+     * - co2
+     * ----------------------------------------------------------------------------------------
+     * ACTUATORS CONFIG
+     * humidifier | Intake | Exhaust | Aircon | Heater | CircTop | CircBottom | Light
+     *     ON         ON      ON         OFF      OFF      OFF         OFF       OFF
+     * ----------------------------------------------------------------------------------------
+     * RAW DATA LOGS                              
+     * Temp | Humidity | CO2 | T-DT |  H-DT | C-DT
      *    25       45      435    15     15.1   15.3
      * ...
      * ...
      * ...
-     * Actuators
-     * humidifier | Intake | Exhaust | Aircon | Heater | CircTop | CircBottom | Light
-     *     ON         ON      ON         OFF      OFF      OFF         OFF       OFF
      */
 
     // call test_calcultions on the last cycle
