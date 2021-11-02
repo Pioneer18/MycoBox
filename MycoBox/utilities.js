@@ -99,7 +99,7 @@ const test_calculations = (dir, tests, count) => {
             try {
                 log(chalk.greenBright(pid_state.temperature.dt));
                 log(chalk.greenBright(pid_state.humidity.dt));
-                // log(chalk.greenBright(pid_state.ventilation.dt));
+                // log(chalk.greenBright(pid_state.ventilation.dt)); 
             } catch (err) {
                 log(chalk.greenBright('Error with getting DT values'))
                 log(chalk.redBright(err))
