@@ -32,7 +32,8 @@ const test_logger = () => {
     // File path where data is to be written
     // Here, we assume that the file to be in
     // the same location as the .js file
-    var path = `./${dir}/${tests[count].title}.txt`;
+    log(chalk.bgWhite.blue(JSON.stringify(state, null, '  ')))
+    var path = `./${state[1].dirname}/${state[1].tests[state[1].count].title}.txt`;
     log(chalk.magentaBright('Path: ' + path))
 
     // Declare a buffer and write the
