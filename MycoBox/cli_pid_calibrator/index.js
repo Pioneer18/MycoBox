@@ -557,6 +557,7 @@ const normalize = (command) => {
  */
 const set_global_test_config = (test_config) => {
     log(chalk.bgYellowBright('Setting Gloabl Test Config'))
+    log(chalk.greenBright.white(JSON.stringify(test_config, null, '  ')));
     // set co
     let trash;
     set_test_config('co_actuator', test_config.co.name);
