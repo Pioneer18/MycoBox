@@ -38,6 +38,7 @@ module.exports = {
     },
 
     s3r1_off: () => {
+        console.log('Switching off the Mister')
         const relay = new Gpio(6, 'out')
         relay.writeSync(1)
     },
