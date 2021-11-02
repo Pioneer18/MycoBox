@@ -1,6 +1,6 @@
 const { PythonShell } = require("python-shell");
 const fs = require('fs');
-const { getter } = require("./globals/globals");
+const { getter, get } = require("./globals/globals");
 const chalk = require("chalk");
 const { s8r2_on, s8r2_off, s2r1_on, s2r1_off, s6r2_off, s3r1_on, s3r1_off, s4r1_on, s4r1_off, s5r2_on, s5r2_off, s7r2_off, s7r2_on, s6r2_on, s1r1_off, s1r2_off, s2r2_off, s3r2_off, s4r2_off } = require("./cli_control_panel/relay");
 const { greenBright } = require("chalk");
@@ -94,45 +94,56 @@ const createTestFile = (dir, tests, count) => {
  *  c. Dead time, Өp, is the difference in time of step 1 minus step 2.
  */
 const test_calculations = (dir, tests, count) => {
-    // File path where data is to be written
-    // Here, we assume that the file to be in
-    // the same location as the .js file
-    var path = `./${dir}/${tests[count].title}.txt`;
-    log(chalk.magentaBright('Path: ' + path))
+    get('pid_state')
+        .then((pid_state) => {
+            try {
+                log(chalk.greenBright(pid_state.temperature.dt));
+                log(chalk.greenBright(pid_state.humidity.dt));
+                // log(chalk.greenBright(pid_state.ventilation.dt));
+            } catch (err) {
+                log(chalk.greenBright('Error with getting DT values'))
+                log(chalk.redBright(err))
+            }
 
-    // Declare a buffer and write the
-    // data in the buffer
-    let buffer = new Buffer.from('GeeksforGeeks: '
-        + 'A computer science portal for geeks\n');
+            // File path where data is to be written
+            // Here, we assume that the file to be in
+            // the same location as the .js file
+            var path = `./${dir}/${tests[count].title}.txt`;
+            log(chalk.magentaBright('Path: ' + path))
 
-    // The fs.open() method takes a "flag"
-    // as the second argument. If the file
-    // does not exist, an empty file is
-    // created. 'a' stands for append mode
-    // which means that if the program is
-    // run multiple time data will be
-    // appended to the output file instead
-    // of overwriting the existing data.
-    fs.open(path, 'a', function (err, fd) {
-        log(chalk.magentaBright('fs open happening now'))
-        // If the output file does not exists
-        // an error is thrown else data in the
-        // buffer is written to the output file
-        if (err) {
-            console.log('Cant open file');
-        } else {
-            log(chalk.magentaBright('no error opening file'))
-            fs.write(fd, buffer, 0, buffer.length,
-                null, function (err, writtenbytes) {
-                    log(chalk.magentaBright('attempting to write file now'))
-                    if (err) {
-                        console.log('Cant write to file');
-                    } else {
-                        log('File should have been written to')
-                    }
-                })
-        }
-    })
+            // Declare a buffer and write the
+            // data in the buffer
+            let buffer = new Buffer.from('Raw Data' + pid);
+
+            // The fs.open() method takes a "flag"
+            // as the second argument. If the file
+            // does not exist, an empty file is
+            // created. 'a' stands for append mode
+            // which means that if the program is
+            // run multiple time data will be
+            // appended to the output file instead
+            // of overwriting the existing data.
+            fs.open(path, 'a', function (err, fd) {
+                log(chalk.magentaBright('fs open happening now'))
+                // If the output file does not exists
+                // an error is thrown else data in the
+                // buffer is written to the output file
+                if (err) {
+                    console.log('Cant open file');
+                } else {
+                    log(chalk.magentaBright('no error opening file'))
+                    fs.write(fd, buffer, 0, buffer.length,
+                        null, function (err, writtenbytes) {
+                            log(chalk.magentaBright('attempting to write file now'))
+                            if (err) {
+                                console.log('Cant write to file');
+                            } else {
+                                log('File should have been written to')
+                            }
+                        })
+                }
+            })
+        })
 }
 
 /**
