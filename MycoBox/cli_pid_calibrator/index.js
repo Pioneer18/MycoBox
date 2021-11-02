@@ -615,3 +615,7 @@ const createTestSuiteDir = () => {
 /**
  * Cancel Current Session
  */
+module.exports = {
+    tests,
+    count
+}
