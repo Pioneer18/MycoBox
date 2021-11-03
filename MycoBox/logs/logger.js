@@ -44,10 +44,15 @@ const test_logger = () => {
             if (state[1].cycles_count === 1) {
                 intro = new Buffer.from(
                     '\n\n' +
-                    'Test Config:' + '\n-------------------------------------------\n' +
+                    'Test Config:' + 
+                    '\n-------------------------------------------\n' +
                     'Process Variable: ' + state[1].tests[0].process_var + '\n' +
                     'Design Level of Operation: ' + state[1].tests[0].dlo + '\n' +
                     'Disturbances: ' + state[1].tests[0].disturbances + '\n' + 
+                    'Termination Method: ' + state[1].tests[0].terminator + '\n' + 
+                    'Termination Details: ' + state[1].tests[0].cycles_limit !== "" ? state[1].tests[0].cycles_limit :  'Dlo reference or SS' +  
+                    '\n-------------------------------------------\n' +
+                    'Initial Environment State:' +
                     '\n\n'
                 );
                 log(chalk.blueBright.bold(intro))
@@ -100,7 +105,7 @@ const test_logger = () => {
      * design level of operation:
      * disturbances: [element: value, ... ]
      * termination method: 
-     * termindation details:
+     * termination details:
      * ----------------------------------------------------------------------------------------
      * INITIAL ENV STATE
      * - internal temp
