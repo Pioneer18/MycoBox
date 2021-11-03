@@ -40,19 +40,20 @@ const test_logger = () => {
             let intro = '';
             let arr = [];
             log(chalk.redBright(`Cycles Count: ${state[1].cycles_count}`))
-            // initial message
+            // Test Config, init env state, actuators log
             if (state[1].cycles_count === 1) {
                 intro = new Buffer.from(
-                    '\n\n---------- First Log Goes Here ----------\n\n'
+                    '\n\n' +
+                    'Test Config:' + '\n-------------------------------------------\n' +
+                    'Process Variable: ' + state[1].tests[0].process_var +
+                    '\n'
                 );
                 log(chalk.blueBright.bold(intro))
             }
 
-            // avg the internal temp and humidity
+            // Raw Data Logs
             const internal_temp = (((parseFloat(state[2].internal_temp_1)) + (parseFloat(state[2].internal_temp_2)) + (parseFloat(state[2].internal_temp_3)) + (parseFloat(state[2].precise_temp_c))) / 4).toFixed(2);
             const internal_humidity = (((parseFloat(state[2].internal_humidity_1)) + (parseFloat(state[2].internal_humidity_2)) + (parseFloat(state[2].internal_humidity_3))) / 3).toFixed(2);
-
-            // Create message Buffer
             data = new Buffer.from('temp: ' + internal_temp + '| humidity: ' + internal_humidity + '| CO2: ' + '| "" ' + '| T-DT: ' + state[0].temperature.dt + '| H-DT: ' + state[0].humidity.dt + '| C-DT: ' + ' "" ' + '\n');
             log(chalk.blueBright.bold(data))
 
