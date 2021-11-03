@@ -58,6 +58,10 @@ const test_logger = () => {
                     '\n-------------------------------------------\n' +
                     'Internal Temperature: ' + internal_temp + '\n' +
                     'Internal Humidity: ' + internal_humidity + '\n' +
+                    'CO2: ' + state[2].co2 + '\n' +
+                    '\nActuators Config:' +
+                    '\n-------------------------------------------\n' +
+                    // process the test_config into active actuators
                     '\n\n'
                 );
                 log(chalk.blueBright.bold(intro))
