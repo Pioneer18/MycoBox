@@ -39,6 +39,9 @@ const test_logger = () => {
             let data = '';
             let intro = '';
             let arr = [];
+            const internal_temp = (((parseFloat(state[2].internal_temp_1)) + (parseFloat(state[2].internal_temp_2)) + (parseFloat(state[2].internal_temp_3)) + (parseFloat(state[2].precise_temp_c))) / 4).toFixed(2);
+            const internal_humidity = (((parseFloat(state[2].internal_humidity_1)) + (parseFloat(state[2].internal_humidity_2)) + (parseFloat(state[2].internal_humidity_3))) / 3).toFixed(2);
+
             log(chalk.redBright(`Cycles Count: ${state[1].cycles_count}`))
             // Test Config, init env state, actuators log
             if (state[1].cycles_count === 1) {
@@ -51,16 +54,16 @@ const test_logger = () => {
                     'Disturbances: ' + state[1].tests[0].disturbances + '\n' + 
                     'Termination Method: ' + state[1].tests[0].terminator + '\n' + 
                     // 'Termination Details: ' + state[1].tests[0].cycles_limit !== "" ? state[1].tests[0].cycles_limit :  'Dlo reference or SS' +  
+                    '\nInitial Environment State:' +
                     '\n-------------------------------------------\n' +
-                    'Initial Environment State:' +
+                    'Internal Temperature: ' + internal_temp + '\n' +
+                    'Internal Humidity: ' + internal_humidity + '\n' +
                     '\n\n'
                 );
                 log(chalk.blueBright.bold(intro))
             }
 
             // Raw Data Logs
-            const internal_temp = (((parseFloat(state[2].internal_temp_1)) + (parseFloat(state[2].internal_temp_2)) + (parseFloat(state[2].internal_temp_3)) + (parseFloat(state[2].precise_temp_c))) / 4).toFixed(2);
-            const internal_humidity = (((parseFloat(state[2].internal_humidity_1)) + (parseFloat(state[2].internal_humidity_2)) + (parseFloat(state[2].internal_humidity_3))) / 3).toFixed(2);
             data = new Buffer.from('temp: ' + internal_temp + '| humidity: ' + internal_humidity + '| CO2: ' + '| "" ' + '| T-DT: ' + state[0].temperature.dt + '| H-DT: ' + state[0].humidity.dt + '| C-DT: ' + ' "" ' + '\n');
             log(chalk.blueBright.bold(data))
 
