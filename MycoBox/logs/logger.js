@@ -31,33 +31,28 @@ const test_logger = () => {
     // $4. print the tracked PV(s), the dt, and the current total time & cycle count
     get_state()
         .then( (state) => {
-            // File path where data is to be written
-            // Here, we assume that the file to be in
-            // the same location as the .js file
+            // File path
             log(chalk.blueBright(JSON.stringify(state, null, '  ')))
             var path = `./${state[1].dirname}/${state[1].tests[state[1].count].title}.txt`;
-            log(chalk.magentaBright('Path: ' + path))
-
-            // Declare a buffer and write the
-            // data in the buffer
+            // initial message
+            if (state[1].cycles_count === 0) {
+                let buffer = new Buffer.from(
+                    '\n\n---------- First Log Goes Here ----------\n\n'
+                );
+            }
+            // avg the internal temp and humidity
             const internal_temp = (((parseFloat(state[2].internal_temp_1)) + (parseFloat(state[2].internal_temp_2)) + (parseFloat(state[2].internal_temp_3)) + (parseFloat(state[2].precise_temp_c))) / 4).toFixed(2);
             const internal_humidity = (((parseFloat(state[2].internal_humidity_1)) + (parseFloat(state[2].internal_humidity_2)) + (parseFloat(state[2].internal_humidity_3))) / 3).toFixed(2);
+            // Create message Buffer
             let buffer = new Buffer.from('temp: ' + internal_temp + '| humidity: ' + internal_humidity + '| CO2: ' + '| "" ' + '| T-DT: ' + state[0].temperature.dt + '| H-DT: ' + state[0].humidity.dt + '| C-DT: ' + ' "" ' + '\n');
             log(chalk.blueBright.bold(buffer))
 
-            // The fs.open() method takes a "flag"
-            // as the second argument. If the file
-            // does not exist, an empty file is
-            // created. 'a' stands for append mode
-            // which means that if the program is
-            // run multiple time data will be
-            // appended to the output file instead
+            // The fs.open() method takes a "flag" as the second argument. If the file does not exist, an empty file is created. 
+            // 'a' stands for append mode which means that if the program is run multiple time data will be appended to the output file instead
             // of overwriting the existing data.
             fs.open(path, 'a', function (err, fd) {
                 log(chalk.magentaBright('fs open happening now'))
-                // If the output file does not exists
-                // an error is thrown else data in the
-                // buffer is written to the output file
+                // If the output file does not exists an error is thrown else data in the buffer is written to the output file
                 if (err) {
                     console.log('Cant open file');
                 } else {
