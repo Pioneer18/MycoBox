@@ -50,7 +50,7 @@ const test_logger = () => {
                     'Design Level of Operation: ' + state[1].tests[0].dlo + '\n' +
                     'Disturbances: ' + state[1].tests[0].disturbances + '\n' + 
                     'Termination Method: ' + state[1].tests[0].terminator + '\n' + 
-                    'Termination Details: ' + state[1].tests[0].cycles_limit !== "" ? state[1].tests[0].cycles_limit :  'Dlo reference or SS' +  
+                    // 'Termination Details: ' + state[1].tests[0].cycles_limit !== "" ? state[1].tests[0].cycles_limit :  'Dlo reference or SS' +  
                     '\n-------------------------------------------\n' +
                     'Initial Environment State:' +
                     '\n\n'
