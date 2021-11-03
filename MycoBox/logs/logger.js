@@ -45,8 +45,10 @@ const test_logger = () => {
                 intro = new Buffer.from(
                     '\n\n' +
                     'Test Config:' + '\n-------------------------------------------\n' +
-                    'Process Variable: ' + state[1].tests[0].process_var +
-                    '\n'
+                    'Process Variable: ' + state[1].tests[0].process_var + '\n' +
+                    'Design Level of Operation: ' + state[1].tests[0].dlo + '\n' +
+                    'Disturbances: ' + state[1].tests[0].disturbances + '\n' + 
+                    '\n\n'
                 );
                 log(chalk.blueBright.bold(intro))
             }
