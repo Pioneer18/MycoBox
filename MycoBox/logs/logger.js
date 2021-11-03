@@ -47,20 +47,20 @@ const test_logger = () => {
             if (state[1].cycles_count === 1) {
                 intro = new Buffer.from(
                     '\n\n' +
-                    'Test Config:' + 
-                    '\n-------------------------------------------\n' +
-                    'Process Variable: ' + state[1].tests[0].process_var + '\n' +
-                    'Design Level of Operation: ' + state[1].tests[0].dlo + '\n' +
-                    'Disturbances: ' + state[1].tests[0].disturbances + '\n' + 
-                    'Termination Method: ' + state[1].tests[0].terminator + '\n' + 
-                    // 'Termination Details: ' + state[1].tests[0].cycles_limit !== "" ? state[1].tests[0].cycles_limit :  'Dlo reference or SS' +  
-                    '\nInitial Environment State:' +
-                    '\n-------------------------------------------\n' +
-                    'Internal Temperature: ' + internal_temp + '\n' +
-                    'Internal Humidity: ' + internal_humidity + '\n' +
-                    'CO2: ' + state[2].co2 + '\n' +
-                    '\nActuators Config:' +
-                    '\n-------------------------------------------\n' +
+                        'Test Config:' +
+                        '\n-------------------------------------------\n' +
+                        'Process Variable: ' + state[1].tests[0].process_var + '\n' +
+                        'Design Level of Operation: ' + state[1].tests[0].dlo + '\n' +
+                        'Disturbances: ' + state[1].tests[0].disturbances + '\n' +
+                        'Termination Method: ' + state[1].tests[0].terminator + '\n' +
+                        parseInt(state[1].tests[0].cycles_limit) > 0 ? `Cycles Count: ${state[1].tests[0].cycles_limit}` : '' +
+                        '\nInitial Environment State:' +
+                        '\n-------------------------------------------\n' +
+                        'Internal Temperature: ' + internal_temp + '\n' +
+                        'Internal Humidity: ' + internal_humidity + '\n' +
+                        'CO2: ' + state[2].co2 + '\n' +
+                        '\nActuators Config:' +
+                        '\n-------------------------------------------\n' +
                     // process the test_config into active actuators
                     '\n\n'
                 );
