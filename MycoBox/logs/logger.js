@@ -36,7 +36,7 @@ const test_logger = () => {
             var path = `./${state[1].dirname}/${state[1].tests[state[1].count].title}.txt`;
 
             let buffer = '';
-
+            log(chalk.redBright(`Cycles Count: ${state[1].cycles_count}`))
             // initial message
             if (state[1].cycles_count === 0) {
                 buffer = new Buffer.from(
