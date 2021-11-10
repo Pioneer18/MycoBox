@@ -97,6 +97,8 @@ const test_logger = () => {
                 log(chalk.greenBright('Final Cycle Log Now! Adventure Time is Gospel!!'))
                 const {Kp,Tp, θp} = calculateFopdtParameters();
                 log(chalk.greenBright('FOPDT PARMETERS\n', Kp, '\n', Tp, '\n', θp, '\n'))
+                const {Kc, Td, Ti } = calculateGains();
+                log(chalk.redBright('GAINS\n', Kc, '\n', Td, '\n', Ti, '\n'))
             }
 
 
