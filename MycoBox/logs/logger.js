@@ -41,6 +41,7 @@ const test_logger = () => {
             let arr = [];
             const internal_temp = (((parseFloat(state[2].internal_temp_1)) + (parseFloat(state[2].internal_temp_2)) + (parseFloat(state[2].internal_temp_3)) + (parseFloat(state[2].precise_temp_c))) / 4).toFixed(2);
             const internal_humidity = (((parseFloat(state[2].internal_humidity_1)) + (parseFloat(state[2].internal_humidity_2)) + (parseFloat(state[2].internal_humidity_3))) / 3).toFixed(2);
+            // const internal_co2 = ...
 
             log(chalk.redBright(`Cycles Count: ${state[1].cycles_count}`))
             // Test Config, init env state, actuators log
@@ -80,14 +81,20 @@ const test_logger = () => {
             data = new Buffer.from('temp: ' + internal_temp + '| humidity: ' + internal_humidity + '| CO2: ' + '| "" ' + '| T-DT: ' + state[0].temperature.dt + '| H-DT: ' + state[0].humidity.dt + '| C-DT: ' + ' "" ' + '\n');
             log(chalk.blueBright.bold(data))
 
+            // log the intro data with the raw data
             if (intro !== '') {
                 arr.push(intro)
                 arr.push(data)
                 buffer = new Buffer.concat(arr);
                 log(chalk.blueBright.bold(buffer))
             }
+            // log raw data only
             else {
                 buffer = data;
+            }
+            // run the calculations
+            if (state[1].cycles_count === 0 || state[1].cycles_limit) {
+                
             }
 
 
