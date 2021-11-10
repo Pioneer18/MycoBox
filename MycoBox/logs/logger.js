@@ -1,8 +1,9 @@
-const { get } = require("../globals/globals")
+const { get, set_test_variables } = require("../globals/globals")
 const chalk = require('chalk');
 const { test_calculations } = require("../utilities");
 const log = console.log;
 const fs = require('fs')
+const Tc = 1; // moderate time constant
 
 /**
  * note: use seconds as the unit for the step tests/fopdt/PID controllers
@@ -41,6 +42,8 @@ const test_logger = () => {
             let arr = [];
             const internal_temp = (((parseFloat(state[2].internal_temp_1)) + (parseFloat(state[2].internal_temp_2)) + (parseFloat(state[2].internal_temp_3)) + (parseFloat(state[2].precise_temp_c))) / 4).toFixed(2);
             const internal_humidity = (((parseFloat(state[2].internal_humidity_1)) + (parseFloat(state[2].internal_humidity_2)) + (parseFloat(state[2].internal_humidity_3))) / 3).toFixed(2);
+            const pv = currentPv(state[1], internal_humidity, internal_temp);
+            const et = elapsedTime(pv, state[3], state[0])
             // const internal_co2 = ...
 
             log(chalk.redBright(`Cycles Count: ${state[1].cycles_count}`))
@@ -73,7 +76,7 @@ const test_logger = () => {
                 // #3. compute the Dead Time 
                 // #4. compute the Controller Gain
                 // #5. compute the Reset Time
-                // #6. comput the Derivative Time
+                // #6. compute the Derivative Time
                 // use the model parameters to complete the design and tuning
             }
 
@@ -93,11 +96,10 @@ const test_logger = () => {
                 buffer = data;
             }
             // run the calculations
-            if (state[1].cycles_count === 0 || state[1].cycles_limit) {
-                log(chalk.greenBright('Final Cycle Log Now! Adventure Time is Gospel!!'))
-                const {Kp,Tp, θp} = calculateFopdtParameters();
+            if (state[1].cycles_count === 0) {
+                const { Kp, Tp, θp } = calculateFopdtParameters(initPv, finalPv, initCo, co_output, stepPoint, pvArray);
                 log(chalk.greenBright('FOPDT PARMETERS\n', Kp, '\n', Tp, '\n', θp, '\n'))
-                const {Kc, Td, Ti } = calculateGains();
+                const { Kc, Td, Ti } = calculateGains(Kp, Tp, θp);
                 log(chalk.redBright('GAINS\n', Kc, '\n', Td, '\n', Ti, '\n'))
             }
 
@@ -157,17 +159,28 @@ const test_logger = () => {
 }
 
 const get_state = () => {
-    return Promise.all([get('pid_state'), get('test_config'), get('environment_state')]).then(values => values);
+    return Promise.all([get('pid_state'), get('test_config'), get('environment_state'), get('test_variables')]).then(values => values);
 }
-const calculateFopdtParameters = () => {
+
+/**
+ * Use the dynamic data from the DLO to calculate FOPDT parameters
+ * @param {*} initPv 
+ * @param {*} finalPv 
+ * @param {*} initCo this is provided by the pre-tester
+ * @param {*} co_output 
+ * @param {*} stepPoint point in time the CO was stepped
+ * @param {*} pvArray arrray of process variable and time objects
+ * @returns { Kp, Tp, θp }
+ */
+const calculateFopdtParameters = (initPv, finalPv, initCo, co_output, stepPoint, pvArray) => {
     /**
-     * finalPv - initPV / finalCO - initCO
+     * finalPv - initPV / co_output - initCO
      * @param {*} initPv the initial PV
      * @param {*} finalPv the final PV
      * @param {*} initCo the initial CO
-     * @param {*} finalCo the final CO
+     * @param {*} co_output the final CO
      */
-    const calculateProcessGain = (initPv, finalPv, initCo, finalCo) => {
+    const calculateProcessGain = (initPv, finalPv, initCo, co_output) => {
         // compute stuffs
         return 'process Gain'
     }
@@ -184,7 +197,7 @@ const calculateFopdtParameters = () => {
         // compute stuffs
         return 'time constant'
     }
-    
+
     /**
      * Find when PV makes a noticeable change in value
      * subtract this point in time from the stepPoint
@@ -196,9 +209,9 @@ const calculateFopdtParameters = () => {
     }
 
     return {
-        Kp: calculateProcessGain(),
-        Tp: calculateTimeConstant(),
-        θp: calculateDeadtime()
+        Kp: calculateProcessGain(initPv, finalPv, initCo, co_output),
+        Tp: calculateTimeConstant(initPv, finalPv, pvArray),
+        θp: calculateDeadtime(stepPoint, pvArray)
     }
 }
 
@@ -214,28 +227,28 @@ const calculateGains = (Kp, Tp, θp) => {
     /**
     * 1/Kp (Tp + 0.5θp / Tc + 0.5θp ) 
     */
-    const controllerGain = () => {
+    const controllerGain = (Kp, θp, Tc) => {
         return 'controller gain'
     }
 
     /**
      * Tp + 0.5θp
      */
-    const resetTime = () => {
+    const resetTime = (Tp, θp) => {
         return 'reset time'
     }
 
     /**
      * θp / 2Tp + θp
      */
-    const derivativeTime = () => {
+    const derivativeTime = (Tp, θp) => {
         return 'derivative time'
     }
 
     return {
-        Kc: controllerGain(),
-        Ti: resetTime(),
-        Td: derivativeTime()
+        Kc: controllerGain(Kp, Tp, Tc),
+        Ti: resetTime(Tp, θp),
+        Td: derivativeTime(Tp, θp)
     }
 
 }
@@ -246,6 +259,38 @@ const calculateGains = (Kp, Tp, θp) => {
  * @param {*} elpasedTime 
  */
 const pushToPvArray = (PV, elpasedTime) => {
+
+}
+
+const currentPv = (test_config, internal_humidity, internal_temp) => {
+    let pv;
+    test_config.tests[0].process_var === "Humidity" ? pv = internal_humidity : pv = '';
+    test_config.tests[0].process_var === "Temperature" ? pv = internal_temp : pv = '';
+    return pv
+}
+
+/**
+ * sum the process variable's dt
+ * @param {number} dt current dt for the pv
+ * @param {string} process_var
+ */
+const elapsedTime = (process_var, test_variables, pid_state) => {
+    log(chalk.magentaBright(`Logging Elapsed Time\nPV: ${process_var}\nTest Variables: ${test_variables}\nPid State: ${pid_state}`))
+    if (process_var === "Temperature") {
+        log(chalk.magentaBright(`Temperature: ${test_variables.elapsedTime + pid_state.temperature.dt}`))
+        // add temp dt to the elapsed time
+        set_test_variables('elapsedTime', (test_variables.elapsedTime + pid_state.temperature.dt))
+        return test_variables.elapsedTime + pid_state.temperature.dt
+    }
+    if (process_var === "Humidity") {
+        log(chalk.magentaBright(`Humidity: ${test_variables.elapsedTime + pid_state.humidity.dt}`))
+        // add humidity dt to the elapsed time
+        set_test_variables('elapsedTime', (test_variables.elapsedTime + pid_state.humidity.dt))
+        return test_variables.elapsedTime + pid_state.humidity.dt
+    }
+    // if (process_var === "CO2") {
+    //    
+    // }
 
 }
 

@@ -194,6 +194,13 @@ let globals = {
         cycles_count: 0,
         dlo_refernce: '',
         steady_state: false,
+    },
+    test_variables: {
+        initPv: 0,
+        finalPv: 0,
+        // initCO
+        elapsedTime: 0,
+        pvArray: [], // {pv, elapsedTime}
     }
 };
 
@@ -575,6 +582,25 @@ const set_test_config_validation = (element, value) => {
     throw new Error('Invalid test_config element or value given: ' + element + ' value: ' + value);
 }
 
+const set_test_variables = (element, value) => {
+    try {
+        log(chalk.magentaBright('Set Test Variables'))
+        log(chalk.magentaBright(element, '\n', value))
+        set_test_variables_validation(element, value);
+        globals.test_variables[element] = value;
+    } catch (err) {
+        if (err) log(chalk.redBright("Error: " + err))
+    }
+}
+
+const set_test_variables_validation = (element, value) => {
+    if (element === 'initPv' && typeof value === 'number') return
+    if (element === 'finalPv' && typeof value === 'number') return
+    if (element === 'elapsedTime' && typeof value === 'number') return
+    if (element === 'pvArray' && typeof value === 'object') return
+    throw new Error('Invalid Element ' + element + ' OR Invalide Value ' + value);
+}
+
 module.exports = {
     get,
     getter,
@@ -584,5 +610,6 @@ module.exports = {
     set_pid_state,
     set_actuator_state,
     set_overrides_state,
-    set_test_config
+    set_test_config,
+    set_test_variables
 }
