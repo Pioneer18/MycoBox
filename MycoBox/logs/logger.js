@@ -47,12 +47,12 @@ const test_logger = () => {
             if (state[1].cycles_count === 1) {
                 intro = new Buffer.from(
                     '\n\n' +
-                    'Test Config:' + 
+                    'Test Config:' +
                     '\n-------------------------------------------\n' +
                     'Process Variable: ' + state[1].tests[0].process_var + '\n' +
                     'Design Level of Operation: ' + state[1].tests[0].dlo + '\n' +
-                    'Disturbances: ' + state[1].tests[0].disturbances + '\n' + 
-                    'Termination Method: ' + state[1].tests[0].terminator + '\n' + 
+                    'Disturbances: ' + state[1].tests[0].disturbances + '\n' +
+                    'Termination Method: ' + state[1].tests[0].terminator + '\n' +
                     // 'Termination Details: ' + state[1].tests[0].cycles_limit !== "" ? state[1].tests[0].cycles_limit :  'Dlo reference or SS' +  
                     '\nInitial Environment State:' +
                     '\n-------------------------------------------\n' +
@@ -65,6 +65,15 @@ const test_logger = () => {
                     '\n\n'
                 );
                 log(chalk.blueBright.bold(intro))
+                // if last cycle, then run calculations
+                // Fit a FOPDT dynamic model to Process Data
+                // #1. compute the Process Gain
+                // #2. compute the Time Constant
+                // #3. compute the Dead Time 
+                // #4. compute the Controller Gain
+                // #5. compute the Reset Time
+                // #6. comput the Derivative Time
+                // use the model parameters to complete the design and tuning
             }
 
             // Raw Data Logs
@@ -139,6 +148,105 @@ const test_logger = () => {
 const get_state = () => {
     return Promise.all([get('pid_state'), get('test_config'), get('environment_state')]).then(values => values);
 }
+const calculateFopdtParameters = () => {
+    /**
+     * finalPv - initPV / finalCO - initCO
+     * @param {*} initPv the initial PV
+     * @param {*} finalPv the final PV
+     * @param {*} initCo the initial CO
+     * @param {*} finalCo the final CO
+     */
+    const calculateProcessGain = (initPv, finalPv, initCo, finalCo) => {
+        // compute stuffs
+    }
+    /**
+     * find the repsonse moment of the PV
+     * calculate PV = initPV + 0.63(finalPv - initPV)
+     * find the time that correlates closes to the 63% PV
+     * subtract from the 63PV time the response moment and return this
+     * @param {*} initPv the initial PV 
+     * @param {*} finalPv the final PV
+     * @param {*} pvArray array of all PV and elapsed time pairs
+     */
+    const calculateTimeConstant = (initPv, finalPv, pvArray) => {
+        // compute stuffs
+    }
+    
+    /**
+     * Find when PV makes a noticeable change in value
+     * subtract this point in time from the stepPoint
+     * @param {*} stepPoint point in time the CO was stepped
+     * @param {*} pvArray array of all PV and elapsed time pairs
+     */
+    const calculateDeadtime = (stepPoint, pvArray) => {
+    
+    }
+
+    return {
+        Kp: calculateProcessGain(),
+        Tp: calculateTimeConstant(),
+        θp: calculateDeadtime()
+    }
+}
+
+/**
+ * 
+ * @param {*} Kp Process Gain
+ * @param {*} Tp Time Constant
+ * @param {*} θp Dead Time 
+ * @returns 
+ */
+const calculateGains = (Kp, Tp, θp) => {
+
+    /**
+    * 1/Kp (Tp + 0.5θp / Tc + 0.5θp ) 
+    */
+    const controllerGain = () => {
+
+    }
+
+    /**
+     * Tp + 0.5θp
+     */
+    const resetTime = () => {
+
+    }
+
+    /**
+     * θp / 2Tp + θp
+     */
+    const derivativeTime = () => {
+
+    }
+
+    return {
+        Kc: controllerGain(),
+        Ti: resetTime(),
+        Td: derivativeTime()
+    }
+
+}
+
+/**
+ * push current PV and elapsed time as a tuple to the pvArray
+ * @param {*} PV 
+ * @param {*} elpasedTime 
+ */
+const pushToPvArray = (PV, elpasedTime) => {
+
+}
+
+/**
+ * Find where the PV makes a clear change
+ * Return the approximate moment the PV clearly begins to respond to the change in CO
+ * @param {*} initPV the intial PV
+ * @param {*} pvArray array of all PV and elapsed time pairs
+ */
+const findReponseMoment = (initPV, pvArray) => {
+
+}
+
+//TC is set for 'moderate performance': Tc is the larger of 1*Tp or 8·Өp
 
 module.exports = {
     test_logger,
