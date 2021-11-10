@@ -275,7 +275,7 @@ const currentPv = (test_config, internal_humidity, internal_temp) => {
  * @param {string} process_var
  */
 const elapsedTime = (process_var, test_variables, pid_state) => {
-    log(chalk.magentaBright(`Logging Elapsed Time\nPV: ${process_var}\nTest Variables: ${test_variables}\nPid State: ${pid_state}`))
+    log(chalk.magentaBright(`Logging Elapsed Time\nPV: ${process_var}\nTest Variables: ${JSON.stringify(test_variables, null, ' ')}\nPid State: ${JSON.stringify(pid_state, null, ' ')}`))
     if (process_var === "Temperature") {
         log(chalk.magentaBright(`Temperature: ${test_variables.elapsedTime + pid_state.temperature.dt}`))
         // add temp dt to the elapsed time
