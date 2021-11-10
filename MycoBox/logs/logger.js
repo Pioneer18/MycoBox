@@ -94,7 +94,7 @@ const test_logger = () => {
             }
             // run the calculations
             if (state[1].cycles_count === 0 || state[1].cycles_limit) {
-                
+                log(chalk.greenBright('Final Cycle Log Now! Adventure Time is Gospel!!'))
             }
 
 
