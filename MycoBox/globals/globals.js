@@ -228,6 +228,8 @@ const get = (section) => {
                 resolve(globals.overrides)
             case 'test_config':
                 resolve(globals.test_config)
+            case 'test_variables':
+                resolve(globals.test_variables)
             default:
                 resolve(null);
         }
