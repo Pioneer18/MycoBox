@@ -95,6 +95,8 @@ const test_logger = () => {
             // run the calculations
             if (state[1].cycles_count === 0 || state[1].cycles_limit) {
                 log(chalk.greenBright('Final Cycle Log Now! Adventure Time is Gospel!!'))
+                const {Kp,Tp, θp} = calculateFopdtParameters();
+                log(chalk.greenBright('FOPDT PARMETERS\n', Kp, '\n', Tp, '\n', θp, '\n'))
             }
 
 
@@ -165,6 +167,7 @@ const calculateFopdtParameters = () => {
      */
     const calculateProcessGain = (initPv, finalPv, initCo, finalCo) => {
         // compute stuffs
+        return 'process Gain'
     }
     /**
      * find the repsonse moment of the PV
@@ -177,6 +180,7 @@ const calculateFopdtParameters = () => {
      */
     const calculateTimeConstant = (initPv, finalPv, pvArray) => {
         // compute stuffs
+        return 'time constant'
     }
     
     /**
@@ -186,7 +190,7 @@ const calculateFopdtParameters = () => {
      * @param {*} pvArray array of all PV and elapsed time pairs
      */
     const calculateDeadtime = (stepPoint, pvArray) => {
-    
+        return 'dead time'
     }
 
     return {
@@ -209,21 +213,21 @@ const calculateGains = (Kp, Tp, θp) => {
     * 1/Kp (Tp + 0.5θp / Tc + 0.5θp ) 
     */
     const controllerGain = () => {
-
+        return 'controller gain'
     }
 
     /**
      * Tp + 0.5θp
      */
     const resetTime = () => {
-
+        return 'reset time'
     }
 
     /**
      * θp / 2Tp + θp
      */
     const derivativeTime = () => {
-
+        return 'derivative time'
     }
 
     return {
