@@ -44,7 +44,7 @@ const test_logger = () => {
             const internal_humidity = (((parseFloat(state[2].internal_humidity_1)) + (parseFloat(state[2].internal_humidity_2)) + (parseFloat(state[2].internal_humidity_3))) / 3).toFixed(2);
             const pv = currentPv(state[1], internal_humidity, internal_temp); // the value
             const et = elapsedTime(state[1].tests[0].process_var, state[3], state[0])
-            state[3].pvArray.push([state[1].tests[0].process_var, et]);
+            set_test_variables('pvArray', [state[1].tests[0].process_var, et])
             log(chalk.blueBright(state[3].pvArray));
             // const internal_co2 = ...
 

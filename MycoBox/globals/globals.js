@@ -587,9 +587,14 @@ const set_test_config_validation = (element, value) => {
 const set_test_variables = (element, value) => {
     try {
         log(chalk.magentaBright('Set Test Variables'))
+        log(chalk.greenBright(typeof value))
         log(chalk.magentaBright(element, '\n', value))
         set_test_variables_validation(element, value);
-        globals.test_variables[element] = value;
+        if (element === 'pvArray') {
+            globals.test_variables.pvArray.push(value)
+        } else {
+            globals.test_variables[element] = value;
+        }
     } catch (err) {
         if (err) log(chalk.redBright("Error: " + err))
     }
