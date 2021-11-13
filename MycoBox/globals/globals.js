@@ -591,7 +591,9 @@ const set_test_variables = (element, value) => {
         log(chalk.magentaBright(element, '\n', value))
         set_test_variables_validation(element, value);
         if (element === 'pvArray') {
-            globals.test_variables.pvArray.push(value)
+            log(chalk.redBright('Pushing to PV array now!'))
+            log(chalk.redBright(value))
+            globals.test_variables.pvArray = [...globals.test_variables.pvArray, value];
         } else {
             globals.test_variables[element] = value;
         }
