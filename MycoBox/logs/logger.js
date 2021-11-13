@@ -106,7 +106,7 @@ const test_logger = () => {
             // use the model parameters to complete the design and tuning
             if (state[1].cycles_count === 0) {
                 set_test_variables('finalPv', pv);
-                const { Kp, Tp, θp } = calculateFopdtParameters(state[3].initPv, state[3].finalPv, state[3].initCo, state[1].co_output, state[3].stepPoint, state[3].pvArray);
+                const { Kp, Tp, θp } = calculateFopdtParameters(state[3].initPv, state[3].finalPv, state[3].initCO, state[1].co_output, state[3].stepPoint, state[3].pvArray);
                 log(chalk.greenBright('FOPDT PARMETERS\n', Kp, '\n', Tp, '\n', θp, '\n'))
                 const { Kc, Td, Ti } = calculateGains(Kp, Tp, θp);
                 log(chalk.redBright('GAINS\n', Kc, '\n', Td, '\n', Ti, '\n'))
@@ -288,13 +288,13 @@ const elapsedTime = (process_var, test_variables, pid_state) => {
         log(chalk.magentaBright(`Temperature: ${test_variables.elapsedTime + pid_state.temperature.dt}`))
         // add temp dt to the elapsed time
         set_test_variables('elapsedTime', (test_variables.elapsedTime + pid_state.temperature.dt))
-        return test_variables.elapsedTime + pid_state.temperature.dt
+        return (test_variables.elapsedTime + pid_state.temperature.dt).toFixed(2)
     }
     if (process_var === "Humidity") {
         log(chalk.magentaBright(`Humidity: ${test_variables.elapsedTime + pid_state.humidity.dt}`))
         // add humidity dt to the elapsed time
         set_test_variables('elapsedTime', (test_variables.elapsedTime + pid_state.humidity.dt))
-        return test_variables.elapsedTime + pid_state.humidity.dt
+        return (test_variables.elapsedTime + pid_state.humidity.dt).toFixed(2)
     }
     // if (process_var === "CO2") {
     //    
