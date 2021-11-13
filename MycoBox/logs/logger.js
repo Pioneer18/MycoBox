@@ -40,16 +40,18 @@ const test_logger = () => {
             let data = '';
             let intro = '';
             let arr = [];
+            // temp, humidity, & co2
             const internal_temp = (((parseFloat(state[2].internal_temp_1)) + (parseFloat(state[2].internal_temp_2)) + (parseFloat(state[2].internal_temp_3)) + (parseFloat(state[2].precise_temp_c))) / 4).toFixed(2);
             const internal_humidity = (((parseFloat(state[2].internal_humidity_1)) + (parseFloat(state[2].internal_humidity_2)) + (parseFloat(state[2].internal_humidity_3))) / 3).toFixed(2);
-            const pv = currentPv(state[1], internal_humidity, internal_temp); // the value
+            // find pv value and elapsed time
+            const pv = currentPv(state[1], internal_humidity, internal_temp);
             const et = elapsedTime(state[1].tests[0].process_var, state[3], state[0])
+            // set the pvArray
             set_test_variables('pvArray', [state[1].tests[0].process_var, et])
             log(chalk.blueBright(state[3].pvArray));
-            // const internal_co2 = ...
 
             log(chalk.redBright(`Cycles Count: ${state[1].cycles_count}`))
-            // Test Config, init env state, actuators log
+            // Test Config, init env state, actuators log: First Cycle
             if (state[1].cycles_count === 1) {
                 intro = new Buffer.from(
                     '\n\n' +
@@ -71,15 +73,10 @@ const test_logger = () => {
                     '\n\n'
                 );
                 log(chalk.blueBright.bold(intro))
-                // if last cycle, then run calculations
-                // Fit a FOPDT dynamic model to Process Data
-                // #1. compute the Process Gain
-                // #2. compute the Time Constant
-                // #3. compute the Dead Time 
-                // #4. compute the Controller Gain
-                // #5. compute the Reset Time
-                // #6. compute the Derivative Time
-                // use the model parameters to complete the design and tuning
+                // init pv
+                set_test_variables('initPv', pv);
+                set_test_variables('initCO', null); // comes from pretester
+
             }
 
             // Raw Data Logs
@@ -98,8 +95,18 @@ const test_logger = () => {
                 buffer = data;
             }
             // run the calculations
+            // if last cycle, then run calculations
+            // Fit a FOPDT dynamic model to Process Data
+            // #1. compute the Process Gain
+            // #2. compute the Time Constant
+            // #3. compute the Dead Time 
+            // #4. compute the Controller Gain
+            // #5. compute the Reset Time
+            // #6. compute the Derivative Time
+            // use the model parameters to complete the design and tuning
             if (state[1].cycles_count === 0) {
-                const { Kp, Tp, θp } = calculateFopdtParameters(initPv, finalPv, initCo, co_output, stepPoint, pvArray);
+                set_test_variables('finalPv', pv);
+                const { Kp, Tp, θp } = calculateFopdtParameters(state[3].initPv, state[3].finalPv, state[3].initCo, state[1].co_output, state[3].stepPoint, state[3].pvArray);
                 log(chalk.greenBright('FOPDT PARMETERS\n', Kp, '\n', Tp, '\n', θp, '\n'))
                 const { Kc, Td, Ti } = calculateGains(Kp, Tp, θp);
                 log(chalk.redBright('GAINS\n', Kc, '\n', Td, '\n', Ti, '\n'))
@@ -175,6 +182,12 @@ const get_state = () => {
  * @returns { Kp, Tp, θp }
  */
 const calculateFopdtParameters = (initPv, finalPv, initCo, co_output, stepPoint, pvArray) => {
+    log(chalk.blue.bgWhite(initPv))
+    log(chalk.blue.bgWhite(finalPv))
+    log(chalk.blue.bgWhite(initCo))
+    log(chalk.blue.bgWhite(co_output))
+    log(chalk.blue.bgWhite(stepPoint))
+    log(chalk.blue.bgWhite(pvArray))
     /**
      * finalPv - initPV / co_output - initCO
      * @param {*} initPv the initial PV

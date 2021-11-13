@@ -198,9 +198,10 @@ let globals = {
     test_variables: {
         initPv: 0,
         finalPv: 0,
-        // initCO
+        initCO: null,
         elapsedTime: 0,
         pvArray: [], // {pv, elapsedTime}
+        stepPoint: null,
     }
 };
 
