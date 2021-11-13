@@ -272,8 +272,8 @@ const calculateGains = (Kp, Tp, θp) => {
 
 const currentPv = (test_config, internal_humidity, internal_temp) => {
     let pv;
-    test_config.tests[0].process_var === "Humidity" ? pv = internal_humidity : pv = '';
-    test_config.tests[0].process_var === "Temperature" ? pv = internal_temp : pv = '';
+    test_config.tests[0].process_var === "Humidity" ? pv = parseInt(internal_humidity) : pv = '';
+    test_config.tests[0].process_var === "Temperature" ? pv = parseInt(internal_temp) : pv = '';
     return pv
 }
 
