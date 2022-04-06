@@ -40,12 +40,15 @@ const test_logger = () => {
             let data = '';
             let intro = '';
             let arr = [];
+            
             // temp, humidity, & co2
             const internal_temp = (((parseFloat(state[2].internal_temp_1)) + (parseFloat(state[2].internal_temp_2)) + (parseFloat(state[2].internal_temp_3)) + (parseFloat(state[2].precise_temp_c))) / 4).toFixed(2);
             const internal_humidity = (((parseFloat(state[2].internal_humidity_1)) + (parseFloat(state[2].internal_humidity_2)) + (parseFloat(state[2].internal_humidity_3))) / 3).toFixed(2);
+            
             // find pv value and elapsed time
             const pv = currentPv(state[1], internal_humidity, internal_temp);
             const et = elapsedTime(state[1].tests[0].process_var, state[3], state[0])
+
             // set the pvArray
             set_test_variables('pvArray', [state[1].tests[0].process_var, et])
             log(chalk.blueBright(state[3].pvArray));
