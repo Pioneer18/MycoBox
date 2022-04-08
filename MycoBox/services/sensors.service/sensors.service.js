@@ -15,9 +15,12 @@ const read_mega_data = (reply) => {
         for (let i = 1; i < 16; i += 2) {
             validate_th_data(data[i])
                 .then(set_dht22_values(i, data[i]))
+                .then(()=> {
+                    if(i >= 16) {
+                        resolve();
+                    }
+                })
         }
-        console.log("READ MEGA RESOLVING NOW")
-        return resolve();
     })
 }
 
