@@ -441,6 +441,7 @@ const set_actuator_state = (element, status, value) => {
             return resolve()
         }
         globals.actuators_state[element][status] = value
+        console.log("Set_actuator_state has set the globals and is resolving now")
         return resolve()
     })
 }
@@ -460,9 +461,11 @@ const validate_set_actuator_state = (element, status, value) => {
         element === 'ac' ||
         element === 'heater' ||
         element === 'humidifier') {
-
+        
+        console.log("Validate Set Actuator: Checking Status " + status);
         if (!status || (typeof status !== 'string')) throw new Error('Missing or Invalid status given for setting actuator state');
         if ((typeof value === 'number') || (typeof value === 'boolean')) {
+            console.log("Returning from Validate Set Actuator State")
             return
         } else {
             log('The Value is not a Boolean or a Number!')
