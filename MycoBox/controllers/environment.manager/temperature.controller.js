@@ -199,15 +199,11 @@ const temp_actuator_controller = (update) => {
                         // greater than 0.6, switch on
                         case 4:
                             console.log('Heater Switching Active')
-                            set_actuator_state('heater', 'stopped', false)
-                                .then(()=>{
-                                    set_actuator_state('heater', 'active', true)
-                                        .then(() => {
-                                            console.log("Sending Commands to Relay for Heater")
-                                            s4r1_on();
-                                            s6r2_on();
-                                        }).then(()=> resolve())
-                                })
+                            set_actuator_state('heater', 'stopped', false).then(set_actuator_state('heater', 'active', true).then(() => {
+                                console.log("Sending Commands to Relay for Heater")
+                                s4r1_on();
+                                s6r2_on();
+                            }))
                             break;
 
                         default:

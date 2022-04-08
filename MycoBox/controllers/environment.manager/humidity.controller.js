@@ -74,7 +74,7 @@ const update_humidity = (config, mode) => {
         set_pid_state('humidity', humidityController.report())
         if (mode !== 'TEST') {
             humidity_actuator_controller(value)
-                .then(resolve(value))
+                .then(()=>resolve())
         }
         resolve(value)
     })
@@ -86,10 +86,20 @@ const normalize_update = () => {
 // Use the relay to turn the Humidifier on or Off when appropriate (pid indicates this? nah...controller logic )
 const humidity_actuator_controller = (value) => {
     return new Promise((resolve) => {
-        console.log("Hello Humidity Actuator Controller Here")
+        console.log(`Hello Humidity Actuator Controller Here\nAnd Here's the Value ${value}`);
         resolve()
     })
 }
+
+// I can run this through calibration, so that the appropriate gain is used for the PID to settle the humidifier,
+// I have AC Phase Edge controller, so I can precise throttle Humidity via a PID feedback loop; just need to run humidifier
+// through calibration tests...see how long does environment take to reach dlo for different dlo's. This way I can make
+// a gain schedule. So if I'm setting the Humidity high, the gain will be different than if setting humidity pretty low
+
+// However, starting humidity is like 65%. I can manually fill in a gain schedule without actually calibrating...guess and check.
+// OR I can finish the test calibrator...JUST to get a gain schedule for the Humidifier...idk
+
+// Goal: TempController, humidityController, & Ventillation Controller completed ASAP
 
 module.exports = {
     humidity_pid_controller_config,
