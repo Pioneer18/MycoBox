@@ -79,7 +79,6 @@ const read_infrared = () => {
 const set_timestamp = () => {
     return new Promise((resolve, reject) => {
         console.log('Setting the timestamp');
-        console.log(typeof Date.now())
         set_environment_state('timestamp', Date.now())
             .then(resolve())
     })

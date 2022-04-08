@@ -156,7 +156,7 @@ const validate_env_state = (mode) => {
                                 env_state.internal_humidity_3 == ''
                             ) {
                                 console.log('Validate Env Recall: Blank Env State')
-                                update_environment_state(mode)
+                                //update_environment_state(mode) // there needs to be a pause or promise chain here, BECASUSE of the pending call to the Arduino
                                 validate_env_state()
                             }
                             else {
