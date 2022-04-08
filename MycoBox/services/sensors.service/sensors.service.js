@@ -12,9 +12,12 @@ const read_mega_data = (reply) => {
     return new Promise((resolve) => {
         if (!reply) throw new Error('No reply from Mega')
         const data = JSON.stringify(reply[0].match(/[^{}]+(?=\})/g)).split('"')
-        setMegaData(data)
-            .then(resolve());
-        // console.log("READ MEGA RESOLVING NOW")
+        for (let i = 1; i < 16; i += 2) {
+            validate_th_data(data[i])
+                .then(set_dht22_values(i, data[i]))
+            if (i >= 16) { resolve()}
+        }
+        console.log("READ MEGA RESOLVING NOW")
     })
 }
 
@@ -88,16 +91,6 @@ const set_dht22_values = (i, data) => {
                 console.log('set_dht22_values: Default')
                 break
         }
-    })
-}
-
-const setMegaData = (data) => {
-    return new Promise((resolve) => {
-        for (let i = 1; i < 16; i += 2) {
-            validate_th_data(data[i])
-                .then(set_dht22_values(i, data[i]))
-        }
-        resolve()
     })
 }
 
