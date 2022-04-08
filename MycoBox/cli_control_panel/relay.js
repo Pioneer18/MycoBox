@@ -47,6 +47,7 @@ module.exports = {
     s4r1_on: () => {
         const relay = new Gpio(13, 'out')
         relay.writeSync(0)
+        return
     },
 
     s4r1_off: () => {
@@ -113,6 +114,7 @@ module.exports = {
     s6r2_on: () => {
         const relay = new Gpio(26, 'out')
         relay.writeSync(0)
+        return
     },
 
     s6r2_off: () => {
