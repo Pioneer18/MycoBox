@@ -438,11 +438,11 @@ const set_actuator_state = (element, status, value) => {
         validate_set_actuator_state(element, status, value)
         if (element === 'light' || element === 'speakers') {
             globals.actuators_state[element][value]
-            return resolve()
+            resolve()
         }
         globals.actuators_state[element][status] = value
         console.log("Set_actuator_state has set the globals and is resolving now")
-        return resolve()
+        resolve()
     })
 }
 
