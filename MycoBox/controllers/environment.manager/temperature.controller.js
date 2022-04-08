@@ -43,10 +43,10 @@ const update_temperature = (config, mode) => {
         set_pid_state('temperature', tempController.report())
         if (mode !== 'TEST') {
             temp_actuator_controller(value)
-                .then(value => resolve(value))
+                .then(()=> resolve())
         }
         // override will be sent
-        resolve(value);
+        resolve();
     })
 }
 
@@ -237,7 +237,6 @@ const temp_actuator_controller = (update) => {
                             break;
                     }
                 }
-            }).then(()=>{
                 resolve()
             })
     })
