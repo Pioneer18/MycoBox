@@ -17,7 +17,7 @@ const read_mega_data = (reply) => {
                 .then(set_dht22_values(i, data[i]))
                 .then(()=> {
                     console.log(`Here is the loop count: ${i}`);
-                    if(i >= 16) {
+                    if(i >= 15) {
                         resolve();
                     }
                 })
