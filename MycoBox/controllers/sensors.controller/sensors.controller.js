@@ -33,7 +33,7 @@ const mega_temp_humidity = () => {
             if (err) reject(err)
             console.log('Should be reading mega data...')
             read_mega_data(reply)
-            resolve();
+                .then(resolve())
             console.log("Post mega temp humidity resolve???")
         })
     })
