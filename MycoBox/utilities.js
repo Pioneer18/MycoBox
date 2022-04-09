@@ -118,6 +118,7 @@ const send_overrides = () => {
     // loop overrides, switch boolean relays, switch edge dimmer and send commands
     return new Promise((resolve) => {
         if (overrides.flag) {
+            console.log("Sending Overrides");
             // turn on the edge dimmer
             s5r2_on()
             // circulation top
@@ -207,6 +208,7 @@ const send_overrides = () => {
             }
             else { resolve() }
         }
+        resolve();
     })
 }
 
