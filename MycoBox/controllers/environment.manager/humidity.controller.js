@@ -87,7 +87,7 @@ const update_humidity = (config, mode) => {
  * Note: assume the gain-schedule and PID have been calibrated; so this 'Value' is a good rep of how far the humidity needs to shift.
  */
 const normalize_update = (value) => {
-    OldRange = 100 - 40; 
+    OldRange = 60 - 0; 
     NewRange = 420 - 10;  
     // (((OldValue - OldMin) * NewRange) / OldRange) + NewMin
     return (((value - 40) * NewRange) / OldRange) + 10;
