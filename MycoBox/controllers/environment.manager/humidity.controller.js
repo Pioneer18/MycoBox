@@ -90,7 +90,7 @@ const normalize_update = (value) => {
     OldRange = 60 - 0; 
     NewRange = 420 - 10;  
     // (((OldValue - OldMin) * NewRange) / OldRange) + NewMin
-    return (((value - 40) * NewRange) / OldRange) + 10;
+    return (((value - 0) * NewRange) / OldRange) + 10;
 }
 
 // Use the relay to turn the Humidifier on or Off when appropriate (pid indicates this? nah...controller logic )
