@@ -69,7 +69,8 @@ const update_humidity = (config, mode) => {
         const humidityController = new HumidityPidController(config);
         // update the actuator
         const value = humidityController.update();
-        console.log('The Humidity Calculated Update Value')
+        console.log('The Humidity PID Output Normalized to Actuator Output Range');
+        value = normalize_update(value);
         console.log(value);
         set_pid_state('humidity', humidityController.report())
         if (mode !== 'TEST') {
@@ -79,10 +80,19 @@ const update_humidity = (config, mode) => {
         resolve(value)
     })
 }
-// process the update value into an appropriate Dimmer Value (convert 1 - 450 to a percentage)
-const normalize_update = () => {
-
+/**
+ * Process the update value into an appropriate Dimmer Value (convert value to reange of 1 - 450)
+ * Update value is going to be approx. 0 ~ 60 at max (old range)
+ * @param {*} value the Humidity PID update value
+ * Note: assume the gain-schedule and PID have been calibrated; so this 'Value' is a good rep of how far the humidity needs to shift.
+ */
+const normalize_update = (value) => {
+    OldRange = 100 - 40; 
+    NewRange = 420 - 10;  
+    // (((OldValue - OldMin) * NewRange) / OldRange) + NewMin
+    NewValue = (((value - 40) * NewRange) / OldRange) + 10;
 }
+
 // Use the relay to turn the Humidifier on or Off when appropriate (pid indicates this? nah...controller logic )
 const humidity_actuator_controller = (value) => {
     return new Promise((resolve) => {
