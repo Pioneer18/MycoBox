@@ -68,7 +68,7 @@ const update_humidity = (config, mode) => {
     return new Promise((resolve) => {// initialize the controller
         const humidityController = new HumidityPidController(config);
         // update the actuator
-        const value = humidityController.update();
+        let value = humidityController.update();
         console.log('The Humidity PID Output Normalized to Actuator Output Range');
         value = normalize_update(value);
         console.log(value);
