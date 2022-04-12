@@ -93,7 +93,7 @@ const normalize_update = (value) => {
     const OldRange = 60 - 0; 
     const NewRange = 420 - 10;
     const normalized = (((value - 0) * NewRange) / OldRange);
-    log(chalk(red(`Normalized: ${normalized}`)))
+    console.log(chalk(red(`Normalized: ${normalized}`)))
     const inverted = (1 - (normalized/410)) * 410;
     return inverted;
 }
