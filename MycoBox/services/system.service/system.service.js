@@ -160,7 +160,7 @@ const validate_env_state = (mode) => {
                                 validate_env_state()
                             }
                             else {
-                                console.log('ENV HAS BEEN Validated?????')
+                                console.log('ENV HAS BEEN Validated')
                                 return resolve({
                                     validation: true,
                                     env_state: env_state
