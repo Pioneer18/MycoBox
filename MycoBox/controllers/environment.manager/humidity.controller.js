@@ -12,6 +12,8 @@ const { set_pid_state } = require('../../globals/globals');
 const { HumidityPidController } = require("../../services/environment.manager/humidity.pid.service")
 const { s3r1_on, s3r1_off} = require('../../cli_control_panel/relay');
 const { send_command } = require("../../utilities");
+const chalk = require('chalk');
+const { red } = require('chalk');
 
 /**
  * Create HumidityPidController config
@@ -91,7 +93,8 @@ const normalize_update = (value) => {
     const OldRange = 60 - 0; 
     const NewRange = 420 - 10;
     const normalized = (((value - 0) * NewRange) / OldRange);
-    const inverted = 1 - (normalized/410) * 410;
+    log(chalk(red(`Normalized: ${normalized}`)))
+    const inverted = (1 - (normalized/410)) * 410;
     return inverted;
 }
 
