@@ -15,6 +15,7 @@
  * handle the update; by calling on the appropriate controllers for updating the environment.
  *  
  */
+const { s5r2_on } = require('../../cli_control_panel/relay');
 const { get, set_environment_config, set_session_state } = require('../../globals/globals');
 const { environment_manager } = require("../../services/system.service/system.service")
 const { update_environment_state } = require("../sensors.controller/sensors.controller")
@@ -33,11 +34,11 @@ function newSession(config) {
         const session_state = get('session_state');
         if (!session_state.active_session) {
             set_environment_config(config)
-                //.then(update_environment_state('LIVE')
-                    .then(() => {
-                        set_session_state('active_session', true)
-                            .then(() => environment_manager('LIVE'))
-                    })//)
+                .then(() => {
+                    set_session_state('active_session', true)
+                        .then(() => s5r2_on())
+                        .then(() => environment_manager('LIVE'))
+                })
                 .then(resolve())
                 .catch(err => console.log(`Error Caught: new_session: ${err}`))
 
